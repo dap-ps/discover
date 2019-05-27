@@ -1,0 +1,15 @@
+@import '../../common/styles/variables';
+
+.mobile {
+  @media (min-width: $desktop) {
+    display: none;
+  }
+}
+
+.desktop {
+  display: none;
+
+  @media (min-width: $desktop) {
+    display: block;
+  }
+}

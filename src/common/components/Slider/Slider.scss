@@ -1,0 +1,28 @@
+@import '../../../common/styles/variables';
+
+.slider {
+  margin-top: -3px;
+}
+
+.slider .rc-slider-rail {
+  height: 8px;
+}
+
+.slider .rc-slider-track {
+  height: 8px;
+  background-color: $link-color;
+}
+
+.slider .rc-slider-handle {
+  width: 28px;
+  height: 28px;
+  margin-top: -9px;
+  margin-left: -13px;
+  border: 0;
+  background: $link-color;
+}
+
+.slider .rc-slider-handle:hover,
+.slider .rc-slider-handle:active {
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.48);
+}

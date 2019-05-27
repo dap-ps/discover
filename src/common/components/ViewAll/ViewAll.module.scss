@@ -1,0 +1,15 @@
+@import '../../styles/variables';
+
+.url {
+  font-family: $font;
+  color: $link-color;
+  text-decoration: none;
+}
+
+.small {
+  font-size: calculateRem(13);
+}
+
+.large {
+  font-size: calculateRem(15);
+}

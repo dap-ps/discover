@@ -1,0 +1,87 @@
+@import '../../common/styles/variables';
+
+.modalWindow {
+  height: 100%;
+}
+
+.cnt {
+  font-family: $font;
+}
+
+.title {
+  line-height: 40px;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 17px;
+  border-bottom: 1px solid #f7f7f7;
+}
+
+a {
+  color: $link-color;
+}
+
+.frame {
+  font-size: 14px;
+  margin: 14px 16px;
+
+  .frameTitle {
+    line-height: 22px;
+    color: #939ba1;
+    font-size: 15px;
+    margin-bottom: 2px;
+  }
+
+  ol {
+    line-height: 24px;
+    list-style: none;
+    counter-reset: item;
+    padding: 0;
+    margin: 0;
+  }
+
+  ol li {
+    position: relative;
+    padding-left: 24px;
+  }
+
+  ol li:before {
+    content: counter(item) '. ';
+    counter-increment: item;
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: #939ba1;
+  }
+
+  p {
+    line-height: 24px;
+    text-indent: 32px;
+    margin: 0;
+  }
+}
+
+.frame.withBorder {
+  border: 1px solid #eef2f5;
+  border-radius: 16px;
+  padding: 12px 16px;
+}
+
+.footerActions {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top: 1px solid #f7f7f7;
+
+  .submitButton {
+    background: $link-color;
+    border-radius: 8px;
+    color: #fff;
+    border: none;
+    font-family: $font;
+    padding: calculateRem(11) calculateRem(38);
+    font-size: calculateRem(15);
+    cursor: pointer;
+  }
+}

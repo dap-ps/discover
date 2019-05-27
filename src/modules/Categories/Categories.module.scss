@@ -1,0 +1,81 @@
+@import '../../common/styles/variables';
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  margin: calculateRem(15);
+  align-items: center;
+}
+
+.headline {
+  font-family: $font;
+  font-size: calculateRem(17);
+  margin: 0;
+}
+
+.categories {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  margin: 0 calculateRem(10) calculateRem(30) calculateRem(10);
+
+  @media (min-width: $desktop) {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: unset;
+  }
+}
+
+.category {
+  background: $background;
+  font-family: $font;
+  font-size: calculateRem(13);
+  line-height: calculateRem(16);
+  color: $headline-color;
+  border: none;
+  border-radius: calculateRem(12);
+  padding: calculateRem(12);
+  margin: calculateRem(4);
+  cursor: pointer;
+  text-align: -webkit-center;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+
+  p {
+    margin-bottom: 0;
+    font-weight: 500;
+  }
+}
+
+.EXCHANGES {
+  background: $purple-bg;
+}
+
+.MARKETPLACES {
+  background: $orange-bg;
+}
+
+.OTHER {
+  background: $yellow-bg;
+}
+
+.MEDIA {
+  background: $yellow-bg;
+}
+
+.GAMES {
+  background: $pink-bg;
+}
+
+.COLLECTIBLES {
+  background: $blue-bg;
+}
+
+.SOCIAL_NETWORKS {
+  background: $green-bg;
+}
+
+.UTILITIES {
+  background: $red-bg;
+}

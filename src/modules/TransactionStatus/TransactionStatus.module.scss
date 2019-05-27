@@ -1,0 +1,122 @@
+@import '../../common/styles/variables';
+
+// @keyframes loading_rotate {
+//   100% {
+//       transform: rotate(360deg);
+//   }
+// }
+
+.cnt {
+  width: 100%;
+  display: flex;
+  box-sizing: border-box;
+  position: fixed;
+  left: 0;
+  top: 0;
+  font-family: $font;
+  padding: 12px;
+  background: #fff;
+  box-shadow: 0px 4px 12px rgba(0, 34, 51, 0.08),
+    0px 2px 4px rgba(0, 34, 51, 0.16);
+  transform: translateY(-200%);
+
+  transition-property: transform;
+  transition-duration: 0.4s;
+
+  .image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 16px;
+  }
+
+  .data {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    .name {
+      display: flex;
+      align-items: center;
+      position: relative;
+      line-height: 22px;
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 2px;
+
+      .nameItself {
+        width: 0px;
+        flex: 1 1 auto;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        margin-right: 8px;
+      }
+
+      .close {
+        width: 20px;
+        height: 20px;
+        flex: 0 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-size: 18px;
+        font-weight: 300;
+        font-family: 'Times New Roman', Times, serif;
+        margin-left: auto;
+        border-radius: 50%;
+        background: #939ba1;
+        transform: rotate(45deg);
+        cursor: pointer;
+      }
+    }
+
+    .info {
+      line-height: 18px;
+      color: #939ba1;
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+
+    .status {
+      display: flex;
+      align-items: center;
+      line-height: 15px;
+      color: $link-color;
+      font-size: 12px;
+
+      img {
+        margin-right: 4px;
+        // animation:loading_rotate 1s linear infinite;
+      }
+    }
+
+    .status.red {
+      color: $red;
+    }
+
+    .status.column {
+      flex-direction: column;
+      align-items: flex-start;
+
+      span {
+        word-break: break-all;
+      }
+    }
+  }
+}
+
+.cnt.active {
+  transform: translateY(0);
+}
+
+@media (min-width: $desktop) {
+  .cnt {
+    width: 375px;
+    right: 0;
+    top: 16px;
+    border-radius: 16px;
+    margin: auto;
+  }
+}

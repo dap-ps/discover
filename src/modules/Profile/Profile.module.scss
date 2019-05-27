@@ -1,0 +1,144 @@
+@import '../../common/styles/variables';
+
+a {
+  text-decoration: none;
+}
+
+.container {
+  font-family: $font;
+  background-color: #ffffff;
+}
+
+.banner {
+  height: calculateRem(140);
+  background-color: $blue-bg;
+  display: flex;
+  justify-content: center;
+}
+
+.image {
+  border-radius: calculateRem(100);
+  width: calculateRem(100);
+  height: calculateRem(100);
+  margin: calculateRem(80) auto;
+  z-index: 99;
+  box-shadow: 0px 4px 12px rgba(0, 34, 51, 0.08),
+    0px 2px 4px rgba(0, 34, 51, 0.16);
+}
+
+.header {
+  color: $headline-color;
+  font-size: calculateRem(15);
+  line-height: calculateRem(22);
+  margin-bottom: calculateRem(4);
+  margin-top: calculateRem(12);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.category {
+  margin-bottom: calculateRem(20);
+}
+
+.heading {
+  color: $text-color;
+  font-size: calculateRem(13);
+  line-height: calculateRem(18);
+  margin-bottom: calculateRem(2);
+  margin-top: 0;
+  max-height: calculateRem(40);
+  overflow-y: hidden;
+  cursor: pointer;
+}
+
+.information {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: calculateRem(40) auto;
+}
+
+.button {
+  border-radius: 20px;
+  background-color: #4360df;
+  color: #ffffff;
+  padding: calculateRem(12) calculateRem(20);
+}
+
+.description {
+  border-bottom: 1px solid #eef2f5;
+  box-shadow: inset 0px 1px 0px #eef2f5;
+  padding: calculateRem(10) calculateRem(20);
+}
+
+.chat {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #eef2f5;
+  box-shadow: inset 0px 1px 0px #eef2f5;
+  padding: calculateRem(10) calculateRem(20);
+}
+
+.chat_image {
+  width: calculateRem(40);
+  height: calculateRem(40);
+  margin-top: calculateRem(20);
+  border-radius: 20px;
+}
+
+.chat_link {
+  margin: calculateRem(10);
+  margin-top: calculateRem(25);
+}
+
+.chat_icon {
+  margin-left: calculateRem(-10);
+  margin-bottom: calculateRem(10);
+}
+
+.url {
+  border-bottom: 1px solid #eef2f5;
+  box-shadow: inset 0px 1px 0px #eef2f5;
+  padding: calculateRem(10) calculateRem(20);
+}
+
+.ranking {
+  border-bottom: 1px solid #eef2f5;
+  box-shadow: inset 0px 1px 0px #eef2f5;
+  padding: calculateRem(10) calculateRem(20);
+}
+
+.rank {
+  display: flex;
+  margin-top: calculateRem(10);
+}
+
+.rank_position_1 {
+  border-radius: 40px;
+  width: calculateRem(40);
+  margin-right: calculateRem(15);
+  height: calculateRem(40);
+  background-color: $blue;
+  display: flex;
+  justify-content: center;
+}
+
+.rank_position_2 {
+  border-radius: 40px;
+  width: calculateRem(40);
+  margin-right: calculateRem(15);
+  height: calculateRem(40);
+  background-color: $red;
+  display: flex;
+  justify-content: center;
+}
+
+.rank_position_span {
+  padding: calculateRem(10);
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.rank_position_text {
+  margin-top: calculateRem(10);
+}

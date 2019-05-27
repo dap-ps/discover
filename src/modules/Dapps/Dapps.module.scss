@@ -1,0 +1,16 @@
+@import '../../common/styles/variables';
+
+.list {
+  margin-top: calculateRem(50);
+  margin-bottom: calculateRem(20);
+}
+
+.loadMore {
+  color: $link-color;
+  text-transform: uppercase;
+  font-family: $font;
+  font-size: 12px;
+  font-weight: 600;
+  margin-left: calculateRem(40 + 16 + 16);
+  cursor: pointer;
+}

@@ -1,0 +1,63 @@
+@import '../../common//styles/variables';
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  background-color: #eef2f5;
+  font-family: $font;
+  padding: calculateRem(40) calculateRem(16) calculateRem(32) calculateRem(16);
+  margin-top: calculateRem(24);
+}
+
+.footerItem {
+  text-decoration: none;
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: calculateRem(24);
+  cursor: pointer;
+
+  :last-of-type {
+    margin-bottom: 0;
+  }
+
+  h2 {
+    color: $headline-color;
+    font-size: calculateRem(15);
+    line-height: calculateRem(22);
+    margin-bottom: calculateRem(2);
+    margin-top: calculateRem(12);
+    font-weight: 500;
+  }
+
+  p {
+    color: $text-color;
+    font-size: calculateRem(13);
+    line-height: calculateRem(18);
+    margin-bottom: calculateRem(2);
+    margin-top: 0;
+  }
+}
+
+.iconWrap {
+  background: $text-color;
+  padding: calculateRem(10);
+  padding-bottom: calculateRem(6);
+  border-radius: 50%;
+  margin-top: calculateRem(15);
+  margin-right: calculateRem(16);
+}
+
+@media (min-width: $desktop) {
+  .footer {
+    flex-direction: row;
+  }
+
+  .footerItem:not(:first-child) {
+    margin-left: 34px;
+  }
+
+  .footerItem {
+    width: 0;
+    flex: 1 1 auto;
+  }
+}

@@ -1,0 +1,11 @@
+@import '../../common/styles/variables';
+
+.header {
+  margin: calculateRem(15);
+}
+
+.headline {
+  font-family: $font;
+  font-size: calculateRem(17);
+  margin: 0;
+}
