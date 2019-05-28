@@ -363,10 +363,8 @@ contract Discover is ApproveAndCallFallBack, BancorFormula {
      */
     function _getDAppById(bytes32 _id) internal view returns(Data storage d) {
         uint dappIdx = id2index[_id];
-        Data memory d = dapps[dappIdx];
+        d = dapps[dappIdx];
         require(d.id == _id, "Error fetching correct data");
-
-        return dapps[dappIdx];
     }
 
      /**
@@ -378,6 +376,7 @@ contract Discover is ApproveAndCallFallBack, BancorFormula {
         bytes memory _data
     )
         private
+        pure
         returns(
             bytes4 sig,
             bytes32 id,
