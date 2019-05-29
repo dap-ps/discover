@@ -42,7 +42,7 @@ contract Discover is ApproveAndCallFallBack, BancorFormula {
 
     Data[] public dapps;
     mapping(bytes32 => uint) public id2index;
-    mapping(bytes32 => bool) existingIDs;
+    mapping(bytes32 => bool) public existingIDs;
 
     event DAppCreated(bytes32 indexed id, uint newEffectiveBalance);
     event Upvote(bytes32 indexed id, uint newEffectiveBalance);
