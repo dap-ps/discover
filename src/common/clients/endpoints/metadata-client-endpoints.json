@@ -1,0 +1,6 @@
+{
+  "UPLOAD": "http://localhost:4000/metadata",
+  "UPDATE": "http://localhost:4000/metadata/update",
+  "RETRIEVE_METADATA": "http://localhost:4000/metadata",
+  "RETRIEVE_ALL_METADATA": "http://localhost:4000/metadata/all"
+}
