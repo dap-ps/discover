@@ -6,7 +6,7 @@ import {
   onStartProgressAction,
   hideAction,
 } from '../TransactionStatus/TransactionStatus.recuder'
-import { TYPE_SUBMIT } from '../TransactionStatus/TransactionStatus.utilities'
+import { TYPE_SUBMIT, TYPE_UPDATE } from '../TransactionStatus/TransactionStatus.utilities'
 import { showAlertAction } from '../Alert/Alert.reducer'
 
 import BlockchainSDK from '../../common/blockchain'
@@ -27,15 +27,15 @@ const ON_IMG_DONE = 'SUBMIT_ON_IMG_DONE'
 const SWITCH_TO_RATING = 'SUBMIT_SWITCH_TO_RATING'
 const ON_INPUT_SNT_VALUE = 'SUBMIT_ON_INPUT_SNT_VALUE'
 
-export const showSubmitActionAfterCheck = () => {
+const showSubmitAfterCheckAction = dapp => {
   window.location.hash = 'submit'
   return {
     type: SHOW_SUBMIT_AFTER_CHECK,
-    payload: null,
+    payload: dapp,
   }
 }
 
-export const showSubmitAction = () => {
+export const showSubmitAction = dapp => {
   return (dispatch, getState) => {
     const state = getState()
     if (
@@ -47,7 +47,26 @@ export const showSubmitAction = () => {
           'There is an active transaction. Please wait for it to finish and then you could be able to create your Ðapp',
         ),
       )
-    } else dispatch(showSubmitActionAfterCheck())
+    } else if (dapp !== undefined) {
+      // convert dapp's image from url ot base64
+      const toDataUrl = (url, callback) => {
+        const xhr = new XMLHttpRequest()
+        xhr.onload = () => {
+          const reader = new FileReader()
+          reader.onloadend = () => {
+            callback(reader.result)
+          }
+          reader.readAsDataURL(xhr.response)
+        }
+        xhr.open('GET', url)
+        xhr.responseType = 'blob'
+        xhr.send()
+      }
+      toDataUrl(dapp.image, base64 => {
+        dapp.image = base64
+        dispatch(showSubmitAfterCheckAction(dapp))
+      })
+    } else dispatch(showSubmitAfterCheckAction(dapp))
   }
 }
 
@@ -138,6 +157,29 @@ export const submitAction = (dapp, sntValue) => {
   }
 }
 
+export const updateAction = (dappId, metadata) => {
+  return async dispatch => {
+    dispatch(closeSubmitAction())
+    dispatch(
+      onStartProgressAction(
+        metadata.name,
+        metadata.img,
+        'Status is an open source mobile DApp browser and messenger build for #Etherium',
+        TYPE_UPDATE,
+      ),
+    )
+    try {
+      const blockchain = await BlockchainSDK.getInstance()
+      const tx = await blockchain.DiscoverService.setMetadata(dappId, metadata)
+      dispatch(onReceiveTransactionInfoAction(dappId, tx))
+      dispatch(checkTransactionStatusAction(tx))
+    } catch (e) {
+      dispatch(hideAction())
+      dispatch(showAlertAction(e.message))
+    }
+  }
+}
+
 export const switchToRatingAction = () => ({
   type: SWITCH_TO_RATING,
   paylaod: null,
@@ -148,16 +190,16 @@ export const onInputSntValueAction = sntValue => ({
   payload: sntValue,
 })
 
-const showSubmitAfterCheck = state => {
+const showSubmitAfterCheck = (state, dapp) => {
   return Object.assign({}, state, {
     visible_submit: true,
     visible_rating: false,
-    id: '',
-    name: '',
-    desc: '',
-    url: '',
-    img: '',
-    category: '',
+    id: dapp !== undefined ? dapp.id : '',
+    name: dapp !== undefined ? dapp.name : '',
+    desc: dapp !== undefined ? dapp.desc : '',
+    url: dapp !== undefined ? dapp.url : '',
+    img: dapp !== undefined ? dapp.image : '',
+    category: dapp !== undefined ? dapp.category : '',
     imgControl: false,
     imgControlZoom: 0,
     imgControlMove: false,

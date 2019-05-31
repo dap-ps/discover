@@ -5,6 +5,7 @@ export const TYPE_SUBMIT = 1
 export const TYPE_UPVOTE = 2
 export const TYPE_DOWNVOTE = 3
 export const TYPE_WITHDRAW = 4
+export const TYPE_UPDATE = 5
 
 class TransactionStatus {
   constructor() {

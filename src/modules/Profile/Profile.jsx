@@ -17,6 +17,7 @@ const ProfileContent = ({
   highestRankedPosition,
   categoryPosition,
   onClickWithdraw,
+  onClickUpdateMetadata,
 }) => {
   return (
     <>
@@ -83,7 +84,7 @@ const ProfileContent = ({
           </div>
         </div>
         <div className={styles.actions}>
-          <div className={styles.button}>
+          <div className={styles.button} onClick={onClickUpdateMetadata}>
             Edit metadata
           </div>
           <div className={styles.button} onClick={onClickWithdraw}>
@@ -111,6 +112,14 @@ class Profile extends Component {
     this.onClickClose()
     setTimeout(() => {
       onClickWithdraw(dapp)
+    }, 1)
+  }
+
+  onClickUpdateMetadata(dapp) {
+    const { onClickUpdateMetadata } = this.props
+    this.onClickClose()
+    setTimeout(() => {
+      onClickUpdateMetadata(dapp)
     }, 1)
   }
 
@@ -151,7 +160,8 @@ class Profile extends Component {
         <ProfileContent {...dapp}
           highestRankedPosition={highestRankedPosition}
           categoryPosition={categoryPosition}
-          onClickWithdraw={this.onClickWithdraw.bind(this, dapp)} />
+          onClickWithdraw={this.onClickWithdraw.bind(this, dapp)}
+          onClickUpdateMetadata={this.onClickUpdateMetadata.bind(this, dapp)} />
       </Modal>
     )
   }
@@ -160,6 +170,7 @@ class Profile extends Component {
 Profile.propTypes = {
   dappState: PropTypes.instanceOf(DappState),
   onClickWithdraw: PropTypes.func.isRequired,
+  onClickUpdateMetadata: PropTypes.func.isRequired,
 }
 
 export default Profile
