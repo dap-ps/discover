@@ -42,7 +42,7 @@ contract Discover is ApproveAndCallFallBack, BancorFormula {
 
     Data[] public dapps;
     mapping(bytes32 => uint) public id2index;
-    mapping(bytes32 => bool) existingIDs;
+    mapping(bytes32 => bool) public existingIDs;
 
     event DAppCreated(bytes32 indexed id, uint newEffectiveBalance);
     event Upvote(bytes32 indexed id, uint newEffectiveBalance);
@@ -94,6 +94,17 @@ contract Discover is ApproveAndCallFallBack, BancorFormula {
      */
     function downvote(bytes32 _id, uint _amount) external {
         _downvote(msg.sender, _id, _amount);
+    }
+
+    /**
+     * @dev Developers can withdraw an amount not more than what was available of the
+        SNT they originally staked minus what they have already received back in downvotes.
+     * @param _id bytes32 unique identifier.
+     * @return max SNT that can be withdrawn == available SNT for DApp.
+     */
+    function withdrawMax(bytes32 _id) external view returns(uint) {
+        Data storage d = _getDAppById(_id);
+        return d.available;
     }
 
     /**
