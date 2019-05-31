@@ -8,8 +8,6 @@ import {
 import { toggleProfileModalAction } from '../../../modules/Profile/Profile.reducer'
 
 const mapDispatchToProps = dispatch => ({
-  onClickUpVote: () => dispatch(showUpVoteAction()),
-  onClickDownVote: () => dispatch(showDownVoteAction()),
   onClickUpVote: dapp => {
     dispatch(showUpVoteAction(dapp))
     dispatch(fetchVoteRatingAction(dapp, true, 0))

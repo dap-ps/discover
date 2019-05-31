@@ -12,6 +12,7 @@ import Terms from '../Terms/Terms'
 import TransactionStatus from '../TransactionStatus'
 import Alert from '../Alert'
 import HowToSubmit from '../HowToSubmit'
+import Withdraw from '../Withdraw'
 
 class Router extends React.Component {
   componentDidMount() {
@@ -27,13 +28,15 @@ class Router extends React.Component {
         <Route path="/all" component={Dapps} />
         <Route path="/recently-added" component={RecentlyAdded} />
         <Route path="/terms" component={Terms} />
-        <Route path="/:dapp_name" component={Profile} />
+        <Route path="/:dapp_name" component={Home} />
       </Switch>,
       <Vote key={2} />,
       <Submit key={3} />,
       <HowToSubmit key={4} />,
       <TransactionStatus key={5} />,
       <Alert key={6} />,
+      <Route key={7} path="/:dapp_name" component={Profile} />,
+      <Withdraw key={8} />
     ]
   }
 }

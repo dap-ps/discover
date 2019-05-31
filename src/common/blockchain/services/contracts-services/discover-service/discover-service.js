@@ -53,6 +53,19 @@ class DiscoverService extends BlockchainService {
     }
   }
 
+  async getDAppByIndexWithMetadata(index) {
+    try {
+      const dapp = await DiscoverContract.methods
+        .dapps(index)
+        .call({ from: this.sharedContext.account })
+
+      dapp.metadata = await ipfsSDK.retrieveDAppMetadataByHash(dapp.metadata)
+      return dapp
+    } catch (error) {
+      throw new Error(`Error fetching dapps. Details: ${error.message}`)
+    }
+  }
+
   async getDAppById(id) {
     let dapp
     try {

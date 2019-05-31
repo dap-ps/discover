@@ -1,15 +1,18 @@
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
 
 import Profile from './Profile'
-import { toggleProfileModalAction } from './Profile.reducer'
+import { showWithdrawAction } from '../Withdraw/Withdraw.reducer'
 
-const mapStateToProps = state => state
+const mapStateToProps = state => ({ dappState: state.dapps })
 
 const mapDispatchToProps = dispatch => ({
-  openModal: dapp => dispatch(toggleProfileModalAction(dapp)),
+  onClickWithdraw: dapp => dispatch(showWithdrawAction(dapp)),
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(Profile)
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps,
+  )(Profile),
+)

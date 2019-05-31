@@ -8,6 +8,7 @@ import Categories from '../../common/utils/categories'
 import icon from '../../common/assets/images/icon.svg'
 import Modal from '../../common/components/Modal'
 import { DappModel } from '../../common/utils/models'
+import { DappState } from '../../common/data/dapp';
 
 const getCategoryName = category =>
   Categories.find(x => x.key === category).value
@@ -59,7 +60,7 @@ class Vote extends Component {
       onClickClose,
       isUpvote,
       dapp,
-      dapps,
+      dappState,
       sntValue,
       afterVoteRating,
     } = this.props
@@ -71,9 +72,7 @@ class Vote extends Component {
     //const catPosition = dapp.categoryPosition
     // const upvoteSNTcost = currentSNTamount + parseInt(sntValue, 10)
     const currentSNTamount = dapp.sntValue
-    const dappsByCategory = dapps.filter(
-      dapp_ => dapp_.category === dapp.category,
-    )
+    const dappsByCategory = dappState.getDappsByCategory(dapp.category)
 
     let catPosition = dappsByCategory.length
     for (let i = 0; i < dappsByCategory.length; ++i) {
@@ -240,6 +239,7 @@ Vote.propTypes = {
   fetchVoteRating: PropTypes.func.isRequired,
   upVote: PropTypes.func.isRequired,
   downVote: PropTypes.func.isRequired,
+  dappState: PropTypes.instanceOf(DappState).isRequired,
 }
 
 export default Vote

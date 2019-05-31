@@ -18,8 +18,7 @@ class Home extends React.Component {
 
   render() {
     const { dapps } = this.props
-    const loaded =
-      dapps.highestRankedFetched === true && dapps.recentlyAddedFetched === true
+    const loaded = dapps.loaded
 
     return (
       <>

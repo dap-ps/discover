@@ -41,7 +41,10 @@ export const showDownVoteActionAfterCheck = dapp => {
 export const showUpVoteAction = dapp => {
   return (dispatch, getState) => {
     const state = getState()
-    if (state.transactionStatus.progress) {
+    if (
+      state.transactionStatus.progress &&
+      state.transactionStatus.dappTx !== ''
+    ) {
       dispatch(
         showAlertAction(
           'There is an active transaction. Please wait for it to finish and then you could be able to vote',

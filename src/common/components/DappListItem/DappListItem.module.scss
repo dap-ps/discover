@@ -1,5 +1,14 @@
 @import '../../styles/variables';
 
+.dappListItem {
+  transition-property: opacity;
+  transition-duration: 1s;
+}
+
+.dappListItem.transparent {
+  opacity: 0;
+}
+
 .listItem {
   font-family: $font;
   background: $background;
@@ -7,6 +16,7 @@
   height: calculateRem(145);
   margin: 0 calculateRem(16) calculateRem(11) calculateRem(16);
   position: relative;
+  
 }
 
 .rankedListItem {

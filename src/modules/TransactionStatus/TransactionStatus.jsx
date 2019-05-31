@@ -38,11 +38,11 @@ class TransactionStatus extends React.Component {
         <div className={styles.data}>
           <div className={styles.name}>
             <div className={styles.nameItself}>{dappName}</div>
-            {!progress && (
-              <div className={styles.close} onClick={hide}>
-                +
-              </div>
-            )}
+            {/* {!progress && ( */}
+            <div className={styles.close} onClick={hide}>
+              +
+            </div>
+            {/* )} */}
           </div>
           <div className={styles.info}>{txDesc}</div>
           {published && <div className={styles.status}>✓ Published</div>}

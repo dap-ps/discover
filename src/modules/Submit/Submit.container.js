@@ -20,7 +20,7 @@ import {
 } from './Submit.reducer'
 
 const mapStateToProps = state =>
-  Object.assign(state.submit, { dapps: state.dapps.dapps })
+  Object.assign(state.submit, { dappState: state.dapps })
 const mapDispatchToProps = dispatch => ({
   onClickClose: () => dispatch(closeSubmitAction()),
   onInputName: name => dispatch(onInputNameAction(name)),

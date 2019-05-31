@@ -4,13 +4,14 @@ export const TYPE_NONE = 0
 export const TYPE_SUBMIT = 1
 export const TYPE_UPVOTE = 2
 export const TYPE_DOWNVOTE = 3
+export const TYPE_WITHDRAW = 4
 
 class TransactionStatus {
   constructor() {
-    this.dappId = ''
-    this.dappTx = ''
+    this.dappId = '' // responsible for background transaction check
+    this.dappTx = '' // responsible for background transaction check
     this.txDesc = ''
-    this.dappName = ''
+    this.dappName = '' // responsible for UI visibility
     this.dappImg = ''
     this.type = TYPE_NONE
     this.progress = false

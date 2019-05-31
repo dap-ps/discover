@@ -61,7 +61,7 @@ export const checkTransactionStatusAction = tx => {
             transacationStatus.dappId,
           )
           dapp = Object.assign(dapp.metadata, {
-            id: dapp.id,
+            id: transacationStatus.dappId,
             sntValue: parseInt(dapp.effectiveBalance, 10),
           })
           dispatch(onUpdateDappDataAction(dapp))
@@ -72,6 +72,7 @@ export const checkTransactionStatusAction = tx => {
             }),
           )
         }
+        transacationStatus.setTransactionInfo('', '')
         break
       case 2:
         transacationStatus.setProgress(true)
@@ -88,7 +89,6 @@ export const checkTransactionStatusAction = tx => {
 const hide = state => {
   const transacationStatus = transactionStatusFetchedInstance()
   transacationStatus.setDappName('')
-  transacationStatus.setProgress(false)
   transacationStatus.setType(TYPE_NONE)
   return Object.assign({}, state, transacationStatus)
 }
