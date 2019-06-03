@@ -1,0 +1,18 @@
+{
+    "EXCHANGES": "EXCHANGES",
+    "MARKETPLACES": "MARKETPLACES",
+    "COLLECTIBLES": "COLLECTIBLES",
+    "GAMES": "GAMES",
+    "SOCIAL_NETWORKS": "SOCIAL_NETWORKS",
+    "UTILITIES": "UTILITIES",
+    "OTHER": "OTHER",
+    "ALL_CATEGORIES": [
+        "EXCHANGES",
+        "MARKETPLACES",
+        "COLLECTIBLES",
+        "GAMES",
+        "SOCIAL_NETWORKS",
+        "UTILITIES",
+        "OTHER"
+    ]
+}

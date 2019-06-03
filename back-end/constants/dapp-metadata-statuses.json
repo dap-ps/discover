@@ -1,0 +1,8 @@
+{
+    "NEW": "NEW",
+    "APPROVED": "APPROVED",
+    "ALL_STATUS": [
+        "NEW",
+        "APPROVED"
+    ]
+}

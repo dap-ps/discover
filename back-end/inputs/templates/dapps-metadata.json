@@ -1,0 +1,11 @@
+{
+    "UploadingTemplate": {
+        "name": true,
+        "url": true,
+        "description": true,
+        "category": true,
+        "image": true,
+        "dateAdded": true,
+        "uploader": true
+    }
+}
