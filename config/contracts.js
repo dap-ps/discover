@@ -78,7 +78,7 @@ module.exports = {
         instanceOf: 'MiniMeToken',
         address: '0x2764b5da3696E3613Ef9864E9B4613f9fA478E75',
       },
-      Discover: { address: '0x74B32E54A50DDB18aB278EafA905e9cb595331B7' },
+      Discover: { address: '0x3449Eb0705C9f0A77B687E7247c31e4A65f60dD4' },
       // SNT: {
       //   instanceOf: 'MiniMeToken',
       //   args: [

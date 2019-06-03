@@ -17,10 +17,11 @@ class MetadataClient {
     }
   }
 
-  static async update(dappId) {
+  static async update(dappId, tx) {
     try {
       await HTTPClient.postRequest(
         `${metadataClientEndpoints.UPDATE}/${dappId}`,
+        { txHash: tx },
       )
     } catch (error) {
       throw new Error('DApp metadata was not updated in the client')

@@ -182,7 +182,7 @@ class DiscoverService extends BlockchainService {
         this.sharedContext.account,
       )
 
-      await MetadataClient.update(id)
+      await MetadataClient.update(id, tx)
 
       return tx
     } catch (error) {
