@@ -1,5 +1,15 @@
 @import '../../common/styles/variables';
 
+.modalWindow {
+  height: 100%;
+}
+
+@media (min-width: $desktop) {
+  .modalWindow {
+    height: auto;
+  }
+}
+
 a {
   text-decoration: none;
 }
@@ -141,4 +151,28 @@ a {
 
 .rank_position_text {
   margin-top: calculateRem(10);
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  border-bottom: 1px solid #eef2f5;
+  box-shadow: inset 0px 1px 0px #eef2f5;
+  padding: calculateRem(10) calculateRem(20);
+
+  .button {
+    cursor: pointer;
+  }
+
+  .button:first-child {
+    margin-right: calculateRem(20);
+  }
+}
+
+@media (max-width: 356px) {
+  .actions {
+    .button {
+      font-size: 13px;
+    }
+  }
 }

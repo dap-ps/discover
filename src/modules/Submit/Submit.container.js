@@ -17,10 +17,11 @@ import {
   submitAction,
   switchToRatingAction,
   onInputSntValueAction,
+  updateAction,
 } from './Submit.reducer'
 
 const mapStateToProps = state =>
-  Object.assign(state.submit, { dapps: state.dapps.dapps })
+  Object.assign(state.submit, { dappState: state.dapps })
 const mapDispatchToProps = dispatch => ({
   onClickClose: () => dispatch(closeSubmitAction()),
   onInputName: name => dispatch(onInputNameAction(name)),
@@ -33,6 +34,7 @@ const mapDispatchToProps = dispatch => ({
   onImgCancel: () => dispatch(onImgCancelAction()),
   onImgDone: imgBase64 => dispatch(onImgDoneAction(imgBase64)),
   onSubmit: (dapp, sntValue) => dispatch(submitAction(dapp, sntValue)),
+  onUpdate: (dappId, metadata) => dispatch(updateAction(dappId, metadata)),
   onClickTerms: () => dispatch(push('/terms')),
   switchToRating: () => dispatch(switchToRatingAction()),
   onInputSntValue: sntValue => dispatch(onInputSntValueAction(sntValue)),

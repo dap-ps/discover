@@ -15,12 +15,12 @@ const DappListItem = props => {
     onClickDownVote,
     isRanked,
     position,
-    category,
+    visible,
     showActionButtons,
     onToggleProfileModal,
   } = props
 
-  const { name, description, url, image } = dapp
+  const { name, desc, url, image } = dapp
 
   const handleUpVote = () => {
     onClickUpVote(dapp)
@@ -31,7 +31,11 @@ const DappListItem = props => {
   }
 
   return (
-    <div className={isRanked ? styles.rankedListItem : styles.listItem}>
+    <div
+      className={`${styles.dappListItem} ${
+        isRanked ? styles.rankedListItem : styles.listItem
+      } ${visible ? '' : styles.transparent}`}
+    >
       {isRanked && <div className={styles.position}>{position}</div>}
       <div
         className={styles.imgWrapper}
@@ -51,7 +55,7 @@ const DappListItem = props => {
             className={styles.description}
             style={{ WebkitBoxOrient: 'vertical' }}
           >
-            {description}
+            {desc}
           </p>
         </div>
         <a className={styles.url} href={url}>
@@ -84,12 +88,14 @@ const DappListItem = props => {
 DappListItem.defaultProps = {
   isRanked: false,
   showActionButtons: false,
+  visible: true,
 }
 
 DappListItem.propTypes = {
   dapp: PropTypes.shape(DappModel).isRequired,
   isRanked: PropTypes.bool,
   showActionButtons: PropTypes.bool,
+  visible: PropTypes.bool,
   position: PropTypes.number.isRequired,
   onClickUpVote: PropTypes.func.isRequired,
   onClickDownVote: PropTypes.func.isRequired,

@@ -21,6 +21,9 @@ const SWITCH_TO_DOWNVOTE = 'VOTE_SWITCH_TO_DOWNVOTE'
 const ON_INPUT_SNT_VALUE = 'VOTE_ON_INPUT_SNT_VALUE'
 const UPDATE_AFTER_UP_VOTING_VALUES = 'VOTE_UPDATE_AFTER_UP_VOTING_VALUES'
 const UPDATE_AFTER_DOWN_VOTING_VALUES = 'VOTE_UPDATE_AFTER_DOWN_VOTING_VALUES'
+const LEARN_MORE_UPVOTE = 'VOTE_LEARN_MORE_UPVOTE'
+const LEARN_MORE_DOWNVOTE = 'VOTE_LEARN_MORE_DOWNVOTE'
+const CLOSE_LEARN_MORE = 'VOTE_CLOSE_LEARN_MORE'
 
 export const showUpVoteActionAfterCheck = dapp => {
   window.location.hash = 'vote'
@@ -41,7 +44,10 @@ export const showDownVoteActionAfterCheck = dapp => {
 export const showUpVoteAction = dapp => {
   return (dispatch, getState) => {
     const state = getState()
-    if (state.transactionStatus.progress) {
+    if (
+      state.transactionStatus.progress &&
+      state.transactionStatus.dappTx !== ''
+    ) {
       dispatch(
         showAlertAction(
           'There is an active transaction. Please wait for it to finish and then you could be able to vote',
@@ -54,7 +60,10 @@ export const showUpVoteAction = dapp => {
 export const showDownVoteAction = dapp => {
   return (dispatch, getState) => {
     const state = getState()
-    if (state.transactionStatus.progress) {
+    if (
+      state.transactionStatus.progress &&
+      state.transactionStatus.dappTx !== ''
+    ) {
       dispatch(
         showAlertAction(
           'There is an active transaction. Please wait for it to finish and then you could be able to vote',
@@ -187,6 +196,21 @@ export const downVoteAction = (dapp, amount) => {
   }
 }
 
+export const learnMoreUpVoteAction = () => ({
+  type: LEARN_MORE_UPVOTE,
+  payload: null,
+})
+
+export const learnMoreDownVoteAction = () => ({
+  type: LEARN_MORE_DOWNVOTE,
+  payload: null,
+})
+
+export const closeLearnMoreAction = () => ({
+  type: CLOSE_LEARN_MORE,
+  payload: null,
+})
+
 const showUpVoteAfterCheck = (state, dapp) => {
   return Object.assign({}, state, {
     visible: true,
@@ -194,6 +218,8 @@ const showUpVoteAfterCheck = (state, dapp) => {
     sntValue: '0',
     isUpvote: true,
     afterVoteRating: null,
+    learnMoreUpVote: false,
+    learnMoreDownVote: false,
   })
 }
 
@@ -204,6 +230,8 @@ const showDownVoteAfterCheck = (state, dapp) => {
     sntValue: '0',
     isUpvote: false,
     afterVoteRating: null,
+    learnMoreUpVote: false,
+    learnMoreDownVote: false,
   })
 }
 
@@ -211,6 +239,8 @@ const closeVote = state => {
   return Object.assign({}, state, {
     visible: false,
     dapp: null,
+    learnMoreUpVote: false,
+    learnMoreDownVote: false,
   })
 }
 
@@ -250,6 +280,27 @@ const updateAfterDownVotingValues = (state, payload) => {
   })
 }
 
+const learnMoreUpVote = state => {
+  return Object.assign({}, state, {
+    learnMoreUpVote: true,
+    learnMoreDownVote: false,
+  })
+}
+
+const learnMoreDownVote = state => {
+  return Object.assign({}, state, {
+    learnMoreUpVote: false,
+    learnMoreDownVote: true,
+  })
+}
+
+const closeLearnMore = state => {
+  return Object.assign({}, state, {
+    learnMoreUpVote: false,
+    learnMoreDownVote: false,
+  })
+}
+
 const map = {
   [SHOW_UP_VOTE_AFTER_CHECK]: showUpVoteAfterCheck,
   [SHOW_DOWN_VOTE_AFTER_CHEECK]: showDownVoteAfterCheck,
@@ -259,6 +310,9 @@ const map = {
   [ON_INPUT_SNT_VALUE]: onInputSntValue,
   [UPDATE_AFTER_UP_VOTING_VALUES]: updateAfterUpVotingValues,
   [UPDATE_AFTER_DOWN_VOTING_VALUES]: updateAfterDownVotingValues,
+  [LEARN_MORE_UPVOTE]: learnMoreUpVote,
+  [LEARN_MORE_DOWNVOTE]: learnMoreDownVote,
+  [CLOSE_LEARN_MORE]: closeLearnMore,
 }
 
 export default reducerUtil(map, voteInitialState)

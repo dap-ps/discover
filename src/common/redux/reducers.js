@@ -9,6 +9,7 @@ import desktopMenu from '../../modules/DesktopMenu/DesktopMenu.reducer'
 import transactionStatus from '../../modules/TransactionStatus/TransactionStatus.recuder'
 import alert from '../../modules/Alert/Alert.reducer'
 import howToSubmit from '../../modules/HowToSubmit/HowToSubmit.reducer'
+import withdraw from '../../modules/Withdraw/Withdraw.reducer'
 
 export default history =>
   combineReducers({
@@ -22,4 +23,5 @@ export default history =>
     transactionStatus,
     alert,
     howToSubmit,
+    withdraw,
   })

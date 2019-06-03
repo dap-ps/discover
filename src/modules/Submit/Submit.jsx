@@ -11,6 +11,7 @@ import icon from '../../common/assets/images/icon.svg'
 import sntIcon from '../../common/assets/images/SNT.svg'
 import 'rc-slider/assets/index.css'
 import 'rc-tooltip/assets/bootstrap.css'
+import { DappState } from '../../common/data/dapp'
 
 const getCategoryName = category =>
   Categories.find(x => x.key === category).value
@@ -150,8 +151,18 @@ class Submit extends React.Component {
   }
 
   onSubmit() {
-    const { onSubmit, name, desc, url, img, category, sntValue } = this.props
-    const dapp = {
+    const {
+      onSubmit,
+      onUpdate,
+      id,
+      name,
+      desc,
+      url,
+      img,
+      category,
+      sntValue,
+    } = this.props
+    const metadata = {
       name,
       url,
       img,
@@ -159,7 +170,8 @@ class Submit extends React.Component {
       desc,
     }
 
-    onSubmit(dapp, parseInt(sntValue, 10))
+    if (id === '') onSubmit(metadata, parseInt(sntValue, 10))
+    else onUpdate(id, metadata)
   }
 
   handleSNTChange(e) {
@@ -182,10 +194,11 @@ class Submit extends React.Component {
 
   render() {
     const {
-      dapps,
+      dappState,
       visible_submit,
       visible_rating,
       onClickClose,
+      id,
       name,
       desc,
       url,
@@ -212,7 +225,7 @@ class Submit extends React.Component {
     let afterVoteCategoryPosition = null
 
     if (visible_rating) {
-      dappsByCategory = dapps.filter(dapp_ => dapp_.category === category)
+      dappsByCategory = dappState.getDappsByCategory(category)
 
       catPosition = dappsByCategory.length + 1
       if (sntValue !== '') {
@@ -315,7 +328,7 @@ class Submit extends React.Component {
                   className={styles.submitButton}
                   type="submit"
                   disabled={!canSubmit}
-                  onClick={switchToRating}
+                  onClick={id === '' ? switchToRating : this.onSubmit}
                 >
                   Continue
                 </button>
@@ -467,9 +480,11 @@ Submit.propTypes = {
   onImgCancel: PropTypes.func.isRequired,
   onImgDone: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
+  onUpdate: PropTypes.func.isRequired,
   onInputSntValue: PropTypes.func.isRequired,
   onClickTerms: PropTypes.func.isRequired,
   switchToRating: PropTypes.func.isRequired,
+  dappState: PropTypes.instanceOf(DappState).isRequired,
 }
 
 export default Submit

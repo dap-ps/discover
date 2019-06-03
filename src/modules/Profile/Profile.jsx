@@ -1,27 +1,23 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import ReactImageFallback from 'react-image-fallback'
-import { push } from 'connected-react-router'
 import Modal from '../../common/components/Modal'
 import styles from './Profile.module.scss'
 import icon from '../../common/assets/images/icon.svg'
 import chat from '../../common/assets/images/chat.svg'
-
-const DesktopScreen = props => {
-  return <Modal visible={props.visible}>{props.children}</Modal>
-}
-
-const MobileScreen = props => {
-  return <>{props.children}</>
-}
+import { DappListModel } from '../../common/utils/models'
+import { DappState } from '../../common/data/dapp'
 
 const ProfileContent = ({
   name,
   url,
-  description,
+  desc,
   image,
-  position,
   category,
+  highestRankedPosition,
+  categoryPosition,
+  onClickWithdraw,
+  onClickUpdateMetadata,
 }) => {
   return (
     <>
@@ -37,13 +33,13 @@ const ProfileContent = ({
         <div className={styles.information}>
           <h4 className={styles.header}>{name}</h4>
           <span className={styles.category}>{category}</span>
-          <a href="#" target="_blank" className={styles.button}>
+          <a href={url} target="_blank" className={styles.button}>
             Open
           </a>
         </div>
         <div className={styles.description}>
           <span className={styles.heading}>Description</span>
-          <p>{description}</p>
+          <p>{desc}</p>
         </div>
         <div className={styles.chat}>
           <ReactImageFallback
@@ -70,21 +66,33 @@ const ProfileContent = ({
           <span className={styles.heading}>Ranking</span>
           <div className={styles.rank}>
             <div className={styles.rank_position_1}>
-              <span className={styles.rank_position_span}>{position}</span>
+              <span className={styles.rank_position_span}>
+                {categoryPosition}
+              </span>
             </div>
             <span className={styles.rank_position_text}>
               <span>№</span>
-              {position} in {category}
+              {categoryPosition} in {category}
             </span>
           </div>
           <div className={styles.rank}>
             <span className={styles.rank_position_2}>
-              <span className={styles.rank_position_span}>{position}</span>
+              <span className={styles.rank_position_span}>
+                {highestRankedPosition}
+              </span>
             </span>
             <span className={styles.rank_position_text}>
               <span>№</span>
-              {position} in highest ranked DApps
+              {highestRankedPosition} in highest ranked DApps
             </span>
+          </div>
+        </div>
+        <div className={styles.actions}>
+          <div className={styles.button} onClick={onClickUpdateMetadata}>
+            Edit metadata
+          </div>
+          <div className={styles.button} onClick={onClickWithdraw}>
+            Withdraw SNT
           </div>
         </div>
       </div>
@@ -95,60 +103,80 @@ const ProfileContent = ({
 class Profile extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-      screenSize: 0,
-      visible: true,
-    }
+    this.onClickClose = this.onClickClose.bind(this)
   }
 
-  componentDidMount() {
-    const { innerWidth } = window
-    const { match, openModal } = this.props
-    const { params } = match
-    const { dapp_name } = params
-    if (innerWidth >= 1024) {
-      openModal(dapp_name)
-    }
+  onClickClose() {
+    window.history.back()
+  }
 
-    this.setState({
-      screenSize: innerWidth,
-      visible: true,
-    })
+  onClickWithdraw(dapp) {
+    const { onClickWithdraw } = this.props
+    this.onClickClose()
+    setTimeout(() => {
+      onClickWithdraw(dapp)
+    }, 1)
+  }
+
+  onClickUpdateMetadata(dapp) {
+    const { onClickUpdateMetadata } = this.props
+    this.onClickClose()
+    setTimeout(() => {
+      onClickUpdateMetadata(dapp)
+    }, 1)
   }
 
   render() {
-    const { match, dapps } = this.props
+    const { match, dappState } = this.props
+    const { dapps } = dappState
     const { params } = match
     const { dapp_name } = params
+    let dapp = null
+    let highestRankedPosition = 1
+    let categoryPosition = 1
 
-    const { screenSize, visible } = this.state
-    if (
-      dapps.highestRankedFetched === true &&
-      dapps.recentlyAddedFetched === true
-    ) {
-      const dapp = dapps.dapps.find(item =>
-        item.name.toLowerCase() === dapp_name.toLowerCase() ? item : '',
-      )
-      return screenSize >= 1024 ? (
-        <DesktopScreen visible={visible}>
-          <ProfileContent {...dapp} />
-        </DesktopScreen>
-      ) : (
-        <MobileScreen {...this.props}>
-          <ProfileContent {...dapp} />
-        </MobileScreen>
-      )
+    for (let i = 0; i < dapps.length; i += 1) {
+      const item = dapps[i]
+      if (item.name.toLowerCase() === dapp_name.toLowerCase()) {
+        highestRankedPosition = i + 1
+        dapp = item
+        break
+      }
     }
-    return null
+
+    if (dapp !== null) {
+      const dappsInCategory = dappState.getDappsByCategory(dapp.category)
+      for (let i = 0; i < dappsInCategory.length; i += 1) {
+        const item = dappsInCategory[i]
+        if (item.id === dapp.id) {
+          categoryPosition = i + 1
+          break
+        }
+      }
+    }
+
+    return (
+      <Modal
+        visible={dapp !== null}
+        windowClassName={styles.modalWindow}
+        onClickClose={this.onClickClose}
+      >
+        <ProfileContent
+          {...dapp}
+          highestRankedPosition={highestRankedPosition}
+          categoryPosition={categoryPosition}
+          onClickWithdraw={this.onClickWithdraw.bind(this, dapp)}
+          onClickUpdateMetadata={this.onClickUpdateMetadata.bind(this, dapp)}
+        />
+      </Modal>
+    )
   }
 }
-Profile.propTypes = {
-  visible: PropTypes.bool,
-  dapp: PropTypes.object,
-}
 
-Profile.defaultProps = {
-  // visible: false,
+Profile.propTypes = {
+  dappState: PropTypes.instanceOf(DappState),
+  onClickWithdraw: PropTypes.func.isRequired,
+  onClickUpdateMetadata: PropTypes.func.isRequired,
 }
 
 export default Profile

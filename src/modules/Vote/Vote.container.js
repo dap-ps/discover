@@ -9,10 +9,13 @@ import {
   fetchVoteRatingAction,
   upVoteAction,
   downVoteAction,
+  learnMoreUpVoteAction,
+  learnMoreDownVoteAction,
+  closeLearnMoreAction,
 } from './Vote.reducer'
 
 const mapStateToProps = state =>
-  Object.assign(state.vote, { dapps: state.dapps.dapps })
+  Object.assign(state.vote, { dappState: state.dapps })
 const mapDispatchToProps = dispatch => ({
   onClickClose: () => dispatch(closeVoteAction()),
   onClickUpvote: () => dispatch(switchToUpvoteAction()),
@@ -23,6 +26,9 @@ const mapDispatchToProps = dispatch => ({
   },
   upVote: (dapp, amount) => dispatch(upVoteAction(dapp, amount)),
   downVote: (dapp, amount) => dispatch(downVoteAction(dapp, amount)),
+  onClickLearnMoreUpVote: () => dispatch(learnMoreUpVoteAction()),
+  onClickLearnMoreDownVote: () => dispatch(learnMoreDownVoteAction()),
+  onClickCloseLearnMore: () => dispatch(closeLearnMoreAction()),
 })
 
 export default withRouter(

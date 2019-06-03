@@ -213,4 +213,62 @@
 .footer .disclaimer a {
   text-decoration: none;
   color: $link-color;
+  cursor: pointer;
+}
+
+.learnMoreCnt {
+  display: flex;
+  flex-direction: column;
+  font-family: $font;
+
+  .title {
+    line-height: 40px;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 17px;
+    border-bottom: 1px solid #f7f7f7;
+  }
+
+  .spacing {
+    margin: 14px 16px;
+
+    img {
+      width: 100%;
+      flex: 0 0 auto;
+    }
+
+    p {
+      line-height: 24px;
+      text-indent: 32px;
+      margin: 0;
+    }
+  }
+
+  .backButtonCnt {
+    height: 64px;
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    border-top: 1px solid #f7f7f7;
+    margin-top: auto;
+
+    .backButton {
+      background: $link-color;
+      border-radius: 8px;
+      color: #fff;
+      border: none;
+      font-family: $font;
+      padding: calculateRem(11) calculateRem(38);
+      font-size: calculateRem(15);
+      cursor: pointer;
+    }
+  }
+}
+
+@media (min-width: $desktop) {
+  .learnMoreCnt {
+    min-height: 512px;
+  }
 }

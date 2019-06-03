@@ -98,7 +98,8 @@ class HowToSubmit extends React.Component {
                 <ol>
                   <li>Malicious code injection</li>
                   <li>
-                    Violation of <a>Status' principles</a>
+                    Violation of{' '}
+                    <a href="https://status.im/about/">Status' principles</a>
                   </li>
                   <li>Lack of usability (especially on mobile)</li>
                   <li>Vote manipulation.</li>
@@ -110,8 +111,8 @@ class HowToSubmit extends React.Component {
                   UI choices for the same underlying contract. Note that
                   Discover is not affiliated with Status directly, we have
                   simply chosen to use SNT as a token of value, to abide by{' '}
-                  <a>Status’ principles</a>, and to take a mobile-first approach
-                  to development.
+                  <a href="https://status.im/about/">Status’ principles</a>, and
+                  to take a mobile-first approach to development.
                 </p>
               </div>
             </>

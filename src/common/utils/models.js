@@ -4,9 +4,9 @@ export const DappModel = {
   name: PropTypes.string,
   url: PropTypes.string,
   image: PropTypes.string,
-  description: PropTypes.string,
+  desc: PropTypes.string,
   category: PropTypes.string,
-  dateAdded: PropTypes.string,
+  dateAdded: PropTypes.number,
   sntValue: PropTypes.number,
   categoryPosition: PropTypes.number,
 }

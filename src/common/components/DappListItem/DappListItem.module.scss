@@ -1,5 +1,14 @@
 @import '../../styles/variables';
 
+.dappListItem {
+  transition-property: opacity;
+  transition-duration: 1s;
+}
+
+.dappListItem.transparent {
+  opacity: 0;
+}
+
 .listItem {
   font-family: $font;
   background: $background;
