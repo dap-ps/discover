@@ -123,6 +123,8 @@ class DiscoverService extends BlockchainService {
       callData,
     )
 
+    await MetadataClient.requestApproval(uploadedMetadata)
+
     return { tx: createdTx, id: dappId }
   }
 
@@ -175,10 +177,14 @@ class DiscoverService extends BlockchainService {
     const uploadedMetadata = await MetadataClient.upload(dappMetadata)
 
     try {
-      return broadcastContractFn(
+      const tx = await broadcastContractFn(
         DiscoverContract.methods.setMetadata(id, uploadedMetadata).send,
         this.sharedContext.account,
       )
+
+      await MetadataClient.update(id)
+
+      return tx
     } catch (error) {
       throw new Error(`Uploading metadata failed. Details: ${error.message}`)
     }
