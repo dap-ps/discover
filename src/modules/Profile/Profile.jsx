@@ -5,7 +5,6 @@ import Modal from '../../common/components/Modal'
 import styles from './Profile.module.scss'
 import icon from '../../common/assets/images/icon.svg'
 import chat from '../../common/assets/images/chat.svg'
-import { DappListModel } from '../../common/utils/models'
 import { DappState } from '../../common/data/dapp'
 
 const ProfileContent = ({

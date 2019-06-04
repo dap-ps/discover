@@ -19,6 +19,7 @@ import {
   onInputSntValueAction,
   updateAction,
 } from './Submit.reducer'
+import { showAlertAction } from '../Alert/Alert.reducer';
 
 const mapStateToProps = state =>
   Object.assign(state.submit, { dappState: state.dapps })
@@ -38,6 +39,7 @@ const mapDispatchToProps = dispatch => ({
   onClickTerms: () => dispatch(push('/terms')),
   switchToRating: () => dispatch(switchToRatingAction()),
   onInputSntValue: sntValue => dispatch(onInputSntValueAction(sntValue)),
+  showAlert: msg => dispatch(showAlertAction(msg)),
 })
 
 export default withRouter(

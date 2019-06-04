@@ -7,8 +7,6 @@ import BlockchainService from '../blockchain-service'
 import DiscoverValidator from './discover-validator'
 import DiscoverContract from '../../../../embarkArtifacts/contracts/Discover'
 
-let metadataCache = null
-
 class DiscoverService extends BlockchainService {
   constructor(sharedContext) {
     super(sharedContext, DiscoverContract, DiscoverValidator)
