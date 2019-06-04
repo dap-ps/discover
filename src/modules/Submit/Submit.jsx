@@ -165,9 +165,10 @@ class Submit extends React.Component {
     const metadata = {
       name,
       url,
-      img,
+      image: img,
       category,
-      desc,
+      description: desc,
+      dateAdded: Date.now(),
     }
 
     if (id === '') onSubmit(metadata, parseInt(sntValue, 10))

@@ -39,7 +39,7 @@ const DappListItem = props => {
       {isRanked && <div className={styles.position}>{position}</div>}
       <div
         className={styles.imgWrapper}
-        onClick={() => onToggleProfileModal(name)}
+        onClick={() => onToggleProfileModal(dapp.id, name)}
       >
         <ReactImageFallback
           className={styles.image}
@@ -49,7 +49,7 @@ const DappListItem = props => {
         />
       </div>
       <div className={styles.column}>
-        <div onClick={() => onToggleProfileModal(name)}>
+        <div onClick={() => onToggleProfileModal(dapp.id, name)}>
           <h2 className={styles.header}>{name}</h2>
           <p
             className={styles.description}

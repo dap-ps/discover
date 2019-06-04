@@ -104,7 +104,7 @@ class DAppsMetadataController {
 
         for (let i = 0; i < dappsMetadata.length; i++) {
             const metadataHash = dappsMetadata[i].hash;
-            dappsFormatedMetadata[metadataHash] = dappsMetadata[i].details;
+            dappsFormatedMetadata[metadataHash] = dappsMetadata[i];
         }
 
         res.status(200).json(dappsFormatedMetadata);

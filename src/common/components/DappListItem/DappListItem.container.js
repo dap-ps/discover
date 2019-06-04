@@ -16,7 +16,8 @@ const mapDispatchToProps = dispatch => ({
     dispatch(showDownVoteAction(dapp))
     dispatch(fetchVoteRatingAction(dapp, false, 3244))
   },
-  onToggleProfileModal: data => dispatch(toggleProfileModalAction(data)),
+  onToggleProfileModal: (dappId, data) =>
+    dispatch(toggleProfileModalAction(dappId, data)),
 })
 
 export default connect(

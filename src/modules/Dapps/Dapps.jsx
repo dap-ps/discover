@@ -93,7 +93,6 @@ class Dapps extends React.Component {
 
 Dapps.propTypes = {
   dappState: PropTypes.instanceOf(DappState).isRequired,
-  fetchByCategory: PropTypes.func.isRequired,
 }
 
 export default Dapps

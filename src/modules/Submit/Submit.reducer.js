@@ -137,7 +137,7 @@ export const submitAction = (dapp, sntValue) => {
     dispatch(
       onStartProgressAction(
         dapp.name,
-        dapp.img,
+        dapp.image,
         'Status is an open source mobile DApp browser and messenger build for #Etherium',
         TYPE_SUBMIT,
       ),
@@ -147,10 +147,10 @@ export const submitAction = (dapp, sntValue) => {
       const { tx, id } = await blockchain.DiscoverService.createDApp(sntValue, {
         name: dapp.name,
         url: dapp.url,
-        description: dapp.desc,
+        description: dapp.description,
         category: dapp.category,
-        image: dapp.img,
-        dateAdded: Date.now(),
+        image: dapp.image,
+        dateAdded: dapp.dateAdded,
       })
       dispatch(onReceiveTransactionInfoAction(id, tx))
       dispatch(checkTransactionStatusAction(tx))
@@ -167,7 +167,7 @@ export const updateAction = (dappId, metadata) => {
     dispatch(
       onStartProgressAction(
         metadata.name,
-        metadata.img,
+        metadata.image,
         'Status is an open source mobile DApp browser and messenger build for #Etherium',
         TYPE_UPDATE,
       ),
@@ -200,7 +200,7 @@ const showSubmitAfterCheck = (state, dapp) => {
     visible_rating: false,
     id: dapp !== undefined ? dapp.id : '',
     name: dapp !== undefined ? dapp.name : '',
-    desc: dapp !== undefined ? dapp.desc : '',
+    desc: dapp !== undefined ? dapp.description : '',
     url: dapp !== undefined ? dapp.url : '',
     img: dapp !== undefined ? dapp.image : '',
     category: dapp !== undefined ? dapp.category : '',

@@ -16,6 +16,7 @@ const ProfileContent = ({
   category,
   highestRankedPosition,
   categoryPosition,
+  editable,
   onClickWithdraw,
   onClickUpdateMetadata,
 }) => {
@@ -87,14 +88,16 @@ const ProfileContent = ({
             </span>
           </div>
         </div>
-        <div className={styles.actions}>
-          <div className={styles.button} onClick={onClickUpdateMetadata}>
-            Edit metadata
+        {editable  &&  (
+          <div className={styles.actions}>
+            <div className={styles.button} onClick={onClickUpdateMetadata}>
+              Edit metadata
+            </div>
+            <div className={styles.button} onClick={onClickWithdraw}>
+              Withdraw SNT
+            </div>
           </div>
-          <div className={styles.button} onClick={onClickWithdraw}>
-            Withdraw SNT
-          </div>
-        </div>
+        )}
       </div>
     </>
   )
@@ -131,6 +134,7 @@ class Profile extends Component {
     const { dapps } = dappState
     const { params } = match
     const { dapp_name } = params
+    let { editable } = this.props
     let dapp = null
     let highestRankedPosition = 1
     let categoryPosition = 1
@@ -153,6 +157,8 @@ class Profile extends Component {
           break
         }
       }
+
+      editable = editable && dapp.isApproved()
     }
 
     return (
@@ -165,6 +171,7 @@ class Profile extends Component {
           {...dapp}
           highestRankedPosition={highestRankedPosition}
           categoryPosition={categoryPosition}
+          editable={editable}
           onClickWithdraw={this.onClickWithdraw.bind(this, dapp)}
           onClickUpdateMetadata={this.onClickUpdateMetadata.bind(this, dapp)}
         />
@@ -175,6 +182,7 @@ class Profile extends Component {
 
 Profile.propTypes = {
   dappState: PropTypes.instanceOf(DappState),
+  editable: PropTypes.bool.isRequired,
   onClickWithdraw: PropTypes.func.isRequired,
   onClickUpdateMetadata: PropTypes.func.isRequired,
 }

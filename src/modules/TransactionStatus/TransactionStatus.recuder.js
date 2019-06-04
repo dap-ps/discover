@@ -8,6 +8,7 @@ import {
 import { onUpdateDappDataAction } from '../Dapps/Dapps.reducer'
 import { showAlertAction } from '../Alert/Alert.reducer'
 import BlockchainSDK from '../../common/blockchain'
+import DappModel from '../../common/data/dapp';
 
 const HIDE = 'TXS_HIDE'
 const ON_START_PROGRESS = 'TXS_ON_START_PROGRESS'
@@ -60,10 +61,7 @@ export const checkTransactionStatusAction = tx => {
           dapp = await blockchain.DiscoverService.getDAppDataById(
             transacationStatus.dappId,
           )
-          dapp = Object.assign(dapp.metadata, {
-            id: transacationStatus.dappId,
-            sntValue: parseInt(dapp.effectiveBalance, 10),
-          })
+          dapp = DappModel.instanceFromBlockchainWithMetadata(dapp)
           dispatch(onUpdateDappDataAction(dapp))
         } catch (e) {
           dispatch(

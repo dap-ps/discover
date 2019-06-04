@@ -14,7 +14,7 @@ import {
 } from '../TransactionStatus/TransactionStatus.utilities'
 
 const SHOW_UP_VOTE_AFTER_CHECK = 'VOTE_SHOW_UP_VOTE_AFTER_CHECK'
-const SHOW_DOWN_VOTE_AFTER_CHEECK = 'VOTE_SHOW_DOWN_VOTE_AFTER_CHEECK'
+const SHOW_DOWN_VOTE_AFTER_CHECK = 'VOTE_SHOW_DOWN_VOTE_AFTER_CHECK'
 const CLOSE_VOTE = 'VOTE_CLOSE_VOTE'
 const SWITCH_TO_UPVOTE = 'VOTE_SWITCH_TO_UPVOTE'
 const SWITCH_TO_DOWNVOTE = 'VOTE_SWITCH_TO_DOWNVOTE'
@@ -36,7 +36,7 @@ export const showUpVoteActionAfterCheck = dapp => {
 export const showDownVoteActionAfterCheck = dapp => {
   window.location.hash = 'vote'
   return {
-    type: SHOW_DOWN_VOTE_AFTER_CHEECK,
+    type: SHOW_DOWN_VOTE_AFTER_CHECK,
     payload: dapp,
   }
 }
@@ -50,7 +50,7 @@ export const showUpVoteAction = dapp => {
     ) {
       dispatch(
         showAlertAction(
-          'There is an active transaction. Please wait for it to finish and then you could be able to vote',
+          'There is an active transaction. Please wait for it to finish and then you could be able to upvote',
         ),
       )
     } else dispatch(showUpVoteActionAfterCheck(dapp))
@@ -66,7 +66,7 @@ export const showDownVoteAction = dapp => {
     ) {
       dispatch(
         showAlertAction(
-          'There is an active transaction. Please wait for it to finish and then you could be able to vote',
+          'There is an active transaction. Please wait for it to finish and then you could be able to downvote',
         ),
       )
     } else dispatch(showDownVoteActionAfterCheck(dapp))
@@ -303,7 +303,7 @@ const closeLearnMore = state => {
 
 const map = {
   [SHOW_UP_VOTE_AFTER_CHECK]: showUpVoteAfterCheck,
-  [SHOW_DOWN_VOTE_AFTER_CHEECK]: showDownVoteAfterCheck,
+  [SHOW_DOWN_VOTE_AFTER_CHECK]: showDownVoteAfterCheck,
   [CLOSE_VOTE]: closeVote,
   [SWITCH_TO_UPVOTE]: switchToUpvote,
   [SWITCH_TO_DOWNVOTE]: switchToDownvote,

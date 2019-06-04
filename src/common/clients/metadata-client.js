@@ -3,6 +3,8 @@ import HTTPClient from './http-client'
 import * as helpers from '../utils/metadata-utils'
 import metadataClientEndpoints from './endpoints/metadata-client-endpoints'
 
+let metadataCache = null
+
 class MetadataClient {
   static async upload(metadata) {
     try {
@@ -47,6 +49,8 @@ class MetadataClient {
         `${metadataClientEndpoints.RETRIEVE_METADATA}/${convertedHash}`,
       )
 
+      if (metadataCache !== null)
+        metadataCache[metadataBytes32] = retrievedMetadataResponse.data
       return retrievedMetadataResponse.data
     } catch (error) {
       throw new Error('Searching DApp was not found in the client')
@@ -70,6 +74,13 @@ class MetadataClient {
     }
 
     return formatedDappsMetadata
+  }
+
+  static async retrieveMetadataCache(metadataBytes32) {
+    if (metadataCache === null)
+      metadataCache = await MetadataClient.retrieveAllDappsMetadata()
+    const result = metadataCache[metadataBytes32]
+    return result !== undefined ? result : null
   }
 }
 

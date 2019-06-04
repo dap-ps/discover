@@ -7,6 +7,8 @@ import BlockchainService from '../blockchain-service'
 import DiscoverValidator from './discover-validator'
 import DiscoverContract from '../../../../embarkArtifacts/contracts/Discover'
 
+let metadataCache = null
+
 class DiscoverService extends BlockchainService {
   constructor(sharedContext) {
     super(sharedContext, DiscoverContract, DiscoverValidator)
@@ -40,7 +42,12 @@ class DiscoverService extends BlockchainService {
         .dapps(index)
         .call({ from: this.sharedContext.account })
 
-      dapp.metadata = await MetadataClient.retrieveMetadata(dapp.metadata)
+      const dappMetadata = await MetadataClient.retrieveMetadataCache(
+        dapp.metadata,
+      )
+      if (dappMetadata === null) return null
+      dapp.metadata = dappMetadata.details
+      dapp.metadata.status = dappMetadata.status
       return dapp
     } catch (error) {
       throw new Error(`Error fetching dapps. Details: ${error.message}`)
@@ -73,6 +80,7 @@ class DiscoverService extends BlockchainService {
 
     try {
       const dappMetadata = await MetadataClient.retrieveMetadata(dapp.metadata)
+      if (dappMetadata === null) return null
       dapp.metadata = dappMetadata.details
       dapp.metadata.status = dappMetadata.status
 
@@ -95,10 +103,10 @@ class DiscoverService extends BlockchainService {
   }
 
   async checkIfCreatorOfDApp(id) {
-    const dapp = this.getDAppById(id)
+    const dapp = await this.getDAppById(id)
     this.sharedContext.account = await super.getAccount()
 
-    return dapp.developer == this.sharedContext.account
+    return dapp.developer.toLowerCase() == this.sharedContext.account
   }
 
   // Transaction methods

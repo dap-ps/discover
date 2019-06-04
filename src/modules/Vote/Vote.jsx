@@ -139,14 +139,14 @@ class Vote extends Component {
                   <img src={sntIcon} alt="SNT" width="24" height="24" />
                   {currentSNTamount.toLocaleString()}
                 </span>
-                {isUpvote && afterVoteRating !== null && (
+                {isUpvote && afterVoteRating !== null && afterVoteRating > 0 && (
                   <span className={styles.greenBadge}>
-                    {`${(dapp.sntValue + afterVoteRating).toLocaleString()} ↑`}
+                    {`${(afterVoteRating).toLocaleString()} ↑`}
                   </span>
                 )}
-                {!isUpvote && afterVoteRating !== null && (
+                {!isUpvote && afterVoteRating !== null && afterVoteRating > 0 && (
                   <span className={styles.redBadge}>
-                    {`${(dapp.sntValue - afterVoteRating).toLocaleString()} ↓`}
+                    {`${(afterVoteRating).toLocaleString()} ↓`}
                   </span>
                 )}
               </div>
@@ -179,7 +179,7 @@ class Vote extends Component {
             {!isUpvote && (
               <div
                 className={styles.inputArea}
-                style={{ opacity: sntValue !== '0' ? 1 : 0 }}
+                // style={{ opacity: sntValue !== '0' ? 1 : 0 }}
               >
                 <span>{sntValue}</span>
               </div>
