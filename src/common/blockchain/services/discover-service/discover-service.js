@@ -197,6 +197,12 @@ class DiscoverService extends BlockchainService {
       throw new Error(`Uploading metadata failed. Details: ${error.message}`)
     }
   }
+
+  async withdrawMax(dappId) {
+    return DiscoverContract.methods.withdrawMax(dappId).call({
+      from: this.sharedContext.account,
+    })
+  }
 }
 
 export default DiscoverService

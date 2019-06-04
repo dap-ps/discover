@@ -15,16 +15,16 @@ const SHOW_WITHDRAW_AFTER_CHECK = 'WITHDRAW_SHOW_WITHDRAW_AFTER_CHECK'
 const CLOSE_WITHDRAW = 'WITHDRAW_CLOSE_WITHDRAW'
 const ON_INPUT_SNT_VALUE = 'WITHDRAW_ON_INPUT_SNT_VALUE'
 
-export const showWithdrawAfterCheckAction = dapp => {
+export const showWithdrawAfterCheckAction = (dapp, withdrawMax) => {
   window.location.hash = 'withdraw'
   return {
     type: SHOW_WITHDRAW_AFTER_CHECK,
-    payload: dapp,
+    payload: { dapp, withdrawMax },
   }
 }
 
 export const showWithdrawAction = dapp => {
-  return (dispatch, getState) => {
+  return async (dispatch, getState) => {
     const state = getState()
     if (
       state.transactionStatus.progress &&
@@ -35,7 +35,11 @@ export const showWithdrawAction = dapp => {
           'There is an active transaction. Please wait for it to finish and then you could be able to create your Ðapp',
         ),
       )
-    } else dispatch(showWithdrawAfterCheckAction(dapp))
+    } else {
+      const blockchain = await BlockchainSDK.getInstance()
+      const withdrawMax = await blockchain.DiscoverService.withdrawMax(dapp.id)
+      dispatch(showWithdrawAfterCheckAction(dapp, parseInt(withdrawMax, 10)))
+    }
   }
 }
 
@@ -75,10 +79,12 @@ export const onInputSntValueAction = sntValue => ({
   payload: sntValue,
 })
 
-const showWithdrawAfterCheck = (state, dapp) => {
+const showWithdrawAfterCheck = (state, payload) => {
+  const { dapp, withdrawMax } = payload
   return Object.assign({}, state, {
     visible: true,
     dapp,
+    withdrawMax,
     sntValue: dapp.sntValue.toString(),
   })
 }
@@ -87,6 +93,7 @@ const closeWithdraw = state => {
   return Object.assign({}, state, {
     visible: false,
     dapp: null,
+    withdrawMax: Number.MAX_SAFE_INTEGER,
   })
 }
 

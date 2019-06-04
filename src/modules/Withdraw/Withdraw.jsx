@@ -27,28 +27,27 @@ class Withdraw extends React.Component {
   }
 
   handleSNTChange(e) {
-    const { dapp } = this.props
+    const { dapp, withdrawMax } = this.props
     const { value } = e.target
     if (value !== '' && /^[1-9][0-9]*$/.test(value) === false) return
 
     const intValue = value === '' ? 0 : parseInt(value, 10)
     if (intValue > 1571296) return
-    if (intValue > dapp.sntValue) return
+    if (intValue > withdrawMax) return
 
     const { onInputSntValue } = this.props
     onInputSntValue(value)
   }
 
   render() {
-    const { dappState, dapp, visible, onClickClose, sntValue } = this.props
+    const { dappState, dapp, visible, onClickClose, sntValue, withdrawMax } = this.props
 
     if (dapp === null)
       return <Modal visible={false} onClickClose={onClickClose} />
 
     const currentSNTamount = dapp.sntValue
     const dappsByCategory = dappState.getDappsByCategory(dapp.category)
-    const afterVoteRating =
-      dapp.sntValue - (sntValue !== '' ? parseInt(sntValue, 10) : 0)
+    const afterVoteRating = (sntValue !== '' ? parseInt(sntValue, 10) : 0)
 
     let catPosition = dappsByCategory.length
     for (let i = 0; i < dappsByCategory.length; ++i) {
@@ -90,7 +89,7 @@ class Withdraw extends React.Component {
               {currentSNTamount.toLocaleString()}
             </span>
             {afterVoteRating !== null &&
-              afterVoteRating !== currentSNTamount && (
+              afterVoteRating !== 0 && (
                 <span className={styles.redBadge}>
                   {`${afterVoteRating.toLocaleString()} ↓`}
                 </span>
@@ -149,6 +148,7 @@ Withdraw.propTypes = {
   visible: PropTypes.bool.isRequired,
   dapp: PropTypes.instanceOf(DappModel),
   sntValue: PropTypes.string.isRequired,
+  withdrawMax: PropTypes.number.isRequired,
   onClickClose: PropTypes.func.isRequired,
   onWithdraw: PropTypes.func.isRequired,
   onInputSntValue: PropTypes.func.isRequired,
