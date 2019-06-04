@@ -31,15 +31,11 @@ const getInstance = async () => {
       }
     }
 
-    if (web3.currentProvider) {
-      returnInstance()
-    } else {
-      EmbarkJS.onReady(err => {
-        if (err) reject(err)
+    EmbarkJS.onReady(err => {
+      if (err) reject(err)
 
-        returnInstance()
-      })
-    }
+      returnInstance()
+    })
   })
 }
 
