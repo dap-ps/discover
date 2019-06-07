@@ -76,16 +76,16 @@ module.exports = {
       TestBancorFormula: { deploy: false },
       SNT: {
         instanceOf: 'MiniMeToken',
-        address: '0x2764b5da3696E3613Ef9864E9B4613f9fA478E75',
+        address: '0x25B1bD06fBfC2CbDbFc174e10f1B78b1c91cc77B',
       },
-      Discover: { address: '0x3449Eb0705C9f0A77B687E7247c31e4A65f60dD4' },
+      Discover: { address: '0xad28BF7423874B678dFAFb526433c62624dcaB45' },
       // SNT: {
       //   instanceOf: 'MiniMeToken',
       //   args: [
       //     '$MiniMeTokenFactory',
       //     '0x0000000000000000000000000000000000000000',
       //     0,
-      //     'TestMiniMeToken',
+      //     'SNTMiniMeToken',
       //     18,
       //     'SNT',
       //     true,
@@ -115,7 +115,9 @@ module.exports = {
   // used with "embark run testnet"
   testnet: {
     deployment: {
-      accounts: [{ mnemonic: wallet.mnemonic }],
+      accounts: [{
+        mnemonic: wallet.mnemonic,
+      }],
       host: `ropsten.infura.io/v3/8675214b97b44e96b70d05326c61fd6a`,
       port: false,
       type: 'rpc',

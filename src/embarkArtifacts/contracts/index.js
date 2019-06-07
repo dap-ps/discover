@@ -1,0 +1,17 @@
+module.exports = {
+  Controlled: require('./Controlled').default,
+  ENSRegistry: require('./ENSRegistry').default,
+  MiniMeToken: require('./MiniMeToken').default,
+  TestBancorFormula: require('./TestBancorFormula').default,
+  SafeMath: require('./SafeMath').default,
+  TokenFactory: require('./TokenFactory').default,
+  ApproveAndCallFallBack: require('./ApproveAndCallFallBack').default,
+  MiniMeTokenInterface: require('./MiniMeTokenInterface').default,
+  BancorFormula: require('./BancorFormula').default,
+  ERC20Token: require('./ERC20Token').default,
+  MiniMeTokenFactory: require('./MiniMeTokenFactory').default,
+  TokenController: require('./TokenController').default,
+  Discover: require('./Discover').default,
+  Resolver: require('./Resolver').default,
+  SNT: require('./SNT').default,
+}

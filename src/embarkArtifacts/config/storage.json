@@ -1,0 +1,11 @@
+{
+  "dappConnection": [
+    {
+      "provider": "ipfs",
+      "protocol": "https",
+      "host": "ipfs.infura.io",
+      "port": 5001,
+      "getUrl": "https://ipfs.infura.io/ipfs/"
+    }
+  ]
+}
