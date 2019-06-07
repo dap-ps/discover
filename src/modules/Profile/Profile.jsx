@@ -5,8 +5,7 @@ import Modal from '../../common/components/Modal'
 import styles from './Profile.module.scss'
 import icon from '../../common/assets/images/icon.svg'
 import chat from '../../common/assets/images/chat.svg'
-import { DappListModel } from '../../common/utils/models';
-import { DappState } from '../../common/data/dapp';
+import { DappState } from '../../common/data/dapp'
 
 const ProfileContent = ({
   name,
@@ -16,6 +15,7 @@ const ProfileContent = ({
   category,
   highestRankedPosition,
   categoryPosition,
+  editable,
   onClickWithdraw,
   onClickUpdateMetadata,
 }) => {
@@ -66,7 +66,9 @@ const ProfileContent = ({
           <span className={styles.heading}>Ranking</span>
           <div className={styles.rank}>
             <div className={styles.rank_position_1}>
-              <span className={styles.rank_position_span}>{categoryPosition}</span>
+              <span className={styles.rank_position_span}>
+                {categoryPosition}
+              </span>
             </div>
             <span className={styles.rank_position_text}>
               <span>№</span>
@@ -75,7 +77,9 @@ const ProfileContent = ({
           </div>
           <div className={styles.rank}>
             <span className={styles.rank_position_2}>
-              <span className={styles.rank_position_span}>{highestRankedPosition}</span>
+              <span className={styles.rank_position_span}>
+                {highestRankedPosition}
+              </span>
             </span>
             <span className={styles.rank_position_text}>
               <span>№</span>
@@ -83,28 +87,29 @@ const ProfileContent = ({
             </span>
           </div>
         </div>
-        <div className={styles.actions}>
-          <div className={styles.button} onClick={onClickUpdateMetadata}>
-            Edit metadata
+        {editable  &&  (
+          <div className={styles.actions}>
+            <div className={styles.button} onClick={onClickUpdateMetadata}>
+              Edit metadata
+            </div>
+            <div className={styles.button} onClick={onClickWithdraw}>
+              Withdraw SNT
+            </div>
           </div>
-          <div className={styles.button} onClick={onClickWithdraw}>
-            Withdraw SNT
-          </div>
-        </div>
+        )}
       </div>
     </>
   )
 }
 
 class Profile extends Component {
-
   constructor(props) {
     super(props)
-    this.onClickClose = this.onClickClose.bind(this);
+    this.onClickClose = this.onClickClose.bind(this)
   }
 
   onClickClose() {
-    window.history.back();
+    window.history.back()
   }
 
   onClickWithdraw(dapp) {
@@ -128,6 +133,7 @@ class Profile extends Component {
     const { dapps } = dappState
     const { params } = match
     const { dapp_name } = params
+    let { editable } = this.props
     let dapp = null
     let highestRankedPosition = 1
     let categoryPosition = 1
@@ -137,7 +143,7 @@ class Profile extends Component {
       if (item.name.toLowerCase() === dapp_name.toLowerCase()) {
         highestRankedPosition = i + 1
         dapp = item
-        break;
+        break
       }
     }
 
@@ -147,21 +153,27 @@ class Profile extends Component {
         const item = dappsInCategory[i]
         if (item.id === dapp.id) {
           categoryPosition = i + 1
-          break;
+          break
         }
       }
+
+      editable = editable && dapp.isApproved()
     }
 
     return (
       <Modal
-        visible={dapp !== null} 
+        visible={dapp !== null}
         windowClassName={styles.modalWindow}
-        onClickClose={this.onClickClose}>
-        <ProfileContent {...dapp}
+        onClickClose={this.onClickClose}
+      >
+        <ProfileContent
+          {...dapp}
           highestRankedPosition={highestRankedPosition}
           categoryPosition={categoryPosition}
+          editable={editable}
           onClickWithdraw={this.onClickWithdraw.bind(this, dapp)}
-          onClickUpdateMetadata={this.onClickUpdateMetadata.bind(this, dapp)} />
+          onClickUpdateMetadata={this.onClickUpdateMetadata.bind(this, dapp)}
+        />
       </Modal>
     )
   }
@@ -169,6 +181,7 @@ class Profile extends Component {
 
 Profile.propTypes = {
   dappState: PropTypes.instanceOf(DappState),
+  editable: PropTypes.bool.isRequired,
   onClickWithdraw: PropTypes.func.isRequired,
   onClickUpdateMetadata: PropTypes.func.isRequired,
 }

@@ -154,7 +154,8 @@ a {
 }
 
 .actions {
-  display: flex; justify-content: center;
+  display: flex;
+  justify-content: center;
   border-bottom: 1px solid #eef2f5;
   box-shadow: inset 0px 1px 0px #eef2f5;
   padding: calculateRem(10) calculateRem(20);
@@ -169,11 +170,9 @@ a {
 }
 
 @media (max-width: 356px) {
-
-.actions {
-  .button {
-    font-size:13px;
+  .actions {
+    .button {
+      font-size: 13px;
+    }
   }
-}
-
 }

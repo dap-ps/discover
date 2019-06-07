@@ -36,7 +36,7 @@ class Router extends React.Component {
       <TransactionStatus key={5} />,
       <Alert key={6} />,
       <Route key={7} path="/:dapp_name" component={Profile} />,
-      <Withdraw key={8} />
+      <Withdraw key={8} />,
     ]
   }
 }

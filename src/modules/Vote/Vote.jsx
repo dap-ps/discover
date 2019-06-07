@@ -8,7 +8,7 @@ import Categories from '../../common/utils/categories'
 import icon from '../../common/assets/images/icon.svg'
 import Modal from '../../common/components/Modal'
 import { DappModel } from '../../common/utils/models'
-import { DappState } from '../../common/data/dapp';
+import { DappState } from '../../common/data/dapp'
 
 const getCategoryName = category =>
   Categories.find(x => x.key === category).value
@@ -104,156 +104,197 @@ class Vote extends Component {
         windowClassName={styles.modalWindow}
         contentClassName={styles.modalContent}
       >
-        {(!learnMoreUpVote  &&  !learnMoreDownVote  &&  (
-        <>
-          <div className={styles.tabs}>
-            <button
-              className={isUpvote ? styles.active : ''}
-              type="button"
-              onClick={this.onClickUpvote}
-            >
-              ↑ UPVOTE
-            </button>
-            <button
-              className={!isUpvote ? styles.active : ''}
-              type="button"
-              onClick={this.onClickDownvote}
-            >
-              ↓ DOWNVOTE
-            </button>
-          </div>
-          <div className={styles.dapp}>
-            <ReactImageFallback
-              className={styles.image}
-              src={dapp.image}
-              fallbackImage={icon}
-              alt="App icon"
-              width={24}
-              height={24}
-            />
-            {dapp.name}
-          </div>
-          <div className={styles.items}>
-            <div className={styles.itemRow}>
-              <span className={styles.item}>
-                <img src={sntIcon} alt="SNT" width="24" height="24" />
-                {currentSNTamount.toLocaleString()}
-              </span>
-              {isUpvote && afterVoteRating !== null && (
-                <span className={styles.greenBadge}>
-                  {`${(dapp.sntValue + afterVoteRating).toLocaleString()} ↑`}
-                </span>
-              )}
-              {!isUpvote && afterVoteRating !== null && (
-                <span className={styles.redBadge}>
-                  {`${(dapp.sntValue - afterVoteRating).toLocaleString()} ↓`}
-                </span>
-              )}
+        {!learnMoreUpVote && !learnMoreDownVote && (
+          <>
+            <div className={styles.tabs}>
+              <button
+                className={isUpvote ? styles.active : ''}
+                type="button"
+                onClick={this.onClickUpvote}
+              >
+                ↑ UPVOTE
+              </button>
+              <button
+                className={!isUpvote ? styles.active : ''}
+                type="button"
+                onClick={this.onClickDownvote}
+              >
+                ↓ DOWNVOTE
+              </button>
             </div>
-            <div className={styles.itemRow}>
-              <span className={styles.item}>
-                <img
-                  src={CategoriesUtils(dapp.category)}
-                  alt={getCategoryName(dapp.category)}
-                  width="24"
-                  height="24"
-                />
-                {`${getCategoryName(dapp.category)} №${catPosition}`}
-              </span>
-              {isUpvote &&
-                afterVoteCategoryPosition !== null &&
-                afterVoteCategoryPosition !== catPosition && (
-                  <span className={styles.greenBadge}>
-                    {`№${afterVoteCategoryPosition} ↑`}
-                  </span>
-                )}
-              {!isUpvote &&
-                afterVoteCategoryPosition !== null &&
-                afterVoteCategoryPosition !== catPosition && (
-                  <span className={styles.redBadge}>
-                    {`№${afterVoteCategoryPosition} ↓`}
-                  </span>
-                )}
-            </div>
-          </div>
-          {!isUpvote && (
-            <div
-              className={styles.inputArea}
-              style={{ opacity: sntValue !== '0' ? 1 : 0 }}
-            >
-              <span>{sntValue}</span>
-            </div>
-          )}
-          {isUpvote && (
-            <div className={`${styles.inputArea} ${styles.inputAreaBorder}`}>
-              <input
-                type="text"
-                value={sntValue}
-                onChange={this.handleChange}
-                style={{ width: `${21 * Math.max(1, sntValue.length)}px` }}
+            <div className={styles.dapp}>
+              <ReactImageFallback
+                className={styles.image}
+                src={dapp.image}
+                fallbackImage={icon}
+                alt="App icon"
+                width={24}
+                height={24}
               />
+              {dapp.name}
             </div>
-          )}
-
-          <div className={styles.footer}>
-            {isUpvote && (
-              <p className={styles.disclaimer}>
-                SNT you spend to upvote is locked in the contract and contributes
-                directly to {dapp.name}'s ranking.{' '}
-                <a onClick={onClickLearnMoreUpVote}>
-                  Learn more↗
-                </a>
-              </p>
-            )}
+            <div className={styles.items}>
+              <div className={styles.itemRow}>
+                <span className={styles.item}>
+                  <img src={sntIcon} alt="SNT" width="24" height="24" />
+                  {currentSNTamount.toLocaleString()}
+                </span>
+                {isUpvote && afterVoteRating !== null && afterVoteRating > 0 && (
+                  <span className={styles.greenBadge}>
+                    {`${(afterVoteRating).toLocaleString()} ↑`}
+                  </span>
+                )}
+                {!isUpvote && afterVoteRating !== null && afterVoteRating > 0 && (
+                  <span className={styles.redBadge}>
+                    {`${(afterVoteRating).toLocaleString()} ↓`}
+                  </span>
+                )}
+              </div>
+              <div className={styles.itemRow}>
+                <span className={styles.item}>
+                  <img
+                    src={CategoriesUtils(dapp.category)}
+                    alt={getCategoryName(dapp.category)}
+                    width="24"
+                    height="24"
+                  />
+                  {`${getCategoryName(dapp.category)} №${catPosition}`}
+                </span>
+                {isUpvote &&
+                  afterVoteCategoryPosition !== null &&
+                  afterVoteCategoryPosition !== catPosition && (
+                    <span className={styles.greenBadge}>
+                      {`№${afterVoteCategoryPosition} ↑`}
+                    </span>
+                  )}
+                {!isUpvote &&
+                  afterVoteCategoryPosition !== null &&
+                  afterVoteCategoryPosition !== catPosition && (
+                    <span className={styles.redBadge}>
+                      {`№${afterVoteCategoryPosition} ↓`}
+                    </span>
+                  )}
+              </div>
+            </div>
             {!isUpvote && (
-              <p className={styles.disclaimer}>
-                SNT you spend to downvote goes directly back to {dapp.name}.
-                Downvoting moves their DApp down by 1% of the current ranking. The
-                cost is fixed by our unique bonded curve.{' '}
-                <a onClick={onClickLearnMoreDownVote}>
-                  Learn more↗
-                </a>
-              </p>
+              <div
+                className={styles.inputArea}
+                // style={{ opacity: sntValue !== '0' ? 1 : 0 }}
+              >
+                <span>{sntValue}</span>
+              </div>
             )}
-            <button
-              type="submit"
-              disabled={(!sntValue || sntValue === '0') && isUpvote}
-              onClick={this.onClickVote}
-            >
-              {isUpvote ? 'Upvote' : 'Downvote'}
-            </button>
-          </div>
+            {isUpvote && (
+              <div className={`${styles.inputArea} ${styles.inputAreaBorder}`}>
+                <input
+                  type="text"
+                  value={sntValue}
+                  onChange={this.handleChange}
+                  style={{ width: `${21 * Math.max(1, sntValue.length)}px` }}
+                />
+              </div>
+            )}
+
+            <div className={styles.footer}>
+              {isUpvote && (
+                <p className={styles.disclaimer}>
+                  SNT you spend to upvote is locked in the contract and
+                  contributes directly to {dapp.name}'s ranking.{' '}
+                  <a onClick={onClickLearnMoreUpVote}>Learn more↗</a>
+                </p>
+              )}
+              {!isUpvote && (
+                <p className={styles.disclaimer}>
+                  SNT you spend to downvote goes directly back to {dapp.name}.
+                  Downvoting moves their DApp down by 1% of the current ranking.
+                  The cost is fixed by our unique bonded curve.{' '}
+                  <a onClick={onClickLearnMoreDownVote}>Learn more↗</a>
+                </p>
+              )}
+              <button
+                type="submit"
+                disabled={(!sntValue || sntValue === '0') && isUpvote}
+                onClick={this.onClickVote}
+              >
+                {isUpvote ? 'Upvote' : 'Downvote'}
+              </button>
+            </div>
           </>
-        ))}
+        )}
         {learnMoreUpVote && (
           <div className={styles.learnMoreCnt}>
             <div className={styles.title}>How to submit a ÐApp</div>
             <div className={styles.spacing}>
-              <img src='/images/learn-more-curve.png' />
-              <p>This is what the curve you're using really looks like. The more SNT staked on a DApp, the cheaper it becomes for anyone to downvote it.</p>
-              <p>However, you can upvote this DApp by any amount of SNT you wish. SNT you spend is sent directly to the contract and locked up there. It does not</p>
-              <p>go to Status, the developer of the DApp, or any other middleman. There are no fees, but once the SNT is spent, you cannot get it back.</p>
-              <p>What you spend is added directly to the DApp's balance, and the effect this will have on it's ranking is shown in the previous screen.</p>
+              <img src="/images/learn-more-curve.png" />
+              <p>
+                This is what the curve you're using really looks like. The more
+                SNT staked on a DApp, the cheaper it becomes for anyone to
+                downvote it.
+              </p>
+              <p>
+                However, you can upvote this DApp by any amount of SNT you wish.
+                SNT you spend is sent directly to the contract and locked up
+                there. It does not
+              </p>
+              <p>
+                go to Status, the developer of the DApp, or any other middleman.
+                There are no fees, but once the SNT is spent, you cannot get it
+                back.
+              </p>
+              <p>
+                What you spend is added directly to the DApp's balance, and the
+                effect this will have on it's ranking is shown in the previous
+                screen.
+              </p>
               <p>Welcome to the future of decentralised curation!</p>
             </div>
             <div className={styles.backButtonCnt}>
-              <button type="submit" onClick={onClickCloseLearnMore} className={styles.backButton}>Back</button>
+              <button
+                type="submit"
+                onClick={onClickCloseLearnMore}
+                className={styles.backButton}
+              >
+                Back
+              </button>
             </div>
           </div>
         )}
-        {learnMoreDownVote  && (
+        {learnMoreDownVote && (
           <div className={styles.learnMoreCnt}>
             <div className={styles.title}>How to submit a ÐApp</div>
             <div className={styles.spacing}>
-              <img src='/images/learn-more-curve.png' />
-              <p>This is what the curve you're using really looks like. The more SNT staked on a DApp, the cheaper it becomes for anyone to downvote it.</p>
-              <p>You can downvote this DApp, and each downvote will move it 1% of its current value down the rankings. </p>
-              <p>SNT you spend is sent directly to the developer of the DApp, so we can be sure you aren't just trolling them and that, even if you are, you are required to pay for the privilege. It does not go to Status or any other middleman. There are no fees, but once the SNT is spent, you cannot get it back.</p>
-              <p>What you spend is dictated by how much SNT the DApp has already staked, and the exact numerical effect of moving 1% down in the rankings is shown in the previous screen.</p>
+              <img src="/images/learn-more-curve.png" />
+              <p>
+                This is what the curve you're using really looks like. The more
+                SNT staked on a DApp, the cheaper it becomes for anyone to
+                downvote it.
+              </p>
+              <p>
+                You can downvote this DApp, and each downvote will move it 1% of
+                its current value down the rankings.{' '}
+              </p>
+              <p>
+                SNT you spend is sent directly to the developer of the DApp, so
+                we can be sure you aren't just trolling them and that, even if
+                you are, you are required to pay for the privilege. It does not
+                go to Status or any other middleman. There are no fees, but once
+                the SNT is spent, you cannot get it back.
+              </p>
+              <p>
+                What you spend is dictated by how much SNT the DApp has already
+                staked, and the exact numerical effect of moving 1% down in the
+                rankings is shown in the previous screen.
+              </p>
               <p>Welcome to the future of decentralised curation!</p>
             </div>
             <div className={styles.backButtonCnt}>
-              <button type="submit" onClick={onClickCloseLearnMore} className={styles.backButton}>Back</button>
+              <button
+                type="submit"
+                onClick={onClickCloseLearnMore}
+                className={styles.backButton}
+              >
+                Back
+              </button>
             </div>
           </div>
         )}

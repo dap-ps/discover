@@ -2,9 +2,8 @@
 import utils from './utils'
 import EmbarkJS from '../../embarkArtifacts/embarkjs'
 
-import * as IPFSService from './ipfs'
-import SNTService from './services/contracts-services/snt-service/snt-service'
-import DiscoverService from './services/contracts-services/discover-service/discover-service'
+import SNTService from './services/snt-service/snt-service'
+import DiscoverService from './services/discover-service/discover-service'
 
 const initServices = function() {
   const sharedContext = {
@@ -15,7 +14,6 @@ const initServices = function() {
   sharedContext.DiscoverService = new DiscoverService(sharedContext)
 
   return {
-    IPFSService,
     SNTService: sharedContext.SNTService,
     DiscoverService: sharedContext.DiscoverService,
     utils,
@@ -33,15 +31,11 @@ const getInstance = async () => {
       }
     }
 
-    if (web3.currentProvider) {
-      returnInstance()
-    } else {
-      EmbarkJS.onReady(err => {
-        if (err) reject(err)
+    EmbarkJS.onReady(err => {
+      if (err) reject(err)
 
-        returnInstance()
-      })
-    }
+      returnInstance()
+    })
   })
 }
 

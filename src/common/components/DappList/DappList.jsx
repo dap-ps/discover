@@ -6,14 +6,14 @@ import DappListItem from '../DappListItem'
 class DappList extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {'dappIdsMap': new Set(), 'mounted': false}
+    this.state = { dappIdsMap: new Set(), mounted: false }
   }
 
   componentDidMount() {
     const { dapps } = this.props
     const { dappIdsMap } = this.state
     dapps.forEach(dapp => dappIdsMap.add(dapp.id))
-    this.setState({ dappIdsMap, mounted: true})
+    this.setState({ dappIdsMap, mounted: true })
   }
 
   componentDidUpdate() {
@@ -26,8 +26,7 @@ class DappList extends React.Component {
     }
     if (!update) return
 
-    for (let i = 0; i < dapps.length; i += 1)
-      dappIdsMap.add(dapps[i].id)
+    for (let i = 0; i < dapps.length; i += 1) dappIdsMap.add(dapps[i].id)
 
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
@@ -36,9 +35,7 @@ class DappList extends React.Component {
     })
   }
 
-  animate() {
-    
-  }
+  animate() {}
 
   render() {
     const { dapps, isRanked, showActionButtons } = this.props
@@ -55,7 +52,7 @@ class DappList extends React.Component {
           showActionButtons={showActionButtons}
         />
       ))
-    )  
+    )
   }
 }
 

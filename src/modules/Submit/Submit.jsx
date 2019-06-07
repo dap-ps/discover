@@ -11,7 +11,8 @@ import icon from '../../common/assets/images/icon.svg'
 import sntIcon from '../../common/assets/images/SNT.svg'
 import 'rc-slider/assets/index.css'
 import 'rc-tooltip/assets/bootstrap.css'
-import { DappState } from '../../common/data/dapp';
+import { DappState } from '../../common/data/dapp'
+import validator from 'validator';
 
 const getCategoryName = category =>
   Categories.find(x => x.key === category).value
@@ -34,6 +35,7 @@ class Submit extends React.Component {
     this.onImgDone = this.onImgDone.bind(this)
     this.onSubmit = this.onSubmit.bind(this)
     this.handleSNTChange = this.handleSNTChange.bind(this)
+    this.onClickSubmit = this.onClickSubmit.bind(this)
   }
 
   componentDidUpdate() {
@@ -150,20 +152,42 @@ class Submit extends React.Component {
     onImgDone(imgBase64)
   }
 
+  onClickSubmit() {
+    const { id, url, showAlert, switchToRating } = this.props
+
+    if (!validator.isURL(url, { require_protocol: true })) {
+      showAlert('Invalid URL address')
+      return
+    }
+
+    const functor = id === '' ? switchToRating : this.onSubmit
+    functor();
+  }
+
   onSubmit() {
-    const { onSubmit, onUpdate, id, name, desc, url, img, category, sntValue } = this.props
-    const metadata = {
+    const {
+      onSubmit,
+      onUpdate,
+      id,
       name,
+      desc,
       url,
       img,
       category,
-      desc,
+      sntValue,
+    } = this.props
+
+    const metadata = {
+      name,
+      url,
+      image: img,
+      category,
+      description: desc,
+      dateAdded: Date.now(),
     }
 
-    if (id === '')
-      onSubmit(metadata, parseInt(sntValue, 10))
-    else
-      onUpdate(id, metadata)
+    if (id === '') onSubmit(metadata, parseInt(sntValue, 10))
+    else onUpdate(id, metadata)
   }
 
   handleSNTChange(e) {
@@ -190,7 +214,6 @@ class Submit extends React.Component {
       visible_submit,
       visible_rating,
       onClickClose,
-      id,
       name,
       desc,
       url,
@@ -200,7 +223,6 @@ class Submit extends React.Component {
       imgControlZoom,
       onImgCancel,
       onClickTerms,
-      switchToRating,
       sntValue,
     } = this.props
 
@@ -320,7 +342,7 @@ class Submit extends React.Component {
                   className={styles.submitButton}
                   type="submit"
                   disabled={!canSubmit}
-                  onClick={id === '' ? switchToRating : this.onSubmit}
+                  onClick={this.onClickSubmit}
                 >
                   Continue
                 </button>
@@ -477,6 +499,7 @@ Submit.propTypes = {
   onClickTerms: PropTypes.func.isRequired,
   switchToRating: PropTypes.func.isRequired,
   dappState: PropTypes.instanceOf(DappState).isRequired,
+  showAlert: PropTypes.func.isRequired,
 }
 
 export default Submit

@@ -5,7 +5,7 @@ import DappList from '../../common/components/DappList'
 import CategoryHeader from '../CategoryHeader'
 import styles from './Dapps.module.scss'
 import { headerElements, getYPosition } from './Dapps.utils'
-import { DappState } from '../../common/data/dapp';
+import { DappState } from '../../common/data/dapp'
 
 class Dapps extends React.Component {
   static scanHeaderPositions() {
@@ -93,7 +93,6 @@ class Dapps extends React.Component {
 
 Dapps.propTypes = {
   dappState: PropTypes.instanceOf(DappState).isRequired,
-  fetchByCategory: PropTypes.func.isRequired,
 }
 
 export default Dapps

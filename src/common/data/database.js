@@ -7,7 +7,6 @@ const DB_STORE_DAPPS = 'store_dapps'
 function open() {
   return openDB(DB_NAME, 1, {
     upgrade(db) {
-      console.log('on create')
       db.createObjectStore(DB_STORE_DAPPS, {
         keyPath: 'id',
       })

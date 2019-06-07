@@ -3,12 +3,12 @@ import PropTypes from 'prop-types'
 import CategorySelector from '../CategorySelector'
 import DappList from '../../common/components/DappList'
 import styles from './Filtered.module.scss'
-import { DappState } from '../../common/data/dapp';
+import { DappState } from '../../common/data/dapp'
 
 class Filtered extends React.Component {
   render() {
     const { match, dappState } = this.props
-    const category = match !== undefined ? match.params.id : undefined 
+    const category = match !== undefined ? match.params.id : undefined
 
     return (
       <>

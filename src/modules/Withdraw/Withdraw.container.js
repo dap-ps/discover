@@ -2,7 +2,11 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import Withdraw from './Withdraw'
 
-import { closeWithdrawAction, onInputSntValueAction, withdrawAction } from './Withdraw.reducer'
+import {
+  closeWithdrawAction,
+  onInputSntValueAction,
+  withdrawAction,
+} from './Withdraw.reducer'
 
 const mapStateToProps = state =>
   Object.assign(state.withdraw, { dappState: state.dapps })

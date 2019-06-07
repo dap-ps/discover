@@ -28,7 +28,7 @@ const mapDispatchToProps = dispatch => ({
   downVote: (dapp, amount) => dispatch(downVoteAction(dapp, amount)),
   onClickLearnMoreUpVote: () => dispatch(learnMoreUpVoteAction()),
   onClickLearnMoreDownVote: () => dispatch(learnMoreDownVoteAction()),
-  onClickCloseLearnMore: () => dispatch(closeLearnMoreAction())
+  onClickCloseLearnMore: () => dispatch(closeLearnMoreAction()),
 })
 
 export default withRouter(

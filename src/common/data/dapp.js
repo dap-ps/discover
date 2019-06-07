@@ -12,10 +12,15 @@ export default class DappModel {
     this.desc = ''
     this.category = ''
     this.dateAdded = 0
+    this.status = 'NEW'
   }
 
   clone() {
     return Object.assign(new DappModel(), this)
+  }
+
+  isApproved() {
+    return this.status === 'APPROVED'
   }
 
   static instanceFromBlockchainWithMetadata(source) {
@@ -95,7 +100,9 @@ export class DappState {
   getDappsByCategory(category) {
     let filtered = this.categoryMap.get(category)
     if (filtered === null) {
-      filtered = this.dapps.filter(dapp => dapp.category === category)
+      filtered = this.dapps.filter(
+        dapp => dapp.category === category && dapp.isApproved() === true,
+      )
       this.categoryMap.set(category, filtered)
     }
     return filtered
@@ -103,16 +110,17 @@ export class DappState {
 
   getHighestRanked() {
     if (this.dappsHightestRanked === null)
-      this.dappsHightestRanked = this.dapps.slice(0, HIGHEST_RANKED_SIZE)
+      this.dappsHightestRanked = this.dapps.filter(dapp => dapp.sntValue > 0)
     return this.dappsHightestRanked
   }
 
   getRecentlyAdded() {
     if (this.dappsRecentlyAdded === null) {
-      this.dappsRecentlyAdded = [...this.dapps]
+      this.dappsRecentlyAdded = this.dapps
+        .filter(dapp => dapp.isApproved() === true)
         .sort((a, b) => {
           return (
-            new Date().getTime(b.dateAdded) - new Date(a.dateAdded).getTime()
+            new Date(b.dateAdded).getTime() - new Date(a.dateAdded).getTime()
           )
         })
         .slice(0, RECENTLY_ADDED_SIZE)

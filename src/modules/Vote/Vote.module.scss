@@ -217,7 +217,8 @@
 }
 
 .learnMoreCnt {
-  display: flex; flex-direction: column;
+  display: flex;
+  flex-direction: column;
   font-family: $font;
 
   .title {
@@ -233,8 +234,8 @@
     margin: 14px 16px;
 
     img {
-      width:100%;
-      flex:0 0 auto;
+      width: 100%;
+      flex: 0 0 auto;
     }
 
     p {
@@ -246,12 +247,13 @@
 
   .backButtonCnt {
     height: 64px;
-    display: flex; flex:0 0 auto;
+    display: flex;
+    flex: 0 0 auto;
     align-items: center;
     justify-content: center;
     border-top: 1px solid #f7f7f7;
     margin-top: auto;
-  
+
     .backButton {
       background: $link-color;
       border-radius: 8px;
