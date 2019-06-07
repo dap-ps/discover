@@ -5,9 +5,7 @@ const EmbarkJS = require('/Users/lyubo/Desktop/Projects/Status/deployment/discov
 export default EmbarkJS
 global.EmbarkJS = EmbarkJS
 
-const Web3 =
-  global.__Web3 ||
-  require('/Users/lyubo/Desktop/Projects/Status/deployment/discover/src/embarkArtifacts/modules/web3')
+const Web3 = global.__Web3 || require('web3')
 global.Web3 = Web3 /*global Web3*/
 const embarkJSConnectorWeb3 = {}
 
