@@ -6,11 +6,11 @@ class HelmetMiddleware {
 
         // Our api use only internal sources
         // If someone tries to execute an external resource on our api, it wont be executed
-        app.use(helmet.contentSecurityPolicy({
-            directives: {
-                defaultSrc: ["'self'"]
-            }
-        }));
+        // app.use(helmet.contentSecurityPolicy({
+        //     directives: {
+        //         defaultSrc: ["'self'"]
+        //     }
+        // }));
 
         // Expect-CT protect us from man-in-the-middle-attack over HTTPS
         // It enforce browser to check in CT public log if a requester has a valid certificate
