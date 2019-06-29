@@ -12,7 +12,7 @@ import sntIcon from '../../common/assets/images/SNT.svg'
 import 'rc-slider/assets/index.css'
 import 'rc-tooltip/assets/bootstrap.css'
 import { DappState } from '../../common/data/dapp'
-import validator from 'validator';
+import validator from 'validator'
 
 const getCategoryName = category =>
   Categories.find(x => x.key === category).value
@@ -161,7 +161,7 @@ class Submit extends React.Component {
     }
 
     const functor = id === '' ? switchToRating : this.onSubmit
-    functor();
+    functor()
   }
 
   onSubmit() {
@@ -447,6 +447,7 @@ class Submit extends React.Component {
                 type="text"
                 value={sntValue}
                 onChange={this.handleSNTChange}
+                placeholder="0"
                 style={{ width: `${21 * Math.max(1, sntValue.length)}px` }}
               />
             </div>

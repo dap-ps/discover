@@ -122,6 +122,10 @@
     }
   }
 
+  input::placeholder {
+    color: $headline-color;
+  }
+
   .imgInfo {
     line-height: 22px;
     color: #939ba1;
