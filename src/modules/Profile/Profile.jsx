@@ -45,7 +45,7 @@ const ProfileContent = ({
         </div>
         <div className={styles.description}>
           <span className={styles.heading}>Description</span>
-          <span className="wrapper">{desc || 'None available'}</span>
+          <span className="wrapper">{desc || 'Not available'}</span>
         </div>
         <div className={styles.chat}>
           <ReactImageFallback
