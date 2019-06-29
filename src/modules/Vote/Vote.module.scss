@@ -175,6 +175,10 @@
   margin-right: calculateRem(6);
 }
 
+input::placeholder {
+  color: $headline-color;
+}
+
 .inputArea input:focus {
   outline: none;
 }

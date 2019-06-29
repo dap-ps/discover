@@ -141,6 +141,7 @@ class Vote extends Component {
                     {currentSNTamount.toLocaleString()}
                   </span>
                   {isUpvote &&
+                    sntValue > 0 &&
                     afterVoteRating !== null &&
                     afterVoteRating > 0 && (
                       <span className={styles.greenBadge}>
@@ -148,6 +149,7 @@ class Vote extends Component {
                       </span>
                     )}
                   {!isUpvote &&
+                    sntValue > 0 &&
                     afterVoteRating !== null &&
                     afterVoteRating > 0 && (
                       <span className={styles.redBadge}>
@@ -166,6 +168,7 @@ class Vote extends Component {
                     {`${getCategoryName(dapp.category)} №${catPosition}`}
                   </span>
                   {isUpvote &&
+                    sntValue > 0 &&
                     afterVoteCategoryPosition !== null &&
                     afterVoteCategoryPosition !== catPosition && (
                       <span className={styles.greenBadge}>
@@ -173,6 +176,7 @@ class Vote extends Component {
                       </span>
                     )}
                   {!isUpvote &&
+                    sntValue > 0 &&
                     afterVoteCategoryPosition !== null &&
                     afterVoteCategoryPosition !== catPosition && (
                       <span className={styles.redBadge}>
@@ -197,6 +201,7 @@ class Vote extends Component {
                     type="text"
                     value={sntValue}
                     onChange={this.handleChange}
+                    placeholder="0"
                     style={{ width: `${21 * Math.max(1, sntValue.length)}px` }}
                   />
                 </div>
