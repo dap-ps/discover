@@ -20,7 +20,7 @@ const DappListItem = props => {
     onToggleProfileModal,
   } = props
 
-  const { name, desc, url, image } = dapp
+  const { name, description, image } = dapp
 
   const handleUpVote = () => {
     onClickUpVote(dapp)
@@ -55,13 +55,9 @@ const DappListItem = props => {
             className={styles.description}
             style={{ WebkitBoxOrient: 'vertical' }}
           >
-            {desc}
+            {description}
           </p>
         </div>
-        <a className={styles.url} href={url}>
-          {url}
-          &nbsp;&rarr;
-        </a>
         {showActionButtons && (
           <div className={styles.actionArea}>
             <span className={styles.sntAmount}>
