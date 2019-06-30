@@ -69,18 +69,15 @@ module.exports = {
     // },
 
     contracts: {
-      MiniMeToken: { deploy: false },
       BancorFormula: { deploy: false },
       MiniMeTokenFactory: { deploy: false },
       SafeMath: { deploy: false },
       TestBancorFormula: { deploy: false },
-      SNT: {
-        instanceOf: 'MiniMeToken',
-        address: '0x25B1bD06fBfC2CbDbFc174e10f1B78b1c91cc77B',
+      MiniMeToken: {
+        address: '0x2764b5da3696e3613ef9864e9b4613f9fa478e75'
       },
-      Discover: { address: '0xad28BF7423874B678dFAFb526433c62624dcaB45' },
-      // SNT: {
-      //   instanceOf: 'MiniMeToken',
+      Discover: { address: '0x3449Eb0705C9f0A77B687E7247c31e4A65f60dD4' },
+      // MiniMeToken: {
       //   args: [
       //     '$MiniMeTokenFactory',
       //     '0x0000000000000000000000000000000000000000',
@@ -124,8 +121,9 @@ module.exports = {
       protocol: 'https',
     },
     dappConnection: [
+      '$WEB3',
       'https://ropsten.infura.io/v3/8675214b97b44e96b70d05326c61fd6a',
-    ],
+    ]
   },
 
   // merges with the settings in default

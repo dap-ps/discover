@@ -135,6 +135,7 @@ class DiscoverService extends BlockchainService {
   }
 
   async upVote(id, amount) {
+    await super.__unlockServiceAccount()
     await this.validator.validateUpVoting(id, amount)
 
     const callData = DiscoverContract.methods.upvote(id, amount).encodeABI()
@@ -146,6 +147,7 @@ class DiscoverService extends BlockchainService {
   }
 
   async downVote(id) {
+    await super.__unlockServiceAccount()
     const dapp = await this.getDAppById(id)
     const amount = (await this.downVoteCost(dapp.id)).c
 
