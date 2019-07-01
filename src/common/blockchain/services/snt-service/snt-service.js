@@ -37,20 +37,19 @@ class SNTService extends BlockchainService {
   }
 
   async approveAndCall(spender, amount, callData) {
-    await super.__unlockServiceAccount()
+    const ConnectedSNTToken = await super.__unlockServiceAccount(SNTToken)
     await this.validator.validateApproveAndCall(spender, amount)
-
     return broadcastContractFn(
-      SNTToken.methods.approveAndCall(spender, amount, callData).send,
+      ConnectedSNTToken.methods.approveAndCall(spender, amount, callData).send,
       this.sharedContext.account,
     )
   }
 
   // This is for testing purpose only
   async generateTokens() {
-    await super.__unlockServiceAccount()
+    const ConnectedSNTToken = await super.__unlockServiceAccount(SNTToken)
 
-    await SNTToken.methods
+    await ConnectedSNTToken.methods
       .generateTokens(this.sharedContext.account, 10000)
       .send({ from: this.sharedContext.account })
   }

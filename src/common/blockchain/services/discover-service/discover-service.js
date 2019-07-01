@@ -109,7 +109,9 @@ class DiscoverService extends BlockchainService {
 
   // Transaction methods
   async createDApp(amount, metadata) {
-    await super.__unlockServiceAccount()
+    const ConnectedDiscoverContract = await super.__unlockServiceAccount(
+      DiscoverContract,
+    )
 
     const dappMetadata = JSON.parse(JSON.stringify(metadata))
     dappMetadata.uploader = this.sharedContext.account
@@ -119,7 +121,7 @@ class DiscoverService extends BlockchainService {
 
     const uploadedMetadata = await MetadataClient.upload(dappMetadata)
 
-    const callData = DiscoverContract.methods
+    const callData = ConnectedDiscoverContract.methods
       .createDApp(dappId, amount, uploadedMetadata)
       .encodeABI()
 
@@ -135,7 +137,6 @@ class DiscoverService extends BlockchainService {
   }
 
   async upVote(id, amount) {
-    await super.__unlockServiceAccount()
     await this.validator.validateUpVoting(id, amount)
 
     const callData = DiscoverContract.methods.upvote(id, amount).encodeABI()
@@ -147,7 +148,6 @@ class DiscoverService extends BlockchainService {
   }
 
   async downVote(id) {
-    await super.__unlockServiceAccount()
     const dapp = await this.getDAppById(id)
     const amount = (await this.downVoteCost(dapp.id)).c
 
@@ -162,12 +162,14 @@ class DiscoverService extends BlockchainService {
   }
 
   async withdraw(id, amount) {
-    await super.__unlockServiceAccount()
+    const ConnectedDiscoverContract = await super.__unlockServiceAccount(
+      DiscoverContract,
+    )
     await this.validator.validateWithdrawing(id, amount)
 
     try {
       return broadcastContractFn(
-        DiscoverContract.methods.withdraw(id, amount).send,
+        ConnectedDiscoverContract.methods.withdraw(id, amount).send,
         this.sharedContext.account,
       )
     } catch (error) {
@@ -176,7 +178,9 @@ class DiscoverService extends BlockchainService {
   }
 
   async setMetadata(id, metadata) {
-    await super.__unlockServiceAccount()
+    const ConnectedDiscoverContract = await super.__unlockServiceAccount(
+      DiscoverContract,
+    )
     await this.validator.validateMetadataSet(id)
 
     const dappMetadata = JSON.parse(JSON.stringify(metadata))
@@ -186,7 +190,8 @@ class DiscoverService extends BlockchainService {
 
     try {
       const tx = await broadcastContractFn(
-        DiscoverContract.methods.setMetadata(id, uploadedMetadata).send,
+        ConnectedDiscoverContract.methods.setMetadata(id, uploadedMetadata)
+          .send,
         this.sharedContext.account,
       )
 
