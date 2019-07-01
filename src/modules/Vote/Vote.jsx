@@ -122,80 +122,90 @@ class Vote extends Component {
                 ↓ DOWNVOTE
               </button>
             </div>
-            <div className={styles.dapp}>
-              <ReactImageFallback
-                className={styles.image}
-                src={dapp.image}
-                fallbackImage={icon}
-                alt="App icon"
-                width={24}
-                height={24}
-              />
-              {dapp.name}
-            </div>
-            <div className={styles.items}>
-              <div className={styles.itemRow}>
-                <span className={styles.item}>
-                  <img src={sntIcon} alt="SNT" width="24" height="24" />
-                  {currentSNTamount.toLocaleString()}
-                </span>
-                {isUpvote && afterVoteRating !== null && afterVoteRating > 0 && (
-                  <span className={styles.greenBadge}>
-                    {`${(afterVoteRating).toLocaleString()} ↑`}
-                  </span>
-                )}
-                {!isUpvote && afterVoteRating !== null && afterVoteRating > 0 && (
-                  <span className={styles.redBadge}>
-                    {`${(afterVoteRating).toLocaleString()} ↓`}
-                  </span>
-                )}
-              </div>
-              <div className={styles.itemRow}>
-                <span className={styles.item}>
-                  <img
-                    src={CategoriesUtils(dapp.category)}
-                    alt={getCategoryName(dapp.category)}
-                    width="24"
-                    height="24"
-                  />
-                  {`${getCategoryName(dapp.category)} №${catPosition}`}
-                </span>
-                {isUpvote &&
-                  afterVoteCategoryPosition !== null &&
-                  afterVoteCategoryPosition !== catPosition && (
-                    <span className={styles.greenBadge}>
-                      {`№${afterVoteCategoryPosition} ↑`}
-                    </span>
-                  )}
-                {!isUpvote &&
-                  afterVoteCategoryPosition !== null &&
-                  afterVoteCategoryPosition !== catPosition && (
-                    <span className={styles.redBadge}>
-                      {`№${afterVoteCategoryPosition} ↓`}
-                    </span>
-                  )}
-              </div>
-            </div>
-            {!isUpvote && (
-              <div
-                className={styles.inputArea}
-                // style={{ opacity: sntValue !== '0' ? 1 : 0 }}
-              >
-                <span>{sntValue}</span>
-              </div>
-            )}
-            {isUpvote && (
-              <div className={`${styles.inputArea} ${styles.inputAreaBorder}`}>
-                <input
-                  type="text"
-                  value={sntValue}
-                  onChange={this.handleChange}
-                  style={{ width: `${21 * Math.max(1, sntValue.length)}px` }}
+            <div className={styles.content}>
+              <div className={styles.dapp}>
+                <ReactImageFallback
+                  className={styles.image}
+                  src={dapp.image}
+                  fallbackImage={icon}
+                  alt="App icon"
+                  width={24}
+                  height={24}
                 />
+                {dapp.name}
               </div>
-            )}
-
-            <div className={styles.footer}>
+              <div className={styles.items}>
+                <div className={styles.itemRow}>
+                  <span className={styles.item}>
+                    <img src={sntIcon} alt="SNT" width="24" height="24" />
+                    {currentSNTamount.toLocaleString()}
+                  </span>
+                  {isUpvote &&
+                    sntValue > 0 &&
+                    afterVoteRating !== null &&
+                    afterVoteRating > 0 && (
+                      <span className={styles.greenBadge}>
+                        {`${afterVoteRating.toLocaleString()} ↑`}
+                      </span>
+                    )}
+                  {!isUpvote &&
+                    sntValue > 0 &&
+                    afterVoteRating !== null &&
+                    afterVoteRating > 0 && (
+                      <span className={styles.redBadge}>
+                        {`${afterVoteRating.toLocaleString()} ↓`}
+                      </span>
+                    )}
+                </div>
+                <div className={styles.itemRow}>
+                  <span className={styles.item}>
+                    <img
+                      src={CategoriesUtils(dapp.category)}
+                      alt={getCategoryName(dapp.category)}
+                      width="24"
+                      height="24"
+                    />
+                    {`${getCategoryName(dapp.category)} №${catPosition}`}
+                  </span>
+                  {isUpvote &&
+                    sntValue > 0 &&
+                    afterVoteCategoryPosition !== null &&
+                    afterVoteCategoryPosition !== catPosition && (
+                      <span className={styles.greenBadge}>
+                        {`№${afterVoteCategoryPosition} ↑`}
+                      </span>
+                    )}
+                  {!isUpvote &&
+                    sntValue > 0 &&
+                    afterVoteCategoryPosition !== null &&
+                    afterVoteCategoryPosition !== catPosition && (
+                      <span className={styles.redBadge}>
+                        {`№${afterVoteCategoryPosition} ↓`}
+                      </span>
+                    )}
+                </div>
+              </div>
+              {!isUpvote && (
+                <div
+                  className={styles.inputArea}
+                  // style={{ opacity: sntValue !== '0' ? 1 : 0 }}
+                >
+                  <span>{sntValue}</span>
+                </div>
+              )}
+              {isUpvote && (
+                <div
+                  className={`${styles.inputArea} ${styles.inputAreaBorder}`}
+                >
+                  <input
+                    type="text"
+                    value={sntValue}
+                    onChange={this.handleChange}
+                    placeholder="0"
+                    style={{ width: `${21 * Math.max(1, sntValue.length)}px` }}
+                  />
+                </div>
+              )}
               {isUpvote && (
                 <p className={styles.disclaimer}>
                   SNT you spend to upvote is locked in the contract and
@@ -211,6 +221,9 @@ class Vote extends Component {
                   <a onClick={onClickLearnMoreDownVote}>Learn more↗</a>
                 </p>
               )}
+            </div>
+
+            <div className={styles.footer}>
               <button
                 type="submit"
                 disabled={(!sntValue || sntValue === '0') && isUpvote}

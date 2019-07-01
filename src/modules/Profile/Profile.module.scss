@@ -21,7 +21,6 @@ a {
 
 .banner {
   height: calculateRem(140);
-  background-color: $blue-bg;
   display: flex;
   justify-content: center;
 }
@@ -38,7 +37,7 @@ a {
 
 .header {
   color: $headline-color;
-  font-size: calculateRem(15);
+  font-size: calculateRem(22);
   line-height: calculateRem(22);
   margin-bottom: calculateRem(4);
   margin-top: calculateRem(12);
@@ -72,13 +71,20 @@ a {
   border-radius: 20px;
   background-color: #4360df;
   color: #ffffff;
-  padding: calculateRem(12) calculateRem(20);
+  margin: calculateRem(16) 0 calculateRem(24) 0;
+  padding: calculateRem(12) calculateRem(32);
 }
 
 .description {
   border-bottom: 1px solid #eef2f5;
   box-shadow: inset 0px 1px 0px #eef2f5;
   padding: calculateRem(10) calculateRem(20);
+  display: flex;
+  flex-direction: column;
+}
+
+.wrapper {
+  margin-top: calculateRem(8);
 }
 
 .chat {
@@ -97,8 +103,7 @@ a {
 }
 
 .chat_link {
-  margin: calculateRem(10);
-  margin-top: calculateRem(25);
+  margin: calculateRem(25) calculateRem(10) 0;
 }
 
 .chat_icon {
@@ -110,6 +115,8 @@ a {
   border-bottom: 1px solid #eef2f5;
   box-shadow: inset 0px 1px 0px #eef2f5;
   padding: calculateRem(10) calculateRem(20);
+  display: flex;
+  flex-direction: column;
 }
 
 .ranking {

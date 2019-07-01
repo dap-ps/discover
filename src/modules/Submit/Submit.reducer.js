@@ -138,7 +138,7 @@ export const submitAction = (dapp, sntValue) => {
       onStartProgressAction(
         dapp.name,
         dapp.image,
-        'Status is an open source mobile DApp browser and messenger build for #Etherium',
+        dapp.description,
         TYPE_SUBMIT,
       ),
     )
