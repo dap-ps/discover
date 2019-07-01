@@ -24,12 +24,12 @@
   }
 
   @media (min-width: 970px) {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(3, 1fr);
     overflow-x: scroll;
   }
 
   @media (min-width: 1300px) {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(3, 1fr);
     overflow-x: scroll;
   }
 }
