@@ -18,18 +18,18 @@
 
   @media (min-width: $desktop) {
     // grid-auto-flow: row;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: unset;
+    grid-template-rows: repeat(4, 1fr);
+    grid-template-columns: unset;
     overflow-x: hidden;
   }
 
   @media (min-width: 970px) {
-    grid-template-rows: repeat(3, 1fr);
-    overflow-x: scroll;
+    grid-template-columns: unset;
+    grid-template-rows: repeat(4, 1fr);
   }
 
   @media (min-width: 1300px) {
-    grid-template-rows: repeat(3, 1fr);
-    overflow-x: scroll;
+    grid-template-columns: unset;
+    grid-template-rows: repeat(4, 1fr);
   }
 }
