@@ -48,7 +48,7 @@ module.exports = {
     // Automatically call `ethereum.enable` if true.
     // If false, the following code must run before sending any transaction: `await EmbarkJS.enableEthereum();`
     // Default value is true.
-    // dappAutoEnable: true,
+    dappAutoEnable: false,
 
     gas: 'auto',
 
@@ -74,9 +74,9 @@ module.exports = {
       SafeMath: { deploy: false },
       TestBancorFormula: { deploy: false },
       MiniMeToken: {
-        address: '0x25B1bD06fBfC2CbDbFc174e10f1B78b1c91cc77B'
+        address: '0x2764b5da3696e3613ef9864e9b4613f9fa478e75'
       },
-      Discover: { address: '0xad28BF7423874B678dFAFb526433c62624dcaB45' },
+      Discover: { address: '0x3449Eb0705C9f0A77B687E7247c31e4A65f60dD4' },
       // MiniMeToken: {
       //   args: [
       //     '$MiniMeTokenFactory',
@@ -123,7 +123,8 @@ module.exports = {
     dappConnection: [
       '$WEB3',
       'https://ropsten.infura.io/v3/8675214b97b44e96b70d05326c61fd6a',
-    ]
+    ],
+    dappAutoEnable: false
   },
 
   // merges with the settings in default
