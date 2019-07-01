@@ -87,7 +87,7 @@ const ProfileContent = ({
             </span>
           </div>
         </div>
-        {editable  &&  (
+        {editable && (
           <div className={styles.actions}>
             <div className={styles.button} onClick={onClickUpdateMetadata}>
               Edit metadata
