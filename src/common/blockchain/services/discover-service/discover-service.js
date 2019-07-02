@@ -10,6 +10,7 @@ import DiscoverContract from '../../../../embarkArtifacts/contracts/Discover'
 class DiscoverService extends BlockchainService {
   constructor(sharedContext) {
     super(sharedContext, DiscoverContract, DiscoverValidator)
+    this.decimalMultiplier = 1000000000000000000
   }
 
   // View methods
@@ -109,6 +110,8 @@ class DiscoverService extends BlockchainService {
 
   // Transaction methods
   async createDApp(amount, metadata) {
+    const tokenAmount = amount * this.decimalMultiplier
+
     const ConnectedDiscoverContract = await super.__unlockServiceAccount(
       DiscoverContract,
     )
@@ -117,17 +120,17 @@ class DiscoverService extends BlockchainService {
     dappMetadata.uploader = this.sharedContext.account
 
     const dappId = web3.utils.keccak256(JSON.stringify(dappMetadata))
-    await this.validator.validateDAppCreation(dappId, amount)
+    await this.validator.validateDAppCreation(dappId, tokenAmount)
 
     const uploadedMetadata = await MetadataClient.upload(dappMetadata)
 
     const callData = ConnectedDiscoverContract.methods
-      .createDApp(dappId, amount, uploadedMetadata)
+      .createDApp(dappId, tokenAmount, uploadedMetadata)
       .encodeABI()
 
     const createdTx = await this.sharedContext.SNTService.approveAndCall(
       this.contract,
-      amount,
+      tokenAmount,
       callData,
     )
 
@@ -137,12 +140,15 @@ class DiscoverService extends BlockchainService {
   }
 
   async upVote(id, amount) {
+    const tokenAmount = amount * this.decimalMultiplier
     await this.validator.validateUpVoting(id, amount)
 
-    const callData = DiscoverContract.methods.upvote(id, amount).encodeABI()
+    const callData = DiscoverContract.methods
+      .upvote(id, tokenAmount)
+      .encodeABI()
     return this.sharedContext.SNTService.approveAndCall(
       this.contract,
-      amount,
+      tokenAmount,
       callData,
     )
   }
@@ -162,14 +168,15 @@ class DiscoverService extends BlockchainService {
   }
 
   async withdraw(id, amount) {
+    const tokenAmount = amount * this.decimalMultiplier
     const ConnectedDiscoverContract = await super.__unlockServiceAccount(
       DiscoverContract,
     )
-    await this.validator.validateWithdrawing(id, amount)
+    await this.validator.validateWithdrawing(id, tokenAmount)
 
     try {
       return broadcastContractFn(
-        ConnectedDiscoverContract.methods.withdraw(id, amount).send,
+        ConnectedDiscoverContract.methods.withdraw(id, tokenAmount).send,
         this.sharedContext.account,
       )
     } catch (error) {

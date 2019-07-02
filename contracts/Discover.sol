@@ -62,6 +62,8 @@ contract Discover is ApproveAndCallFallBack, BancorFormula {
         max = total.mul(ceiling).div(decimals);
 
         safeMax = uint(77).mul(max).div(100); // Limited by accuracy of BancorFormula
+
+        safeMax = safeMax;
     }
 
     /**
@@ -114,15 +116,18 @@ contract Discover is ApproveAndCallFallBack, BancorFormula {
      * @param _amount of tokens to withdraw from DApp's overall balance.
      */
     function withdraw(bytes32 _id, uint _amount) external {
+        
         Data storage d = _getDAppById(_id);
 
+        uint256 tokensQuantity = _amount / 1 ether;
+
         require(msg.sender == d.developer, "Only the developer can withdraw SNT staked on this data");
-        require(_amount <= d.available, "You can only withdraw a percentage of the SNT staked, less what you have already received");
+        require(tokensQuantity <= d.available, "You can only withdraw a percentage of the SNT staked, less what you have already received");
 
         uint precision;
         uint result;
 
-        d.balance = d.balance.sub(_amount);
+        d.balance = d.balance.sub(tokensQuantity);
         d.rate = decimals.sub(d.balance.mul(decimals).div(max));
         d.available = d.balance.mul(d.rate);
 
@@ -270,8 +275,10 @@ contract Discover is ApproveAndCallFallBack, BancorFormula {
       {
         require(!existingIDs[_id], "You must submit a unique ID");
 
-        require(_amount > 0, "You must spend some SNT to submit a ranking in order to avoid spam");
-        require (_amount <= safeMax, "You cannot stake more SNT than the ceiling dictates");
+        uint256 tokensQuantity = _amount / 1 ether;
+
+        require(tokensQuantity > 0, "You must spend some SNT to submit a ranking in order to avoid spam");
+        require (tokensQuantity <= safeMax, "You cannot stake more SNT than the ceiling dictates");
 
         uint dappIdx = dapps.length;
 
@@ -285,7 +292,7 @@ contract Discover is ApproveAndCallFallBack, BancorFormula {
         uint precision;
         uint result;
 
-        d.balance = _amount;
+        d.balance = tokensQuantity;
         d.rate = decimals.sub((d.balance).mul(decimals).div(max));
         d.available = d.balance.mul(d.rate);
 
@@ -297,7 +304,7 @@ contract Discover is ApproveAndCallFallBack, BancorFormula {
 
         d.votesMinted = result >> precision;
         d.votesCast = 0;
-        d.effectiveBalance = _amount;
+        d.effectiveBalance = tokensQuantity;
 
         id2index[_id] = dappIdx;
         existingIDs[_id] = true;
@@ -309,16 +316,17 @@ contract Discover is ApproveAndCallFallBack, BancorFormula {
     }
 
     function _upvote(address _from, bytes32 _id, uint _amount) internal {
-        require(_amount > 0, "You must send some SNT in order to upvote");
+        uint256 tokensQuantity = _amount / 1 ether;
+        require(tokensQuantity > 0, "You must send some SNT in order to upvote");
 
         Data storage d = _getDAppById(_id);
 
-        require(d.balance.add(_amount) <= safeMax, "You cannot upvote by this much, try with a lower amount");
+        require(d.balance.add(tokensQuantity) <= safeMax, "You cannot upvote by this much, try with a lower amount");
 
         uint precision;
         uint result;
 
-        d.balance = d.balance.add(_amount);
+        d.balance = d.balance.add(tokensQuantity);
         d.rate = decimals.sub((d.balance).mul(decimals).div(max));
         d.available = d.balance.mul(d.rate);
 
@@ -343,12 +351,13 @@ contract Discover is ApproveAndCallFallBack, BancorFormula {
     }
 
     function _downvote(address _from, bytes32 _id, uint _amount) internal {
+        uint256 tokensQuantity = _amount / 1 ether;
         Data storage d = _getDAppById(_id);
         (uint b, uint vR, uint c) = _downvoteCost(d);
 
-        require(_amount == c, "Incorrect amount: valid iff effect on ranking is 1%");
+        require(tokensQuantity == c, "Incorrect amount: valid iff effect on ranking is 1%");
 
-        d.available = d.available.sub(_amount);
+        d.available = d.available.sub(tokensQuantity);
         d.votesCast = d.votesCast.add(vR);
         d.effectiveBalance = d.effectiveBalance.sub(b);
 
