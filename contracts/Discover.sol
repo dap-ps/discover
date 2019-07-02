@@ -21,6 +21,9 @@ contract Discover is ApproveAndCallFallBack, BancorFormula {
     // The max amount of tokens it is possible to stake, as a percentage of the total in circulation
     uint public max;
 
+    // Need to multiply by 10^18 because tokens on Ethereum...
+    uint public maxCheck;
+
     // Decimal precision for this contract
     uint public decimals;
 
@@ -57,11 +60,13 @@ contract Discover is ApproveAndCallFallBack, BancorFormula {
 
         ceiling = 292;   // See here for more: https://observablehq.com/@andytudhope/dapp-store-snt-curation-mechanism
 
-        decimals = 1000000; // 4 decimal points for %, 2 because we only use 1/100th of total in circulation
+        decimals = 1000000; // 4 decimal points for %, 2 because we only use 1/100th of total in existence
 
         max = total.mul(ceiling).div(decimals);
 
         safeMax = uint(77).mul(max).div(100); // Limited by accuracy of BancorFormula
+
+        maxCheck = safeMax.mul(10000000000000000000);
     }
 
     /**
@@ -219,7 +224,7 @@ contract Discover is ApproveAndCallFallBack, BancorFormula {
      */
     function upvoteEffect(bytes32 _id, uint _amount) external view returns(uint effect) {
         Data memory d = _getDAppById(_id);
-        require(d.balance.add(_amount) <= safeMax, "You cannot upvote by this much, try with a lower amount");
+        require(d.balance.add(_amount) <= maxCheck, "You cannot upvote by this much, try with a lower amount");
 
         // Special case - no downvotes yet cast
         if (d.votesCast == 0) {
@@ -271,7 +276,7 @@ contract Discover is ApproveAndCallFallBack, BancorFormula {
         require(!existingIDs[_id], "You must submit a unique ID");
 
         require(_amount > 0, "You must spend some SNT to submit a ranking in order to avoid spam");
-        require (_amount <= safeMax, "You cannot stake more SNT than the ceiling dictates");
+        require (_amount <= maxCheck, "You cannot stake more SNT than the ceiling dictates");
 
         uint dappIdx = dapps.length;
 
@@ -313,7 +318,7 @@ contract Discover is ApproveAndCallFallBack, BancorFormula {
 
         Data storage d = _getDAppById(_id);
 
-        require(d.balance.add(_amount) <= safeMax, "You cannot upvote by this much, try with a lower amount");
+        require(d.balance.add(_amount) <= maxCheck, "You cannot upvote by this much, try with a lower amount");
 
         uint precision;
         uint result;
