@@ -15,6 +15,7 @@
   overflow-x: scroll;
   overflow-y: hidden;
   -webkit-overflow-scrolling: touch;
+  margin-left: 1.1rem;
 
   @media (min-width: $desktop) {
     // grid-auto-flow: row;
