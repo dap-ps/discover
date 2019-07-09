@@ -74,9 +74,9 @@ module.exports = {
       SafeMath: { deploy: false },
       TestBancorFormula: { deploy: false },
       MiniMeToken: {
-        address: '0x25B1bD06fBfC2CbDbFc174e10f1B78b1c91cc77B'
+        address: '0x2764b5da3696E3613Ef9864E9B4613f9fA478E75'
       },
-      Discover: { address: '0xd34aae5b764d720ba5b438b29d60e5e9601cf3a9' },
+      Discover: { address: '0x3c70c61b974c807a5fbbccb87353bd29bd6e3a20' },
       // MiniMeToken: {
       //   args: [
       //     '$MiniMeTokenFactory',

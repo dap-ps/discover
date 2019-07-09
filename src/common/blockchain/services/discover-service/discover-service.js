@@ -160,11 +160,11 @@ class DiscoverService extends BlockchainService {
     const dapp = await this.getDAppById(id)
     const amount = (await this.downVoteCost(dapp.id)).c
 
-    console.log(amount)
+    console.log('Cost gotten from the contract', amount)
 
     const tokenAmount = this.decimalMultiplier.mul(new BN(amount, 10))
 
-    console.log(tokenAmount.toString())
+    console.log('Cost after adjustment', tokenAmount.toString())
 
     const callData = DiscoverContract.methods
       .downvote(dapp.id, tokenAmount)
