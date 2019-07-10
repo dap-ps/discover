@@ -19,7 +19,7 @@ Builds the app into the `build` directory.
 	**Ropsten contracts:**
 
 	1. SNT - 0x2764b5da3696E3613Ef9864E9B4613f9fA478E75
-	2. Discover - 0x9591a20b9B601651eDF1072A1Dda994C0B1a5bBf
+	2. Discover - 0xd34aae5b764d720ba5b438b29d60e5e9601cf3a9
 
 	**Manual needed steps:**
 	Once embark is running:

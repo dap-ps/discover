@@ -1,5 +1,5 @@
 const TestUtils = require("../utils/testUtils");
-
+const BN = require('bn.js');
 const Discover = require('Embark/contracts/Discover');
 const SNT = embark.require('Embark/contracts/SNT');
 
@@ -42,6 +42,8 @@ contract("Discover", function () {
 
   this.timeout(0);
 
+  let decimalMultiplier = new BN('1000000000000000000', 10)
+
   it("should set max and safeMax values correctly", async function () {
     let resultMax = await Discover.methods.max().call();
     let resultSafeMax = await Discover.methods.safeMax().call();
@@ -53,7 +55,10 @@ contract("Discover", function () {
 
   it("should create a new DApp and initialise it correctly", async function () {
     let id = "0x7465737400000000000000000000000000000000000000000000000000000000";
-    let amount = 1000;
+    let tokens = 1000;
+    let tokenAmount = new BN(tokens, 10);
+    let temp = decimalMultiplier.mul(new BN(tokenAmount, 10));
+    let amount = temp.toString();
     let metadata = "QmSmv5e5DYc2otwWcpUzuqmt389s3HHx651TbxDvKBFFue";
 
     await SNT.methods.generateTokens(accounts[0], amount).send();
@@ -69,29 +74,31 @@ contract("Discover", function () {
 
     // Check Discover actually receives the SNT!
     let bal_receipt = await SNT.methods.balanceOf(Discover.options.address).call();
-    assert.strictEqual(amount, parseInt(bal_receipt, 10));
+    assert.strictEqual(parseInt(amount, 10), parseInt(bal_receipt, 10));
 
     // Having received the SNT, check that it updates the particular DApp's storage values
-    assert.strictEqual(amount, parseInt(receipt.balance, 10));
+    assert.strictEqual(tokens, parseInt(receipt.balance, 10));
 
     let max = await Discover.methods.max().call();
     let decimals = await Discover.methods.decimals().call();
-    let rate = Math.round(decimals - (amount * decimals / max));
+    let rate = Math.round(decimals - (tokens * decimals / max));
     assert.strictEqual(rate, parseInt(receipt.rate, 10));
 
-    let available = amount * rate;
+    let available = tokens * rate;
     assert.strictEqual(available, parseInt(receipt.available, 10));
 
     let votes_minted = Math.floor((available / decimals) ** (decimals / rate));
     assert.strictEqual(votes_minted, parseInt(receipt.votesMinted, 10));
 
     assert.strictEqual(0, parseInt(receipt.votesCast, 10));
-    assert.strictEqual(amount, parseInt(receipt.effectiveBalance, 10));
+    assert.strictEqual(tokens, parseInt(receipt.effectiveBalance, 10));
   })
 
   it("should not create a new DApp with the same ID", async function () {
     let id = "0x7465737400000000000000000000000000000000000000000000000000000000";
-    let amount = 1000;
+    let tokenAmount = new BN(1000, 10);
+    let temp = decimalMultiplier.mul(new BN(tokenAmount, 10));
+    let amount = temp.toString();
     let metadata = 'QmSmv5e5DYc2otwWcpUzuqmt389s3HHx651TbxDvKBFFue';
 
     await SNT.methods.generateTokens(accounts[0], amount).send();
@@ -109,7 +116,10 @@ contract("Discover", function () {
     let id = "0x7465737400000000000000000000000000000000000000000000000000000000";
     let metadata = 'QmSmv5e5DYc2otwWcpUzuqmt389s3HHx651TbxDvKBFFue';
     let initial = await Discover.methods.max().call();
-    let amount = parseInt(initial, 10);
+    let tokens = parseInt(initial, 10);
+    let tokenAmount = new BN(tokens, 10);
+    let temp = decimalMultiplier.mul(new BN(tokenAmount, 10));
+    let amount = temp.toString();
     let amount0 = 0;
 
     await SNT.methods.generateTokens(accounts[0], amount).send();
@@ -155,12 +165,15 @@ contract("Discover", function () {
 
   it("should handle first upvote correctly", async function () {
     let id = "0x7465737400000000000000000000000000000000000000000000000000000000";
-    let amount = 100;
+    let tokens = 100;
+    let tokenAmount = new BN(tokens, 10);
+    let temp = decimalMultiplier.mul(new BN(tokenAmount, 10));
+    let amount = temp.toString();
 
     let initial = await Discover.methods.dapps(0).call();
     let before = await SNT.methods.balanceOf(Discover.options.address).call();
     // This is the special case where no downvotes have yet been cast
-    let up_effect = await Discover.methods.upvoteEffect(id, amount).call();
+    let up_effect = await Discover.methods.upvoteEffect(id, tokens).call();
 
     await SNT.methods.generateTokens(accounts[0], amount).send();
     const encodedCall = Discover.methods.upvote(id, amount).encodeABI();
@@ -176,10 +189,10 @@ contract("Discover", function () {
     // Check Discover actually receives the SNT!
     let after = await SNT.methods.balanceOf(Discover.options.address).call();
     let bal_effect = parseInt(after, 10) - parseInt(before, 10);
-    assert.strictEqual(bal_effect, amount);
+    assert.strictEqual(bal_effect, parseInt(amount, 10));
 
     // Having received the SNT, check that it updates the particular DApp's storage values
-    let upvotedBalance = parseInt(initial.balance, 10) + amount
+    let upvotedBalance = parseInt(initial.balance, 10) + tokens;
     assert.strictEqual(upvotedBalance, parseInt(receipt.balance, 10));
 
     let max = await Discover.methods.max().call();
@@ -218,7 +231,10 @@ contract("Discover", function () {
   it("should not let you upvote by an amount that exceeds the ceiling", async function () {
     let id = "0x7465737400000000000000000000000000000000000000000000000000000000";
     let initial = await Discover.methods.max().call();
-    let amount = parseInt(initial, 10);
+    let tokens = parseInt(initial, 10);
+    let tokenAmount = new BN(tokens, 10);
+    let temp = decimalMultiplier.mul(new BN(tokenAmount, 10));
+    let amount = temp.toString();
 
     await SNT.methods.generateTokens(accounts[0], amount).send();
     const encodedCall = Discover.methods.upvote(id, amount).encodeABI();
@@ -233,7 +249,10 @@ contract("Discover", function () {
   it("should handle first downvote correctly", async function () {
     let id = "0x7465737400000000000000000000000000000000000000000000000000000000";
     let cost = await Discover.methods.downvoteCost(id).call()
-    let amount = parseInt(cost.c, 10);
+    let tokens = parseInt(cost.c, 10);
+    let tokenAmount = new BN(tokens, 10);
+    let temp = decimalMultiplier.mul(new BN(tokenAmount, 10));
+    let amount = temp.toString();
 
     let developer = accounts[0];
     let initial = await Discover.methods.dapps(0).call();
@@ -251,7 +270,7 @@ contract("Discover", function () {
     // Check the developer actually receives the SNT!
     let bal_after = await SNT.methods.balanceOf(developer).call();
     let bal_effect = parseInt(bal_after, 10) - parseInt(bal_before, 10)
-    assert.strictEqual(bal_effect, amount);
+    assert.strictEqual(Math.round(bal_effect/decimalMultiplier), tokens);
 
     // Balance, rate, and votes_minted remain unchanged for downvotes
     assert.strictEqual(initial.balance, receipt.balance);
@@ -271,7 +290,10 @@ contract("Discover", function () {
   it("should handle second downvote correctly", async function () {
     let id = "0x7465737400000000000000000000000000000000000000000000000000000000";
     let cost = await Discover.methods.downvoteCost(id).call()
-    let amount = parseInt(cost.c, 10);
+    let tokens = parseInt(cost.c, 10);
+    let tokenAmount = new BN(tokens, 10);
+    let temp = decimalMultiplier.mul(new BN(tokenAmount, 10));
+    let amount = temp.toString();
     let developer = accounts[0];
 
     let initial = await Discover.methods.dapps(0).call();
@@ -289,7 +311,7 @@ contract("Discover", function () {
     // Check the developer actually receives the SNT!
     let bal_after = await SNT.methods.balanceOf(developer).call();
     let bal_effect = parseInt(bal_after, 10) - parseInt(bal_before, 10)
-    assert.strictEqual(bal_effect, amount);
+    assert.strictEqual(Math.round(bal_effect/decimalMultiplier), tokens);
 
     // Balance, rate, and votes_minted remain unchanged for downvotes
     assert.strictEqual(initial.balance, receipt.balance);
@@ -308,22 +330,27 @@ contract("Discover", function () {
 
   it("should not let you downvote by the wrong amount", async function () {
     let id = "0x7465737400000000000000000000000000000000000000000000000000000000";
-    let amount_above = 10000;
-    let amount_below = 100;
+    let tokensAbove = 100000;
+    let tokensBelow = 25;
+    let tokenAboveAmount = new BN(tokensAbove, 10);
+    let tokenBelowAmount = new BN(tokensBelow, 10);
+    let temp1 = decimalMultiplier.mul(new BN(tokenAboveAmount, 10));
+    let temp2 = decimalMultiplier.mul(new BN(tokenBelowAmount, 10))
+    let amountAbove = temp1.toString();
+    let amountBelow = temp2.toString();
 
-    await SNT.methods.generateTokens(accounts[1], amount_above + amount_below).send();
-
-    const encodedCall = Discover.methods.downvote(id, amount_above).encodeABI();
+    await SNT.methods.generateTokens(accounts[1], amountAbove + amountBelow).send();
+    const encodedCall = Discover.methods.downvote(id, amountAbove).encodeABI();
     try {
-      await SNT.methods.approveAndCall(Discover.options.address, amount_above, encodedCall).send({ from: accounts[1] });
+      await SNT.methods.approveAndCall(Discover.options.address, amountAbove, encodedCall).send({ from: accounts[1] });
       assert.fail('should have reverted before');
     } catch (error) {
       TestUtils.assertJump(error);
     }
 
-    const encodedCall1 = Discover.methods.downvote(id, amount_below).encodeABI();
+    const encodedCall1 = Discover.methods.downvote(id, amountBelow).encodeABI();
     try {
-      await SNT.methods.approveAndCall(Discover.options.address, amount_below, encodedCall1).send({ from: accounts[1] });
+      await SNT.methods.approveAndCall(Discover.options.address, amountBelow, encodedCall1).send({ from: accounts[1] });
       assert.fail('should have reverted before');
     } catch (error) {
       TestUtils.assertJump(error);
@@ -332,11 +359,14 @@ contract("Discover", function () {
 
   it("should handle upvotes correctly when votes have been cast", async function () {
     let id = "0x7465737400000000000000000000000000000000000000000000000000000000";
-    let amount = 500;
+    let tokens = 500;
+    let tokenAmount = new BN(tokens, 10);
+    let temp = decimalMultiplier.mul(new BN(tokenAmount, 10));
+    let amount = temp.toString();
 
     let initial = await Discover.methods.dapps(0).call();
     let before = await SNT.methods.balanceOf(Discover.options.address).call();
-    let up_effect = await Discover.methods.upvoteEffect(id, amount).call();
+    let up_effect = await Discover.methods.upvoteEffect(id, tokens).call();
 
     await SNT.methods.generateTokens(accounts[0], amount).send();
     const encodedCall = Discover.methods.upvote(id, amount).encodeABI();
@@ -351,10 +381,10 @@ contract("Discover", function () {
     // Check Discover actually receives the SNT!
     let after = await SNT.methods.balanceOf(Discover.options.address).call();
     let bal_effect = parseInt(after, 10) - parseInt(before, 10);
-    assert.strictEqual(bal_effect, amount);
+    assert.strictEqual(Math.round(bal_effect/decimalMultiplier), tokens);
 
     // Having received the SNT, check that it updates the particular DApp's storage values
-    let upvotedBalance = parseInt(initial.balance, 10) + amount
+    let upvotedBalance = parseInt(initial.balance, 10) + tokens
     assert.strictEqual(upvotedBalance, parseInt(receipt.balance, 10));
 
     let max = await Discover.methods.max().call();
@@ -420,7 +450,10 @@ contract("Discover", function () {
 
   it("should handle withdrawals correctly", async function () {
     let id = "0x7465737400000000000000000000000000000000000000000000000000000000";
-    let amount = 100;
+    let tokens = 100;
+    let tokenAmount = new BN(tokens, 10);
+    let temp = decimalMultiplier.mul(new BN(tokenAmount, 10));
+    let amount = temp.toString();
 
     let initial = await Discover.methods.dapps(0).call();
     let before = await SNT.methods.balanceOf(Discover.options.address).call();
@@ -436,14 +469,14 @@ contract("Discover", function () {
     let difference = parseInt(before, 10) - parseInt(after, 10);
     let difference_dev = parseInt(after_dev, 10) - parseInt(before_dev, 10);
 
-    assert.strictEqual(difference, amount)
-    assert.strictEqual(difference_dev, amount)
+    assert.strictEqual(Math.round(difference/decimalMultiplier), tokens)
+    assert.strictEqual(Math.round(difference_dev/decimalMultiplier), tokens)
 
     // Recalculate e_balance manually and check it matches what is returned
     let max = await Discover.methods.max().call();
     let decimals = await Discover.methods.decimals().call();
 
-    let balance = parseInt(initial.balance, 10) - amount
+    let balance = parseInt(initial.balance, 10) - tokens
     let rate = Math.ceil(decimals - (balance * decimals / max));
     let available = Math.round(balance * rate);
     let v_minted = Math.round((available / decimals) ** (decimals / rate));
@@ -459,7 +492,7 @@ contract("Discover", function () {
     // Having withdrawn the SNT, check that it updates the particular DApp's storage values properly
     let check = await Discover.methods.dapps(0).call();
 
-    let withdrawnBalance = parseInt(initial.balance, 10) - amount;
+    let withdrawnBalance = parseInt(initial.balance, 10) - tokens;
     assert.strictEqual(parseInt(check.balance, 10), withdrawnBalance);
 
     assert.strictEqual(parseInt(check.rate, 10), rate);
@@ -469,7 +502,10 @@ contract("Discover", function () {
 
   it("should not allow withdrawing more than was staked", async function () {
     let id = "0x7465737400000000000000000000000000000000000000000000000000000000";
-    let amount = 150000;
+    let tokens = 150000;
+    let tokenAmount = new BN(tokens, 10);
+    let temp = decimalMultiplier.mul(new BN(tokenAmount, 10));
+    let amount = temp.toString();
     try {
       await Discover.methods.withdraw(id, amount).send({ from: accounts[0] });
       assert.fail('should have reverted before');
@@ -481,7 +517,10 @@ contract("Discover", function () {
   it("should not allow withdrawing more than was staked minus what has already been received", async function () {
     let id = "0x7465737400000000000000000000000000000000000000000000000000000000";
     let receipt = await Discover.methods.dapps(0).call();
-    let amount = parseInt(receipt.available, 10) + 1;
+    let tokens = parseInt(receipt.available, 10) + 1;
+    let tokenAmount = new BN(tokens, 10);
+    let temp = decimalMultiplier.mul(new BN(tokenAmount, 10));
+    let amount = temp.toString();
     try {
       await Discover.methods.withdraw(id, amount).send({ from: accounts[0] });
       assert.fail('should have reverted before');
@@ -492,7 +531,10 @@ contract("Discover", function () {
 
   it("should not allow anyone other than the developer to withdraw", async function () {
     let id = "0x7465737400000000000000000000000000000000000000000000000000000000";
-    let amount = 1000;
+    let tokens = 1000;
+    let tokenAmount = new BN(tokens, 10);
+    let temp = decimalMultiplier.mul(new BN(tokenAmount, 10));
+    let amount = temp.toString();
     try {
       await Discover.methods.withdraw(id, amount).send({ from: accounts[1] });
     } catch (error) {
@@ -503,7 +545,10 @@ contract("Discover", function () {
   it("should handle downvotes after withdrawals correctly", async function () {
     let id = "0x7465737400000000000000000000000000000000000000000000000000000000";
     let cost = await Discover.methods.downvoteCost(id).call()
-    let amount = parseInt(cost.c, 10);
+    let tokens = parseInt(cost.c, 10);
+    let tokenAmount = new BN(tokens, 10);
+    let temp = decimalMultiplier.mul(new BN(tokenAmount, 10));
+    let amount = temp.toString();
     let developer = accounts[0];
 
     let initial = await Discover.methods.dapps(0).call();
@@ -521,7 +566,7 @@ contract("Discover", function () {
     // Check the developer actually receives the SNT!
     let bal_after = await SNT.methods.balanceOf(developer).call();
     let bal_effect = parseInt(bal_after, 10) - parseInt(bal_before, 10)
-    assert.strictEqual(bal_effect, amount);
+    assert.strictEqual(Math.round(bal_effect/decimalMultiplier), tokens);
 
     // Balance, rate, and votes_minted remain unchanged for downvotes
     assert.strictEqual(initial.balance, receipt.balance);
@@ -540,11 +585,14 @@ contract("Discover", function () {
 
   it("should handle upvotes after withdrawals correctly", async function () {
     let id = "0x7465737400000000000000000000000000000000000000000000000000000000";
-    let amount = 100;
+    let tokens = 100;
+    let tokenAmount = new BN(tokens, 10);
+    let temp = decimalMultiplier.mul(new BN(tokenAmount, 10));
+    let amount = temp.toString();
 
     let initial = await Discover.methods.dapps(0).call();
     let before = await SNT.methods.balanceOf(Discover.options.address).call();
-    let up_effect = await Discover.methods.upvoteEffect(id, amount).call();
+    let up_effect = await Discover.methods.upvoteEffect(id, tokens).call();
 
     await SNT.methods.generateTokens(accounts[0], amount).send();
     const encodedCall = Discover.methods.upvote(id, amount).encodeABI();
@@ -559,10 +607,10 @@ contract("Discover", function () {
     // Check Discover  actually receives the SNT!
     let after = await SNT.methods.balanceOf(Discover.options.address).call();
     let bal_effect = parseInt(after, 10) - parseInt(before, 10);
-    assert.strictEqual(bal_effect, amount);
+    assert.strictEqual(Math.round(bal_effect/decimalMultiplier), tokens);
 
     // Having received the SNT, check that it updates the particular DApp's storage values
-    let upvotedBalance = parseInt(initial.balance, 10) + amount
+    let upvotedBalance = parseInt(initial.balance, 10) + tokens
     assert.strictEqual(upvotedBalance, parseInt(receipt.balance, 10));
 
     let max = await Discover.methods.max().call();
@@ -589,8 +637,11 @@ contract("Discover", function () {
 
   it("should create a DApp without overflowing", async function () {
     let id = "0x0000000000000000000000000000000000000000000000000000000000000001";
-    let temp = await Discover.methods.safeMax().call();
-    let amount = parseInt(temp, 10);
+    let safeMax = await Discover.methods.safeMax().call();
+    let tokens = parseInt(safeMax, 10);
+    let tokenAmount = new BN(tokens, 10);
+    let temp = decimalMultiplier.mul(new BN(tokenAmount, 10));
+    let amount = temp.toString();
     let metadata = "QmSmv5e5DYc2otwWcpUzuqmt389s3HHx651TbxDvKBFFue";
 
     await SNT.methods.generateTokens(accounts[0], amount).send();
@@ -604,14 +655,14 @@ contract("Discover", function () {
     assert.strictEqual(id, receipt.id);
 
     // Having received the SNT, check that it updates the particular DApp's storage values
-    assert.strictEqual(amount, parseInt(receipt.balance, 10));
+    assert.strictEqual(tokens, parseInt(receipt.balance, 10));
 
     let max = await Discover.methods.max().call();
     let decimals = await Discover.methods.decimals().call();
-    let rate = Math.ceil(decimals - (amount * decimals / max));
+    let rate = Math.ceil(decimals - (tokens * decimals / max));
     assert.strictEqual(rate, parseInt(receipt.rate, 10));
 
-    let available = amount * rate;
+    let available = tokens * rate;
     assert.strictEqual(available, parseInt(receipt.available, 10));
 
     // It's checking that votesMinted doesn't overflow which we're really interested in here
@@ -629,7 +680,10 @@ contract("Discover", function () {
     let max = await Discover.methods.max().call();
     // Choose a safeMax 1% higher than is currently set
     let percent = 78 / 100;
-    let amount = Math.round(parseInt(max, 10) * percent);
+    let tokens = Math.round(parseInt(max, 10) * percent);
+    let tokenAmount = new BN(tokens, 10);
+    let temp = decimalMultiplier.mul(new BN(tokenAmount, 10));
+    let amount = temp.toString();
     let metadata = "QmSmv5e5DYc2otwWcpUzuqmt389s3HHx651TbxDvKBFFue";
 
     await SNT.methods.generateTokens(accounts[0], amount).send();

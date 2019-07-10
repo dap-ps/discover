@@ -62,8 +62,6 @@ contract Discover is ApproveAndCallFallBack, BancorFormula {
         max = total.mul(ceiling).div(decimals);
 
         safeMax = uint(77).mul(max).div(100); // Limited by accuracy of BancorFormula
-
-        safeMax = safeMax;
     }
 
     /**
@@ -116,10 +114,10 @@ contract Discover is ApproveAndCallFallBack, BancorFormula {
      * @param _amount of tokens to withdraw from DApp's overall balance.
      */
     function withdraw(bytes32 _id, uint _amount) external {
-        
+
         Data storage d = _getDAppById(_id);
 
-        uint256 tokensQuantity = _amount / 1 ether;
+        uint256 tokensQuantity = _amount.div(1 ether);
 
         require(msg.sender == d.developer, "Only the developer can withdraw SNT staked on this data");
         require(tokensQuantity <= d.available, "You can only withdraw a percentage of the SNT staked, less what you have already received");
@@ -275,7 +273,7 @@ contract Discover is ApproveAndCallFallBack, BancorFormula {
       {
         require(!existingIDs[_id], "You must submit a unique ID");
 
-        uint256 tokensQuantity = _amount / 1 ether;
+        uint256 tokensQuantity = _amount.div(1 ether);
 
         require(tokensQuantity > 0, "You must spend some SNT to submit a ranking in order to avoid spam");
         require (tokensQuantity <= safeMax, "You cannot stake more SNT than the ceiling dictates");
@@ -309,14 +307,13 @@ contract Discover is ApproveAndCallFallBack, BancorFormula {
         id2index[_id] = dappIdx;
         existingIDs[_id] = true;
 
-        require(SNT.allowance(_from, address(this)) >= _amount, "Not enough SNT allowance");
         require(SNT.transferFrom(_from, address(this), _amount), "Transfer failed");
 
         emit DAppCreated(_id, d.effectiveBalance);
     }
 
     function _upvote(address _from, bytes32 _id, uint _amount) internal {
-        uint256 tokensQuantity = _amount / 1 ether;
+        uint256 tokensQuantity = _amount.div(1 ether);
         require(tokensQuantity > 0, "You must send some SNT in order to upvote");
 
         Data storage d = _getDAppById(_id);
@@ -344,14 +341,13 @@ contract Discover is ApproveAndCallFallBack, BancorFormula {
 
         d.effectiveBalance = d.balance.sub(effect);
 
-        require(SNT.allowance(_from, address(this)) >= _amount, "Not enough SNT allowance");
         require(SNT.transferFrom(_from, address(this), _amount), "Transfer failed");
 
         emit Upvote(_id, d.effectiveBalance);
     }
 
     function _downvote(address _from, bytes32 _id, uint _amount) internal {
-        uint256 tokensQuantity = _amount / 1 ether;
+        uint256 tokensQuantity = _amount.div(1 ether);
         Data storage d = _getDAppById(_id);
         (uint b, uint vR, uint c) = _downvoteCost(d);
 
@@ -361,9 +357,7 @@ contract Discover is ApproveAndCallFallBack, BancorFormula {
         d.votesCast = d.votesCast.add(vR);
         d.effectiveBalance = d.effectiveBalance.sub(b);
 
-        require(SNT.allowance(_from, address(this)) >= _amount, "Not enough SNT allowance");
-        require(SNT.transferFrom(_from, address(this), _amount), "Transfer failed");
-        require(SNT.transfer(d.developer, _amount), "Transfer failed");
+        require(SNT.transferFrom(_from, d.developer, _amount), "Transfer failed");
 
         emit Downvote(_id, d.effectiveBalance);
     }

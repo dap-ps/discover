@@ -7,10 +7,12 @@ import BlockchainService from '../blockchain-service'
 import DiscoverValidator from './discover-validator'
 import DiscoverContract from '../../../../embarkArtifacts/contracts/Discover'
 
+const BN = require('bn.js')
+
 class DiscoverService extends BlockchainService {
   constructor(sharedContext) {
     super(sharedContext, DiscoverContract, DiscoverValidator)
-    this.decimalMultiplier = 1000000000000000000
+    this.decimalMultiplier = new BN('1000000000000000000', 10)
   }
 
   // View methods
@@ -110,7 +112,7 @@ class DiscoverService extends BlockchainService {
 
   // Transaction methods
   async createDApp(amount, metadata) {
-    const tokenAmount = amount * this.decimalMultiplier
+    const tokenAmount = this.decimalMultiplier.mul(new BN(amount, 10))
 
     const ConnectedDiscoverContract = await super.__unlockServiceAccount(
       DiscoverContract,
@@ -140,8 +142,9 @@ class DiscoverService extends BlockchainService {
   }
 
   async upVote(id, amount) {
-    const tokenAmount = amount * this.decimalMultiplier
-    await this.validator.validateUpVoting(id, amount)
+    const tokenAmount = this.decimalMultiplier.mul(new BN(amount, 10))
+
+    await this.validator.validateUpVoting(id, tokenAmount)
 
     const callData = DiscoverContract.methods
       .upvote(id, tokenAmount)
@@ -157,8 +160,14 @@ class DiscoverService extends BlockchainService {
     const dapp = await this.getDAppById(id)
     const amount = (await this.downVoteCost(dapp.id)).c
 
+    console.log('Cost gotten from the contract', amount)
+
+    const tokenAmount = this.decimalMultiplier.mul(new BN(amount, 10))
+
+    console.log('Cost after adjustment', tokenAmount.toString())
+
     const callData = DiscoverContract.methods
-      .downvote(dapp.id, amount)
+      .downvote(dapp.id, tokenAmount)
       .encodeABI()
     return this.sharedContext.SNTService.approveAndCall(
       this.contract,
@@ -168,7 +177,7 @@ class DiscoverService extends BlockchainService {
   }
 
   async withdraw(id, amount) {
-    const tokenAmount = amount * this.decimalMultiplier
+    const tokenAmount = this.decimalMultiplier.mul(new BN(amount, 10))
     const ConnectedDiscoverContract = await super.__unlockServiceAccount(
       DiscoverContract,
     )
