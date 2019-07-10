@@ -62,8 +62,6 @@ contract Discover is ApproveAndCallFallBack, BancorFormula {
         max = total.mul(ceiling).div(decimals);
 
         safeMax = uint(77).mul(max).div(100); // Limited by accuracy of BancorFormula
-
-        safeMax = safeMax;
     }
 
     /**
