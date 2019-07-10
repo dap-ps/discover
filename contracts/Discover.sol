@@ -117,7 +117,7 @@ contract Discover is ApproveAndCallFallBack, BancorFormula {
         
         Data storage d = _getDAppById(_id);
 
-        uint256 tokensQuantity = _amount / 1 ether;
+        uint256 tokensQuantity = _amount.div(1 ether);
 
         require(msg.sender == d.developer, "Only the developer can withdraw SNT staked on this data");
         require(tokensQuantity <= d.available, "You can only withdraw a percentage of the SNT staked, less what you have already received");
@@ -273,7 +273,7 @@ contract Discover is ApproveAndCallFallBack, BancorFormula {
       {
         require(!existingIDs[_id], "You must submit a unique ID");
 
-        uint256 tokensQuantity = _amount / 1 ether;
+        uint256 tokensQuantity = _amount.div(1 ether);
 
         require(tokensQuantity > 0, "You must spend some SNT to submit a ranking in order to avoid spam");
         require (tokensQuantity <= safeMax, "You cannot stake more SNT than the ceiling dictates");
@@ -314,7 +314,7 @@ contract Discover is ApproveAndCallFallBack, BancorFormula {
     }
 
     function _upvote(address _from, bytes32 _id, uint _amount) internal {
-        uint256 tokensQuantity = _amount / 1 ether;
+        uint256 tokensQuantity = _amount.div(1 ether);
         require(tokensQuantity > 0, "You must send some SNT in order to upvote");
 
         Data storage d = _getDAppById(_id);
@@ -349,7 +349,7 @@ contract Discover is ApproveAndCallFallBack, BancorFormula {
     }
 
     function _downvote(address _from, bytes32 _id, uint _amount) internal {
-        uint256 tokensQuantity = _amount / 1 ether;
+        uint256 tokensQuantity = _amount.div(1 ether);
         Data storage d = _getDAppById(_id);
         (uint b, uint vR, uint c) = _downvoteCost(d);
 
