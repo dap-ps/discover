@@ -71,7 +71,9 @@ const ProfileContent = ({
         <div className={styles.ranking}>
           <span className={styles.heading}>Ranking</span>
           <div className={styles.rank}>
-            <div className={styles.rank_position_1}>
+            <div
+              className={[styles.rank_position_1, styles[category]].join(' ')}
+            >
               <span className={styles.rank_position_span}>
                 {categoryPosition}
               </span>

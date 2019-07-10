@@ -25,6 +25,9 @@
   flex-direction: column;
   margin: 0 calculateRem(20) calculateRem(20) calculateRem(20);
   text-decoration: none;
+  @media (min-width: 412px) {
+    min-width: 360px;
+  }
 }
 
 .bannerWrapper {
