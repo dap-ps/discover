@@ -129,8 +129,8 @@ export const fetchVoteRatingAction = (dapp, isUpvote, sntValue) => {
           dapp.id,
         )
         // balanceDownBy, votesRequired, cost
-        rating = parseInt(downVoteEffect.c, 10)
-        downVoteSntValue = downVoteEffect.c
+        rating = parseInt(downVoteEffect.b, 10)
+        downVoteSntValue = downVoteEffect.b
       } catch (e) {
         return
       }
