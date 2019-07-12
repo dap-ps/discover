@@ -8,7 +8,7 @@ import {
 import { onUpdateDappDataAction } from '../Dapps/Dapps.reducer'
 import { showAlertAction } from '../Alert/Alert.reducer'
 import BlockchainSDK from '../../common/blockchain'
-import DappModel from '../../common/data/dapp';
+import DappModel from '../../common/data/dapp'
 
 const HIDE = 'TXS_HIDE'
 const ON_START_PROGRESS = 'TXS_ON_START_PROGRESS'

@@ -45,10 +45,6 @@ a {
   cursor: pointer;
 }
 
-.category {
-  margin-bottom: calculateRem(20);
-}
-
 .heading {
   color: $text-color;
   font-size: calculateRem(13);
@@ -64,14 +60,14 @@ a {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: calculateRem(40) auto;
+  margin: calculateRem(40) 0 0 0;
 }
 
 .button {
   border-radius: 20px;
   background-color: #4360df;
   color: #ffffff;
-  margin: calculateRem(16) 0 calculateRem(24) 0;
+  margin: calculateRem(16) 0 calculateRem(16) 0;
   padding: calculateRem(12) calculateRem(32);
 }
 
@@ -98,17 +94,17 @@ a {
 .chat_image {
   width: calculateRem(40);
   height: calculateRem(40);
-  margin-top: calculateRem(20);
+  // margin-top: calculateRem(20);
   border-radius: 20px;
 }
 
 .chat_link {
-  margin: calculateRem(25) calculateRem(10) 0;
+  margin: 0 0 0 calculateRem(10);
 }
 
 .chat_icon {
   margin-left: calculateRem(-10);
-  margin-bottom: calculateRem(10);
+  margin-bottom: calculateRem(20);
 }
 
 .url {
@@ -182,4 +178,36 @@ a {
       font-size: 13px;
     }
   }
+}
+
+.EXCHANGES {
+  background: $purple-bg;
+}
+
+.MARKETPLACES {
+  background: $orange-bg;
+}
+
+.OTHER {
+  background: $yellow-bg;
+}
+
+.MEDIA {
+  background: $yellow-bg;
+}
+
+.GAMES {
+  background: $pink-bg;
+}
+
+.COLLECTIBLES {
+  background: $blue-bg;
+}
+
+.SOCIAL_NETWORKS {
+  background: $green-bg;
+}
+
+.UTILITIES {
+  background: $red-bg;
 }

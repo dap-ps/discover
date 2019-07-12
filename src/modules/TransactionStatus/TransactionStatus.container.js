@@ -3,7 +3,7 @@ import TransactionStatus from './TransactionStatus'
 import {
   hideAction,
   checkTransactionStatusAction,
-} from './TransactionStatus.recuder'
+} from './TransactionStatus.reducer'
 
 const mapStateToProps = state => state.transactionStatus
 const mapDispatchToProps = dispatch => ({

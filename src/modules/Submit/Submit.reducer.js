@@ -5,7 +5,7 @@ import {
   checkTransactionStatusAction,
   onStartProgressAction,
   hideAction,
-} from '../TransactionStatus/TransactionStatus.recuder'
+} from '../TransactionStatus/TransactionStatus.reducer'
 import {
   TYPE_SUBMIT,
   TYPE_UPDATE,

@@ -7,7 +7,7 @@ import {
   onStartProgressAction,
   onReceiveTransactionInfoAction,
   checkTransactionStatusAction,
-} from '../TransactionStatus/TransactionStatus.recuder'
+} from '../TransactionStatus/TransactionStatus.reducer'
 import {
   TYPE_UPVOTE,
   TYPE_DOWNVOTE,
