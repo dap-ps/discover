@@ -114,6 +114,8 @@ class DiscoverService extends BlockchainService {
   async createDApp(amount, metadata) {
     const tokenAmount = this.decimalMultiplier.mul(new BN(amount, 10))
 
+    console.log(tokenAmount)
+
     const ConnectedDiscoverContract = await super.__unlockServiceAccount(
       DiscoverContract,
     )
@@ -160,18 +162,16 @@ class DiscoverService extends BlockchainService {
     const dapp = await this.getDAppById(id)
     const amount = (await this.downVoteCost(dapp.id)).c
 
-    console.log('Cost gotten from the contract', amount)
+    const amountBN = new BN(amount, 10)
 
-    const tokenAmount = this.decimalMultiplier.mul(new BN(amount, 10))
-
-    console.log('Cost after adjustment', tokenAmount.toString())
+    const tokenAmount = this.decimalMultiplier.mul(amountBN)
 
     const callData = DiscoverContract.methods
       .downvote(dapp.id, tokenAmount)
       .encodeABI()
     return this.sharedContext.SNTService.approveAndCall(
       this.contract,
-      amount,
+      tokenAmount,
       callData,
     )
   }

@@ -1,3 +1,5 @@
+const BN = require('bn.js')
+
 class SNTValidator {
   constructor(service) {
     this.service = service
@@ -8,7 +10,9 @@ class SNTValidator {
       this.service.sharedContext.account,
     )
 
-    if (toBalance < amount) {
+    const toBalanceBN = new BN(toBalance, 10)
+
+    if (amount.gt(toBalanceBN)) {
       throw new Error('Not enough SNT balance')
     }
   }
@@ -20,15 +24,6 @@ class SNTValidator {
     }
 
     await this.validateSNTTransferFrom(amount)
-
-    const allowance = await this.service.allowance(
-      this.service.sharedContext.account,
-      spender,
-    )
-
-    if (amount != 0 && allowance != 0) {
-      throw new Error('You have allowance already')
-    }
   }
 }
 
