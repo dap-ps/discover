@@ -10,35 +10,71 @@ This project is based on Embark v4.0.1, with a few things customised for React. 
 **`npm run build`**
 
 Builds the app into the `build` directory.
-  
-**Steps to run the app:**
 
-* ### `embark run testnet --noserver`
-	Will connect to the ropsten blockchain and IPFS through Infura
+## Running and building the app
 
-	**Ropsten contracts:**
+### Step 1 Build the contracts and the embark artifacts
 
-	1. SNT - 0x2764b5da3696E3613Ef9864E9B4613f9fA478E75
-	2. Discover - 0xd34aae5b764d720ba5b438b29d60e5e9601cf3a9
+#### Step 1.1 Modify contracts.js
+Modify the `config/contracts.js` file in order for embark to deploy and generate for you the correct contracts
+Starting from line 76, replace what you have existingly for `MiniMeToken` and `Discover` with
 
-	**Manual needed steps:**
-	Once embark is running:
-	1.  In embarkjs.js (row 532) -> change `this._ipfsConnection.id()` to be `this._ipfsConnection.version()`
-		This is needed because Infura's IPFS has deprecated `id` endpoint, but it was used in embark in order to check if the Infura IPFS API is active.. The workaround above do the same as the deprecated functionality.
-	2.  In embark.json -> Change the row `"generationDir": "src/embarkArtifacts"` to `"generationDir": "embarkArtifacts"`. In this way you should not need to do step 1 every time you run `embark run testnet`.
- 
-* ### `npm run start`
+```
+MiniMeToken: {
+	address: '0x2764b5da3696E3613Ef9864E9B4613f9fA478E75'
+},
+Discover: { address: '0xc13711209ba3d5b4cbbcb45f7f64643abb267dbd' },
+```
 
-Runs the app in the development mode.  
+If you need to deploy new version of the Discover contract the last line read the part below:
+
+```
+MiniMeToken: {
+	address: '0x2764b5da3696E3613Ef9864E9B4613f9fA478E75'
+},
+Discover: {
+	args: ['$MiniMeToken'],
+},
+```
+
+remove any existing `.embark` directory and run `embark run testnet --noserver`. Once all deployments are done
+
+ go to this etherscan address and check the address of the contract you've last deployed and place it in place of `0xc13711209ba3d5b4cbbcb45f7f64643abb267dbd` of the original configuration.
+
+https://ropsten.etherscan.io/address/0x65767f95799109ba028e0397add89b0ef637e444
+
+#### Step 1.2 Fix embark configuration
+
+In embarkjs.js note row 532. If you find `this._ipfsConnection.id()` -> change it to `this._ipfsConnection.version()`
+This is needed because Infura's IPFS has deprecated `id` endpoint, but it was used in embark in order to check if the Infura IPFS API is active.. The workaround above do the same as the deprecated functionality.
+
+#### Step 1.3 Generate the embark contract artifacts
+
+Run `embark build --contracts` in order to (re)generate `src/embarkArtifacts/contracts` directory. 
+
+Note your `index.js` file inside. If it is broken (ending by trailing `'` instead of `}`), fix it by replacing the last comma with `}`.
+Observe that you find near the beginning of the Discover.js and MiniMeToken.js files the addresses you supplied in Step 1.1
+
+### Step 2. Run the client side app localy.
+
+Run the client side application via `npm run start`.
 
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser. The page will reload if you make edits. You will also see any lint errors in the console.
  
 **Important!** If you get `can't establish a connection to a node` error, try to open [http://localhost:3000](http://localhost:3000) in chrome browser.
  
-### `embark test`
+### Step 3 - Run the unit tests
+
+Use `embark test`
 
 Will compile your contracts, with hot-reloading, and let you test them locally to your heart's content. 
 
-### slither . --exclude naming-convention --filter-paths token 
+### Step 4 - Building for deployment
+
+Run the build procedure via `npm run build`. Once you are done, copy the contents of the build directory, in the `frontend` directory in the branch called `app-deployment`.
+
+## Running slither
+
+`slither . --exclude naming-convention --filter-paths token `
 
 Make sure you get TrailofBits' [latest static analysis tool](https://securityonline.info/slither/), and do your own static analysis on the relevant contracts that will be deployed for Discover.
