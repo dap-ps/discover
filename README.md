@@ -73,6 +73,28 @@ Will compile your contracts, with hot-reloading, and let you test them locally t
 
 Run the build procedure via `npm run build`. Once you are done, copy the contents of the build directory, in the `frontend` directory in the branch called `app-deployment`.
 
+## Deployments Steps AWS
+
+0. Zip everything in the app-deployment branch (maybe omit node_modules and `deployment` directories)
+1. Go to [AWS ElasticBeanstal console](https://us-east-1.console.aws.amazon.com/elasticbeanstalk/home?region=us-east-1#/environment/dashboard?applicationName=dev-dap-ps-app&environmentId=e-zcpbhkm3gw)
+
+2. Click Upload and deploy button in the middle of the screen.
+
+3. Choose the .zip file containing the code
+
+4. Change the version if want to keep some exact numbering
+
+5. Click Deploy
+
+## Changing .env variables in AWS
+
+If you've changed some smart contracts you need to change their addresses in the env variables.
+
+1. Go to [AWS Configuration](https://us-east-1.console.aws.amazon.com/elasticbeanstalk/home?region=us-east-1#/environment/configuration?applicationName=dev-dap-ps-app&environmentId=e-zcpbhkm3gw) and on Software section click Modify
+2. Scroll down and find Environment Properties
+3. Change whatever property needs changing
+4. Click Apply at the bottom right
+
 ## Running slither
 
 `slither . --exclude naming-convention --filter-paths token `
