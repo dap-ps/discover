@@ -122,14 +122,13 @@ export const fetchVoteRatingAction = (dapp, isUpvote, sntValue) => {
         return
       }
     } else {
-      // rating = parseInt(dapp.sntValue * 0.99, 10)
       try {
         const blockchain = await BlockchainSDK.getInstance()
         const downVoteEffect = await blockchain.DiscoverService.downVoteCost(
           dapp.id,
         )
         // balanceDownBy, votesRequired, cost
-        rating = parseInt(downVoteEffect.c, 10)
+        rating = parseInt(downVoteEffect.b, 10)
         downVoteSntValue = downVoteEffect.c
       } catch (e) {
         return

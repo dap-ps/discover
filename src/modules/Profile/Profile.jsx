@@ -98,10 +98,10 @@ const ProfileContent = ({
         {editable && (
           <div className={styles.actions}>
             <div className={styles.button} onClick={onClickUpdateMetadata}>
-              Edit metadata
+              Edit
             </div>
             <div className={styles.button} onClick={onClickWithdraw}>
-              Withdraw SNT
+              Withdraw
             </div>
           </div>
         )}
