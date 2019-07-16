@@ -2,6 +2,7 @@ const submit = {
   visible_submit: false,
   visible_rating: false,
   id: '',
+  email: '',
   name: '',
   desc: '',
   url: '',

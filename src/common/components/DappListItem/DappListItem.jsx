@@ -64,16 +64,18 @@ const DappListItem = props => {
               <img src={sntIcon} alt="SNT" width="16" height="16" />
               {dapp.sntValue}
             </span>
-            <div className={styles.voteTriggers}>
-              <span className={styles.vote} onClick={handleUpVote}>
-                <img src={upvoteArrowIcon} alt="" />
-                Upvote
-              </span>
-              <span className={styles.vote} onClick={handleDownVote}>
-                <img src={downvoteArrowIcon} alt="" />
-                Downvote
-              </span>
-            </div>
+            {dapp.sntValue > 0 && (
+              <div className={styles.voteTriggers}>
+                <span className={styles.vote} onClick={handleUpVote}>
+                  <img src={upvoteArrowIcon} alt="" />
+                  Upvote
+                </span>
+                <span className={styles.vote} onClick={handleDownVote}>
+                  <img src={downvoteArrowIcon} alt="" />
+                  Downvote
+                </span>
+              </div>
+            )}
           </div>
         )}
       </div>
