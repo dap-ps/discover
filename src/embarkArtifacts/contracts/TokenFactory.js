@@ -31,10 +31,10 @@ let TokenFactoryJSONConfig = {
       },
     ],
     filename:
-      '/Users/georgispasov/Development/LimeLabs/status/discover/.embark/contracts/token/TokenFactory.sol',
+      '/Users/lyubo/Desktop/Projects/Status/status-fixes/discover/.embark/contracts/token/TokenFactory.sol',
     originalFilename: 'contracts/token/TokenFactory.sol',
     path:
-      '/Users/georgispasov/Development/LimeLabs/status/discover/contracts/token/TokenFactory.sol',
+      '/Users/lyubo/Desktop/Projects/Status/status-fixes/discover/contracts/token/TokenFactory.sol',
     gas: 'auto',
     type: 'file',
     deploy: false,

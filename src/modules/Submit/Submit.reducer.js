@@ -150,15 +150,18 @@ export const submitAction = (dapp, sntValue) => {
     )
     try {
       const blockchain = await BlockchainSDK.getInstance()
-      const { tx, id } = await blockchain.DiscoverService.createDApp(sntValue, {
-        email: dapp.email,
-        name: dapp.name,
-        url: dapp.url,
-        description: dapp.description,
-        category: dapp.category,
-        image: dapp.image,
-        dateAdded: dapp.dateAdded,
-      })
+      const { tx, id } = await blockchain.DiscoverService.createDApp(
+        sntValue,
+        {
+          name: dapp.name,
+          url: dapp.url,
+          description: dapp.description,
+          category: dapp.category,
+          image: dapp.image,
+          dateAdded: dapp.dateAdded,
+        },
+        dapp.email,
+      )
       dispatch(onReceiveTransactionInfoAction(id, tx))
       dispatch(checkTransactionStatusAction(tx))
     } catch (e) {

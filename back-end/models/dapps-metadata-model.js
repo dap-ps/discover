@@ -2,6 +2,7 @@ let mongoose = require('mongoose');
 let Schema = mongoose.Schema;
 
 const bs58 = require('bs58');
+const validator = require('validator');
 
 const dappCategories = require('./../constants/dapp-categories').ALL_CATEGORIES;
 const metadataStatuses = require('./../constants/dapp-metadata-statuses').ALL_STATUSES;
@@ -40,6 +41,16 @@ let DAppsMetadataSchema = new Schema({
             type: Number,
             required: true
         },
+    },
+    email: {
+        type: String,
+        required: true,
+        validate: {
+            validator: function (value) {
+                return validator.isEmail(value);
+            },
+            message: props => `${props.value} is not a valid email!`
+        }
     },
     hash: {
         type: String,

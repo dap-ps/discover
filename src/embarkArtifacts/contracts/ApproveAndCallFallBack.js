@@ -29,10 +29,10 @@ let ApproveAndCallFallBackJSONConfig = {
       },
     ],
     filename:
-      '/Users/georgispasov/Development/LimeLabs/status/discover/.embark/contracts/token/ApproveAndCallFallBack.sol',
+      '/Users/lyubo/Desktop/Projects/Status/status-fixes/discover/.embark/contracts/token/ApproveAndCallFallBack.sol',
     originalFilename: 'contracts/token/ApproveAndCallFallBack.sol',
     path:
-      '/Users/georgispasov/Development/LimeLabs/status/discover/contracts/token/ApproveAndCallFallBack.sol',
+      '/Users/lyubo/Desktop/Projects/Status/status-fixes/discover/contracts/token/ApproveAndCallFallBack.sol',
     gas: 'auto',
     type: 'file',
     deploy: false,

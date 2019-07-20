@@ -9,3 +9,9 @@
 [2019-06-04 11:39:00]-[ERROR]-[Base-Email]: Email service verification failed due to Error: connect ECONNREFUSED 127.0.0.1:587
 [2019-06-04 11:42:55]-[INFO]-[DApps-Metadata-Controller]: A dapp metadata with hash [QmXpVWSYayBYPzjiPdhTjmjCcbuY3Qr6ZYteWGaB6fDm4m] has been uploaded successfully
 [2019-06-04 14:15:12]-[INFO]-[DApps-Metadata-Controller]: A dapp metadata with hash [QmTmHntVv6ixcQwtFEivSQ1kY4N5mzjmHVPEfhBRcUD6AC] has been uploaded successfully
+[2019-07-20 10:23:51]-[ERROR]-[DApps-Metadata-Controller]: metadata is not defined
+[2019-07-20 10:27:21]-[INFO]-[DApps-Metadata-Controller]: A dapp metadata with hash [QmeJKQtcEASSbmUgqEco4wXcpTVA21jWuEsnkGADEWZyFe] has been uploaded successfully
+[2019-07-20 10:55:32]-[INFO]-[DApps-Metadata-Controller]: A dapp metadata with hash [QmaviKASDQ9Bc1ntwnPkVr2Kds4zXSrhud1hGj7Mc4NdGv] has been uploaded successfully
+[2019-07-20 10:57:31]-[INFO]-[DApps-Metadata-Controller]: A dapp metadata with hash [QmNUSXTixR4DZtPQ5vuBoEAZtv5Pe6CQdkgpRyPYfsbVs6] has been uploaded successfully
+[2019-07-20 10:59:15]-[INFO]-[DApps-Metadata-Controller]: A dapp metadata with hash [QmVv5G6UvVBAFsMQtff8Sk9p12Hn29g959wUeE3WjsdGUv] has been uploaded successfully
+[2019-07-20 11:00:45]-[INFO]-[DApps-Metadata-Controller]: A dapp metadata with hash [QmQiiVYUTtpg1DtiKnVKVfkfKkM7Brt7JHVFLcVf3H1yDV] has been uploaded successfully

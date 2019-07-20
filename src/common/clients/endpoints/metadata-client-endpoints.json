@@ -1,7 +1,7 @@
 {
-  "UPLOAD": "http://dev.dap.ps/metadata",
-  "UPDATE": "http://dev.dap.ps/metadata/update",
-  "APPROVE": "http://dev.dap.ps/metadata/approve/email",
-  "RETRIEVE_METADATA": "http://dev.dap.ps/metadata",
-  "RETRIEVE_ALL_METADATA": "http://dev.dap.ps/metadata/all"
+  "UPLOAD": "http://localhost:4000/metadata",
+  "UPDATE": "http://localhost:4000/metadata/update",
+  "APPROVE": "http://localhost:4000/metadata/approve/email",
+  "RETRIEVE_METADATA": "http://localhost:4000/metadata",
+  "RETRIEVE_ALL_METADATA": "http://localhost:4000/metadata/all"
 }

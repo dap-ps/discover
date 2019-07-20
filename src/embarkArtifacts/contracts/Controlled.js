@@ -40,10 +40,10 @@ let ControlledJSONConfig = {
       },
     ],
     filename:
-      '/Users/georgispasov/Development/LimeLabs/status/discover/.embark/contracts/common/Controlled.sol',
+      '/Users/lyubo/Desktop/Projects/Status/status-fixes/discover/.embark/contracts/common/Controlled.sol',
     originalFilename: 'contracts/common/Controlled.sol',
     path:
-      '/Users/georgispasov/Development/LimeLabs/status/discover/contracts/common/Controlled.sol',
+      '/Users/lyubo/Desktop/Projects/Status/status-fixes/discover/contracts/common/Controlled.sol',
     gas: 'auto',
     type: 'file',
     deploy: false,

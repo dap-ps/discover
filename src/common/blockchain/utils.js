@@ -20,6 +20,10 @@ const waitOneMoreBlock = async function(prevBlockNumber) {
 
 export default {
   getTxStatus: async txHash => {
+    if (!txHash) {
+      return TRANSACTION_STATUSES.Successful
+    }
+
     const txReceipt = await web3.eth.getTransactionReceipt(txHash)
     if (txReceipt) {
       await waitOneMoreBlock(txReceipt.blockNumber)
