@@ -6,11 +6,11 @@ import metadataClientEndpoints from './endpoints/metadata-client-endpoints'
 let metadataCache = null
 
 class MetadataClient {
-  static async upload(metadata) {
+  static async upload(metadata, email) {
     try {
       const uploadedDataResponse = await HTTPClient.postRequest(
         metadataClientEndpoints.UPLOAD,
-        metadata,
+        { metadata, email },
       )
 
       return helpers.getBytes32FromIpfsHash(uploadedDataResponse.data.hash)
@@ -76,7 +76,20 @@ class MetadataClient {
     return formatedDappsMetadata
   }
 
-  static async retrieveMetadataCache(metadataBytes32) {
+  static async getDappsCount() {
+    if (metadataCache === null)
+      metadataCache = await MetadataClient.retrieveAllDappsMetadata()
+    return Object.keys(metadataCache).length
+  }
+
+  static async retrieveMetadataCache() {
+    if (metadataCache === null)
+      metadataCache = await MetadataClient.retrieveAllDappsMetadata()
+
+    return metadataCache
+  }
+
+  static async retrieveDAppFromCache(metadataBytes32) {
     if (metadataCache === null)
       metadataCache = await MetadataClient.retrieveAllDappsMetadata()
     const result = metadataCache[metadataBytes32]

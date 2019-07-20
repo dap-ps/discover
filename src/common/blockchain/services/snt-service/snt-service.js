@@ -40,7 +40,11 @@ class SNTService extends BlockchainService {
     const ConnectedSNTToken = await super.__unlockServiceAccount(SNTToken)
     await this.validator.validateApproveAndCall(spender, amount)
     return broadcastContractFn(
-      ConnectedSNTToken.methods.approveAndCall(spender, amount, callData).send,
+      ConnectedSNTToken.methods.approveAndCall(
+        spender,
+        amount.toString(),
+        callData,
+      ).send,
       this.sharedContext.account,
     )
   }

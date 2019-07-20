@@ -7,6 +7,7 @@ export default class DappModel {
     this.sntValue = 0
 
     // metadata
+    this.email = ''
     this.name = ''
     this.image = ''
     this.desc = ''

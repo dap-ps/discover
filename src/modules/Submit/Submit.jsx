@@ -23,6 +23,7 @@ class Submit extends React.Component {
     this.imgCanvas = React.createRef()
     this.previousMoveX = 0
     this.previousMoveY = 0
+    this.onInputEmail = this.onInputEmail.bind(this)
     this.onInputName = this.onInputName.bind(this)
     this.onInputDesc = this.onInputDesc.bind(this)
     this.onInputUrl = this.onInputUrl.bind(this)
@@ -69,6 +70,11 @@ class Submit extends React.Component {
       )
     }
     imgNode.src = img
+  }
+
+  onInputEmail(e) {
+    const { onInputEmail } = this.props
+    onInputEmail(e.target.value)
   }
 
   onInputName(e) {
@@ -169,6 +175,7 @@ class Submit extends React.Component {
       onSubmit,
       onUpdate,
       id,
+      email,
       name,
       desc,
       url,
@@ -178,6 +185,7 @@ class Submit extends React.Component {
     } = this.props
 
     const metadata = {
+      email,
       name,
       url,
       image: img,
@@ -214,6 +222,8 @@ class Submit extends React.Component {
       visible_submit,
       visible_rating,
       onClickClose,
+      email,
+      id,
       name,
       desc,
       url,
@@ -265,6 +275,19 @@ class Submit extends React.Component {
         {visible_submit && (
           <div className={imgControl ? styles.cntWithImgControl : ''}>
             <div className={imgControl ? styles.withImgControl : ''}>
+              {id === ''  &&  (
+                <div className={styles.block}>
+                  <div className={styles.labelRow}>
+                    <span>Your eMail</span>
+                  </div>
+                  <input
+                    className={styles.input}
+                    placeholder="eMail"
+                    value={email}
+                    onChange={this.onInputEmail}
+                  />
+                </div>
+              )}
               <div className={styles.block}>
                 <div className={styles.labelRow}>
                   <span>Name of your Ðapp</span>
@@ -473,6 +496,7 @@ class Submit extends React.Component {
 Submit.propTypes = {
   visible_submit: PropTypes.bool.isRequired,
   visible_rating: PropTypes.bool.isRequired,
+  email: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   desc: PropTypes.string.isRequired,
   url: PropTypes.string.isRequired,
@@ -485,6 +509,7 @@ Submit.propTypes = {
   imgControlY: PropTypes.number.isRequired,
   sntValue: PropTypes.string.isRequired,
   onClickClose: PropTypes.func.isRequired,
+  onInputEmail: PropTypes.func.isRequired,
   onInputName: PropTypes.func.isRequired,
   onInputDesc: PropTypes.func.isRequired,
   onInputUrl: PropTypes.func.isRequired,

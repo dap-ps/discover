@@ -67,16 +67,14 @@ embarkJSConnectorWeb3.getNetworkId = function() {
 EmbarkJS.Blockchain.registerProvider('web3', embarkJSConnectorWeb3)
 EmbarkJS.Blockchain.setProvider('web3', {})
 if (!global.__Web3) {
-  const web3ConnectionConfig = require('/Users/georgispasov/Development/LimeLabs/status/discover/src/embarkArtifacts/config/blockchain.json')
+  const web3ConnectionConfig = require('./config/blockchain.json')
   EmbarkJS.Blockchain.connect(web3ConnectionConfig, err => {
     if (err) {
       console.error(err)
     }
   })
 }
-const namehash =
-  global.namehash ||
-  require('/Users/georgispasov/Development/LimeLabs/status/discover/src/embarkArtifacts/modules/eth-ens-namehash')
+const namehash = global.namehash || require('./modules/eth-ens-namehash')
 ;('use strict')
 
 /*global namehash*/

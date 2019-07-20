@@ -32,26 +32,16 @@ export const fetchAllDappsAction = () => {
       }
 
       const { transactionStatus } = state
-      let dappSource = await discoverService.getDAppByIndexWithMetadata(0)
-      if (dappSource !== null) {
-        const dappModel = DappModel.instanceFromBlockchainWithMetadata(
-          dappSource,
-        )
-        dappState = dappState.creditDapp(dappModel)
-        if (
-          dappModel.id !== transactionStatus.dappId ||
-          transactionStatus.type !== TYPE_SUBMIT
-        ) {
-          dispatch(onUpdateDappsAction(dappState))
-          Database.creditDapp(dappModel)
-        }
-      }
-      for (let i = N - 1; i >= 1; i -= 1) {
-        dappSource = await discoverService.getDAppByIndexWithMetadata(i)
+      let dappSource = ''
+
+      const allDapps = await discoverService.getAllDappsWithMetadata()
+      for (let i = 0; i < allDapps.length; i++) {
+        dappSource = allDapps[i]
         if (dappSource !== null) {
           const dappModel = DappModel.instanceFromBlockchainWithMetadata(
             dappSource,
           )
+
           dappState = dappState.creditDapp(dappModel)
           if (
             dappModel.id !== transactionStatus.dappId ||
