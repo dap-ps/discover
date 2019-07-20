@@ -74,9 +74,9 @@ module.exports = {
       SafeMath: { deploy: false },
       TestBancorFormula: { deploy: false },
       MiniMeToken: {
-        address: '0x2764b5da3696E3613Ef9864E9B4613f9fA478E75'
+        address: '0x25B1bD06fBfC2CbDbFc174e10f1B78b1c91cc77B',
       },
-      Discover: { address: '0xd88e9ac0adf2014764e5cf64c6895f12bdf2540f' },
+      Discover: { address: '0x17e7a7330d23fc6a2ab8578a627408f815396662' },
       // MiniMeToken: {
       //   args: [
       //     '$MiniMeTokenFactory',
@@ -112,9 +112,11 @@ module.exports = {
   // used with "embark run testnet"
   testnet: {
     deployment: {
-      accounts: [{
-        mnemonic: wallet.mnemonic,
-      }],
+      accounts: [
+        {
+          mnemonic: wallet.mnemonic,
+        },
+      ],
       host: `ropsten.infura.io/v3/8675214b97b44e96b70d05326c61fd6a`,
       port: false,
       type: 'rpc',
@@ -124,7 +126,7 @@ module.exports = {
       '$WEB3',
       'https://ropsten.infura.io/v3/8675214b97b44e96b70d05326c61fd6a',
     ],
-    dappAutoEnable: false
+    dappAutoEnable: false,
   },
 
   // merges with the settings in default
