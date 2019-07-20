@@ -32,9 +32,57 @@ class DiscoverService extends BlockchainService {
   }
 
   async getDAppsCount() {
-    return DiscoverContract.methods
-      .getDAppsCount()
-      .call({ from: this.sharedContext.account })
+    return MetadataClient.getDappsCount();
+    // return DiscoverContract.methods
+    //   .getDAppsCount()
+    //   .call({ from: this.sharedContext.account })
+  }
+
+  async getAllDappsWithMetadata() {
+    try {
+      const contractDappsCount = await DiscoverContract.methods
+        .getDAppsCount()
+        .call({ from: this.sharedContext.account })
+
+      const dappsCache = JSON.parse(JSON.stringify(await MetadataClient.retrieveMetadataCache()))
+      const dapps = [];
+
+      for (let i = 0; i < contractDappsCount; i++) {
+        const dapp = await DiscoverContract.methods
+          .dapps(index)
+          .call({ from: this.sharedContext.account })
+
+        const dappMetadata = dappsCache[dapp.metadata];
+        delete dappsCache[dapp.metadata];
+        dapp.metadata = dappMetadata.details;
+        dapp.metadata.status = dappMetadata.status
+
+        dapps.push(dapp);
+      }
+
+      Object.keys(dappsCache).forEach(metadataHash => {
+        const dappMetadata = dappsCache[metadataHash];
+
+        dapps.push({
+          developer: "",
+          id: dappMetadata.compressedMetadata,
+          metadata: {
+            ...dappMetadata.details,
+            status: dappMetadata.status
+          },
+          balance: 0,
+          rate: 0,
+          available: 0,
+          votesMinted: 0,
+          votesCast: 0,
+          effectiveBalance: 0
+        });
+      });
+
+      return dapps;
+    } catch (error) {
+      throw new Error(`Error fetching dapps. Details: ${error.message}`)
+    }
   }
 
   async getDAppByIndexWithMetadata(index) {
@@ -43,9 +91,10 @@ class DiscoverService extends BlockchainService {
         .dapps(index)
         .call({ from: this.sharedContext.account })
 
-      const dappMetadata = await MetadataClient.retrieveMetadataCache(
+      const dappMetadata = await MetadataClient.retrieveDAppFromCache(
         dapp.metadata,
       )
+
       if (dappMetadata === null) return null
       dapp.metadata = dappMetadata.details
       dapp.metadata.status = dappMetadata.status
@@ -128,15 +177,18 @@ class DiscoverService extends BlockchainService {
 
     const uploadedMetadata = await MetadataClient.upload(dappMetadata)
 
-    const callData = ConnectedDiscoverContract.methods
-      .createDApp(dappId, tokenAmount, uploadedMetadata)
-      .encodeABI()
+    let createdTx = null;
+    if (tokenAmount.gt(0)) {
+      const callData = ConnectedDiscoverContract.methods
+        .createDApp(dappId, tokenAmount, uploadedMetadata)
+        .encodeABI()
 
-    const createdTx = await this.sharedContext.SNTService.approveAndCall(
-      this.contract,
-      tokenAmount,
-      callData,
-    )
+      createdTx = await this.sharedContext.SNTService.approveAndCall(
+        this.contract,
+        tokenAmount,
+        callData,
+      )
+    }
 
     await MetadataClient.requestApproval(uploadedMetadata)
 

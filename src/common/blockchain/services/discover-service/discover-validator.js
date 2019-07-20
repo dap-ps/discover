@@ -27,12 +27,6 @@ class DiscoverValidator {
       throw new Error('You must submit a unique ID')
     }
 
-    if (amount.lte(0)) {
-      throw new Error(
-        'You must spend some SNT to submit a ranking in order to avoid spam',
-      )
-    }
-
     const safeMax = await this.service.safeMax()
     if (amount.div(this.decimalMultiplier).toNumber() > safeMax) {
       throw new Error('You cannot stake more SNT than the ceiling dictates')

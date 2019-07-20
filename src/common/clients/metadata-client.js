@@ -76,7 +76,20 @@ class MetadataClient {
     return formatedDappsMetadata
   }
 
-  static async retrieveMetadataCache(metadataBytes32) {
+  static async getDappsCount() {
+    if (metadataCache === null)
+      metadataCache = await MetadataClient.retrieveAllDappsMetadata()
+    return Object.keys(metadataCache).length;
+  }
+
+  static async retrieveMetadataCache() {
+    if (metadataCache === null)
+      metadataCache = await MetadataClient.retrieveAllDappsMetadata()
+
+    return metadataCache;
+  }
+
+  static async retrieveDAppFromCache(metadataBytes32) {
     if (metadataCache === null)
       metadataCache = await MetadataClient.retrieveAllDappsMetadata()
     const result = metadataCache[metadataBytes32]
