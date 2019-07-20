@@ -206,10 +206,10 @@ let MiniMeTokenInterfaceJSONConfig = {
       },
     ],
     filename:
-      '/Users/lyubo/Desktop/Projects/Status/status-fixes/discover/.embark/contracts/token/MiniMeTokenInterface.sol',
+      '/Users/georgispasov/Development/LimeLabs/status/discover/.embark/contracts/token/MiniMeTokenInterface.sol',
     originalFilename: 'contracts/token/MiniMeTokenInterface.sol',
     path:
-      '/Users/lyubo/Desktop/Projects/Status/status-fixes/discover/contracts/token/MiniMeTokenInterface.sol',
+      '/Users/georgispasov/Development/LimeLabs/status/discover/contracts/token/MiniMeTokenInterface.sol',
     gas: 'auto',
     type: 'file',
     deploy: false,

@@ -1,13 +1,10 @@
 /* eslint-disable */
 
-const EmbarkJS = require('/Users/lyubo/Desktop/Projects/Status/status-fixes/discover/src/embarkArtifacts/modules/embarkjs')
-  .default
+const EmbarkJS = require('embarkjs').default
 export default EmbarkJS
 global.EmbarkJS = EmbarkJS
 
-const Web3 =
-  global.__Web3 ||
-  require('/Users/lyubo/Desktop/Projects/Status/status-fixes/discover/src/embarkArtifacts/modules/web3')
+const Web3 = global.__Web3 || require('web3')
 global.Web3 = Web3 /*global Web3*/
 const embarkJSConnectorWeb3 = {}
 
@@ -70,16 +67,14 @@ embarkJSConnectorWeb3.getNetworkId = function() {
 EmbarkJS.Blockchain.registerProvider('web3', embarkJSConnectorWeb3)
 EmbarkJS.Blockchain.setProvider('web3', {})
 if (!global.__Web3) {
-  const web3ConnectionConfig = require('/Users/lyubo/Desktop/Projects/Status/status-fixes/discover/src/embarkArtifacts/config/blockchain.json')
+  const web3ConnectionConfig = require('./config/blockchain.json')
   EmbarkJS.Blockchain.connect(web3ConnectionConfig, err => {
     if (err) {
       console.error(err)
     }
   })
 }
-const namehash =
-  global.namehash ||
-  require('/Users/lyubo/Desktop/Projects/Status/status-fixes/discover/src/embarkArtifacts/modules/eth-ens-namehash')
+const namehash = global.namehash || require('./modules/eth-ens-namehash')
 ;('use strict')
 
 /*global namehash*/
@@ -598,9 +593,7 @@ __embarkENS.isAvailable = function() {
 }
 //# sourceMappingURL=embarkjs.js.map
 EmbarkJS.Names.registerProvider('ens', __embarkENS)
-const IpfsApi =
-  global.IpfsApi ||
-  require('/Users/lyubo/Desktop/Projects/Status/status-fixes/discover/src/embarkArtifacts/modules/ipfs-api')
+const IpfsApi = global.IpfsApi || require('ipfs-api')
 ;('use strict')
 
 var _interopRequireDefault = require('@babel/runtime-corejs2/helpers/interopRequireDefault')
@@ -656,7 +649,7 @@ __embarkIPFS.isAvailable = function() {
     }
 
     this._ipfsConnection
-      .id()
+      .version()
       .then(id => {
         resolve(Boolean(id))
       })

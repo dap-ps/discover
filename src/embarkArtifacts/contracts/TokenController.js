@@ -52,10 +52,10 @@ let TokenControllerJSONConfig = {
       },
     ],
     filename:
-      '/Users/lyubo/Desktop/Projects/Status/status-fixes/discover/.embark/contracts/token/TokenController.sol',
+      '/Users/georgispasov/Development/LimeLabs/status/discover/.embark/contracts/token/TokenController.sol',
     originalFilename: 'contracts/token/TokenController.sol',
     path:
-      '/Users/lyubo/Desktop/Projects/Status/status-fixes/discover/contracts/token/TokenController.sol',
+      '/Users/georgispasov/Development/LimeLabs/status/discover/contracts/token/TokenController.sol',
     gas: 'auto',
     type: 'file',
     deploy: false,
