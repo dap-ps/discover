@@ -17,6 +17,7 @@ class TransactionStatus {
     this.type = TYPE_NONE
     this.progress = false
     this.published = false
+    this.publishedEmpty = false
     this.failed = false
   }
 
@@ -38,6 +39,7 @@ class TransactionStatus {
   setProgress(progress) {
     this.progress = progress
     this.published = false
+    this.publishedEmpty = false
     this.failed = false
     this.persistTransactionData()
   }
@@ -45,6 +47,7 @@ class TransactionStatus {
   setPublished(published) {
     this.progress = false
     this.published = published
+    this.publishedEmpty = false
     this.failed = false
     this.persistTransactionData()
   }
@@ -52,7 +55,16 @@ class TransactionStatus {
   setFailed(failed) {
     this.progress = false
     this.published = false
+    this.publishedEmpty = false
     this.failed = failed
+    this.persistTransactionData()
+  }
+
+  setPublishedEmpty(published) {
+    this.progress = false
+    this.published = false
+    this.publishedEmpty = published
+    this.failed = false
     this.persistTransactionData()
   }
 

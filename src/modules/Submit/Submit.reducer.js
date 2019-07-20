@@ -162,6 +162,10 @@ export const submitAction = (dapp, sntValue) => {
         },
         dapp.email,
       )
+      if (sntValue == '0') {
+        dispatch(checkTransactionStatusAction())
+        return
+      }
       dispatch(onReceiveTransactionInfoAction(id, tx))
       dispatch(checkTransactionStatusAction(tx))
     } catch (e) {
