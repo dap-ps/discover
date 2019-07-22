@@ -195,7 +195,7 @@ class DiscoverService extends BlockchainService {
 
     const uploadedMetadata = await MetadataClient.upload(dappMetadata, email)
 
-    let createdTx = ''
+    let createdTx = undefined
 
     if (tokenAmount.gt(new BN(0, 10))) {
       const callData = ConnectedDiscoverContract.methods

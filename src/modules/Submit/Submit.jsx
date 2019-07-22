@@ -275,14 +275,14 @@ class Submit extends React.Component {
         {visible_submit && (
           <div className={imgControl ? styles.cntWithImgControl : ''}>
             <div className={imgControl ? styles.withImgControl : ''}>
-              {id === ''  &&  (
+              {id === '' && (
                 <div className={styles.block}>
                   <div className={styles.labelRow}>
-                    <span>Your eMail</span>
+                    <span>Your email</span>
                   </div>
                   <input
                     className={styles.input}
-                    placeholder="eMail"
+                    placeholder="email"
                     value={email}
                     onChange={this.onInputEmail}
                   />

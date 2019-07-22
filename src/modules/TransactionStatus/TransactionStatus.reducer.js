@@ -39,6 +39,12 @@ export const onChangeTransactionStatusDataAction = transactionStatus => ({
 
 export const checkTransactionStatusAction = tx => {
   return async dispatch => {
+    const transacationStatus = transactionStatusFetchedInstance()
+    if (tx == undefined) {
+      transacationStatus.setPublishedEmpty(true)
+      dispatch(onChangeTransactionStatusDataAction(transacationStatus))
+      return
+    }
     let status = 2
     try {
       status = await BlockchainSDK.utils.getTxStatus(tx)
@@ -46,7 +52,7 @@ export const checkTransactionStatusAction = tx => {
       // if can't read current status from network assume it is still waiting
     }
     const statusInt = parseInt(status, 10)
-    const transacationStatus = transactionStatusFetchedInstance()
+
     let dapp
 
     switch (statusInt) {
