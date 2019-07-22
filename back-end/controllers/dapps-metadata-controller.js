@@ -134,14 +134,7 @@ class DAppsMetadataController {
     if (dappMetadata) {
       dappMetadata.status = DAPP_METADATA_STATUSES.APPROVED
 
-      const hasStaked = await DiscoverService.hasStaked(
-        dappMetadata.compressedMetadata,
-      )
-      if (hasStaked) {
-        dappMetadata.ipfsHash = await IPFSService.addContent(
-          dappMetadata.details,
-        )
-      }
+      dappMetadata.ipfsHash = await IPFSService.addContent(dappMetadata.details)
 
       await dappMetadata.save()
 
