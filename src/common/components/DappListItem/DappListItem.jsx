@@ -36,7 +36,9 @@ const DappListItem = props => {
         isRanked ? styles.rankedListItem : styles.listItem
       } ${visible ? '' : styles.transparent}`}
     >
-      {isRanked && <div className={styles.position}>{position}</div>}
+      {isRanked && (
+        <div className={position ? styles.position : null}>{position}</div>
+      )}
       <div
         className={styles.imgWrapper}
         onClick={() => onToggleProfileModal(dapp.id, name)}
