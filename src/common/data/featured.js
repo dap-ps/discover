@@ -7,7 +7,7 @@ import KyberLogo from '../assets/images/featured/kyber_logo.png'
 
 const featuredDapps = [
   {
-    name: 'CryptoKittes',
+    name: 'CryptoKitties',
     description: 'Collect and breed adorable digital cats',
     url: 'https://cryptokitties.co',
     banner: CryptoKittiesBanner,

@@ -28,6 +28,7 @@
   width: 100%;
   border-bottom: 1px solid #eef2f5;
   text-align: center;
+  flex: 0;
 }
 
 .tabs button {
@@ -37,7 +38,8 @@
   border: none;
   text-transform: uppercase;
   font-family: $font;
-  font-size: 13px;
+  font-size: calculateRem(13);
+  font-weight: 500;
   height: calculateRem(40);
   letter-spacing: calculateRem(0.2);
   display: inline-flex;
@@ -77,12 +79,17 @@
   border-bottom-color: $link-color;
 }
 
+.content {
+  flex: 1;
+}
+
 .dapp {
   height: 48px;
   display: flex;
   align-items: center;
   font-family: $font;
-  font-weight: 500;
+  font-size: calculateRem(17);
+  font-weight: 600;
   padding: 0 calculateRem(12);
 }
 
@@ -109,6 +116,8 @@
 .items .item {
   display: flex;
   align-items: center;
+  font-size: calculateRem(15);
+  font-weight: 500;
 }
 
 .items .item img {
@@ -142,7 +151,8 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  margin: auto;
+  margin-top: calculateRem(24);
+  margin-bottom: calculateRem(26);
 }
 
 .inputArea.inputAreaBorder {
@@ -156,7 +166,12 @@
   font-size: calculateRem(32);
   line-height: calculateRem(28);
   font-family: $font;
+  caret-color: $link-color;
   margin-right: calculateRem(6);
+}
+
+input::placeholder {
+  color: $headline-color;
 }
 
 .inputArea input:focus {
@@ -166,7 +181,7 @@
 .inputArea::after {
   transition: all 0.05s ease-in-out;
   content: 'SNT';
-  color: #939ba1;
+  color: #878e94;
   font-size: calculateRem(32);
   line-height: calculateRem(28);
   font-family: $font;
@@ -181,16 +196,20 @@
 
 .footer {
   text-align: center;
+  flex: 0;
+  border-top: 1px solid #eef2f5;
+  height: calculateRem(64);
 }
 
 .footer button {
   background: $link-color;
-  border-radius: 8px;
+  height: calculateRem(44);
+  border-radius: calculateRem(48);
   color: #fff;
-  margin: calculateRem(10) auto;
   border: none;
   font-family: $font;
-  padding: calculateRem(11) calculateRem(38);
+  padding: calculateRem(1) calculateRem(48);
+  margin: calculateRem(10) calculateRem(120);
   font-size: calculateRem(15);
   cursor: pointer;
 }
@@ -200,17 +219,16 @@
   background: $text-color;
 }
 
-.footer .disclaimer {
+.disclaimer {
   font-size: calculateRem(15);
   color: $text-color;
   line-height: 22px;
   font-family: $font;
   padding: calculateRem(16);
-  border-bottom: 1px solid #eef2f5;
   margin: 0;
 }
 
-.footer .disclaimer a {
+.disclaimer a {
   text-decoration: none;
   color: $link-color;
   cursor: pointer;

@@ -18,6 +18,7 @@ import {
   switchToRatingAction,
   onInputSntValueAction,
   updateAction,
+  onInputEmailAction,
 } from './Submit.reducer'
 import { showAlertAction } from '../Alert/Alert.reducer';
 
@@ -25,6 +26,7 @@ const mapStateToProps = state =>
   Object.assign(state.submit, { dappState: state.dapps })
 const mapDispatchToProps = dispatch => ({
   onClickClose: () => dispatch(closeSubmitAction()),
+  onInputEmail: name => dispatch(onInputEmailAction(name)),
   onInputName: name => dispatch(onInputNameAction(name)),
   onInputDesc: name => dispatch(onInputDescAction(name)),
   onInputUrl: name => dispatch(onInputUrlAction(name)),

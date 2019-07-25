@@ -9,12 +9,20 @@
 }
 
 .title {
-  line-height: 40px;
   text-align: center;
+  letter-spacing: calculateRem(0.2);
   text-transform: uppercase;
-  font-weight: 600;
-  font-size: 17px;
+  font-weight: 500;
+  font-size: calculateRem(16);
+  padding: calculateRem(10) 0;
+  position: sticky;
+  top: 0;
+  background: #fff;
   border-bottom: 1px solid #f7f7f7;
+}
+
+.title + .howto {
+  padding-top: calculateRem(1);
 }
 
 a {

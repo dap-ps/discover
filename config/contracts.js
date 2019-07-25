@@ -48,7 +48,7 @@ module.exports = {
     // Automatically call `ethereum.enable` if true.
     // If false, the following code must run before sending any transaction: `await EmbarkJS.enableEthereum();`
     // Default value is true.
-    // dappAutoEnable: true,
+    dappAutoEnable: false,
 
     gas: 'auto',
 
@@ -69,30 +69,27 @@ module.exports = {
     // },
 
     contracts: {
-      MiniMeToken: { deploy: false },
       BancorFormula: { deploy: false },
       MiniMeTokenFactory: { deploy: false },
       SafeMath: { deploy: false },
       TestBancorFormula: { deploy: false },
-      SNT: {
-        instanceOf: 'MiniMeToken',
-        address: '0x2764b5da3696E3613Ef9864E9B4613f9fA478E75',
+      MiniMeToken: {
+        address: '0x25B1bD06fBfC2CbDbFc174e10f1B78b1c91cc77B',
       },
-      Discover: { address: '0x3449Eb0705C9f0A77B687E7247c31e4A65f60dD4' },
-      // SNT: {
-      //   instanceOf: 'MiniMeToken',
+      Discover: { address: '0x17e7a7330d23fc6a2ab8578a627408f815396662' },
+      // MiniMeToken: {
       //   args: [
       //     '$MiniMeTokenFactory',
       //     '0x0000000000000000000000000000000000000000',
       //     0,
-      //     'TestMiniMeToken',
+      //     'SNTMiniMeToken',
       //     18,
       //     'SNT',
       //     true,
       //   ],
       // },
       // Discover: {
-      //   args: ['$SNT'],
+      //   args: ['$MiniMeToken'],
       // },
     },
   },
@@ -115,15 +112,21 @@ module.exports = {
   // used with "embark run testnet"
   testnet: {
     deployment: {
-      accounts: [{ mnemonic: wallet.mnemonic }],
+      accounts: [
+        {
+          mnemonic: wallet.mnemonic,
+        },
+      ],
       host: `ropsten.infura.io/v3/8675214b97b44e96b70d05326c61fd6a`,
       port: false,
       type: 'rpc',
       protocol: 'https',
     },
     dappConnection: [
+      '$WEB3',
       'https://ropsten.infura.io/v3/8675214b97b44e96b70d05326c61fd6a',
     ],
+    dappAutoEnable: false,
   },
 
   // merges with the settings in default

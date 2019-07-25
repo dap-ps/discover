@@ -9,13 +9,15 @@ class Alert extends React.Component {
     this.onClickNegative = this.onClickNegative.bind(this)
   }
   onClickPositive() {
-    const { hideAlert, positiveListener } = this.props
+    const { hideAlert, positiveListener, hideTransaction } = this.props
     hideAlert()
+    hideTransaction()
     if (positiveListener !== null) positiveListener()
   }
   onClickNegative() {
-    const { hideAlert, negativeListener } = this.props
+    const { hideAlert, negativeListener, hideTransaction } = this.props
     hideAlert()
+    hideTransaction()
     if (negativeListener !== null) negativeListener()
   }
   render() {

@@ -22,6 +22,7 @@ class TransactionStatus extends React.Component {
       dappImg,
       txDesc,
       published,
+      publishedEmpty,
       progress,
       failed,
       hide,
@@ -45,6 +46,11 @@ class TransactionStatus extends React.Component {
             {/* )} */}
           </div>
           <div className={styles.info}>{txDesc}</div>
+          {publishedEmpty && (
+            <div className={styles.status}>
+              ✓ Thank you for submitting. Your dapp will be reviewed soon.
+            </div>
+          )}
           {published && <div className={styles.status}>✓ Published</div>}
           {progress && (
             <div className={styles.status}>
@@ -71,6 +77,7 @@ TransactionStatus.propTypes = {
   txDesc: PropTypes.string.isRequired,
   progress: PropTypes.bool.isRequired,
   published: PropTypes.bool.isRequired,
+  publishedEmpty: PropTypes.bool.isRequired,
   failed: PropTypes.bool.isRequired,
   hide: PropTypes.func.isRequired,
   checkTransactionStatus: PropTypes.func.isRequired,

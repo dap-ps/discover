@@ -122,6 +122,11 @@
     }
   }
 
+  input::placeholder,
+  textarea::placeholder {
+    color: #939ba1;
+  }
+
   .imgInfo {
     line-height: 22px;
     color: #939ba1;

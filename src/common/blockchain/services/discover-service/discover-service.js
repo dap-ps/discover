@@ -7,17 +7,35 @@ import BlockchainService from '../blockchain-service'
 import DiscoverValidator from './discover-validator'
 import DiscoverContract from '../../../../embarkArtifacts/contracts/Discover'
 
+const BN = require('bn.js')
+
+const EMPTY_METADATA = {
+  developer: '',
+  id: '',
+  metadata: {
+    status: 'EMPTY',
+  },
+  balance: 0,
+  rate: 0,
+  available: 0,
+  votesMinted: 0,
+  votesCast: 0,
+  effectiveBalance: 0,
+}
+
 class DiscoverService extends BlockchainService {
   constructor(sharedContext) {
     super(sharedContext, DiscoverContract, DiscoverValidator)
+    this.decimalMultiplier = new BN('1000000000000000000', 10)
   }
 
   // View methods
   async upVoteEffect(id, amount) {
-    await this.validator.validateUpVoteEffect(id, amount)
+    const tokenAmount = new BN(amount, 10)
+    await this.validator.validateUpVoteEffect(id, tokenAmount)
 
     return DiscoverContract.methods
-      .upvoteEffect(id, amount)
+      .upvoteEffect(id, tokenAmount.toString())
       .call({ from: this.sharedContext.account })
   }
 
@@ -29,9 +47,56 @@ class DiscoverService extends BlockchainService {
   }
 
   async getDAppsCount() {
-    return DiscoverContract.methods
-      .getDAppsCount()
-      .call({ from: this.sharedContext.account })
+    return MetadataClient.getDappsCount()
+  }
+
+  async getAllDappsWithMetadata() {
+    try {
+      const contractDappsCount = await DiscoverContract.methods
+        .getDAppsCount()
+        .call({ from: this.sharedContext.account })
+
+      const dappsCache = JSON.parse(
+        JSON.stringify(await MetadataClient.retrieveMetadataCache()),
+      )
+      const dapps = []
+
+      for (let i = 0; i < contractDappsCount; i++) {
+        const dapp = await DiscoverContract.methods
+          .dapps(i)
+          .call({ from: this.sharedContext.account })
+
+        const dappMetadata = dappsCache[dapp.metadata]
+        delete dappsCache[dapp.metadata]
+        dapp.metadata = dappMetadata.details
+        dapp.metadata.status = dappMetadata.status
+
+        dapps.push(dapp)
+      }
+
+      Object.keys(dappsCache).forEach(metadataHash => {
+        const dappMetadata = dappsCache[metadataHash]
+
+        dapps.push({
+          developer: '',
+          id: dappMetadata.compressedMetadata,
+          metadata: {
+            ...dappMetadata.details,
+            status: dappMetadata.status,
+          },
+          balance: 0,
+          rate: 0,
+          available: 0,
+          votesMinted: 0,
+          votesCast: 0,
+          effectiveBalance: 0,
+        })
+      })
+
+      return dapps
+    } catch (error) {
+      throw new Error(`Error fetching dapps. Details: ${error.message}`)
+    }
   }
 
   async getDAppByIndexWithMetadata(index) {
@@ -40,9 +105,10 @@ class DiscoverService extends BlockchainService {
         .dapps(index)
         .call({ from: this.sharedContext.account })
 
-      const dappMetadata = await MetadataClient.retrieveMetadataCache(
+      const dappMetadata = await MetadataClient.retrieveDAppFromCache(
         dapp.metadata,
       )
+
       if (dappMetadata === null) return null
       dapp.metadata = dappMetadata.details
       dapp.metadata.status = dappMetadata.status
@@ -53,21 +119,25 @@ class DiscoverService extends BlockchainService {
   }
 
   async getDAppById(id) {
-    let dapp
-    try {
-      const dappId = await DiscoverContract.methods
-        .id2index(id)
-        .call({ from: this.sharedContext.account })
+    let dapp = EMPTY_METADATA
+    const dappExists = await this.isDAppExists(id)
 
-      dapp = await DiscoverContract.methods
-        .dapps(dappId)
-        .call({ from: this.sharedContext.account })
-    } catch (error) {
-      throw new Error('Searching DApp does not exists')
-    }
+    if (dappExists) {
+      try {
+        const dappId = await DiscoverContract.methods
+          .id2index(id)
+          .call({ from: this.sharedContext.account })
 
-    if (dapp.id != id) {
-      throw new Error('Error fetching correct data from contract')
+        dapp = await DiscoverContract.methods
+          .dapps(dappId)
+          .call({ from: this.sharedContext.account })
+      } catch (error) {
+        throw new Error('Searching DApp does not exists')
+      }
+
+      if (dapp.id != id) {
+        throw new Error('Error fetching correct data from contract')
+      }
     }
 
     return dapp
@@ -75,10 +145,11 @@ class DiscoverService extends BlockchainService {
 
   async getDAppDataById(id) {
     const dapp = await this.getDAppById(id)
+    if (dapp.metadata.status == 'EMPTY') return EMPTY_METADATA
 
     try {
       const dappMetadata = await MetadataClient.retrieveMetadata(dapp.metadata)
-      if (dappMetadata === null) return null
+      if (dappMetadata === null) return EMPTY_METADATA
       dapp.metadata = dappMetadata.details
       dapp.metadata.status = dappMetadata.status
 
@@ -102,32 +173,41 @@ class DiscoverService extends BlockchainService {
 
   async checkIfCreatorOfDApp(id) {
     const dapp = await this.getDAppById(id)
+    if (dapp.metadata.status == 'EMPTY') return false
     this.sharedContext.account = await super.getAccount()
 
     return dapp.developer.toLowerCase() == this.sharedContext.account
   }
 
   // Transaction methods
-  async createDApp(amount, metadata) {
-    await super.__unlockServiceAccount()
+  async createDApp(amount, metadata, email) {
+    const tokenAmount = this.decimalMultiplier.mul(new BN(amount, 10))
+
+    const ConnectedDiscoverContract = await super.__unlockServiceAccount(
+      DiscoverContract,
+    )
 
     const dappMetadata = JSON.parse(JSON.stringify(metadata))
     dappMetadata.uploader = this.sharedContext.account
 
     const dappId = web3.utils.keccak256(JSON.stringify(dappMetadata))
-    await this.validator.validateDAppCreation(dappId, amount)
+    await this.validator.validateDAppCreation(dappId, tokenAmount)
 
-    const uploadedMetadata = await MetadataClient.upload(dappMetadata)
+    const uploadedMetadata = await MetadataClient.upload(dappMetadata, email)
 
-    const callData = DiscoverContract.methods
-      .createDApp(dappId, amount, uploadedMetadata)
-      .encodeABI()
+    let createdTx = undefined
 
-    const createdTx = await this.sharedContext.SNTService.approveAndCall(
-      this.contract,
-      amount,
-      callData,
-    )
+    if (tokenAmount.gt(new BN(0, 10))) {
+      const callData = ConnectedDiscoverContract.methods
+        .createDApp(dappId, tokenAmount.toString(), uploadedMetadata)
+        .encodeABI()
+
+      createdTx = await this.sharedContext.SNTService.approveAndCall(
+        this.contract,
+        tokenAmount,
+        callData,
+      )
+    }
 
     await MetadataClient.requestApproval(uploadedMetadata)
 
@@ -135,12 +215,16 @@ class DiscoverService extends BlockchainService {
   }
 
   async upVote(id, amount) {
-    await this.validator.validateUpVoting(id, amount)
+    const tokenAmount = this.decimalMultiplier.mul(new BN(amount, 10))
 
-    const callData = DiscoverContract.methods.upvote(id, amount).encodeABI()
+    await this.validator.validateUpVoting(id, tokenAmount)
+
+    const callData = DiscoverContract.methods
+      .upvote(id, tokenAmount.toString())
+      .encodeABI()
     return this.sharedContext.SNTService.approveAndCall(
       this.contract,
-      amount,
+      tokenAmount,
       callData,
     )
   }
@@ -149,23 +233,31 @@ class DiscoverService extends BlockchainService {
     const dapp = await this.getDAppById(id)
     const amount = (await this.downVoteCost(dapp.id)).c
 
+    const amountBN = new BN(amount, 10)
+
+    const tokenAmount = this.decimalMultiplier.mul(amountBN)
+
     const callData = DiscoverContract.methods
-      .downvote(dapp.id, amount)
+      .downvote(dapp.id, tokenAmount.toString())
       .encodeABI()
     return this.sharedContext.SNTService.approveAndCall(
       this.contract,
-      amount,
+      tokenAmount,
       callData,
     )
   }
 
   async withdraw(id, amount) {
-    await super.__unlockServiceAccount()
-    await this.validator.validateWithdrawing(id, amount)
+    const tokenAmount = this.decimalMultiplier.mul(new BN(amount, 10))
+    const ConnectedDiscoverContract = await super.__unlockServiceAccount(
+      DiscoverContract,
+    )
+    await this.validator.validateWithdrawing(id, tokenAmount)
 
     try {
       return broadcastContractFn(
-        DiscoverContract.methods.withdraw(id, amount).send,
+        ConnectedDiscoverContract.methods.withdraw(id, tokenAmount.toString())
+          .send,
         this.sharedContext.account,
       )
     } catch (error) {
@@ -174,7 +266,9 @@ class DiscoverService extends BlockchainService {
   }
 
   async setMetadata(id, metadata) {
-    await super.__unlockServiceAccount()
+    const ConnectedDiscoverContract = await super.__unlockServiceAccount(
+      DiscoverContract,
+    )
     await this.validator.validateMetadataSet(id)
 
     const dappMetadata = JSON.parse(JSON.stringify(metadata))
@@ -184,7 +278,8 @@ class DiscoverService extends BlockchainService {
 
     try {
       const tx = await broadcastContractFn(
-        DiscoverContract.methods.setMetadata(id, uploadedMetadata).send,
+        ConnectedDiscoverContract.methods.setMetadata(id, uploadedMetadata)
+          .send,
         this.sharedContext.account,
       )
 

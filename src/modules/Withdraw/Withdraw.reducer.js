@@ -5,7 +5,7 @@ import {
   checkTransactionStatusAction,
   onStartProgressAction,
   hideAction,
-} from '../TransactionStatus/TransactionStatus.recuder'
+} from '../TransactionStatus/TransactionStatus.reducer'
 import { TYPE_WITHDRAW } from '../TransactionStatus/TransactionStatus.utilities'
 import { showAlertAction } from '../Alert/Alert.reducer'
 

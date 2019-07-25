@@ -5,7 +5,7 @@ import {
   checkTransactionStatusAction,
   onStartProgressAction,
   hideAction,
-} from '../TransactionStatus/TransactionStatus.recuder'
+} from '../TransactionStatus/TransactionStatus.reducer'
 import {
   TYPE_SUBMIT,
   TYPE_UPDATE,
@@ -16,6 +16,7 @@ import BlockchainSDK from '../../common/blockchain'
 
 const SHOW_SUBMIT_AFTER_CHECK = 'SUBMIT_SHOW_SUBMIT_AFTER_CHECK'
 const CLOSE_SUBMIT = 'SUBMIT_CLOSE_SUBMIT'
+const ON_INPUT_EMAIL = 'SUBMIT_ON_INPUT_EMAIL'
 const ON_INPUT_NAME = 'SUBMIT_ON_INPUT_NAME'
 const ON_INPUT_DESC = 'SUBMIT_ON_INPUT_DESC'
 const ON_INPUT_URL = 'SUBMIT_ON_INPUT_URL'
@@ -81,6 +82,11 @@ export const closeSubmitAction = () => {
   }
 }
 
+export const onInputEmailAction = email => ({
+  type: ON_INPUT_EMAIL,
+  payload: email,
+})
+
 export const onInputNameAction = name => ({
   type: ON_INPUT_NAME,
   payload: name,
@@ -138,20 +144,28 @@ export const submitAction = (dapp, sntValue) => {
       onStartProgressAction(
         dapp.name,
         dapp.image,
-        'Status is an open source mobile DApp browser and messenger build for #Etherium',
+        dapp.description,
         TYPE_SUBMIT,
       ),
     )
     try {
       const blockchain = await BlockchainSDK.getInstance()
-      const { tx, id } = await blockchain.DiscoverService.createDApp(sntValue, {
-        name: dapp.name,
-        url: dapp.url,
-        description: dapp.description,
-        category: dapp.category,
-        image: dapp.image,
-        dateAdded: dapp.dateAdded,
-      })
+      const { tx, id } = await blockchain.DiscoverService.createDApp(
+        sntValue,
+        {
+          name: dapp.name,
+          url: dapp.url,
+          description: dapp.description,
+          category: dapp.category,
+          image: dapp.image,
+          dateAdded: dapp.dateAdded,
+        },
+        dapp.email,
+      )
+      if (sntValue == '0') {
+        dispatch(checkTransactionStatusAction())
+        return
+      }
       dispatch(onReceiveTransactionInfoAction(id, tx))
       dispatch(checkTransactionStatusAction(tx))
     } catch (e) {
@@ -199,6 +213,7 @@ const showSubmitAfterCheck = (state, dapp) => {
     visible_submit: true,
     visible_rating: false,
     id: dapp !== undefined ? dapp.id : '',
+    email: dapp !== undefined ? dapp.email : '',
     name: dapp !== undefined ? dapp.name : '',
     desc: dapp !== undefined ? dapp.description : '',
     url: dapp !== undefined ? dapp.url : '',
@@ -216,6 +231,12 @@ const showSubmitAfterCheck = (state, dapp) => {
 const closeSubmit = state => {
   return Object.assign({}, state, {
     visible: false,
+  })
+}
+
+const onInputEmail = (state, email) => {
+  return Object.assign({}, state, {
+    email,
   })
 }
 
@@ -303,6 +324,7 @@ const onInputSntValue = (state, sntValue) => {
 const map = {
   [SHOW_SUBMIT_AFTER_CHECK]: showSubmitAfterCheck,
   [CLOSE_SUBMIT]: closeSubmit,
+  [ON_INPUT_EMAIL]: onInputEmail,
   [ON_INPUT_NAME]: onInputName,
   [ON_INPUT_DESC]: onInputDesc,
   [ON_INPUT_URL]: onInputUrl,

@@ -32,14 +32,20 @@ const ProfileContent = ({
         </div>
         <div className={styles.information}>
           <h4 className={styles.header}>{name}</h4>
-          <span className={styles.category}>{category}</span>
+          <span className={styles.category}>
+            {category.charAt(0).toUpperCase() +
+              category
+                .slice(1)
+                .toLowerCase()
+                .replace('_', ' ')}
+          </span>
           <a href={url} target="_blank" className={styles.button}>
             Open
           </a>
         </div>
         <div className={styles.description}>
           <span className={styles.heading}>Description</span>
-          <p>{desc}</p>
+          <span className="wrapper">{desc || 'Not available'}</span>
         </div>
         <div className={styles.chat}>
           <ReactImageFallback
@@ -55,17 +61,19 @@ const ProfileContent = ({
         </div>
         <div className={styles.url}>
           <span className={styles.heading}>URL</span>
-          <p>
+          <span className="wrapper">
             <a href={url}>
               {url}
               &nbsp;&rarr;
             </a>
-          </p>
+          </span>
         </div>
         <div className={styles.ranking}>
           <span className={styles.heading}>Ranking</span>
           <div className={styles.rank}>
-            <div className={styles.rank_position_1}>
+            <div
+              className={[styles.rank_position_1, styles[category]].join(' ')}
+            >
               <span className={styles.rank_position_span}>
                 {categoryPosition}
               </span>
@@ -87,13 +95,13 @@ const ProfileContent = ({
             </span>
           </div>
         </div>
-        {editable  &&  (
+        {editable && (
           <div className={styles.actions}>
             <div className={styles.button} onClick={onClickUpdateMetadata}>
-              Edit metadata
+              Edit
             </div>
             <div className={styles.button} onClick={onClickWithdraw}>
-              Withdraw SNT
+              Withdraw
             </div>
           </div>
         )}
