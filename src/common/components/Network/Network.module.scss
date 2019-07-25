@@ -1,0 +1,37 @@
+@import '../../styles/variables.scss';
+
+.networkAlert {
+  background: #eef2f5;
+  box-shadow: inset 0px 1px 0px #eef2f5;
+  display: flex;
+  padding: calculateRem(12) calculateRem(16);
+  margin-bottom: calculateRem(12);
+}
+
+.networkIcon {
+  background: #ff2d55;
+  border-radius: calculateRem(50);
+  width: calculateRem(40);
+  height: calculateRem(40);
+  display: flex;
+  justify-content: center;
+}
+
+.networkInfo {
+  text-align: justify;
+  align-self: center;
+  display: flex;
+  font-size: calculateRem(15);
+  font-family: 'Inter';
+  flex-direction: column;
+  margin-left: calculateRem(16);
+}
+
+.network {
+  font-weight: 500;
+  color: #000000;
+}
+
+.switch {
+  color: #939ba1;
+}
