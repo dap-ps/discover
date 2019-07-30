@@ -40,7 +40,14 @@ class Withdraw extends React.Component {
   }
 
   render() {
-    const { dappState, dapp, visible, onClickClose, sntValue } = this.props
+    const {
+      dappState,
+      dapp,
+      visible,
+      onClickClose,
+      sntValue,
+      withdrawMax,
+    } = this.props
 
     if (dapp === null)
       return <Modal visible={false} onClickClose={onClickClose} />
@@ -115,7 +122,7 @@ class Withdraw extends React.Component {
         <div className={`${styles.inputArea} ${styles.inputAreaBorder}`}>
           <input
             type="text"
-            value={sntValue}
+            value={!sntValue && sntValue !== 0 ? withdrawMax : sntValue}
             onChange={this.handleSNTChange}
             style={{ width: `${21 * Math.max(1, sntValue.length)}px` }}
           />
