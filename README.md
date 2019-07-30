@@ -15,9 +15,9 @@ Builds the app into the `build` directory.
 
 ### Step 1 Build the contracts and the embark artifacts
 
-#### Step 1.1 Modify contracts.js
-Modify the `config/contracts.js` file in order for embark to deploy and generate for you the correct contracts
-Starting from line 76, replace what you have existingly for `MiniMeToken` and `Discover` with
+#### Step 1.1 Check your contracts.js
+
+1. Check the `config/contracts.js` file in order for embark to work with the correct contract instance. Starting from line 76, replace your local addresses for `MiniMeToken` and `Discover` with
 
 ```
 MiniMeToken: {
@@ -37,20 +37,18 @@ Discover: {
 },
 ```
 
-remove any existing `.embark` directory and run `embark run testnet --noserver`. Once all deployments are done
-
- go to this etherscan address and check the address of the contract you've last deployed and place it in place of `0xc13711209ba3d5b4cbbcb45f7f64643abb267dbd` of the original configuration.
+2. Remove any existing `.embark` directory and run `embark run testnet --noserver`. Once all deployments are done, you can use this etherscan address to check the address of the contract you last deployed and place it in place of `0xc13711209ba3d5b4cbbcb45f7f64643abb267dbd` of the original configuration.
 
 https://ropsten.etherscan.io/address/0x65767f95799109ba028e0397add89b0ef637e444
 
 #### Step 1.2 Fix embark configuration
 
-In embarkjs.js note row 532. If you find `this._ipfsConnection.id()` -> change it to `this._ipfsConnection.version()`
+In embarkjs.js line 776. If you find `this._ipfsConnection.id()` -> change it to `this._ipfsConnection.version()`
 This is needed because Infura's IPFS has deprecated `id` endpoint, but it was used in embark in order to check if the Infura IPFS API is active.. The workaround above do the same as the deprecated functionality.
 
 #### Step 1.3 Generate the embark contract artifacts
 
-Run `embark build --contracts` in order to (re)generate `src/embarkArtifacts/contracts` directory. 
+Run `embark build` in order to (re)generate `src/embarkArtifacts/contracts` directory. 
 
 Note your `index.js` file inside. If it is broken (ending by trailing `'` instead of `}`), fix it by replacing the last comma with `}`.
 Observe that you find near the beginning of the Discover.js and MiniMeToken.js files the addresses you supplied in Step 1.1
@@ -61,7 +59,7 @@ Run the client side application via `npm run start`.
 
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser. The page will reload if you make edits. You will also see any lint errors in the console.
  
-**Important!** If you get `can't establish a connection to a node` error, try to open [http://localhost:3000](http://localhost:3000) in chrome browser.
+**Important!** If you get `can't establish a connection to a node` error, try to open [http://localhost:3000](http://localhost:3000) in Chrome.
  
 ### Step 3 - Run the unit tests
 
