@@ -361,7 +361,10 @@ class Submit extends React.Component {
               <div className={`${styles.block} ${styles.blockSubmit}`}>
                 <div className={styles.terms}>
                   By continuing you agree to our
-                  <a onClick={onClickTerms}> Terms and Conditions.</a>
+                  <span onClick={onClickTerms} className="link">
+                    {' '}
+                    Terms and Conditions.
+                  </span>
                 </div>
                 <button
                   className={styles.submitButton}

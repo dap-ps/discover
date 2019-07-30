@@ -33,7 +33,7 @@ export default class DappModel {
 }
 
 const RECENTLY_ADDED_SIZE = 50
-const HIGHEST_RANKED_SIZE = 50
+// const HIGHEST_RANKED_SIZE = 50
 
 export class DappState {
   constructor() {

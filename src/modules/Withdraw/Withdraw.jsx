@@ -27,7 +27,7 @@ class Withdraw extends React.Component {
   }
 
   handleSNTChange(e) {
-    const { dapp, withdrawMax } = this.props
+    const { withdrawMax } = this.props
     const { value } = e.target
     if (value !== '' && /^[1-9][0-9]*$/.test(value) === false) return
 
@@ -40,14 +40,21 @@ class Withdraw extends React.Component {
   }
 
   render() {
-    const { dappState, dapp, visible, onClickClose, sntValue, withdrawMax } = this.props
+    const {
+      dappState,
+      dapp,
+      visible,
+      onClickClose,
+      sntValue,
+      withdrawMax,
+    } = this.props
 
     if (dapp === null)
       return <Modal visible={false} onClickClose={onClickClose} />
 
     const currentSNTamount = dapp.sntValue
     const dappsByCategory = dappState.getDappsByCategory(dapp.category)
-    const afterVoteRating = (sntValue !== '' ? parseInt(sntValue, 10) : 0)
+    const afterVoteRating = sntValue !== '' ? parseInt(sntValue, 10) : 0
 
     let catPosition = dappsByCategory.length
     for (let i = 0; i < dappsByCategory.length; ++i) {
@@ -88,12 +95,11 @@ class Withdraw extends React.Component {
               <img src={sntIcon} alt="SNT" width="24" height="24" />
               {currentSNTamount.toLocaleString()}
             </span>
-            {afterVoteRating !== null &&
-              afterVoteRating !== 0 && (
-                <span className={styles.redBadge}>
-                  {`${afterVoteRating.toLocaleString()} ↓`}
-                </span>
-              )}
+            {afterVoteRating !== null && afterVoteRating !== 0 && (
+              <span className={styles.redBadge}>
+                {`${afterVoteRating.toLocaleString()} ↓`}
+              </span>
+            )}
           </div>
           <div className={styles.itemRow}>
             <span className={styles.item}>
@@ -116,7 +122,7 @@ class Withdraw extends React.Component {
         <div className={`${styles.inputArea} ${styles.inputAreaBorder}`}>
           <input
             type="text"
-            value={sntValue}
+            value={!sntValue && sntValue !== 0 ? withdrawMax : sntValue}
             onChange={this.handleSNTChange}
             style={{ width: `${21 * Math.max(1, sntValue.length)}px` }}
           />

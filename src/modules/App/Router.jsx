@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { Route, Switch } from 'react-router-dom'
 import Home from '../Home'
@@ -21,23 +21,25 @@ class Router extends React.Component {
   }
 
   render() {
-    return [
-      <Switch key={1}>
-        <Route exact path="/" component={Home} />
-        <Route path="/categories/:id" component={Filtered} />
-        <Route path="/all" component={Dapps} />
-        <Route path="/recently-added" component={RecentlyAdded} />
-        <Route path="/terms" component={Terms} />
-        <Route path="/:dapp_name" component={Home} />
-      </Switch>,
-      <Vote key={2} />,
-      <Submit key={3} />,
-      <HowToSubmit key={4} />,
-      <TransactionStatus key={5} />,
-      <Alert key={6} />,
-      <Route key={7} path="/:dapp_name" component={Profile} />,
-      <Withdraw key={8} />,
-    ]
+    return (
+      <Fragment>
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route path="/categories/:id" component={Filtered} />
+          <Route path="/all" component={Dapps} />
+          <Route path="/recently-added" component={RecentlyAdded} />
+          <Route path="/terms" component={Terms} />
+          <Route path="/:dapp_name" component={Home} />
+        </Switch>
+        <Vote />
+        <Submit />
+        <HowToSubmit />
+        <TransactionStatus />
+        <Alert />
+        <Route path="/:dapp_name" component={Profile} />
+        <Withdraw />
+      </Fragment>
+    )
   }
 }
 

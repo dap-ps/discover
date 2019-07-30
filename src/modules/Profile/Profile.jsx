@@ -60,9 +60,9 @@ const ProfileContent = ({
             alt="App icon"
           />
           <img src={chat} className={styles.chat_icon} alt="Chat" />
-          <a href="#" target="_blank" className={styles.chat_link}>
+          <span className={styles.chat_link + ' link'}>
             {`Open ${name} chat`}
-          </a>
+          </span>
         </div>
         <div className={styles.url}>
           <span className={styles.heading}>URL</span>
