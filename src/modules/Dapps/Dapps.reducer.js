@@ -1,5 +1,4 @@
 import reducerUtil from '../../common/utils/reducer'
-import { showAlertAction } from '../Alert/Alert.reducer'
 import BlockchainSDK from '../../common/blockchain'
 import { TYPE_SUBMIT } from '../TransactionStatus/TransactionStatus.utilities'
 import DappModel, { dappsInitialState, DappState } from '../../common/data/dapp'
