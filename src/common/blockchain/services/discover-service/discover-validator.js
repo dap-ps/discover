@@ -44,7 +44,7 @@ class DiscoverValidator {
   async validateWithdrawing(id, amount) {
     const dapp = await this.service.getDAppById(id)
 
-    if (dapp.developer.toLowerCase() != this.service.sharedContext.account) {
+    if (dapp.developer.toLowerCase() !== this.service.sharedContext.account) {
       throw new Error('Only the developer can withdraw SNT staked on this data')
     }
 
@@ -58,7 +58,7 @@ class DiscoverValidator {
   async validateMetadataSet(id) {
     const dapp = await this.service.getDAppById(id)
 
-    if (dapp.developer.toLowerCase() != this.service.sharedContext.account) {
+    if (dapp.developer.toLowerCase() !== this.service.sharedContext.account) {
       throw new Error('Only the developer can update the metadata')
     }
   }

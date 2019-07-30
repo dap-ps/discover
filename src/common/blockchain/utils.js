@@ -10,7 +10,7 @@ const waitOneMoreBlock = async function(prevBlockNumber) {
   return new Promise(resolve => {
     setTimeout(async () => {
       const blockNumber = await web3.eth.getBlockNumber()
-      if (prevBlockNumber == blockNumber) {
+      if (prevBlockNumber === blockNumber) {
         return waitOneMoreBlock(prevBlockNumber)
       }
       resolve()

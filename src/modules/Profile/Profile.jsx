@@ -39,7 +39,12 @@ const ProfileContent = ({
                 .toLowerCase()
                 .replace('_', ' ')}
           </span>
-          <a href={url} target="_blank" className={styles.button}>
+          <a
+            href={url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.button}
+          >
             Open
           </a>
         </div>

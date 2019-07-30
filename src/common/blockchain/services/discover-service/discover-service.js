@@ -135,7 +135,7 @@ class DiscoverService extends BlockchainService {
         throw new Error('Searching DApp does not exists')
       }
 
-      if (dapp.id != id) {
+      if (dapp.id !== id) {
         throw new Error('Error fetching correct data from contract')
       }
     }
@@ -145,7 +145,7 @@ class DiscoverService extends BlockchainService {
 
   async getDAppDataById(id) {
     const dapp = await this.getDAppById(id)
-    if (dapp.metadata.status == 'EMPTY') return EMPTY_METADATA
+    if (dapp.metadata.status === 'EMPTY') return EMPTY_METADATA
 
     try {
       const dappMetadata = await MetadataClient.retrieveMetadata(dapp.metadata)
@@ -173,10 +173,10 @@ class DiscoverService extends BlockchainService {
 
   async checkIfCreatorOfDApp(id) {
     const dapp = await this.getDAppById(id)
-    if (dapp.metadata.status == 'EMPTY') return false
+    if (dapp.metadata.status === 'EMPTY') return false
     this.sharedContext.account = await super.getAccount()
 
-    return dapp.developer.toLowerCase() == this.sharedContext.account
+    return dapp.developer.toLowerCase() === this.sharedContext.account
   }
 
   // Transaction methods

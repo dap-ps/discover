@@ -162,7 +162,7 @@ export const submitAction = (dapp, sntValue) => {
         },
         dapp.email,
       )
-      if (sntValue == '0') {
+      if (sntValue === '0') {
         dispatch(checkTransactionStatusAction())
         return
       }

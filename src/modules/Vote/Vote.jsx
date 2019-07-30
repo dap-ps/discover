@@ -243,7 +243,7 @@ class Vote extends Component {
           <div className={styles.learnMoreCnt}>
             <div className={styles.title}>How to submit a ÐApp</div>
             <div className={styles.spacing}>
-              <img src="/images/learn-more-curve.png" />
+              <img src="/images/learn-more-curve.png" alt="Bonded Curve" />
               <p>
                 This is what the curve you're using really looks like. The more
                 SNT staked on a DApp, the cheaper it becomes for anyone to
@@ -281,7 +281,7 @@ class Vote extends Component {
           <div className={styles.learnMoreCnt}>
             <div className={styles.title}>How to submit a ÐApp</div>
             <div className={styles.spacing}>
-              <img src="/images/learn-more-curve.png" />
+              <img src="/images/learn-more-curve.png" alt="Bonded Curve" />
               <p>
                 This is what the curve you're using really looks like. The more
                 SNT staked on a DApp, the cheaper it becomes for anyone to

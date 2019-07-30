@@ -40,7 +40,7 @@ export const onChangeTransactionStatusDataAction = transactionStatus => ({
 export const checkTransactionStatusAction = tx => {
   return async dispatch => {
     const transacationStatus = transactionStatusFetchedInstance()
-    if (tx == undefined) {
+    if (tx === undefined) {
       transacationStatus.setPublishedEmpty(true)
       dispatch(onChangeTransactionStatusDataAction(transacationStatus))
       return
