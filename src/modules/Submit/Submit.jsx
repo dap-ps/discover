@@ -3,9 +3,11 @@ import PropTypes from 'prop-types'
 import ReactImageFallback from 'react-image-fallback'
 import styles from './Submit.module.scss'
 import Modal from '../../common/components/Modal'
+import Network from '../../common/components/Network'
 import CategorySelector from '../CategorySelector/CategorySelector.picker'
 import Slider from '../../common/components/Slider/Slider'
 import CategoriesUtils from '../Categories/Categories.utils'
+import { checkNetwork } from '../../common/blockchain/utils'
 import Categories from '../../common/utils/categories'
 import icon from '../../common/assets/images/icon.svg'
 import sntIcon from '../../common/assets/images/SNT.svg'
@@ -480,6 +482,7 @@ class Submit extends React.Component {
                 earn back through votes, or withdraw, the majority of this SNT
                 at any time.
               </p>
+              {checkNetwork() && <Network />}
               <button type="submit" onClick={this.onSubmit}>
                 {!sntValue || sntValue === '0'
                   ? 'Publish'

@@ -17,7 +17,8 @@
   padding: calculateRem(10) 0;
   position: sticky;
   top: 0;
-  background: #fff;
+  z-index: 99;
+  background: #ffffff;
   border-bottom: 1px solid #f7f7f7;
 }
 
@@ -79,6 +80,9 @@ a {
   height: 64px;
   display: flex;
   align-items: center;
+  position: sticky;
+  bottom: 0;
+  background: #ffffff;
   justify-content: center;
   border-top: 1px solid #f7f7f7;
 
