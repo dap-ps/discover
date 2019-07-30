@@ -1,4 +1,3 @@
-/* global web3 */
 import utils from './utils'
 import EmbarkJS from '../../embarkArtifacts/embarkjs'
 

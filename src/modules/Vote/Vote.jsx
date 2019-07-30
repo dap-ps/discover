@@ -214,7 +214,9 @@ class Vote extends Component {
                   <p className={styles.disclaimer}>
                     SNT you spend to upvote is locked in the contract and
                     contributes directly to {dapp.name}'s ranking.{' '}
-                    <a onClick={onClickLearnMoreUpVote}>Learn more↗</a>
+                    <span className="link" onClick={onClickLearnMoreUpVote}>
+                      Learn more↗
+                    </span>
                   </p>
                 )}
                 {!isUpvote && (
@@ -222,7 +224,9 @@ class Vote extends Component {
                     SNT you spend to downvote goes directly back to {dapp.name}.
                     Downvoting moves their DApp down by 1% of the current
                     ranking. The cost is fixed by our unique bonded curve.{' '}
-                    <a onClick={onClickLearnMoreDownVote}>Learn more↗</a>
+                    <span className="link" onClick={onClickLearnMoreDownVote}>
+                      Learn more↗
+                    </span>
                   </p>
                 )}
               </div>
