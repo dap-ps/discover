@@ -68,7 +68,8 @@ Run the build procedure via `npm run build`. Once you are done, copy the content
 
 ## Deployments Steps AWS
 
-0. Zip everything in the app-deployment branch (maybe omit node_modules and `deployment` directories)
+0. Run `. build.sh`, and zip the resulting `full-build` folder.
+
 1. Go to [AWS ElasticBeanstal console](https://us-east-1.console.aws.amazon.com/elasticbeanstalk/home?region=us-east-1#/environment/dashboard?applicationName=dev-dap-ps-app&environmentId=e-zcpbhkm3gw)
 
 2. Click Upload and deploy button in the middle of the screen.
