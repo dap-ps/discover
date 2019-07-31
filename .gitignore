@@ -8,6 +8,9 @@ node_modules
 package-lock.json
 dist
 full-build
+full-build.zip
+flattenedContracts
+src/embarkArtifacts
 
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 

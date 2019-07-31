@@ -14,6 +14,7 @@
     "debounce": "^1.2.0",
     "decimal.js": "^10.0.2",
     "embark": "4.0.2",
+    "embark-etherscan-verifier": "^4.0.0",
     "embark-solium": "0.0.1",
     "history": "^4.7.2",
     "idb": "4.0.3",
