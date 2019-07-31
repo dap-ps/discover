@@ -7,11 +7,11 @@
       },
       "0xe901d01d0cf8056c85c28f67149efafe606ac20707c3069b1c61a78c601779e1": {
         "name": "MiniMeToken",
-        "address": "0x25B1bD06fBfC2CbDbFc174e10f1B78b1c91cc77B"
+        "address": "0xc55cf4b03948d7ebc8b9e8bad92643703811d162"
       },
-      "0x7659b3c2dfc8fc31e36fbe3c82cafebbbd05e360a5d47c59a94c1ce120ba60e4": {
+      "0x608829b14a067d406fd623b20919d4a7719c06bb7bccdc3a7d18b11f15d8e11a": {
         "name": "Discover",
-        "address": "0x17e7a7330d23fc6a2ab8578a627408f815396662"
+        "address": "0x9fb115BC152aE21ECDc81c73843673fa38e4D2dB"
       }
     }
   }

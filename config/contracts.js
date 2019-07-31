@@ -122,10 +122,10 @@ module.exports = {
         deploy: false,
       },
       MiniMeToken: {
-        address: '0x25B1bD06fBfC2CbDbFc174e10f1B78b1c91cc77B',
+        address: '0xc55cf4b03948d7ebc8b9e8bad92643703811d162',
       },
       Discover: {
-        address: '0x17e7a7330d23fc6a2ab8578a627408f815396662',
+        args: ['$MiniMeToken'],
       },
     },
     tracking: 'shared.testnet.chains.json',
