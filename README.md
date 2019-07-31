@@ -15,42 +15,37 @@ Builds the app into the `build` directory.
 
 ### Step 1 Build the contracts and the embark artifacts
 
-#### Step 1.1 Check your contracts.js
+#### Step 1.1 Understand contracts.js
 
-1. Check the `config/contracts.js` file in order for embark to work with the correct contract instance. Starting from line 76, replace your local addresses for `MiniMeToken` and `Discover` with
-
-```
-MiniMeToken: {
-	address: '0x25B1bD06fBfC2CbDbFc174e10f1B78b1c91cc77B'
-},
-Discover: { address: '0x17e7a7330d23fc6a2ab8578a627408f815396662' },
-```
-
-If you need to deploy new version of the Discover contract the last line read the part below:
+Check the `config/contracts.js` file in order to check you're working with the correct contract instance. The contracts on Ropsten point at these adresses (the first is `STT`, the Status Test Token):
 
 ```
-MiniMeToken: {
-	address: '0x25B1bD06fBfC2CbDbFc174e10f1B78b1c91cc77B'
-},
-Discover: {
-	args: ['$MiniMeToken'],
-},
+MiniMeToken: { address: '0xc55cf4b03948d7ebc8b9e8bad92643703811d162' },
+Discover: { address: '0x9fb115BC152aE21ECDc81c73843673fa38e4D2dB' },
 ```
 
-2. Remove any existing `.embark` directory and run `embark run testnet --noserver`. Once all deployments are done, you can use this etherscan address to check the address of the contract you last deployed and place it in place of `0xc13711209ba3d5b4cbbcb45f7f64643abb267dbd` of the original configuration.
+On mainnet they are:
+
+```
+MiniMeToken: { address: '0x744d70fdbe2ba4cf95131626614a1763df805b9e' },
+Discover: { address: 'TBA' },
+```
+
+If you need to deploy your own, you simply need to target your local machine when deploying.
+
+**Tips:** Remove any existing `.embark` directory and run `embark run testnet --noserver`. Use this etherscan address to check the address of the contract you last deployed.
 
 https://ropsten.etherscan.io/address/0x65767f95799109ba028e0397add89b0ef637e444
 
 #### Step 1.2 Fix embark configuration
 
-In embarkjs.js line 776. If you find `this._ipfsConnection.id()` -> change it to `this._ipfsConnection.version()`
-This is needed because Infura's IPFS has deprecated `id` endpoint, but it was used in embark in order to check if the Infura IPFS API is active.. The workaround above do the same as the deprecated functionality.
+In embarkjs.js line 125. If you find `this._ipfsConnection.id()` -> change it to `this._ipfsConnection.version()`
+This is needed because Infura's IPFS has deprecated `id` endpoint, but this is only updated in Embark 4.1.
 
 #### Step 1.3 Generate the embark contract artifacts
 
-Run `embark build` in order to (re)generate `src/embarkArtifacts/contracts` directory. 
+Run `embark build` in order to generate `src/embarkArtifacts/`. 
 
-Note your `index.js` file inside. If it is broken (ending by trailing `'` instead of `}`), fix it by replacing the last comma with `}`.
 Observe that you find near the beginning of the Discover.js and MiniMeToken.js files the addresses you supplied in Step 1.1
 
 ### Step 2. Run the client side app localy.
