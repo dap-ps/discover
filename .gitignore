@@ -29,6 +29,7 @@ src/embarkArtifacts
 
 # production
 /build
+app.zip
 
 # misc
 .DS_Store
