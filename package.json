@@ -35,11 +35,11 @@
     "reselect": "^4.0.0",
     "validator": "^11.1.0",
     "web3": "1.0.0-beta.34",
-    "web3-utils": "^1.0.0-beta.35",
-    "react-scripts": "^3.0.1"
+    "web3-utils": "^1.0.0-beta.35"
   },
   "scripts": {
-    "start": "./node_modules/.bin/react-scripts start",
+    "start-dev": "node server.js",
+    "start-dev": "./node_modules/.bin/react-scripts start",
     "build": "./node_modules/.bin/react-scripts build",
     "test": "./node_modules/.bin/react-scripts test",
     "eject": "./node_modules/.bin/react-scripts eject",
@@ -76,6 +76,7 @@
     "gh-pages": "^2.0.1",
     "husky": "^1.3.1",
     "lint-staged": "^8.1.5",
-    "prettier": "^1.16.4"
+    "prettier": "^1.16.4",
+    "react-scripts": "^3.0.1"
   }
 }
