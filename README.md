@@ -37,16 +37,16 @@ If you need to deploy your own, you simply need to target your local machine whe
 
 https://ropsten.etherscan.io/address/0x65767f95799109ba028e0397add89b0ef637e444
 
-#### Step 1.2 Fix embark configuration
-
-In embarkjs.js line 125. If you find `this._ipfsConnection.id()` -> change it to `this._ipfsConnection.version()`
-This is needed because Infura's IPFS has deprecated `id` endpoint, but this is only updated in Embark 4.1.
-
-#### Step 1.3 Generate the embark contract artifacts
+#### Step 1.2 Generate the embark contract artifacts
 
 Run `embark build` in order to generate `src/embarkArtifacts/`. 
 
 Observe that you find near the beginning of the Discover.js and MiniMeToken.js files the addresses you supplied in Step 1.1
+
+#### Step 1.3 Fix embark configuration
+
+In embarkjs.js line 125. If you find `this._ipfsConnection.id()` -> change it to `this._ipfsConnection.version()`
+This is needed because Infura's IPFS has deprecated `id` endpoint, but this is only updated in Embark 4.1.
 
 ### Step 2. Run the client side app localy.
 
