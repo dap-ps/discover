@@ -1,11 +1,16 @@
 const ipfsClient = require('ipfs-http-client');
-const logger = require('./../logger/logger').getLoggerFor('IPFS-Service');
+const logger = require('../logger/logger').getLoggerFor('IPFS-Service');
+const config = require('../config')
 
 class IPFSService {
 
     constructor() {
         if (!IPFSService.instance) {
-            this.storage = ipfsClient(process.env.IPFS_HOST, process.env.IPFS_PORT, { protocol: process.env.IPFS_PROTOCOL })
+            this.storage = ipfsClient(
+                config.IPFS_HOST,
+                config.IPFS_PORT,
+                { protocol: config.IPFS_PROTOCOL }
+            )
             IPFSService.instance = this;
         }
 

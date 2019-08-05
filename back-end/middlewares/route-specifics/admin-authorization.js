@@ -1,12 +1,19 @@
-const logger = require('./../../logger/logger').getLoggerFor('Admin-authorization');
-const parseBasicAuthorization = require('./../../utils/authorization-utils').parseBasicAuthorization;
+const logger = require('../../logger/logger').getLoggerFor('Admin-authorization');
+const parseBasicAuthorization = require('../../utils/authorization-utils').parseBasicAuthorization;
+const config = require('../../config')
 
 class AdminAuthorizationMiddleware {
+    static verifyUserAuth(auth) {
+        return (
+            authorization.username == config.ADMIN_USER &&
+            authorization.password == config.ADMIN_PASSWORD
+        )
+    }
 
     static authorize(req, res, next) {
         try {
             let authorization = parseBasicAuthorization(req.headers.authorization);
-            if (authorization.username == process.env.ADMIN_USER && authorization.password == process.env.ADMIN_PASSWORD) {
+            if (this.verifyUserAuth(authorization)) {
                 return void next();
             }
 

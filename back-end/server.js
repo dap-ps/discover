@@ -1,3 +1,5 @@
+const config = require('./config')
+
 function setupSystem() {
     let dotenv = require("dotenv");
     dotenv.config();
@@ -18,8 +20,8 @@ async function setupAPI() {
     setupPostRoutedAppMiddlewares(app);
 
     app.use(express.static('frontend'));
-    app.listen(process.env.PORT);
-    console.log(`Server started on port: ${process.env.PORT}...`);
+    app.listen(config.PORT);
+    console.log(`Server started on port: ${config.PORT}...`);
 
     return app;
 }

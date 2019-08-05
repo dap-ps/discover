@@ -1,4 +1,5 @@
 const web3 = require('./web3');
+const config = require('./../config')
 
 let DiscoverABI = [
     {
@@ -479,4 +480,4 @@ let DiscoverABI = [
     }
 ];
 
-module.exports = web3.eth.Contract(DiscoverABI, process.env.DISCOVER_CONTRACT);
+module.exports = new web3.eth.Contract(DiscoverABI, config.DISCOVER_CONTRACT);
