@@ -21,7 +21,7 @@ async function setupAPI() {
 
     app.use(express.static('frontend'));
     app.listen(config.PORT);
-    console.log(`Server started on port: ${config.PORT}...`);
+    console.log(`Server started on port: ${config.PORT}`);
 
     return app;
 }
