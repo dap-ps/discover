@@ -29,6 +29,7 @@ src/embarkArtifacts
 
 # production
 /build
+app.zip
 
 # misc
 .DS_Store
@@ -44,3 +45,6 @@ yarn-error.log*
 
 # Slither
 crytic-export/
+
+# AWS EB CLI
+.elasticbeanstalk/

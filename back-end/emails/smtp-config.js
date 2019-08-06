@@ -1,9 +1,11 @@
+const config = require('../config')
+
 module.exports = {
-    host: process.env.EMAIL_HOST,
-    port: process.env.EMAIL_PORT,
-    secure: process.env.EMAIL_TLS,
+    host: config.EMAIL_HOST,
+    port: config.EMAIL_PORT,
+    secure: config.EMAIL_TLS,
     auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASSWORD
+        user: config.EMAIL_USER,
+        pass: config.EMAIL_PASSWORD
     }
 };

@@ -1,7 +1,6 @@
 import HTTPClient from './http-client'
 
 import * as helpers from '../utils/metadata-utils'
-import metadataClientEndpoints from './endpoints/metadata-client-endpoints'
 
 let metadataCache = null
 
@@ -9,8 +8,7 @@ class MetadataClient {
   static async upload(metadata, email) {
     try {
       const uploadedDataResponse = await HTTPClient.postRequest(
-        metadataClientEndpoints.UPLOAD,
-        { metadata, email },
+        '/metadata', { metadata, email },
       )
 
       return helpers.getBytes32FromIpfsHash(uploadedDataResponse.data.hash)
@@ -22,8 +20,7 @@ class MetadataClient {
   static async update(dappId, tx) {
     try {
       await HTTPClient.postRequest(
-        `${metadataClientEndpoints.UPDATE}/${dappId}`,
-        { txHash: tx },
+        `/metadata/update/${dappId}`, { txHash: tx }
       )
     } catch (error) {
       throw new Error('DApp metadata was not updated in the client')
@@ -32,10 +29,9 @@ class MetadataClient {
 
   static async requestApproval(metadataBytes32) {
     try {
+      const ipfsHash = helpers.getIpfsHashFromBytes32(metadataBytes32)
       await HTTPClient.postRequest(
-        `${metadataClientEndpoints.APPROVE}/${helpers.getIpfsHashFromBytes32(
-          metadataBytes32,
-        )}`,
+        `/metadata/approve/email/${ipfsHash}`
       )
     } catch (error) {
       throw new Error('No DApp was found for approval')
@@ -46,7 +42,7 @@ class MetadataClient {
     try {
       const convertedHash = helpers.getIpfsHashFromBytes32(metadataBytes32)
       const retrievedMetadataResponse = await HTTPClient.getRequest(
-        `${metadataClientEndpoints.RETRIEVE_METADATA}/${convertedHash}`,
+        `/metadata/${convertedHash}`
       )
 
       if (metadataCache !== null)
@@ -59,7 +55,7 @@ class MetadataClient {
 
   static async retrieveAllDappsMetadata() {
     const retrievedDAppsMetadataResponse = await HTTPClient.getRequest(
-      `${metadataClientEndpoints.RETRIEVE_ALL_METADATA}`,
+      '/metadata/all'
     )
 
     const formatedDappsMetadata = {}

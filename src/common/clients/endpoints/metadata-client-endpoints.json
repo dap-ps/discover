@@ -1,7 +1,0 @@
-{
-  "UPLOAD": "http://dev.dap.ps/metadata",
-  "UPDATE": "http://dev.dap.ps/metadata/update",
-  "APPROVE": "http://dev.dap.ps/metadata/approve/email",
-  "RETRIEVE_METADATA": "http://dev.dap.ps/metadata",
-  "RETRIEVE_ALL_METADATA": "http://dev.dap.ps/metadata/all"
-}

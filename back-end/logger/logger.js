@@ -1,14 +1,15 @@
 const winston = require('winston');
 const CloudWatchTransport = require('winston-aws-cloudwatch');
+const config = require('../config')
 
 let baseConfig = {
-    logGroupName: `${process.env.ENVIRONMENT}-logs`,
+    logGroupName: `${config.ENVIRONMENT}-logs`,
     createLogGroup: true,
     createLogStream: true,
     awsConfig: {
-        accessKeyId: process.env.CLOUDWATCH_ACCESS_KEY_ID,
-        secretAccessKey: process.env.CLOUDWATCH_SECRET_ACCESS_KEY,
-        region: process.env.CLOUDWATCH_REGION
+        accessKeyId: config.CLOUDWATCH_ACCESS_KEY_ID,
+        secretAccessKey: config.CLOUDWATCH_SECRET_ACCESS_KEY,
+        region: config.CLOUDWATCH_REGION
     }
 }
 
@@ -39,7 +40,7 @@ module.exports = {
             transports: transports
         });
 
-        if (process.env.ENVIRONMENT == 'DEV') {
+        if (config.ENVIRONMENT == 'DEV') {
             logger.add(new winston.transports.Console());
         } else {
             // Set the Formatting per Logger, because we need to context
