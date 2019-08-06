@@ -5,15 +5,15 @@ const config = require('../../config')
 class AdminAuthorizationMiddleware {
     static verifyUserAuth(auth) {
         return (
-            authorization.username == config.ADMIN_USER &&
-            authorization.password == config.ADMIN_PASSWORD
+            auth.username == config.ADMIN_USER &&
+            auth.password == config.ADMIN_PASSWORD
         )
     }
 
     static authorize(req, res, next) {
         try {
             let authorization = parseBasicAuthorization(req.headers.authorization);
-            if (this.verifyUserAuth(authorization)) {
+            if (AdminAuthorizationMiddleware.verifyUserAuth(authorization)) {
                 return void next();
             }
 
