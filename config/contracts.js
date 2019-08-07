@@ -1,4 +1,4 @@
-const wallet = require('./livenet/mnemonic')
+const wallet = require('./development/mnemonic')
 const devWallet = require('./development/mnemonic')
 
 module.exports = {
