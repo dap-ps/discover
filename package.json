@@ -36,8 +36,6 @@
     "build": "./node_modules/.bin/react-scripts build",
     "test": "./node_modules/.bin/react-scripts test",
     "eject": "./node_modules/.bin/react-scripts eject",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
     "slither": "./node_modules/.bin/slither . --exclude naming-convention --filter-paths token"
   },
   "husky": {
