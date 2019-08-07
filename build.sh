@@ -14,23 +14,35 @@ else
     exit 1
 fi
 
-echo "removing old full-build"
+echo " * Removing old full-build"
 rm -rf full-build app.zip
-echo "compiling contracts"
+
+echo " * Compiling contracts"
 ./node_modules/.bin/embark build "${EMBARK_TARGET}"
-echo "creating new full-build"
+
+echo " * Patching deprecated IPFS id() call"
+sed -i \
+    's#_ipfsConnection.id#_ipfsConnection.version#'
+    src/embarkArtifacts/embarkjs.js
+
+echo " * Creating new full-build"
 mkdir full-build
 cp -r back-end/* full-build/
-echo "copying special files"
+
+echo " * Copying special files"
 cp .npmrc full-build/
-echo "building new frontend"
+
+echo " * Building new frontend"
 ./node_modules/.bin/react-scripts build
-echo "copying new frontend"
+
+echo " * Copying new frontend"
 mkdir full-build/frontend
 cp -r build/* full-build/frontend/
-echo "archiving the build"
+
+echo " * Archiving the build"
 {
     cd full-build;
     zip -r ../app.zip ./
 }
+echo
 echo "Finished. Use the app.zip file."
