@@ -8,9 +8,9 @@ cp -r back-end/* full-build/
 echo "copying special files"
 cp .npmrc full-build/
 echo "building new frontend"
-yarn run build
+./node_modules/.bin/react-scripts build
 echo "copying new frontend"
-rm -rf full-build/frontend/*
+mkdir full-build/frontend
 cp -r build/* full-build/frontend/
 echo "archiving the build"
 {
