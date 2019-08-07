@@ -1,4 +1,5 @@
-const wallet = require('./development/mnemonic')
+const wallet = require('./livenet/mnemonic')
+const devWallet = require('./development/mnemonic')
 
 module.exports = {
   // default applies to all environments
@@ -33,7 +34,7 @@ module.exports = {
 
       accounts: [
         {
-          mnemonic: wallet.mnemonic,
+          mnemonic: devWallet.mnemonic,
           balance: '1534983463450 ether',
         },
       ],
@@ -104,7 +105,7 @@ module.exports = {
     deployment: {
       accounts: [
         {
-          mnemonic: wallet.mnemonic,
+          mnemonic: devWallet.mnemonic,
         },
       ],
       host: `ropsten.infura.io/v3/8675214b97b44e96b70d05326c61fd6a`,
@@ -137,7 +138,7 @@ module.exports = {
     deployment: {
       accounts: [
         {
-          // TODO: configure deployment account method.
+          mnemonic: wallet.mnemonic,
         },
       ],
       host: `mainnet.infura.io/v3/8675214b97b44e96b70d05326c61fd6a`,
@@ -150,7 +151,7 @@ module.exports = {
       'https://mainnet.infura.io/v3/8675214b97b44e96b70d05326c61fd6a',
     ],
     dappAutoEnable: false,
-    // gasPrice: "10000000000", // 10gwei. TODO: Set a proper gas price for deployment. See ethgasstation.info
+    gasPrice: "10000000000", // 10gwei. TODO: Set a proper gas price for deployment. See ethgasstation.info
     contracts: {
       MiniMeTokenFactory: {
         deploy: false,
