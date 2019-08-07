@@ -1,3 +1,7 @@
+if (process.env.WALLET_PASSWORD == undefined) {
+  throw Error('Env variable WALLET_PASSWORD not defined!')
+}
+
 module.exports = {
   // applies to all environments
   default: {
@@ -122,7 +126,7 @@ module.exports = {
     accounts: [
       {
         nodeAccounts: true,
-        password: 'config/testnet/password',
+        password: process.env.WALLET_PASSWORD,
       },
     ],
   },
@@ -137,7 +141,7 @@ module.exports = {
     accounts: [
       {
         nodeAccounts: true,
-        password: 'config/livenet/password'
+        password: process.env.WALLET_PASSWORD,
       },
     ],
   },
