@@ -273,7 +273,7 @@ contract Discover is Controlled, ApproveAndCallFallBack, BancorFormula {
      * @param _id bytes32 unique identifier.
      * @return balance_down_by, votes_required, cost
      */
-    function downvoteCost(bytes32 _id) public view returns(uint b, uint vR, uint c) {
+    function downvoteCost(bytes32 _id) external view returns(uint b, uint vR, uint c) {
         Data memory d = _getDAppById(_id);
         return _downvoteCost(d);
     }
