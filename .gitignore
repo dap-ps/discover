@@ -1,14 +1,12 @@
 .embark
 chains.json
 config/development/mnemonic
-config/livenet/password
-config/production/password
+config/livenet/
 coverage
 node_modules
 package-lock.json
 dist
 full-build
-full-build.zip
 flattenedContracts
 src/embarkArtifacts
 
