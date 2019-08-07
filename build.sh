@@ -1,7 +1,7 @@
 echo "removing old full-build"
 rm -rf full-build app.zip
 echo "compiling contracts"
-./node_modules/.bin/embark build testnet
+./node_modules/.bin/embark build
 echo "creating new full-build"
 mkdir full-build
 cp -r back-end/* full-build/
