@@ -22,7 +22,7 @@ echo " * Compiling contracts"
 
 echo " * Patching deprecated IPFS id() call"
 sed -i \
-    's#_ipfsConnection.id#_ipfsConnection.version#'
+    's#_ipfsConnection.id#_ipfsConnection.version#' \
     src/embarkArtifacts/embarkjs.js
 
 echo " * Creating new full-build"
