@@ -10,7 +10,7 @@ import { DappState } from '../../common/data/dapp'
 const ProfileContent = ({
   name,
   url,
-  desc,
+  description,
   image,
   category,
   highestRankedPosition,
@@ -50,19 +50,7 @@ const ProfileContent = ({
         </div>
         <div className={styles.description}>
           <span className={styles.heading}>Description</span>
-          <span className="wrapper">{desc || 'Not available'}</span>
-        </div>
-        <div className={styles.chat}>
-          <ReactImageFallback
-            className={styles.chat_image}
-            src={image}
-            fallbackImage={icon}
-            alt="App icon"
-          />
-          <img src={chat} className={styles.chat_icon} alt="Chat" />
-          <span className={styles.chat_link + ' link'}>
-            {`Open ${name} chat`}
-          </span>
+          <span className="wrapper">{description || 'Not available'}</span>
         </div>
         <div className={styles.url}>
           <span className={styles.heading}>URL</span>
