@@ -1,4 +1,4 @@
-const wallet = require('./development/mnemonic')
+//const wallet = require('./livenet/mnemonic')
 const devWallet = require('./development/mnemonic')
 
 module.exports = {
@@ -138,7 +138,7 @@ module.exports = {
     deployment: {
       accounts: [
         {
-          mnemonic: wallet.mnemonic,
+          mnemonic: devWallet.mnemonic,
         },
       ],
       host: `mainnet.infura.io/v3/8675214b97b44e96b70d05326c61fd6a`,
