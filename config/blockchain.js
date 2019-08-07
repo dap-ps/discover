@@ -137,7 +137,7 @@ module.exports = {
     accounts: [
       {
         nodeAccounts: true,
-        password: 'config/livenet/password',
+        password: 'config/livenet/password'
       },
     ],
   },

@@ -1,0 +1,14 @@
+{
+  "0xd4e56740f876aef8c010b86a40d5f56745a118d0906a34e69aec8c0db1cb8fa3": {
+    "contracts": {
+      "0xe901d01d0cf8056c85c28f67149efafe606ac20707c3069b1c61a78c601779e1": {
+        "name": "MiniMeToken",
+        "address": "0x744d70fdbe2ba4cf95131626614a1763df805b9e"
+      },
+      "0x2c30a28de2c0681904196c9f6c6103eafb5ec55c6ac882db28da05045878c3b7": {
+        "name": "Discover",
+        "address": "0x5bCF2767F86f14eDd82053bfBfd5069F68C2C5F8"
+      }
+    }
+  }
+}
