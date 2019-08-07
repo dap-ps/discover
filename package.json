@@ -32,10 +32,10 @@
   },
   "scripts": {
     "start": "node server.js",
-    "start-dev": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
+    "start-dev": "./node_modules/.bin/react-scripts start",
+    "build": "./node_modules/.bin/react-scripts build",
+    "test": "./node_modules/.bin/react-scripts test",
+    "eject": "./node_modules/.bin/react-scripts eject",
     "slither": "./node_modules/.bin/slither . --exclude naming-convention --filter-paths token"
   },
   "husky": {
