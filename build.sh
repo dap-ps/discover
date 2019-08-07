@@ -1,3 +1,10 @@
+#!/usr/bin/env bash
+
+if [[ "${NODE_ENV}" != "production" ]]; then
+    export WALLET_MNEMONIC='erupt point century seek certain escape solution flee elegant hard please pen'
+    export WALLET_PASSWORD='dev_password'
+fi
+
 echo "removing old full-build"
 rm -rf full-build app.zip
 echo "compiling contracts"

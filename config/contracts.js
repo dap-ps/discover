@@ -1,5 +1,6 @@
-//const wallet = require('./livenet/mnemonic')
-const devWallet = require('./development/mnemonic')
+if (process.env.WALLET_MNEMONIC == undefined) {
+  throw Error('Env variable WALLET_MNEMONIC not defined!')
+}
 
 module.exports = {
   // default applies to all environments
@@ -34,7 +35,7 @@ module.exports = {
 
       accounts: [
         {
-          mnemonic: devWallet.mnemonic,
+          mnemonic: process.env.WALLET_MNEMONIC,
           balance: '1534983463450 ether',
         },
       ],
@@ -105,7 +106,7 @@ module.exports = {
     deployment: {
       accounts: [
         {
-          mnemonic: devWallet.mnemonic,
+          mnemonic: process.env.WALLET_MNEMONIC,
         },
       ],
       host: `ropsten.infura.io/v3/8675214b97b44e96b70d05326c61fd6a`,
@@ -138,7 +139,7 @@ module.exports = {
     deployment: {
       accounts: [
         {
-          mnemonic: devWallet.mnemonic,
+          mnemonic: process.env.WALLET_MNEMONIC,
         },
       ],
       host: `mainnet.infura.io/v3/8675214b97b44e96b70d05326c61fd6a`,
