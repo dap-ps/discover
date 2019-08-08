@@ -39,7 +39,6 @@ export default {
 
 const checkNetwork = async () => {
   web3.eth.net.getId().then(networkId => {
-    console.log(networkId)
     return networkId === 1 ? 'true' : 'false'
   })
 }
