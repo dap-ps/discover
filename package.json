@@ -31,8 +31,8 @@
     "web3-utils": "^1.0.0-beta.35"
   },
   "scripts": {
-    "build:dev": "NODE_ENV=development make",
-    "build:prod": "NODE_ENV=production make",
+    "build:dev": "NODE_ENV=development make all",
+    "build:prod": "NODE_ENV=production make all",
     "start": "./node_modules/.bin/react-scripts start",
     "build": "./node_modules/.bin/react-scripts build",
     "test": "./node_modules/.bin/react-scripts test",
