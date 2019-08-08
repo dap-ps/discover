@@ -1,3 +1,4 @@
+const path = require('path')
 const config = require('./config')
 
 function setupSystem() {
@@ -23,6 +24,12 @@ async function setupAPI() {
     setupPostRoutedAppMiddlewares(app);
 
     app.use(express.static('frontend'));
+
+    /* Handles any requests that don't match the ones above */
+    app.get('*', (req,res) =>{
+        res.sendFile(path.join(__dirname, 'frontend/index.html'));
+    });
+
     app.listen(config.PORT);
     console.log(`Server started on port: ${config.PORT}`);
 
