@@ -1,4 +1,3 @@
-
 # Discover  
 
 Discover new and useful DApps that are mobile-friendly and easy to use. Viewing curated information does not require any special tools, though effecting the way information is ranked will require a web3 wallet, whether that is Status, MetaMask, Trust, Brave or whichever one you prefer.
@@ -7,9 +6,15 @@ Discover new and useful DApps that are mobile-friendly and easy to use. Viewing 
 
 This project is based on Embark v4.0.1, with a few things customised for React. Currently, you'll need to run the app and Embark separately, in different tabs in your terminal. 
 
-**`npm run build`**
+```
+yarn run build:dev
+```
+or
+```
+yarn run build:prod
+```
 
-Builds the app into the `build` directory.
+Builds the app into the `full-build` directory and creates the `app.zip` ready for use with ElasticBeanstalk.
 
 ## Running and building the app
 
