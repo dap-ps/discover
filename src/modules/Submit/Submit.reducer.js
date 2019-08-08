@@ -182,7 +182,7 @@ export const updateAction = (dappId, metadata) => {
       onStartProgressAction(
         metadata.name,
         metadata.image,
-        'Status is an open source mobile DApp browser and messenger build for #Etherium',
+        metadata.description,
         TYPE_UPDATE,
       ),
     )
