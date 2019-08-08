@@ -55,7 +55,7 @@ class TransactionStatus extends React.Component {
           {progress && (
             <div className={styles.status}>
               <img src={loadingSpinner} alt="Loading..." />
-              Waiting for confirmation of the network...
+              Waiting for confirmation from Ethereum...
             </div>
           )}
           {failed && (
