@@ -5,7 +5,7 @@ import thunk from 'redux-thunk'
 import reducer from './reducers'
 
 export const history = createBrowserHistory({
-  basename: process.env.NODE_ENV === 'development' ? '/' : '/discover-dapps/',
+  basename: process.env.NODE_ENV === 'localhost' ? '/' : '/discover-dapps/',
 })
 
 const composeWithDevTools =
