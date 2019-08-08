@@ -12,6 +12,9 @@ async function setupAPI() {
     let express = require("express");
     let app = express();
 
+    /* accept headers like x-forwarded-proto from proxies */
+    app.set('trust proxy', 'loopback')
+
     setupPreRoutedAppMiddlewares(app);
 
     let APIRouter = require('./routes/api-router');
