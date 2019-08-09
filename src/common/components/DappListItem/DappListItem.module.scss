@@ -90,7 +90,7 @@
   font-weight: 500;
   // width: 80px;
   display: inline-block;
-  margin-right: calculateRem(12);
+  margin-right: calculateRem(40);
 }
 
 .sntAmount img {
@@ -124,7 +124,6 @@
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: space-between;
   flex-wrap: wrap;
   margin-top: calculateRem(6);
 
