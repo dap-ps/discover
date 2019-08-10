@@ -32,7 +32,7 @@ export const showWithdrawAction = dapp => {
     ) {
       dispatch(
         showAlertAction(
-          'There is an active transaction. Please wait for it to finish and then you could be able to create your Ðapp',
+          'There is a pending transaction. Please wait for it to finish and then you will be able to submit your Ðapp',
         ),
       )
     } else {
@@ -58,7 +58,7 @@ export const withdrawAction = (dapp, sntValue) => {
       onStartProgressAction(
         dapp.name,
         dapp.image,
-        'Status is an open source mobile DApp browser and messenger build for #Etherium',
+        dapp.description,
         TYPE_WITHDRAW,
       ),
     )

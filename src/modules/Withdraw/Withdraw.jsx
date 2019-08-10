@@ -54,7 +54,7 @@ class Withdraw extends React.Component {
 
     const currentSNTamount = dapp.sntValue
     const dappsByCategory = dappState.getDappsByCategory(dapp.category)
-    const afterVoteRating = sntValue !== '' ? parseInt(sntValue, 10) : 0
+    const afterVoteRating = withdrawMax // TODO: make this dynamic
 
     let catPosition = dappsByCategory.length
     for (let i = 0; i < dappsByCategory.length; ++i) {
@@ -122,7 +122,7 @@ class Withdraw extends React.Component {
         <div className={`${styles.inputArea} ${styles.inputAreaBorder}`}>
           <input
             type="text"
-            value={!sntValue && sntValue !== 0 ? withdrawMax : sntValue}
+            value={sntValue !== 0 ? sntValue : withdrawMax}
             onChange={this.handleSNTChange}
             style={{ width: `${21 * Math.max(1, sntValue.length)}px` }}
           />
