@@ -265,7 +265,7 @@ class DiscoverService extends BlockchainService {
     }
   }
 
-  async setMetadata(id, metadata) {
+  async setMetadata(id, metadata, email) {
     const ConnectedDiscoverContract = await super.__unlockServiceAccount(
       DiscoverContract,
     )
@@ -274,7 +274,7 @@ class DiscoverService extends BlockchainService {
     const dappMetadata = JSON.parse(JSON.stringify(metadata))
     dappMetadata.uploader = this.sharedContext.account
 
-    const uploadedMetadata = await MetadataClient.upload(dappMetadata)
+    const uploadedMetadata = await MetadataClient.upload(dappMetadata, email)
 
     try {
       const tx = await broadcastContractFn(
@@ -283,6 +283,7 @@ class DiscoverService extends BlockchainService {
         this.sharedContext.account,
       )
 
+      // TODO: This results in endless "Waiting for confirmation... errors, though the tx is successful"
       await MetadataClient.update(id, tx)
 
       return tx
