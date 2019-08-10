@@ -1,17 +1,13 @@
 {
   "0x41941023680923e0fe4d74a34bdac8141f2540e3ae90623718e47d66d1ca4a2d": {
     "contracts": {
-      "0x3043b04ad856d169c8f0b0509c0bc63192dc7edd92d6933c58708298a0e381be": {
-        "name": "ENSRegistry",
-        "address": "0x112234455c3a32fd11230c42e7bccd4a84e02010"
-      },
       "0xe901d01d0cf8056c85c28f67149efafe606ac20707c3069b1c61a78c601779e1": {
         "name": "MiniMeToken",
         "address": "0xc55cf4b03948d7ebc8b9e8bad92643703811d162"
       },
       "0x608829b14a067d406fd623b20919d4a7719c06bb7bccdc3a7d18b11f15d8e11a": {
         "name": "Discover",
-        "address": "0x008db8b84547982e8F6677D38e9b9ea64F3ccB8B"
+        "address": "0xC8d48B421eAFdD75d5144E8f06882Cb5F0746Bd2"
       }
     }
   }

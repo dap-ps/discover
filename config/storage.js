@@ -65,7 +65,25 @@ module.exports = {
 
   // merges with the settings in default
   // used with "embark run livenet"
-  livenet: {},
+  livenet: {
+    enabled: true,
+    ipfs_bin: 'ipfs',
+    provider: 'ipfs',
+    available_providers: ['ipfs'],
+    upload: {
+      host: 'localhost',
+      port: 5001,
+    },
+    dappConnection: [
+      {
+        provider: 'ipfs',
+        protocol: 'https',
+        host: 'ipfs.infura.io',
+        port: 5001,
+        getUrl: 'https://ipfs.infura.io/ipfs/',
+      },
+    ],
+  },
 
   // you can name an environment with specific settings and then specify with
   // "embark run custom_name"

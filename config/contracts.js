@@ -119,6 +119,7 @@ module.exports = {
       'https://ropsten.infura.io/v3/8675214b97b44e96b70d05326c61fd6a',
     ],
     dappAutoEnable: false,
+    gasPrice: "10000000000",
     contracts: {
       MiniMeTokenFactory: {
         deploy: false,
@@ -127,7 +128,7 @@ module.exports = {
         address: '0xc55cf4b03948d7ebc8b9e8bad92643703811d162',
       },
       Discover: {
-        address: '0x008db8b84547982e8F6677D38e9b9ea64F3ccB8B',
+        address: '0xC8d48B421eAFdD75d5144E8f06882Cb5F0746Bd2',
       },
     },
     tracking: 'shared.testnet.chains.json',
