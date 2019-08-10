@@ -122,7 +122,7 @@ class Withdraw extends React.Component {
         <div className={`${styles.inputArea} ${styles.inputAreaBorder}`}>
           <input
             type="text"
-            value={sntValue !== 0 ? sntValue : withdrawMax}
+            value={withdrawMax}
             onChange={this.handleSNTChange}
             style={{ width: `${21 * Math.max(1, sntValue.length)}px` }}
           />
