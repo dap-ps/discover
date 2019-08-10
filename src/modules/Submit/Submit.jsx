@@ -13,6 +13,7 @@ import 'rc-slider/assets/index.css'
 import 'rc-tooltip/assets/bootstrap.css'
 import { DappState } from '../../common/data/dapp'
 import validator from 'validator'
+import { emailValidation } from '../../common/utils/email-utils'
 
 const getCategoryName = category =>
   Categories.find(x => x.key === category).value
@@ -237,7 +238,12 @@ class Submit extends React.Component {
     } = this.props
 
     const canSubmit =
-      name !== '' && desc !== '' && url !== '' && img !== '' && category !== ''
+      emailValidation(email) &&
+      name !== '' &&
+      desc !== '' &&
+      url !== '' &&
+      img !== '' &&
+      category !== ''
 
     const visible = visible_submit || visible_rating
 
