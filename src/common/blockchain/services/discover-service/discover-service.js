@@ -292,9 +292,12 @@ class DiscoverService extends BlockchainService {
   }
 
   async withdrawMax(dappId) {
-    return DiscoverContract.methods.withdrawMax(dappId).call({
+    const decimals = 1000000
+    const draw = await DiscoverContract.methods.withdrawMax(dappId).call({
       from: this.sharedContext.account,
     })
+    const withdraw = parseInt(draw, 10)
+    return Math.floor(withdraw / decimals)
   }
 }
 
