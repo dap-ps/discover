@@ -175,7 +175,7 @@ export const submitAction = (dapp, sntValue) => {
   }
 }
 
-export const updateAction = (dappId, metadata) => {
+export const updateAction = (dappId, metadata, email) => {
   return async dispatch => {
     dispatch(closeSubmitAction())
     dispatch(
@@ -188,7 +188,18 @@ export const updateAction = (dappId, metadata) => {
     )
     try {
       const blockchain = await BlockchainSDK.getInstance()
-      const tx = await blockchain.DiscoverService.setMetadata(dappId, metadata)
+      const tx = await blockchain.DiscoverService.setMetadata(
+        dappId,
+        {
+          name: metadata.name,
+          url: metadata.url,
+          description: metadata.description,
+          category: metadata.category,
+          image: metadata.image,
+          dateAdded: metadata.dateAdded,
+        },
+        metadata.email,
+      )
       dispatch(onReceiveTransactionInfoAction(dappId, tx))
       dispatch(checkTransactionStatusAction(tx))
     } catch (e) {

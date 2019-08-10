@@ -15,6 +15,7 @@ import 'rc-slider/assets/index.css'
 import 'rc-tooltip/assets/bootstrap.css'
 import { DappState } from '../../common/data/dapp'
 import validator from 'validator'
+import { emailValidation } from '../../common/utils/email-utils'
 
 const getCategoryName = category =>
   Categories.find(x => x.key === category).value
@@ -224,13 +225,12 @@ class Submit extends React.Component {
       visible_submit,
       visible_rating,
       onClickClose,
-      email,
-      id,
       name,
       desc,
       url,
       img,
       category,
+      email,
       imgControl,
       imgControlZoom,
       onImgCancel,
@@ -239,7 +239,12 @@ class Submit extends React.Component {
     } = this.props
 
     const canSubmit =
-      name !== '' && desc !== '' && url !== '' && img !== '' && category !== ''
+      name !== '' &&
+      desc !== '' &&
+      url !== '' &&
+      img !== '' &&
+      category !== '' &&
+      emailValidation(email)
 
     const visible = visible_submit || visible_rating
 
@@ -277,19 +282,6 @@ class Submit extends React.Component {
         {visible_submit && (
           <div className={imgControl ? styles.cntWithImgControl : ''}>
             <div className={imgControl ? styles.withImgControl : ''}>
-              {id === '' && (
-                <div className={styles.block}>
-                  <div className={styles.labelRow}>
-                    <span>Your email</span>
-                  </div>
-                  <input
-                    className={styles.input}
-                    placeholder="email"
-                    value={email}
-                    onChange={this.onInputEmail}
-                  />
-                </div>
-              )}
               <div className={styles.block}>
                 <div className={styles.labelRow}>
                   <span>Name of your Ðapp</span>
@@ -356,6 +348,17 @@ class Submit extends React.Component {
                   className={`${styles.categorySelector} ${
                     category === '' ? styles.categorySelectorEmpty : ''
                   }`}
+                />
+              </div>
+              <div className={styles.block}>
+                <div className={styles.labelRow}>
+                  <span>Your email</span>
+                </div>
+                <input
+                  className={styles.input}
+                  placeholder="email"
+                  value={email}
+                  onChange={this.onInputEmail}
                 />
               </div>
               <div className={`${styles.block} ${styles.blockSubmit}`}>
