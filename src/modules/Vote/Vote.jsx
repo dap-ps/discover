@@ -74,8 +74,6 @@ class Vote extends Component {
       return <Modal visible={false} onClickClose={onClickClose} />
     }
 
-    //const catPosition = dapp.categoryPosition
-    // const upvoteSNTcost = currentSNTamount + parseInt(sntValue, 10)
     const currentSNTamount = dapp.sntValue
     const dappsByCategory = dappState.getDappsByCategory(dapp.category)
 
@@ -187,10 +185,7 @@ class Vote extends Component {
                   </div>
                 </div>
                 {!isUpvote && (
-                  <div
-                    className={styles.inputArea}
-                    // style={{ opacity: sntValue !== '0' ? 1 : 0 }}
-                  >
+                  <div className={styles.inputArea}>
                     <span>{sntValue}</span>
                   </div>
                 )}
