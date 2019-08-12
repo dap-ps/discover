@@ -1,13 +1,18 @@
 .PHONY: help clean purge compile-contracts patch-ipfs mk-build-dir copy-misc copy-backend compile-js copy-frontend archive
 
 export NODE_ENV ?= development
+export LOCALHOST ?= 1
 export WALLET_PASSWORD ?= dev_password
 export WALLET_MNEMONIC ?= erupt point century seek certain escape solution flee elegant hard please pen
 
 ifeq ($(NODE_ENV),production)
 export EMBARK_TARGET ?= livenet
 else
-export EMBARK_TARGET ?= testnet
+  ifeq (LOCALHOST, localhost) 
+  export EMBARK_TARGET ?= development
+  else
+  export EMBARK_TARGET ?= testnet
+  endif
 endif
 
 HELP_FUN = \
@@ -27,8 +32,12 @@ help: ##@miscellaneous Show this help.
 	@perl -e '$(HELP_FUN)' $(MAKEFILE_LIST)
 
 all: ##@build Build the final app.zip from scratch
-all: node_modules clean compile-contracts patch-ipfs mk-build-dir copy-misc copy-backend compile-js copy-frontend archive
+all: node_modules clean compile-contracts patch-ipfs mk-build-dir copy-misc copy-backend compile-js copy-frontend archive install-build
+ifneq ($(LOCALHOST),1)
 	@echo "SUCCESS! Use the app.zip file."
+else
+	@echo "SUCCESS! Execute 'yarn start-server' and browse http://localhost:4000"
+endif
 
 node_modules: ##@install Install the Node.js dependencies using Yarn
 	yarn install
@@ -69,12 +78,22 @@ copy-frontend: ##@copy Copy over the frontend files to full-build dir
 copy-misc: ##@copy Copy over the miscalenious config config files
 	cp .npmrc full-build/
 
-archive: ##@archive Create the app.zip archive for use with ElasticBeanstalk
+
+archive: ##@archive Create the app.zip archive for use with ElasticBeanstalk when running on testnet or mainnet
+ifneq ($(LOCALHOST),1)
 archive: clean-archive
 	cd full-build && zip -r ../app.zip ./
+endif
+
+install-build:
+ifeq ($(LOCALHOST),1)
+	cd full-build && yarn
+endif
 
 clean-archive: ##@clean Remove app.zip
+ifneq ($(LOCALHOST),1)
 	rm -f app.zip
+endif
 
 clean-build-dir: ##@clean Remove full-build dir
 	rm -fr full-build 
