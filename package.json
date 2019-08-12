@@ -31,6 +31,7 @@
     "web3-utils": "^1.0.0-beta.35"
   },
   "scripts": {
+    "build:localhost": "NODE_ENV=localhost make all",
     "build:dev": "NODE_ENV=development make all",
     "build:prod": "NODE_ENV=production make all",
     "start": "./node_modules/.bin/react-scripts start",
