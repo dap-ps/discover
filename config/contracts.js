@@ -80,20 +80,29 @@ module.exports = {
   // default environment, merges with the settings in default
   // assumed to be the intended environment by `embark run`
   development: {
+    deployment: {
+      accounts: [
+        {
+          mnemonic: process.env.WALLET_MNEMONIC,
+        },
+      ],
+      host: `ropsten.infura.io/v3/8675214b97b44e96b70d05326c61fd6a`,
+      port: false,
+      type: 'rpc',
+      protocol: 'https',
+    },
+    dappConnection: [
+      '$WEB3',
+      'https://ropsten.infura.io/v3/8675214b97b44e96b70d05326c61fd6a',
+    ],
+    dappAutoEnable: false,
+    gasPrice: "10000000000",
     contracts: {
-      MiniMeTokenFactory: {},
       MiniMeToken: {
-        args: [
-          '$MiniMeTokenFactory',
-          '0x0000000000000000000000000000000000000000',
-          0,
-          'SNTMiniMeToken',
-          18,
-          'SNT',
-          true,
-        ],
+        address: '0xc55cf4b03948d7ebc8b9e8bad92643703811d162',
       },
     },
+    tracking: 'shared.development.chains.json',
   },
 
   // merges with the settings in default
