@@ -29,17 +29,23 @@ module.exports = {
   // assumed to be the intended environment by `embark run`
   development: {
     enabled: true,
+    ipfs_bin: 'ipfs',
+    provider: 'ipfs',
+    available_providers: ['ipfs'],
     upload: {
-      provider: 'ipfs',
       host: 'localhost',
       port: 5001,
-      getUrl: 'http://localhost:8080/ipfs/',
     },
+    dappConnection: [
+      {
+        provider: 'ipfs',
+        protocol: 'https',
+        host: 'ipfs.infura.io',
+        port: 5001,
+        getUrl: 'https://ipfs.infura.io/ipfs/',
+      },
+    ],
   },
-
-  // merges with the settings in default
-  // used with "embark run privatenet"
-  privatenet: {},
 
   // merges with the settings in default
   // used with "embark run testnet"
@@ -84,9 +90,4 @@ module.exports = {
       },
     ],
   },
-
-  // you can name an environment with specific settings and then specify with
-  // "embark run custom_name"
-  // custom_name: {
-  // }
 }
