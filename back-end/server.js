@@ -23,7 +23,7 @@ async function setupAPI() {
 
     setupPostRoutedAppMiddlewares(app);
 
-    app.use(express.static('frontend'));
+    app.use(express.static(path.join(__dirname, '/frontend')));
 
     /* Handles any requests that don't match the ones above */
     app.get('*', (req,res) =>{
