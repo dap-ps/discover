@@ -48,18 +48,14 @@ module.exports = {
   // default environment, merges with the settings in default
   // assumed to be the intended environment by `embark run` and `embark blockchain`
   development: {
-    ethereumClientName: 'geth', // Can be geth or parity (default:geth)
-    // ethereumClientBin: "geth",  // path to the client binary. Useful if it is not in the global PATH
-    networkType: 'custom', // Can be: testnet, rinkeby, livenet or custom, in which case, it will use the specified networkId
-    networkId: 1337, // Network id used when networkType is custom
-    isDev: true, // Uses and ephemeral proof-of-authority network with a pre-funded developer account, mining enabled
-    datadir: '.embark/development/datadir', // Data directory for the databases and keystore (Geth 1.8.15 and Parity 2.0.4 can use the same base folder, till now they does not conflict with each other)
-    mineWhenNeeded: true, // Uses our custom script (if isDev is false) to mine only when needed
-    nodiscover: true, // Disables the peer discovery mechanism (manual peer addition)
-    maxpeers: 0, // Maximum number of network peers (network disabled if set to 0) (default: 25)
-    proxy: true, // Proxy is used to present meaningful information about transactions
-    targetGasLimit: 9000000, // Target gas limit sets the artificial target gas floor for the blocks to mine
-    simulatorBlocktime: 0, // Specify blockTime in seconds for automatic mining. Default is 0 and no auto-mining.
+    networkType: 'testnet',
+    syncMode: 'light',
+    accounts: [
+      {
+        nodeAccounts: true,
+        password: process.env.WALLET_PASSWORD,
+      },
+    ],
   },
 
   // merges with the settings in default
