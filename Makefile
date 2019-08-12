@@ -36,7 +36,7 @@ all: node_modules clean compile-contracts patch-ipfs mk-build-dir copy-misc copy
 ifneq ($(LOCALHOST),1)
 	@echo "SUCCESS! Use the app.zip file."
 else
-	@echo "SUCCESS! Execute 'yarn start-server' and browse http://localhost:4000"
+	@echo "SUCCESS! Execute 'yarn server-start' and browse http://localhost:4000"
 endif
 
 node_modules: ##@install Install the Node.js dependencies using Yarn

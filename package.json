@@ -34,6 +34,7 @@
     "build:dev": "NODE_ENV=development make all",
     "build:prod": "NODE_ENV=production make all",
     "start": "./node_modules/.bin/react-scripts start",
+    "server-start": "node ./full-build/server.js",
     "build": "./node_modules/.bin/react-scripts build",
     "test": "./node_modules/.bin/react-scripts test",
     "eject": "./node_modules/.bin/react-scripts eject",
