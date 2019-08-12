@@ -1,14 +1,13 @@
 .PHONY: help clean purge compile-contracts patch-ipfs mk-build-dir copy-misc copy-backend compile-js copy-frontend archive
 
-export NODE_ENV ?= development
-export LOCALHOST ?= 1
+export NODE_ENV ?= localhost
 export WALLET_PASSWORD ?= dev_password
 export WALLET_MNEMONIC ?= erupt point century seek certain escape solution flee elegant hard please pen
 
 ifeq ($(NODE_ENV),production)
 export EMBARK_TARGET ?= livenet
 else
-  ifeq (LOCALHOST, localhost) 
+  ifeq ($(NODE_ENV), localhost) 
   export EMBARK_TARGET ?= development
   else
   export EMBARK_TARGET ?= testnet
@@ -33,7 +32,7 @@ help: ##@miscellaneous Show this help.
 
 all: ##@build Build the final app.zip from scratch
 all: node_modules clean compile-contracts patch-ipfs mk-build-dir copy-misc copy-backend compile-js copy-frontend archive install-build
-ifneq ($(LOCALHOST),1)
+ifneq ($(NODE_ENV),localhost)
 	@echo "SUCCESS! Use the app.zip file."
 else
 	@echo "SUCCESS! Execute 'yarn server-start' and browse http://localhost:4000"
@@ -47,9 +46,9 @@ ifeq ($(NODE_ENV),production)
 	[[ -z "${WALLET_MNEMONIC}" ]] && { echo "Not defined: WALLET_MNEMONIC"; exit 1 }
 	[[ -z "${WALLET_PASSWORD}" ]] && { echo "Not defined: WALLET_PASSWORD"; exit 1 }
 else
-ifneq ($(NODE_ENV),development)
+ifneq ($(NODE_ENV),$(filter $(NODE_ENV),development localhost))
 	@echo "Unknown NODE_ENV value: ${NODE_ENV}"
-	@echo "Use 'production' or 'development'."
+	@echo "Use 'production' or 'development' or 'localhost'."
 	exit 1
 endif
 endif
@@ -80,18 +79,18 @@ copy-misc: ##@copy Copy over the miscalenious config config files
 
 
 archive: ##@archive Create the app.zip archive for use with ElasticBeanstalk when running on testnet or mainnet
-ifneq ($(LOCALHOST),1)
+ifneq ($(NODE_ENV),localhost)
 archive: clean-archive
 	cd full-build && zip -r ../app.zip ./
 endif
 
 install-build:
-ifeq ($(LOCALHOST),1)
+ifeq ($(NODE_ENV),localhost)
 	cd full-build && yarn
 endif
 
 clean-archive: ##@clean Remove app.zip
-ifneq ($(LOCALHOST),1)
+ifneq ($(NODE_ENV),localhost)
 	rm -f app.zip
 endif
 
