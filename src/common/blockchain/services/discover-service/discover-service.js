@@ -77,20 +77,22 @@ class DiscoverService extends BlockchainService {
       Object.keys(dappsCache).forEach(metadataHash => {
         const dappMetadata = dappsCache[metadataHash]
 
-        dapps.push({
-          developer: '',
-          id: dappMetadata.compressedMetadata,
-          metadata: {
-            ...dappMetadata.details,
-            status: dappMetadata.status,
-          },
-          balance: 0,
-          rate: 0,
-          available: 0,
-          votesMinted: 0,
-          votesCast: 0,
-          effectiveBalance: 0,
-        })
+        if (dappMetadata.status == 'NEW') {
+          dapps.push({
+            developer: '',
+            id: dappMetadata.compressedMetadata,
+            metadata: {
+              ...dappMetadata.details,
+              status: dappMetadata.status,
+            },
+            balance: 0,
+            rate: 0,
+            available: 0,
+            votesMinted: 0,
+            votesCast: 0,
+            effectiveBalance: 0,
+          })
+        }
       })
 
       return dapps
@@ -195,6 +197,7 @@ class DiscoverService extends BlockchainService {
 
     const uploadedMetadata = await MetadataClient.upload(dappMetadata, email)
 
+    // eslint-disable-next-line no-undef-init
     let createdTx = undefined
 
     if (tokenAmount.gt(new BN(0, 10))) {

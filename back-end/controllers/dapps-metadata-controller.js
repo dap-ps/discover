@@ -68,10 +68,14 @@ class DAppsMetadataController {
       if (
         dappMetadata &&
         initialDAppMetadata &&
-        initialDAppMetadata.status == DAPP_METADATA_STATUSES.APPROVED
+        initialDAppMetadata.status != DAPP_METADATA_STATUSES.NEW
       ) {
         dappMetadata.status = DAPP_METADATA_STATUSES.APPROVED
+        dappMetadata.compressedMetadata = initialDAppMetadata.compressedMetadata
         await dappMetadata.save()
+
+        initialDAppMetadata.status = DAPP_METADATA_STATUSES.UPDATED
+        await initialDAppMetadata.save()
       }
     })
 
@@ -157,7 +161,7 @@ class DAppsMetadataController {
   }
 }
 
-const waitToBeMined = async function(txHash, callback) {
+const waitToBeMined = async function (txHash, callback) {
   const updateMetadataTx = await web3.eth.getTransaction(txHash)
 
   if (!updateMetadataTx.blockNumber) {
