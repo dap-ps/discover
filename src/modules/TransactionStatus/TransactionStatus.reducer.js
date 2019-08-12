@@ -37,7 +37,7 @@ export const onChangeTransactionStatusDataAction = transactionStatus => ({
   payload: transactionStatus,
 })
 
-export const checkTransactionStatusAction = tx => {
+export const checkTransactionStatusAction = (tx, message) => {
   return async dispatch => {
     const transacationStatus = transactionStatusFetchedInstance()
     if (tx === undefined) {
@@ -61,7 +61,7 @@ export const checkTransactionStatusAction = tx => {
         break
       default:
       case 1:
-        transacationStatus.setPublished(true)
+        transacationStatus.setPublished(true, message)
         try {
           const blockchain = await BlockchainSDK.getInstance()
           dapp = await blockchain.DiscoverService.getDAppDataById(

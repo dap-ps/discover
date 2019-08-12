@@ -164,7 +164,7 @@ export const upVoteAction = (dapp, amount) => {
       const blockchain = await BlockchainSDK.getInstance()
       const tx = await blockchain.DiscoverService.upVote(dapp.id, amount)
       dispatch(onReceiveTransactionInfoAction(dapp.id, tx))
-      dispatch(checkTransactionStatusAction(tx))
+      dispatch(checkTransactionStatusAction(tx, 'Upvoted'))
     } catch (e) {
       dispatch(showAlertAction(e.message))
     }
@@ -188,7 +188,7 @@ export const downVoteAction = (dapp, amount) => {
       const blockchain = await BlockchainSDK.getInstance()
       const tx = await blockchain.DiscoverService.downVote(dapp.id)
       dispatch(onReceiveTransactionInfoAction(dapp.id, tx))
-      dispatch(checkTransactionStatusAction(tx))
+      dispatch(checkTransactionStatusAction(tx, 'Downvoted'))
     } catch (e) {
       dispatch(showAlertAction(e.message))
     }
