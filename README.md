@@ -31,7 +31,7 @@ Mainnet:
 
 ```
 MiniMeToken: { address: '0x744d70fdbe2ba4cf95131626614a1763df805b9e' },
-Discover: { address: '0xC8d48B421eAFdD75d5144E8f06882Cb5F0746Bd2' },
+Discover: { address: '0x5bCF2767F86f14eDd82053bfBfd5069F68C2C5F8' },
 ```
 
 ## Running It Locally
