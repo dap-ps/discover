@@ -38,7 +38,7 @@ Discover: { address: '0xC8d48B421eAFdD75d5144E8f06882Cb5F0746Bd2' },
 
 The goal of our local build process is to abstract away the complexity with smart contracts so that you can focus on adding useful new functionality through React-based bounties that are easy to get started on.
 
-#### Prerequisites
+#### 3 Prerequisites
 
 1. [Node v10](https://github.com/nvm-sh/nvm) or higher.
 2. [Yarn](https://yarnpkg.com/).
@@ -46,7 +46,7 @@ The goal of our local build process is to abstract away the complexity with smar
 
 On Linux, setting up `mongodb` is as easy as `sudo apt install -y mongodb`, which will also start it automatically. You can stop/restart your local DB any time with `sudo systemctl stop mongodb`, or get its status with `sudo systemctl status mongodb`.
 
-#### Begin
+#### 4 Quick Steps
 
 1. `export DB_CONNECTION=mongodb://localhost:27017/mydb`. Make sure you have `DB_CONNECTION` set as an ENV variable so the app knows where to find your local DB.
 2. `yarn run build:localhost`. This will:
@@ -54,6 +54,8 @@ On Linux, setting up `mongodb` is as easy as `sudo apt install -y mongodb`, whic
     2. Deploy a new instance of Discover onto the Ropsten test network for you to work from. It will only be deployed once, after that the address of your contract is stored in, and fetched from, `shared.development.chains.json`.
     3. Build the frontend, create a directory called `full-build`, move each directory from the `back-end` into it, and include the `frontend` as a directory of its own. It will make sure `node_modules` are installed, then you can serve everything in `full-build` by running:
 3. `yarn server-start`. Navigate to `http://localhost:4000` to get developing cool new things for the future of curated information. 
+
+**Note:** You'll need to visit [simpledapp.eth using Status](https://status.im/get/) -> Assets Tab -> Request `STT`. This is the Status Test Token on Ropsten that needs to be used with your instance of Discover in order to submit/upvote/downvote in your local app. Using a proper test network even for local development allows us to better understand what the user experience is actually like in production more easily.
 
 #### Work to be done
 
