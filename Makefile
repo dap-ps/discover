@@ -72,19 +72,12 @@ mk-build-dir: ##@create Create the destination directory for full build if the f
 
 copy-backend: ##@copy Copy over the backend files to full-build dir
 ifeq ($(NODE_ENV),localhost)
-	if [ ! -d ./full-build/node_modules ]; then \
-		echo "node_modules does not exist. Coypying node_modules and yarn.lock"; \
-		rm -f full-build/yarn.lock; \
-		cp -r back-end/node_modules full-build/.; \
-	else \
-		if [ -f ./full-build/yarn.lock ]; then \
-			cmp -s ./back-end/yarn.lock ./full-build/yarn.lock; \
-			RETVAL=$$?; \
-			if [ ! $$RETVAL -eq 0 ]; then \
-				echo "yarn.lock is different. Replacing node_modules and yarn.lock"; \
-				rm -rf full-build/yarn.lock full-build/node_modules; \
-				cp -r back-end/node_modules full-build/.; \
-			fi \
+	if [ -f ./full-build/yarn.lock ]; then \
+		cmp -s ./back-end/yarn.lock ./full-build/yarn.lock; \
+		RETVAL=$$?; \
+		if [ ! $$RETVAL -eq 0 ]; then \
+			echo "yarn.lock is different. Removing node_modules and replacingyarn.lock"; \
+			rm -rf full-build/yarn.lock full-build/node_modules; \
 		fi \
 	fi
 	rsync -r --exclude node_modules ./back-end/* ./full-build/
