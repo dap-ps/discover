@@ -7,11 +7,11 @@ export WALLET_MNEMONIC ?= erupt point century seek certain escape solution flee 
 ifeq ($(NODE_ENV),production)
 export EMBARK_TARGET ?= livenet
 else
-  ifeq ($(NODE_ENV), localhost) 
-  export EMBARK_TARGET ?= development
-  else
-  export EMBARK_TARGET ?= testnet
-  endif
+ifeq ($(NODE_ENV), localhost) 
+export EMBARK_TARGET ?= development
+else
+export EMBARK_TARGET ?= testnet
+endif
 endif
 
 HELP_FUN = \
