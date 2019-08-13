@@ -50,7 +50,7 @@ On Linux, setting up `mongodb` is as easy as `sudo apt install -y mongodb`, whic
 
 1. `export DB_CONNECTION=mongodb://localhost:27017/mydb`. Make sure you have `DB_CONNECTION` set as an ENV variable so the app knows where to find your local DB.
 2. `yarn run build:localhost`. This will:
-    1. Compile all you contracts using Embark, connecting to Ropsten and IPFS through an Infura gateway.
+    1. Compile all your contracts using Embark, connecting to Ropsten and IPFS through an Infura gateway.
     2. Deploy a new instance of Discover onto the Ropsten test network for you to work from. It will only be deployed once, after that the address of your contract is stored in, and fetched from, `shared.development.chains.json`.
     3. Build the frontend, create a directory called `full-build`, move each directory from the `back-end` into it, and include the `frontend` as a directory of its own. It will make sure `node_modules` are installed, then you can serve everything in `full-build` by running:
 3. `yarn server-start`. Navigate to `http://localhost:4000` to get developing cool new things for the future of curated information. 
@@ -67,12 +67,12 @@ On Linux, setting up `mongodb` is as easy as `sudo apt install -y mongodb`, whic
  
 #### Running unit tests
 
-Use `embark test`
+Use `./node_modules/.bin/embark test`
 
-Will compile your contracts, with hot-reloading, and let you test them locally to your heart's content. 
+To test a specific smart contract you can use `./node_modules/.bin/embark test test/Discover_spec.js`. 
 
 #### Running slither
 
-`slither . --exclude naming-convention --filter-paths token `
+`slither . --exclude naming-convention --filter-paths token`
 
-Make sure you get TrailofBits' [latest static analysis tool](https://securityonline.info/slither/), and do your own static analysis on the relevant contracts that will be deployed for Discover.
+Make sure you get TrailofBits' [latest static analysis tool](https://securityonline.info/slither/), and do your own static analysis on the relevant contracts that you are working on.
