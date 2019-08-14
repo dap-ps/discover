@@ -1,4 +1,4 @@
-.PHONY: help clean purge compile-contracts patch-ipfs mk-build-dir copy-misc copy-backend compile-js copy-frontend archive
+.PHONY: help clean purge compile-contracts patch-ipfs patch-ws mk-build-dir copy-misc copy-backend compile-js copy-frontend archive
 
 export NODE_ENV ?= localhost
 export WALLET_PASSWORD ?= dev_password
@@ -31,7 +31,7 @@ help: ##@miscellaneous Show this help.
 	@perl -e '$(HELP_FUN)' $(MAKEFILE_LIST)
 
 all: ##@build Build the final app.zip from scratch
-all: node_modules clean compile-contracts patch-ipfs mk-build-dir copy-misc copy-backend compile-js copy-frontend archive install-build
+all: node_modules clean compile-contracts patch-ipfs patch-ws mk-build-dir copy-misc copy-backend compile-js copy-frontend archive install-build
 ifneq ($(NODE_ENV),localhost)
 	@echo "SUCCESS! Use the app.zip file."
 else
@@ -64,11 +64,24 @@ patch-ipfs: ##@patch Patch the deprecated id() call in IPFS API
 	sed -i 's#_ipfsConnection.id#_ipfsConnection.version#' \
 		src/embarkArtifacts/embarkjs.js
 
-mk-build-dir: ##@create Create the destination directory for full build
-	mkdir full-build
+patch-ws: ##@patch Remove websocket connection
+	sed -i '268,273d' src/embarkArtifacts/embarkjs.js
+
+mk-build-dir: ##@create Create the destination directory for full build if the folder doesn't exist
+	[ -d full-build ] || mkdir -p full-build
 
 copy-backend: ##@copy Copy over the backend files to full-build dir
-	cp -r back-end/* full-build/
+ifeq ($(NODE_ENV),localhost)
+	if [ -f ./full-build/yarn.lock ]; then \
+		cmp -s ./back-end/yarn.lock ./full-build/yarn.lock; \
+		RETVAL=$$?; \
+		if [ ! $$RETVAL -eq 0 ]; then \
+			echo "yarn.lock is different. Removing node_modules and replacingyarn.lock"; \
+			rm -rf full-build/yarn.lock full-build/node_modules; \
+		fi \
+	fi
+	rsync -r --exclude node_modules ./back-end/* ./full-build/
+endif
 
 copy-frontend: ##@copy Copy over the frontend files to full-build dir
 	mkdir full-build/frontend
@@ -94,8 +107,12 @@ ifneq ($(NODE_ENV),localhost)
 	rm -f app.zip
 endif
 
-clean-build-dir: ##@clean Remove full-build dir
+clean-build-dir: ##@clean Remove full-build folder and keep node_modules (depending on environment)
+ifeq ($(NODE_ENV),localhost)
+	find ./full-build -mindepth 1 ! -regex '^./full-build/\(node_modules\|yarn.lock\).*' -delete
+else
 	rm -fr full-build 
+endif
 
 clean: clean-build-dir clean-archive ##@clean Cleanup all the build artifacts
 
