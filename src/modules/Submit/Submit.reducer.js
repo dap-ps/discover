@@ -167,7 +167,7 @@ export const submitAction = (dapp, sntValue) => {
         return
       }
       dispatch(onReceiveTransactionInfoAction(id, tx))
-      dispatch(checkTransactionStatusAction(tx))
+      dispatch(checkTransactionStatusAction(tx, 'Published'))
     } catch (e) {
       dispatch(hideAction())
       dispatch(showAlertAction(e.message))
@@ -201,7 +201,7 @@ export const updateAction = (dappId, metadata, email) => {
         metadata.email,
       )
       dispatch(onReceiveTransactionInfoAction(dappId, tx))
-      dispatch(checkTransactionStatusAction(tx))
+      dispatch(checkTransactionStatusAction(tx, 'Updated'))
     } catch (e) {
       dispatch(hideAction())
       dispatch(showAlertAction(e.message))

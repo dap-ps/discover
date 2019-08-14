@@ -66,7 +66,7 @@ export const withdrawAction = (dapp, sntValue) => {
       const blockchain = await BlockchainSDK.getInstance()
       const tx = await blockchain.DiscoverService.withdraw(dapp.id, sntValue)
       dispatch(onReceiveTransactionInfoAction(dapp.id, tx))
-      dispatch(checkTransactionStatusAction(tx))
+      dispatch(checkTransactionStatusAction(tx, 'Withdrawn'))
     } catch (e) {
       dispatch(hideAction())
       dispatch(showAlertAction(e.message))
