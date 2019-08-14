@@ -75,7 +75,8 @@ class Withdraw extends React.Component {
 
     const currentSNTamount = dapp.sntValue
     const dappsByCategory = dappState.getDappsByCategory(dapp.category)
-    const afterVoteRating = withdrawMax - (parseInt(withdrawAmount, 10) || 0)
+    const afterVoteRating =
+      currentSNTamount - (parseInt(withdrawAmount, 10) || 0)
 
     let catPosition = dappsByCategory.length
     for (let i = 0; i < dappsByCategory.length; ++i) {
