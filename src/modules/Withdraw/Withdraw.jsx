@@ -1,3 +1,5 @@
+/* eslint-disable react/destructuring-assignment */
+/* eslint-disable react/no-did-update-set-state */
 import React from 'react'
 import PropTypes from 'prop-types'
 import ReactImageFallback from 'react-image-fallback'
@@ -19,6 +21,20 @@ class Withdraw extends React.Component {
     super(props)
     this.onWithdraw = this.onWithdraw.bind(this)
     this.handleSNTChange = this.handleSNTChange.bind(this)
+
+    this.state = {
+      withdrawAmount: props.withdrawMax || 0,
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (
+      (!prevProps.withdrawMax && this.props.withdrawMax) ||
+      (this.props.withdrawMax &&
+        prevProps.withdrawMax != this.props.withdrawMax)
+    ) {
+      this.setState({ withdrawAmount: this.props.withdrawMax })
+    }
   }
 
   onWithdraw() {
@@ -35,6 +51,8 @@ class Withdraw extends React.Component {
     if (intValue > 1571296) return
     if (intValue > withdrawMax) return
 
+    this.setState({ withdrawAmount: value })
+
     const { onInputSntValue } = this.props
     onInputSntValue(value)
   }
@@ -49,12 +67,14 @@ class Withdraw extends React.Component {
       withdrawMax,
     } = this.props
 
+    const { withdrawAmount } = this.state
+
     if (dapp === null)
       return <Modal visible={false} onClickClose={onClickClose} />
 
     const currentSNTamount = dapp.sntValue
     const dappsByCategory = dappState.getDappsByCategory(dapp.category)
-    const afterVoteRating = withdrawMax // TODO: make this dynamic
+    const afterVoteRating = withdrawMax - (parseInt(withdrawAmount, 10) || 0)
 
     let catPosition = dappsByCategory.length
     for (let i = 0; i < dappsByCategory.length; ++i) {
@@ -95,7 +115,7 @@ class Withdraw extends React.Component {
               <img src={sntIcon} alt="SNT" width="24" height="24" />
               {currentSNTamount.toLocaleString()}
             </span>
-            {afterVoteRating !== null && afterVoteRating !== 0 && (
+            {afterVoteRating !== null && afterVoteRating >= 0 && (
               <span className={styles.redBadge}>
                 {`${afterVoteRating.toLocaleString()} ↓`}
               </span>
@@ -122,7 +142,7 @@ class Withdraw extends React.Component {
         <div className={`${styles.inputArea} ${styles.inputAreaBorder}`}>
           <input
             type="text"
-            value={withdrawMax}
+            value={withdrawAmount}
             onChange={this.handleSNTChange}
             style={{ width: `${21 * Math.max(1, sntValue.length)}px` }}
           />
