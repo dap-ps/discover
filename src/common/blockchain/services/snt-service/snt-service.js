@@ -44,7 +44,7 @@ class SNTService extends BlockchainService {
         spender,
         amount.toString(),
         callData,
-      ).send,
+      ),
       this.sharedContext.account,
     )
   }
