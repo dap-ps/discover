@@ -259,8 +259,7 @@ class DiscoverService extends BlockchainService {
 
     try {
       return broadcastContractFn(
-        ConnectedDiscoverContract.methods.withdraw(id, tokenAmount.toString())
-          .send,
+        ConnectedDiscoverContract.methods.withdraw(id, tokenAmount.toString()),
         this.sharedContext.account,
       )
     } catch (error) {
@@ -281,8 +280,7 @@ class DiscoverService extends BlockchainService {
 
     try {
       const tx = await broadcastContractFn(
-        ConnectedDiscoverContract.methods.setMetadata(id, uploadedMetadata)
-          .send,
+        ConnectedDiscoverContract.methods.setMetadata(id, uploadedMetadata),
         this.sharedContext.account,
       )
 
