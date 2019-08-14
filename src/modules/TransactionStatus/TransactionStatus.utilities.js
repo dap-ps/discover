@@ -16,6 +16,7 @@ class TransactionStatus {
     this.dappImg = ''
     this.type = TYPE_NONE
     this.progress = false
+    this.message = ''
     this.published = false
     this.publishedEmpty = false
     this.failed = false
@@ -44,9 +45,10 @@ class TransactionStatus {
     this.persistTransactionData()
   }
 
-  setPublished(published) {
+  setPublished(published, message) {
     this.progress = false
     this.published = published
+    this.message = message
     this.publishedEmpty = false
     this.failed = false
     this.persistTransactionData()

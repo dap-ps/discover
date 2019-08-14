@@ -24,6 +24,7 @@ class TransactionStatus extends React.Component {
       published,
       publishedEmpty,
       progress,
+      message,
       failed,
       hide,
     } = this.props
@@ -51,7 +52,7 @@ class TransactionStatus extends React.Component {
               ✓ Thank you for submitting. Your dapp will be reviewed soon.
             </div>
           )}
-          {published && <div className={styles.status}>✓ Published</div>}
+          {published && <div className={styles.status}>✓ {message}</div>}
           {progress && (
             <div className={styles.status}>
               <img src={loadingSpinner} alt="Loading..." />
@@ -78,6 +79,7 @@ TransactionStatus.propTypes = {
   progress: PropTypes.bool.isRequired,
   published: PropTypes.bool.isRequired,
   publishedEmpty: PropTypes.bool.isRequired,
+  message: PropTypes.string.isRequired,
   failed: PropTypes.bool.isRequired,
   hide: PropTypes.func.isRequired,
   checkTransactionStatus: PropTypes.func.isRequired,
