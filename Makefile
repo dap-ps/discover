@@ -111,7 +111,7 @@ endif
 
 clean-build-dir: ##@clean Remove full-build folder and keep node_modules (depending on environment)
 ifeq ($(NODE_ENV),localhost)
-	find ./full-build -mindepth 1 ! -regex '^./full-build/\(node_modules\|yarn.lock\).*' -delete
+	find ./full-build -mindepth 1 ! -regex '^./full-build/\(node_modules\|yarn.lock\).*' -delete; 2> /dev/null
 else
 	rm -fr full-build 
 endif
