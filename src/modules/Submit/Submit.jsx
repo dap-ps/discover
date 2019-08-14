@@ -478,7 +478,6 @@ class Submit extends React.Component {
                 type="text"
                 value={sntValue}
                 onChange={this.handleSNTChange}
-                placeholder="0"
                 style={{ width: `${21 * Math.max(1, sntValue.length)}px` }}
               />
             </div>
