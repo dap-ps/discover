@@ -38,8 +38,9 @@ class Withdraw extends React.Component {
   }
 
   onWithdraw() {
-    const { dapp, sntValue, onWithdraw } = this.props
-    onWithdraw(dapp, parseInt(sntValue, 10))
+    const { dapp, onWithdraw } = this.props
+    const { withdrawAmount } = this.state
+    onWithdraw(dapp, parseInt(withdrawAmount, 10))
   }
 
   handleSNTChange(e) {
