@@ -31,7 +31,7 @@ class Withdraw extends React.Component {
     if (
       (!prevProps.withdrawMax && this.props.withdrawMax) ||
       (this.props.withdrawMax &&
-        prevProps.withdrawMax != this.props.withdrawMax)
+        prevProps.withdrawMax !== this.props.withdrawMax)
     ) {
       this.setState({ withdrawAmount: this.props.withdrawMax })
     }
