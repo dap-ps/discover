@@ -44,7 +44,7 @@ The goal of our local build process is to abstract away the complexity with smar
 2. [Yarn](https://yarnpkg.com/).
 3. [mongodb](https://www.mongodb.com/).
 
-On Linux, setting up `mongodb` is as easy as `sudo apt install -y mongodb`, which will also start it automatically. You can stop/restart your local DB any time with `sudo systemctl stop mongodb`, or get its status with `sudo systemctl status mongodb`.
+On Linux, setting up `mongodb` is as easy as `sudo apt install -y mongodb`, which will also start it automatically. You can stop/restart your local DB any time with `sudo systemctl stop mongodb`, or get its status with `sudo systemctl status mongodb`. I recommend using the simple [robo3t](https://robomongo.org/download) to view and edit your DB easily (you'll need to set DApps to `APPROVED` to see `Edit` and `Withdraw` options and to see them appear in Categories etc.)
 
 #### 4 Quick Steps
 
