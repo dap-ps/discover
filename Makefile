@@ -81,6 +81,8 @@ ifeq ($(NODE_ENV),localhost)
 		fi \
 	fi
 	rsync -r --exclude node_modules ./back-end/* ./full-build/
+else
+	cp -r back-end/* full-build/
 endif
 
 copy-frontend: ##@copy Copy over the frontend files to full-build dir
