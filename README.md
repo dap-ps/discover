@@ -57,7 +57,7 @@ On Linux, setting up `mongodb` is as easy as `sudo apt install -y mongodb`, whic
 
 **Note:** 
 
-1. Change this line in [back-end/config/index.js](https://github.com/dap-ps/discover/blob/master/back-end/config/index.js#L24) your your local Ropsten version of the contract, stored in `shared.development.chains.json`.
+1. Change this line in [back-end/config/index.js](https://github.com/dap-ps/discover/blob/master/back-end/config/index.js#L24) to your local Ropsten version of the contract, stored in `shared.development.chains.json`.
 2. You'll need to visit [simpledapp.eth using Status](https://status.im/get/) -> Assets Tab -> Request `STT`. This is the Status Test Token on Ropsten that needs to be used with your instance of Discover in order to submit/upvote/downvote in your local app. Using a proper test network even for local development allows us to better understand what the user experience is actually like in production more easily.
 
 #### Work to be done
