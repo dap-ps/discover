@@ -40,6 +40,17 @@ class Submit extends React.Component {
     this.onSubmit = this.onSubmit.bind(this)
     this.handleSNTChange = this.handleSNTChange.bind(this)
     this.onClickSubmit = this.onClickSubmit.bind(this)
+
+    this.state = {
+      isTestnet: false,
+    }
+  }
+
+  componentDidMount() {
+    ;(async () => {
+      const isTestnet = await checkNetwork()
+      this.setState({ isTestnet })
+    })()
   }
 
   componentDidUpdate() {
@@ -220,6 +231,8 @@ class Submit extends React.Component {
   }
 
   render() {
+    const { isTestnet } = this.state
+
     const {
       dappState,
       visible_submit,
@@ -487,7 +500,7 @@ class Submit extends React.Component {
                 earn back through votes, or withdraw, the majority of this SNT
                 at any time.
               </p>
-              {checkNetwork() && <Network />}
+              {isTestnet && <Network />}
               <button type="submit" onClick={this.onSubmit}>
                 {!sntValue || sntValue === '0'
                   ? 'Publish'
