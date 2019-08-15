@@ -47,7 +47,7 @@ class Submit extends React.Component {
   }
 
   componentDidMount() {
-    ;(async () => {
+    (async () => {
       const isTestnet = await checkNetwork()
       this.setState({ isTestnet })
     })()
