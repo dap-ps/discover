@@ -5,8 +5,9 @@ export const broadcastContractFn = (contractMethod, account) => {
       .then(estimatedGas => {
         contractMethod
           .send({ from: account, gas: estimatedGas + 1000 })
-          .on('transactionHash', hash => {
-            resolve(hash)
+          .on('transactionHash', hash => {})
+          .on('receipt', receipt => {
+            resolve(receipt.transactionHash)
           })
           .on('error', error => {
             reject(error)
