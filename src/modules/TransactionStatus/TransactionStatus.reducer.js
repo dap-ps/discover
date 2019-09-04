@@ -80,9 +80,7 @@ export const checkTransactionStatusAction = (tx, message) => {
         break
       case 2:
         transacationStatus.setProgress(true)
-        setTimeout(() => {
-          dispatch(checkTransactionStatusAction(tx, message))
-        }, 2000)
+        dispatch(checkTransactionStatusAction(tx, message))
         break
     }
 
