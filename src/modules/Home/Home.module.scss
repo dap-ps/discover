@@ -9,3 +9,25 @@
   font-size: calculateRem(17);
   margin: 0;
 }
+
+.mobileSearch {
+  display: none;
+}
+
+.search {
+  display: flex;
+  width: 100%;
+  align-self: center;
+  padding: calculateRem(9);
+}
+
+@media (max-width: $desktop) {
+  .mobileSearch {
+    display: block;
+  }
+  .searchResult {
+    width: 98vw;
+    position: absolute;
+    background-color: #ffffff;
+  }
+}
