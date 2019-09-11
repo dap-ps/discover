@@ -1,0 +1,59 @@
+@import '../../../styles/variables';
+
+.container {
+  display: flex;
+  margin: calculateRem(10);
+  font-family: 'Inter';
+}
+
+.header {
+  color: $headline-color !important;
+  font-size: calculateRem(15);
+  line-height: calculateRem(22);
+  margin-bottom: calculateRem(2);
+  margin-top: calculateRem(12);
+  font-weight: 600;
+}
+
+.description {
+  color: #939ba1 !important;
+  font-size: calculateRem(13);
+}
+
+.column {
+  align-self: flex-end;
+  overflow-wrap: break-word;
+}
+
+.image {
+  max-width: calculateRem(40);
+  max-height: calculateRem(40);
+  margin-top: calculateRem(15);
+  margin-right: calculateRem(16);
+  border-radius: 50%;
+}
+
+p {
+  margin: 0;
+}
+
+.link {
+  margin-top: calculateRem(2);
+  font-size: calculateRem(12);
+}
+
+.imgWrapper {
+  flex: 0 0 auto;
+}
+
+@media (max-width: $desktop) {
+  .column {
+    width: 78vw;
+  }
+}
+
+@media (min-width: $desktop) {
+  .column {
+    width: 24vw;
+  }
+}

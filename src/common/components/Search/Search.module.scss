@@ -1,0 +1,29 @@
+@import '../../styles/_variables.scss';
+
+.container {
+  display: flex;
+  flex: 1;
+  border: 1px solid #eef2f5;
+  border-radius: calculateRem(4);
+  overflow: hidden;
+  margin: calculateRem(16);
+  img {
+    padding: calculateRem(5);
+    align-self: center;
+  }
+}
+
+.search {
+  font-family: 'Inter';
+  font-size: calculateRem(15);
+  flex: 1;
+  border: none;
+  outline: none;
+  &::placeholder {
+    color: #939ba1;
+  }
+}
+
+.searchResults {
+  z-index: 99;
+}

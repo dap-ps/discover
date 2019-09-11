@@ -1,5 +1,18 @@
 @import '../../common/styles/variables';
 
+.search {
+  width: 85%;
+  margin: calculateRem(9);
+}
+
+.searchResult {
+  position: relative;
+}
+
+.categories {
+  opacity: 1;
+}
+
 .open {
   border-radius: 8px;
   box-shadow: 0px 4px 12px rgba(0, 34, 51, 0.08),
