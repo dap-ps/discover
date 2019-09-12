@@ -14,19 +14,11 @@ import DesktopMenu from '../DesktopMenu/DesktopMenu.container'
 class Home extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
-      isSearching: false,
-    }
-    this.onSearch = this.onSearch.bind(this)
-  }
-
-  onSearch(isSearching) {
-    this.setState({ isSearching })
+    this.state = {}
   }
 
   render() {
     const { dapps } = this.props
-    const { isSearching } = this.state
     const loaded = dapps.loaded
 
     return (
@@ -37,13 +29,10 @@ class Home extends React.Component {
               <h2 className={styles.headline}>Discover</h2>
             </div>
             <DesktopMenu />
-            <div className={styles.mobileSearch}>
-              <Search
-                searchStyle={styles.search}
-                searchResultStyle={styles.searchResult}
-                onSearch={this.onSearch}
-              />
-            </div>
+            <Search
+              searchStyle={styles.search}
+              searchResultStyle={styles.searchResult}
+            />
             <FeaturedDapps featured={featured} />
             <Categories />
             <HighestRanked />
