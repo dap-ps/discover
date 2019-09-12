@@ -21,19 +21,17 @@ const SearchResultItem = props => {
         />
       </div>
       <div className={styles.column}>
-        <>
-          <h2 className={styles.header}>{name}</h2>
-          <p
-            className={styles.description}
-            style={{ WebkitBoxOrient: 'vertical' }}
-          >
-            {description}
-          </p>
-          <a className={styles.link} href={{ url }}>
-            {url}
-            &nbsp;&rarr;
-          </a>
-        </>
+        <h2 className={styles.header}>{name}</h2>
+        <p
+          className={styles.description}
+          style={{ WebkitBoxOrient: 'vertical' }}
+        >
+          {description}
+        </p>
+        <a className={styles.link} href={url}>
+          {url}
+          &nbsp;&rarr;
+        </a>
       </div>
     </div>
   )

@@ -67,7 +67,7 @@ class DiscoverService extends BlockchainService {
           .call({ from: this.sharedContext.account })
 
         const dappMetadata = dappsCache[dapp.metadata]
-        if (dappMetadata) {
+        if (typeof dappMetadata !== 'undefined') {
           delete dappsCache[dapp.metadata]
           dapp.metadata = dappMetadata.details
           dapp.metadata.status = dappMetadata.status
@@ -79,7 +79,7 @@ class DiscoverService extends BlockchainService {
       Object.keys(dappsCache).forEach(metadataHash => {
         const dappMetadata = dappsCache[metadataHash]
 
-        if (dappMetadata.status == 'APPROVED') {
+        if (dappMetadata.status == 'NEW') {
           dapps.push({
             developer: '',
             id: dappMetadata.compressedMetadata,

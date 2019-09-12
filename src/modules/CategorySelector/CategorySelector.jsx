@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import CategoryIcon from '../../common/components/CategoryIcon'
 import ViewAll from '../../common/components/ViewAll'
-import Search from '../../common/components/Search'
 import categories from '../../common/utils/categories'
 import humanise from '../../common/utils/humanise'
 import dropdownArrows from '../../common/assets/images/dropdown-arrows.svg'
@@ -11,14 +10,13 @@ import styles from './CategorySelector.module.scss'
 class CategorySelector extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { open: false, isSearching: false }
+    this.state = { open: false }
     this.toggle = this.toggle.bind(this)
     this.updateCategory = this.updateCategory.bind(this)
     this.container = React.createRef()
     this.onClickSubmit = this.onClickSubmit.bind(this)
     this.onClickHighestRanked = this.onClickHighestRanked.bind(this)
     this.onClickRecentlyAdded = this.onClickRecentlyAdded.bind(this)
-    this.onSearch = this.onSearch.bind(this)
   }
 
   componentDidMount() {
@@ -43,10 +41,6 @@ class CategorySelector extends React.Component {
     }
 
     this.setState({ open: false })
-  }
-
-  onSearch(isSearching) {
-    this.setState({ isSearching })
   }
 
   onClickHighestRanked(e) {
@@ -83,7 +77,6 @@ class CategorySelector extends React.Component {
       showSubmitDApp,
     } = this.props
     let { open } = this.state
-    const { isSearching } = this.state
     if (alwaysOpen === true) open = true
 
     return (
@@ -92,22 +85,11 @@ class CategorySelector extends React.Component {
           style={open ? { visible: 'block' } : { display: 'none' }}
           className={styles.open}
         >
-          <Search
-            searchStyle={styles.search}
-            onSearch={this.onSearch}
-            searchResultStyle={styles.searchResult}
-          />
-          <div
-            className={styles.openHeader}
-            style={isSearching ? { display: 'none' } : { display: 'flex' }}
-          >
+          <div className={styles.openHeader}>
             <h2>Categories</h2>
             <ViewAll size="small" />
           </div>
-          <div
-            className={styles.categories}
-            style={isSearching ? { display: 'none' } : { display: 'block' }}
-          >
+          <div className={styles.categories}>
             {categories.map(c => (
               <button
                 className={
@@ -127,10 +109,7 @@ class CategorySelector extends React.Component {
           </div>
 
           {showLists && (
-            <div
-              className={styles.categories}
-              style={isSearching ? { display: 'none' } : { display: 'block' }}
-            >
+            <div className={styles.categories}>
               <div className={`${styles.openHeader} ${styles.spacing}`}>
                 <h2>Lists</h2>
               </div>
@@ -182,7 +161,6 @@ class CategorySelector extends React.Component {
               className={`${styles.openButton} ${styles.submitDapp}`}
               type="button"
               onClick={this.onClickSubmit}
-              style={isSearching ? { display: 'none' } : { display: 'flex' }}
             >
               <svg
                 width="20"

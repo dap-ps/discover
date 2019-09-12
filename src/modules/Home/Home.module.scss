@@ -10,10 +10,6 @@
   margin: 0;
 }
 
-.mobileSearch {
-  display: none;
-}
-
 .search {
   display: flex;
   width: 100%;
@@ -22,11 +18,7 @@
 }
 
 @media (max-width: $desktop) {
-  .mobileSearch {
-    display: block;
-  }
   .searchResult {
-    width: 98vw;
     position: absolute;
     background-color: #ffffff;
   }

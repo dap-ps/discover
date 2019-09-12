@@ -1,29 +1,96 @@
 @import '../../styles/_variables.scss';
 
-.container {
-  display: flex;
-  flex: 1;
-  border: 1px solid #eef2f5;
-  border-radius: calculateRem(4);
-  overflow: hidden;
-  margin: calculateRem(16);
-  img {
-    padding: calculateRem(5);
-    align-self: center;
+@media (min-width: $desktop) {
+  .search_container {
+    height: calculateRem(20);
+    cursor: pointer;
+    border-radius: calculateRem(40);
+    background: #ffffff;
+    padding: calculateRem(10);
+    position: absolute;
+    box-shadow: 0px 4px 12px rgba(0, 34, 51, 0.08),
+      0px 2px 4px rgba(0, 34, 51, 0.16);
+    right: calculateRem(20);
+    top: calculateRem(60);
+    display: flex;
+    z-index: 1;
+    transform: translateY(-50%);
+
+    &:hover {
+      width: calculateRem(240);
+      .search {
+        width: calculateRem(240);
+        display: block;
+      }
+      .searchResults {
+        z-index: 99;
+        display: block;
+        position: absolute;
+        top: calculateRem(39);
+        background: #ffffff;
+        left: 0;
+        border-bottom-left-radius: calculateRem(5);
+        border-bottom-right-radius: calculateRem(5);
+        box-shadow: 0 0 0 rgba(0, 34, 51, 0.08),
+          0px 2px 4px rgba(0, 34, 51, 0.16);
+      }
+    }
+    img {
+      align-self: center;
+    }
+
+    .search {
+      font-family: 'Inter';
+      font-size: calculateRem(15);
+      border: none;
+      background: none;
+      display: none;
+      outline: none;
+      transition: 0.4s;
+      line-height: calculateRem(15);
+      width: 0px;
+      &::placeholder {
+        color: #939ba1;
+      }
+    }
+    .searchResults {
+      display: none;
+      width: 100%;
+    }
   }
 }
 
-.search {
-  font-family: 'Inter';
-  font-size: calculateRem(15);
-  flex: 1;
-  border: none;
-  outline: none;
-  &::placeholder {
-    color: #939ba1;
-  }
-}
+@media (max-width: $desktop) {
+  .search_container {
+    display: flex;
+    flex: 1;
+    border: 1px solid #eef2f5;
+    border-radius: calculateRem(4);
+    overflow: hidden;
+    margin: calculateRem(16);
+    img {
+      padding: calculateRem(5);
+      align-self: center;
+    }
+    .search {
+      font-family: 'Inter';
+      font-size: calculateRem(15);
+      flex: 1;
+      border: none;
+      outline: none;
+      &::placeholder {
+        color: #939ba1;
+      }
+    }
 
-.searchResults {
-  z-index: 99;
+    .searchResults {
+      z-index: 99;
+      top: calculateRem(100);
+      width: 92vw;
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: cover;
+    }
+  }
 }

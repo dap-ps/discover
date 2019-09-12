@@ -30,24 +30,23 @@ class Search extends React.Component {
   }
 
   render() {
-    const { searchStyle, onSearch, searchResultStyle } = this.props
+    const { searchStyle, searchResultStyle } = this.props
     const { dapps, isSearching } = this.state
     return (
-      <>
-        <div className={styles.container}>
-          <img src={searchIcon} alt="Search Icon" width="16" height="16" />
-          <input
-            type="text"
-            onChange={e => this.handleChange(e)}
-            className={[styles.search, searchStyle].join(' ')}
-            placeholder="Search Dapps"
-            onSearch={onSearch(isSearching)}
-          />
-        </div>
-        <div className={[styles.searchResults, searchResultStyle].join(' ')}>
-          <SearchResultItem showActionButtons={false} dapps={dapps} />
-        </div>
-      </>
+      <div className={styles.search_container}>
+        <img src={searchIcon} alt="Search Icon" width="16" height="16" />
+        <input
+          type="text"
+          onChange={e => this.handleChange(e)}
+          className={[styles.search, searchStyle].join(' ')}
+          placeholder="Search Dapps"
+        />
+        {isSearching && (
+          <div className={[styles.searchResults, searchResultStyle].join(' ')}>
+            <SearchResultItem showActionButtons={false} dapps={dapps} />
+          </div>
+        )}
+      </div>
     )
   }
 }
@@ -56,7 +55,6 @@ Search.propTypes = {
   searchStyle: PropTypes.string,
   searchResultStyle: PropTypes.string,
   dappState: PropTypes.instanceOf(DappState).isRequired,
-  onSearch: PropTypes.func.isRequired,
 }
 
 Search.defaultProps = {
