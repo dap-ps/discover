@@ -8,7 +8,7 @@ const DEFAULT_HEADERS = {
 const executeRequest = async function(method, url, reqStruct) {
   return axios({
     method,
-    url: `http://localhost:4000${url}`,
+    url,
     data: {
       ...reqStruct.body,
     },
