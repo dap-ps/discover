@@ -19,7 +19,13 @@ class Search extends React.Component {
     const { value } = e.target
     const { dappState } = this.props
     if (value.length > 1) {
-      const dapps = dappState.dapps.filter(dapp => dapp.name.startsWith(value))
+      const searchExp = new RegExp(value, 'i')
+      const dapps = dappState.dapps.filter(dapp => {
+        if (dapp.name.search(searchExp) != -1) {
+          return dapp
+        }
+        return null
+      })
       this.setState({ dapps, isSearching: true })
     } else if (value === '') {
       this.setState({
