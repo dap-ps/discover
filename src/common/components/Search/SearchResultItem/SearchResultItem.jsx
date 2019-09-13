@@ -28,7 +28,12 @@ const SearchResultItem = props => {
         >
           {description}
         </p>
-        <a className={styles.link} href={url}>
+        <a
+          className={styles.link}
+          target="_blank"
+          rel="noopener noreferrer"
+          href={url}
+        >
           {url}
           &nbsp;&rarr;
         </a>
