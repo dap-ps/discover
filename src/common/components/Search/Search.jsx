@@ -11,6 +11,7 @@ class Search extends React.Component {
     this.state = {
       dapps: [],
       isSearching: false,
+      isOpen: false,
     }
     this.nodes = React.createRef()
     this.handleChange = this.handleChange.bind(this)
@@ -32,6 +33,7 @@ class Search extends React.Component {
 
     this.setState({
       isSearching: false,
+      isOpen: false,
       dapps: [],
     })
   }
@@ -41,15 +43,15 @@ class Search extends React.Component {
   applyClass(e) {
     e.preventDefault()
     this.setState({
-      isSearching: true,
+      isOpen: true,
     })
   }
 
   handleChange(e) {
     const { value } = e.target
     const { dappState } = this.props
-    this.setState({ isSearching: true })
     if (value.length > 1) {
+      this.setState({ isSearching: true })
       const searchExp = new RegExp(value, 'i')
       const dapps = dappState.dapps.filter(dapp => {
         if (dapp.name.search(searchExp) != -1) {
@@ -61,36 +63,44 @@ class Search extends React.Component {
     } else {
       this.setState({
         dapps: [],
+        isSearching: false,
       })
     }
   }
 
   render() {
     const { searchStyle, searchResultStyle } = this.props
-    const { dapps, isSearching } = this.state
-    const cssClassVisible = isSearching ? styles.isOpen : ''
+    const { dapps, isSearching, isOpen } = this.state
+    const searchBoxIsOpen = isOpen ? styles.isOpen : ''
     return (
       <>
-        <div className={`${styles.dim}`} />
+        <div className={styles.dim} />
         <div
-          ref={this.nodes}
-          className={[styles.search_container, cssClassVisible].join(' ')}
-          onClick={e => this.applyClass(e)}
+          className={[
+            searchBoxIsOpen,
+            isSearching && dapps.length > 0 ? styles.isSearching : '',
+          ].join(' ')}
         >
-          <img src={searchIcon} alt="Search Icon" width="16" height="16" />
-          <input
-            type="text"
-            onChange={e => this.handleChange(e)}
-            className={[styles.search, searchStyle].join(' ')}
-            placeholder="Search Dapps"
-          />
-          {isSearching && (
-            <div
-              className={[styles.searchResults, searchResultStyle].join(' ')}
-            >
-              <SearchResultItem showActionButtons={false} dapps={dapps} />
-            </div>
-          )}
+          <div
+            ref={this.nodes}
+            className={styles.search_container}
+            onClick={e => this.applyClass(e)}
+          >
+            <img src={searchIcon} alt="Search Icon" width="16" height="16" />
+            <input
+              type="text"
+              onChange={e => this.handleChange(e)}
+              className={[styles.search, searchStyle].join(' ')}
+              placeholder="Search Dapps"
+            />
+            {isSearching && (
+              <div
+                className={[styles.searchResults, searchResultStyle].join(' ')}
+              >
+                <SearchResultItem showActionButtons={false} dapps={dapps} />
+              </div>
+            )}
+          </div>
         </div>
       </>
     )
