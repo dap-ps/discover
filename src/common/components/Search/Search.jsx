@@ -40,8 +40,7 @@ class Search extends React.Component {
 
   closeSearchBox() {}
 
-  applyClass(e) {
-    e.preventDefault()
+  applyClass() {
     this.setState({
       isOpen: true,
     })
@@ -74,7 +73,6 @@ class Search extends React.Component {
     const searchBoxIsOpen = isOpen ? styles.isOpen : ''
     return (
       <>
-        <div className={styles.dim} />
         <div
           className={[
             searchBoxIsOpen,
@@ -84,7 +82,7 @@ class Search extends React.Component {
           <div
             ref={this.nodes}
             className={styles.search_container}
-            onClick={e => this.applyClass(e)}
+            onClick={this.applyClass}
           >
             <img src={searchIcon} alt="Search Icon" width="16" height="16" />
             <input
