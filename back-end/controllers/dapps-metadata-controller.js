@@ -103,17 +103,18 @@ class DAppsMetadataController {
     try {
       const dappImage = await DAppImageService.retrieveImage(req.params.hash)
 
-      if (dappImage) {
-        const imageBuffer = Buffer.from(dappImage.content, 'base64')
-
-        res.writeHead(200, {
-          'Content-Type': 'image/png',
-          'Content-Length': imageBuffer.length,
-        })
-        return void res.end(imageBuffer)
+      if (!dappImage) {
+        res.status(404).send()
       }
 
-      res.status(404).send()
+      const imageBuffer = Buffer.from(dappImage.content, 'base64')
+
+      /* allow for caching of images, since they are the bulk of requests */
+      res.set('Cache-Control', 'public, max-age=31557600')
+      res.set('Content-Type', 'image/png')
+      res.set('Content-Length', imageBuffer.length)
+      res.status(200)
+      return void res.end(imageBuffer)
     } catch (error) {
       logger.error(error.message)
       res.status(404).send()
