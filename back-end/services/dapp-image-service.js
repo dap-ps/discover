@@ -24,7 +24,7 @@ class DAppImageService {
 }
 
 const buildImageUrl = function (req, imageHash) {
-    return `${req.protocol}://${req.headers.host}${req.originalUrl}/image/${imageHash}`;
+    return `/metadata/image/${imageHash}`;
 }
 
 module.exports = DAppImageService;
