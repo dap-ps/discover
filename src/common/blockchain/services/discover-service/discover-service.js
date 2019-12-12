@@ -60,9 +60,12 @@ class DiscoverService extends BlockchainService {
         JSON.stringify(await MetadataClient.retrieveMetadataCache()),
       )
 
-      let asyncCalls = [...Array(contractDappsCount).keys()].map(
-        i => DiscoverContract.methods.dapps(i).call({ from: this.sharedContext.account })
-      )
+      let asyncCalls = [ ]
+      for (let i = 0; i < contractDappsCount; i++) {
+        asyncCalls.push(
+          DiscoverContract.methods.dapps(i).call({from: this.sharedContext.account})
+        )
+      }
       /* using Promise.all() to run calls in parallel */
       let dapps = await Promise.all(asyncCalls)
 
