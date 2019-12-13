@@ -26,9 +26,10 @@
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0",
     "reselect": "^4.0.0",
+    "typescript": "^3.7.3",
     "validator": "^11.1.0",
-    "web3": "1.2.1",
-    "web3-utils": "^1.2.1"
+    "web3": "1.2.2",
+    "web3-utils": "^1.2.2"
   },
   "scripts": {
     "build:localhost": "NODE_ENV=localhost make all",
@@ -63,7 +64,6 @@
   ],
   "devDependencies": {
     "bignumber.js": "^8.1.1",
-    "embarkjs-connector-web3": "4.1.0-beta.3",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-config-prettier": "^4.1.0",
     "eslint-plugin-prettier": "^3.0.1",
