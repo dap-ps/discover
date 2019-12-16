@@ -50,6 +50,49 @@ class DiscoverService extends BlockchainService {
     return MetadataClient.getDappsCount()
   }
 
+  async pushDapps(dappsCache, dapps) {
+    Object.keys(dappsCache).forEach(metadataHash => {
+      const dappMetadata = dappsCache[metadataHash]
+
+      if (dappMetadata.status == 'APPROVED') {
+        dapps.push({
+          developer: '',
+          id: dappMetadata.compressedMetadata,
+          metadata: {
+            ...dappMetadata.details,
+            status: dappMetadata.status,
+          },
+          balance: 0,
+          rate: 0,
+          available: 0,
+          votesMinted: 0,
+          votesCast: 0,
+          effectiveBalance: 0,
+        })
+      }
+    })
+  }
+
+  async getAllDappsWithoutMetadata() {
+    try {
+      const contractDappsCount = await DiscoverContract.methods
+        .getDAppsCount()
+        .call({ from: this.sharedContext.account })
+
+      const dappsCache = JSON.parse(
+        JSON.stringify(await MetadataClient.retrieveMetadataCache()),
+      )
+
+      let dapps = [];
+
+      await this.pushDapps(dappsCache, dapps)
+
+      return dapps
+    } catch (error) {
+      throw new Error(`Error fetching dapps. Details: ${error.message}`)
+    }
+  }
+
   async getAllDappsWithMetadata() {
     try {
       const contractDappsCount = await DiscoverContract.methods
@@ -66,10 +109,11 @@ class DiscoverService extends BlockchainService {
           DiscoverContract.methods.dapps(i).call({from: this.sharedContext.account})
         )
       }
+      let dapps = [];
       /* using Promise.all() to run calls in parallel */
-      let dapps = await Promise.all(asyncCalls)
+      let dappsCalls = await Promise.all(asyncCalls)
 
-      for (let dapp of dapps) {
+      for (let dapp of dappsCalls) {
         const dappMetadata = dappsCache[dapp.metadata]
         if (dappMetadata) {
           delete dappsCache[dapp.metadata]
@@ -80,26 +124,7 @@ class DiscoverService extends BlockchainService {
         }
       }
 
-      Object.keys(dappsCache).forEach(metadataHash => {
-        const dappMetadata = dappsCache[metadataHash]
-
-        if (dappMetadata.status == 'APPROVED') {
-          dapps.push({
-            developer: '',
-            id: dappMetadata.compressedMetadata,
-            metadata: {
-              ...dappMetadata.details,
-              status: dappMetadata.status,
-            },
-            balance: 0,
-            rate: 0,
-            available: 0,
-            votesMinted: 0,
-            votesCast: 0,
-            effectiveBalance: 0,
-          })
-        }
-      })
+      await this.pushDapps(dappsCache, dapps)
 
       return dapps
     } catch (error) {

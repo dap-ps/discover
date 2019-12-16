@@ -33,7 +33,19 @@ export const fetchAllDappsAction = () => {
       const { transactionStatus } = state
       let dappSource = ''
 
+      /* we want to show dapps list first and then load all data from blockchain */
+      const allDappsWithoutMeta = await discoverService.getAllDappsWithoutMetadata()
+
+      for (let i = 0; i < allDappsWithoutMeta.length; i++) {
+        dappSource = allDappsWithoutMeta[i]
+        if (dappSource !== null) {
+          const dappModel = DappModel.instanceFromBlockchainWithMetadata(dappSource)
+          dispatch(onUpdateDappsAction(dappState.creditDapp(dappModel)))
+        }
+      }
+
       const allDapps = await discoverService.getAllDappsWithMetadata()
+
       for (let i = 0; i < allDapps.length; i++) {
         dappSource = allDapps[i]
         if (dappSource !== null) {
