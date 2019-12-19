@@ -42,15 +42,10 @@ node_modules: ##@install Install the Node.js dependencies using Yarn
 	yarn install
 
 check-prod-vars: ##@checks Check if the necesary env variables are set
-ifeq ($(NODE_ENV),production)
-	[[ -z "${WALLET_MNEMONIC}" ]] && { echo "Not defined: WALLET_MNEMONIC"; exit 1 }
-	[[ -z "${WALLET_PASSWORD}" ]] && { echo "Not defined: WALLET_PASSWORD"; exit 1 }
-else
-ifneq ($(NODE_ENV),$(filter $(NODE_ENV),development localhost))
+ifneq ($(NODE_ENV),$(filter $(NODE_ENV),production development localhost))
 	@echo "Unknown NODE_ENV value: ${NODE_ENV}"
 	@echo "Use 'production' or 'development' or 'localhost'."
 	exit 1
-endif
 endif
 
 compile-contracts: ##@compile Compile the contracts using Embark.js
