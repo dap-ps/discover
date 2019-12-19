@@ -13,7 +13,7 @@
     "connected-react-router": "^6.3.2",
     "debounce": "^1.2.0",
     "decimal.js": "^10.0.2",
-    "embark": "4.0.2",
+    "embark": "4.2.0",
     "embark-etherscan-verifier": "^4.0.0",
     "embark-solium": "0.0.1",
     "history": "^4.7.2",
@@ -27,7 +27,7 @@
     "redux-thunk": "^2.3.0",
     "reselect": "^4.0.0",
     "validator": "^11.1.0",
-    "web3": "1.0.0-beta.34",
+    "web3": "1.2.4",
     "web3-utils": "^1.0.0-beta.35"
   },
   "scripts": {
@@ -63,7 +63,6 @@
   ],
   "devDependencies": {
     "bignumber.js": "^8.1.1",
-    "embarkjs-connector-web3": "^4.0.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-config-prettier": "^4.1.0",
     "eslint-plugin-prettier": "^3.0.1",
