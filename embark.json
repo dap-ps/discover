@@ -9,7 +9,6 @@
   },
   "plugins": {
     "embark-solium": {},
-    "embarkjs-connector-web3": {},
     "embark-etherscan-verifier": {},
     "@trailofbits/embark-contract-info": {
       "flags": ""
