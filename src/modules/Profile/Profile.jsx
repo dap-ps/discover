@@ -4,6 +4,7 @@ import ReactImageFallback from 'react-image-fallback'
 import Modal from '../../common/components/Modal'
 import styles from './Profile.module.scss'
 import icon from '../../common/assets/images/icon.svg'
+import reviewBadge from '../../common/assets/images/reviewBadge.svg'
 import { DappState } from '../../common/data/dapp'
 
 const ProfileContent = ({
@@ -17,6 +18,7 @@ const ProfileContent = ({
   editable,
   onClickWithdraw,
   onClickUpdateMetadata,
+  status,
 }) => {
   return (
     <>
@@ -60,6 +62,12 @@ const ProfileContent = ({
             </a>
           </span>
         </div>
+        {status === 'APPROVED' && (
+          <div className={styles.reviewed}>
+            <img src={reviewBadge} alt="review badge" />
+            <span>Reviewed</span>
+          </div>
+        )}
         <div className={styles.ranking}>
           <span className={styles.heading}>Ranking</span>
           <div className={styles.rank}>

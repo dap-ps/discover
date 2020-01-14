@@ -7,6 +7,7 @@ import icon from '../../assets/images/icon.svg'
 import sntIcon from '../../assets/images/SNT.svg'
 import upvoteArrowIcon from '../../assets/images/upvote-arrow.svg'
 import downvoteArrowIcon from '../../assets/images/downvote-arrow.svg'
+import reviewBadge from '../../assets/images/reviewBadge.svg'
 
 const DappListItem = props => {
   const {
@@ -20,7 +21,7 @@ const DappListItem = props => {
     onToggleProfileModal,
   } = props
 
-  const { name, description, image } = dapp
+  const { name, description, image, status } = dapp
 
   const handleUpVote = () => {
     onClickUpVote(dapp)
@@ -43,12 +44,21 @@ const DappListItem = props => {
         className={styles.imgWrapper}
         onClick={() => onToggleProfileModal(dapp.id, name)}
       >
-        <ReactImageFallback
-          className={styles.image}
-          src={image}
-          fallbackImage={icon}
-          alt="App icon"
-        />
+        <div className={styles.logo}>
+          <ReactImageFallback
+            className={styles.image}
+            src={image}
+            fallbackImage={icon}
+            alt="App icon"
+          />
+          {status && (
+            <img
+              src={reviewBadge}
+              className={styles.review_icon}
+              alt="review badge"
+            />
+          )}
+        </div>
       </div>
       <div className={styles.column}>
         <div onClick={() => onToggleProfileModal(dapp.id, name)}>
