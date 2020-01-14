@@ -5,7 +5,6 @@ if (!process.env.WALLET_MNEMONIC) {
 module.exports = {
   default: {
     enabled: true,
-    client: 'geth',
     accounts: [
       {
         mnemonic: process.env.WALLET_MNEMONIC,
