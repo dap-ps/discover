@@ -130,6 +130,8 @@ class DAppsMetadataController {
       dappsFormatedMetadata[metadataHash] = dappsMetadata[i]
     }
 
+    /* don't cache for longer than 60 seconds to show new dapps quicker */
+    res.set('Cache-Control', 'public, max-age=60')
     res.status(200).json(dappsFormatedMetadata)
   }
 
