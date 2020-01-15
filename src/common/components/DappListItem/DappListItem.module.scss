@@ -42,13 +42,24 @@
   cursor: pointer;
 }
 
+.logo {
+  display: flex;
+  align-items: center;
+  padding: 0 calculateRem(20);
+}
+
 .image {
   max-width: calculateRem(40);
   max-height: calculateRem(40);
-  margin-top: calculateRem(15);
+  margin-top: calculateRem(10);
   margin-right: calculateRem(16);
   border-radius: 50%;
   cursor: pointer;
+}
+
+.review_icon {
+  margin-left: calculateRem(-30);
+  margin-top: calculateRem(40);
 }
 
 .url {
