@@ -19,7 +19,7 @@ module.exports = {
       '$WEB3',
       'https://ropsten.infura.io/v3/8675214b97b44e96b70d05326c61fd6a',
     ],
-    contracts: {
+    deploy: {
       MiniMeToken: {
         address: '0xc55cf4b03948d7ebc8b9e8bad92643703811d162',
       },
