@@ -51,7 +51,7 @@ const DappListItem = props => {
             fallbackImage={icon}
             alt="App icon"
           />
-          {status && (
+          {status === 'APPROVED' && (
             <img
               src={reviewBadge}
               className={styles.review_icon}
