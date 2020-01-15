@@ -1,9 +1,9 @@
 import CryptoKittiesBanner from '../assets/images/featured/crytokittes_banner.png'
 import CryptoKittiesLogo from '../assets/images/featured/cryptokitties_logo.png'
-import AirswapBanner from '../assets/images/featured/airswap_banner.png'
-import AirswapLogo from '../assets/images/featured/airswap_logo.png'
-import KyberBanner from '../assets/images/featured/kyber_banner.png'
-import KyberLogo from '../assets/images/featured/kyber_logo.png'
+import OasisBanner from '../assets/images/featured/oasis_banner.png'
+import OasisLogo from '../assets/images/featured/oasis_logo.png'
+import ZerionBanner from '../assets/images/featured/zerion_banner.png'
+import ZerionLogo from '../assets/images/featured/zerion_logo.png'
 
 const featuredDapps = [
   {
@@ -14,18 +14,20 @@ const featuredDapps = [
     icon: CryptoKittiesLogo,
   },
   {
-    name: 'Airswap',
-    description: 'Meet the future of trading',
-    url: 'https://instant.airswap.io',
-    banner: AirswapBanner,
-    icon: AirswapLogo,
+    name: 'Oasis',
+    description:
+      'Trade tokens, borrow Dai, and earn savings — all in one place',
+    url: 'https://oasis.app',
+    banner: OasisBanner,
+    icon: OasisLogo,
   },
   {
-    name: 'Kyber',
-    description: 'On-chain, instant and liquid exchange and payment',
-    url: 'https://web3.kyber.network',
-    banner: KyberBanner,
-    icon: KyberLogo,
+    name: 'Zerion',
+    description:
+      'Zerion is the simplest way to invest in DeFi from anywhere in the world',
+    url: 'https://app.zerion.io',
+    banner: ZerionBanner,
+    icon: ZerionLogo,
   },
 ]
 
