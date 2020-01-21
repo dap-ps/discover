@@ -17,17 +17,22 @@ class IPFSService {
         return IPFSService.instance;
     }
 
-    async addContent(content) {
-        // Todo: pin the hash. Infura does not support it.
-        const contentHash = await this.storage.add(Buffer.from(JSON.stringify(content)));
-
-        logger.info(`Content ${content} was successfully uploaded in IPFS`);
-        return contentHash[0].hash;
+    async addContent(content, filename='data.json') {
+        let data
+        if (Buffer.isBuffer(content)) {
+          data = content
+        } else if (typeof content == "object") {
+          data = Buffer.from(JSON.stringify(content));
+        } else {
+          data = Buffer.from(content);
+        }
+        const resp = await this.storage.add(data, {pin: true});
+        logger.info(`Content uploaded to IPFS: ${resp[0].hash}`);
+        return resp[0].hash;
     }
 
     async generateContentHash(content) {
-        const contentHash = await this.storage.add(Buffer.from(JSON.stringify(content)), { onlyHash: true });
-        return contentHash[0].hash;
+        return this.addContent(content);
     }
 }
 

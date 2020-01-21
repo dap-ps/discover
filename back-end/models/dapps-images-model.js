@@ -1,7 +1,7 @@
-let mongoose = require('mongoose');
-let Schema = mongoose.Schema;
-
+const logger = require('../logger/logger').getLoggerFor('DAPPS-Images-Model');
 const IPFSService = require('./../services/ipfs-service');
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
 let DAppsImageSchema = new Schema({
     id: Schema.Types.ObjectId,
@@ -13,21 +13,21 @@ let DAppsImageSchema = new Schema({
 });
 
 DAppsImageSchema.pre('save', async function () {
-    const formatedContent = JSON.stringify(this.content).split('base64,')[1];
-
-    if (!formatedContent) {
+    const content = this.content.split('base64,')[1];
+    if (!content) {
         throw new Error('Invalid base64 image');
     }
-
-    const hash = await IPFSService.generateContentHash(formatedContent);
-    this.set({ content: formatedContent, hash: hash });
+    const data = Buffer.from(content, 'base64');
+    const hash = await IPFSService.addContent(data);
+    this.set({ content, hash });
 });
 
 DAppsImageSchema.statics.findByContent = async function (content) {
-    const formatedContent = JSON.stringify(content).split('base64,')[1];
-    const hash = await IPFSService.generateContentHash(formatedContent);
+    const content = content.split('base64,')[1];
+    const data = Buffer.from(content, 'base64');
+    const hash = await IPFSService.generateContentHash(data);
 
-    return this.findOne({ hash: hash });
+    return this.findOne({ hash });
 };
 
 module.exports = mongoose.model('DAppsImage', DAppsImageSchema);
