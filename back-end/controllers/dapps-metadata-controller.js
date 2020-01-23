@@ -141,7 +141,8 @@ class DAppsMetadataController {
     if (dappMetadata) {
       dappMetadata.status = DAPP_METADATA_STATUSES.APPROVED
 
-      dappMetadata.ipfsHash = await IPFSService.addContent(dappMetadata.details)
+      var json = JSON.stringify(dappMetadata.details);
+      dappMetadata.ipfsHash = await IPFSService.addContent(json)
 
       await dappMetadata.save()
 

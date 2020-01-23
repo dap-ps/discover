@@ -66,13 +66,13 @@ let DAppsMetadataSchema = new Schema({
 });
 
 DAppsMetadataSchema.pre('save', async function () {
-    const hash = await IPFSService.generateContentHash(this.details);
-    this.set({ hash: hash });
+    const hash = await IPFSService.addContent(this.details);
+    this.set({ hash });
 });
 
 DAppsMetadataSchema.statics.findByPlainMetadata = async function (metadata) {
     const hash = await IPFSService.generateContentHash(metadata);
-    return this.findOne({ hash: hash });
+    return this.findOne({ hash });
 }
 
 DAppsMetadataSchema.statics.findByBytes32Hash = async function (bytes32Hash) {
