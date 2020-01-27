@@ -8,6 +8,21 @@
     />
     <meta name="theme-color" content="#000000" />
     <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
+    <!-- Fathom - simple website analytics - https://github.com/usefathom/fathom -->
+    <script>
+        (function(f, a, t, h, o, m){
+            a[h]=a[h]||function(){(a[h].q=a[h].q||[]).push(arguments)};
+            o=f.createElement('script'),
+            m=f.getElementsByTagName('script')[0];
+            o.async=1; o.src=t; o.id='fathom-script';
+            m.parentNode.insertBefore(o,m)
+        })(document, window, '//fathom.status.im/tracker.js', 'fathom');
+        if (document.location.hostname == 'dap.ps') {
+            fathom('set', 'siteId', 'HDUHK');
+            fathom('trackPageview');
+        }
+    </script>
+    <!-- / Fathom -->
     <!--
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
