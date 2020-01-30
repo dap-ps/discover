@@ -31,7 +31,7 @@ help: ##@miscellaneous Show this help.
 	@perl -e '$(HELP_FUN)' $(MAKEFILE_LIST)
 
 all: ##@build Build the final app.zip from scratch
-all: node_modules clean compile-contracts patch-ipfs patch-ws mk-build-dir copy-misc copy-backend compile-js copy-frontend archive install-build
+all: node_modules clean compile-contracts mk-build-dir copy-misc copy-backend compile-js copy-frontend archive install-build
 ifneq ($(NODE_ENV),localhost)
 	@echo "SUCCESS! Use the app.zip file."
 else
@@ -54,13 +54,6 @@ compile-contracts: check-prod-vars
 
 compile-js: ##@compile Compile the React application
 	./node_modules/.bin/react-scripts build
-
-patch-ipfs: ##@patch Patch the deprecated id() call in IPFS API
-	sed -i 's#_ipfsConnection.id#_ipfsConnection.version#' \
-		src/embarkArtifacts/embarkjs.js
-
-patch-ws: ##@patch Remove websocket connection
-	sed -i '268,273d' src/embarkArtifacts/embarkjs.js
 
 mk-build-dir: ##@create Create the destination directory for full build if the folder doesn't exist
 	[ -d full-build ] || mkdir -p full-build

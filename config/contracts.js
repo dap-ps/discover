@@ -59,7 +59,7 @@ module.exports = {
         address: '0x744d70fdbe2ba4cf95131626614a1763df805b9e', // Mainnet SNT address
       },
       Discover: {
-        args: ['$MiniMeToken'],
+        address: '0x5bCF2767F86f14eDd82053bfBfd5069F68C2C5F8',
       },
     },
     tracking: 'shared.mainnet.chains.json',
