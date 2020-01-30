@@ -81,7 +81,7 @@ exports.expectThrow = async promise => {
 
 exports.assertJump = error => {
   assert(
-    error.message.search('VM Exception while processing transaction: revert') >
+    error.message.search('Returned error: VM Exception while processing transaction: revert') >
       -1,
     'Revert should happen',
   )

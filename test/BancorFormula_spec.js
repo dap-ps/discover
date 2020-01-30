@@ -2,24 +2,26 @@
 const BigNumber = require('bignumber.js');
 const constants = require('../utils/FormulaConstants.js');
 const catchRevert = require("../utils/Utils").catchRevert;
-const TestBancorFormula = embark.require('Embark/contracts/TestBancorFormula');
+const TestBancorFormula = require('Embark/contracts/TestBancorFormula');
 
 config({
-    deployment: {
-      accounts: [
-        {
-          mnemonic: "foster gesture flock merge beach plate dish view friend leave drink valley shield list enemy",
-          balance: "5 ether",
-          numAddresses: "10"
-        }
-      ]
+  blockchain: {
+    accounts: [
+      {
+        mnemonic: 'foster gesture flock merge beach plate dish view friend leave drink valley shield list enemy',
+        balance: '5 ether',
+        numAddresses: '10',
+      },
+    ],
+  },
+  contracts: {
+    deploy: {
+      'TestBancorFormula': {},
     },
-    contracts: {
-      "TestBancorFormula": { }
-    }
-  }, (_err, web3_accounts) => {
-    accounts = web3_accounts
-});
+  },
+}, (_err, web3_accounts) => {
+  accounts = web3_accounts
+})
 
 contract('TestBancorFormula', function () {
     let ILLEGAL_VAL = new BigNumber(2).exponentiatedBy(256);

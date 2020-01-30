@@ -1,39 +1,40 @@
 const TestUtils = require("../utils/testUtils");
 const BN = require('bn.js');
 const Discover = require('Embark/contracts/Discover');
-const SNT = embark.require('Embark/contracts/SNT');
-
+const SNT = require('Embark/contracts/SNT');
 
 config({
-  deployment: {
+  blockchain: {
     accounts: [
       {
-        mnemonic: "foster gesture flock merge beach plate dish view friend leave drink valley shield list enemy",
-        balance: "5 ether",
-        numAddresses: "10"
-      }
-    ]
+        mnemonic: 'foster gesture flock merge beach plate dish view friend leave drink valley shield list enemy',
+        balance: '5 ether',
+        numAddresses: '10',
+      },
+    ],
   },
   contracts: {
-    "MiniMeToken": { "deploy": false },
-    "MiniMeTokenFactory": {},
-    "SNT": {
-      "instanceOf": "MiniMeToken",
-      "args": [
-        "$MiniMeTokenFactory",
-        "0x0000000000000000000000000000000000000000",
-        0,
-        "TestMiniMeToken",
-        18,
-        "SNT",
-        true
-      ]
+    deploy: {
+      'MiniMeToken': { 'deploy': false },
+      'MiniMeTokenFactory': {},
+      'SNT': {
+        'instanceOf': 'MiniMeToken',
+        'args': [
+          '$MiniMeTokenFactory',
+          '0x0000000000000000000000000000000000000000',
+          0,
+          'TestMiniMeToken',
+          18,
+          'SNT',
+          true,
+        ],
+      },
+      'Discover': {
+        args: ['$SNT'],
+      },
+      'TestBancorFormula': {},
     },
-    "Discover": {
-      args: ["$SNT"]
-    },
-    "TestBancorFormula": {}
-  }
+  },
 }, (_err, web3_accounts) => {
   accounts = web3_accounts
 });
@@ -673,7 +674,7 @@ contract("Discover", function () {
     assert.ok(returned <= votes_minted);
   })
 
-  // Comment out line 263 in the contract to run this test properly and see 
+  // Comment out line 263 in the contract to run this test properly and see
   // the BancorFormula fail to find a suitable position in the maxExponentArray
   it("should prove we have the highest safeMax allowed for by Bancor's power approximation", async function () {
     let id = "0x0000000000000000000000000000000000000000000000000000000000000002";
