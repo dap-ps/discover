@@ -62,12 +62,14 @@ let DAppsMetadataSchema = new Schema({
         default: "NEW",
         enum: metadataStatuses
     },
+    /* This is used for new IPFS hash when DApp changes status */
     ipfsHash: String
 });
 
 DAppsMetadataSchema.pre('save', async function () {
     const hash = await IPFSService.addContent(this.details);
-    this.set({ hash });
+    /* We set ipfsHash so even unapproved DApps have it set */
+    this.set({ hash, ipfsHash: hash });
 });
 
 DAppsMetadataSchema.statics.findByPlainMetadata = async function (metadata) {
