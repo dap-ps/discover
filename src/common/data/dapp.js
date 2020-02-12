@@ -110,8 +110,9 @@ export class DappState {
   }
 
   getHighestRanked() {
-    if (this.dappsHightestRanked === null)
+    if (this.dappsHightestRanked === null) {
       this.dappsHightestRanked = this.dapps.filter(dapp => dapp.sntValue > 0)
+    }
     return this.dappsHightestRanked
   }
 
