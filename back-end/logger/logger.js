@@ -30,8 +30,11 @@ module.exports = {
             levels: loggerLevels.levels,
             level: 'info',
             format: winston.format.combine(
+                winston.format.errors({
+                    stack: true,
+                }),
                 winston.format.timestamp({
-                    format: 'YYYY-MM-DD HH:mm:ss'
+                    format: 'YYYY-MM-DD HH:mm:ss',
                 }),
                 winston.format.printf(log => {
                     return `[${log.timestamp}]-[${log.level.toUpperCase()}]-[${context}]: ${log.message}`;
