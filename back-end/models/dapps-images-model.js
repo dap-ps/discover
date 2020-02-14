@@ -22,8 +22,8 @@ DAppsImageSchema.pre('save', async function () {
     this.set({ content, hash });
 });
 
-DAppsImageSchema.statics.findByContent = async function (content) {
-    const content = content.split('base64,')[1];
+DAppsImageSchema.statics.findByContent = async function (input) {
+    const content = input.split('base64,')[1];
     const data = Buffer.from(content, 'base64');
     const hash = await IPFSService.generateContentHash(data);
 
