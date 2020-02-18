@@ -1,5 +1,5 @@
-import CryptoKittiesBanner from '../assets/images/featured/crytokittes_banner.png'
-import CryptoKittiesLogo from '../assets/images/featured/cryptokitties_logo.png'
+import SablierBanner from '../assets/images/featured/sablier_banner.png'
+import SablierLogo from '../assets/images/featured/sablier_logo.png'
 import OasisBanner from '../assets/images/featured/oasis_banner.png'
 import OasisLogo from '../assets/images/featured/oasis_logo.png'
 import ZerionBanner from '../assets/images/featured/zerion_banner.png'
@@ -7,11 +7,11 @@ import ZerionLogo from '../assets/images/featured/zerion_logo.png'
 
 const featuredDapps = [
   {
-    name: 'CryptoKitties',
-    description: 'Collect and breed adorable digital cats',
-    url: 'https://cryptokitties.co',
-    banner: CryptoKittiesBanner,
-    icon: CryptoKittiesLogo,
+    name: 'Sablier',
+    description: 'Stream money, just like you stream music or videos',
+    url: 'https://pay.sablier.finance',
+    banner: SablierBanner,
+    icon: SablierLogo,
   },
   {
     name: 'Oasis',
