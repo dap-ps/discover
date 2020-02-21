@@ -1,0 +1,8 @@
+[2020-02-18 18:25:40]-[INFO]-[IPFS-Service]: Content uploaded to IPFS: Qma1Mm6wMRdgHiWa9Y2YvBqCio3RXprDXDxx4kjEUxHztd
+[2020-02-18 18:25:41]-[INFO]-[IPFS-Service]: Content uploaded to IPFS: QmUQ8PN2G19pMbTsRRpoopgCcoi3Fd4ty2yKxb7yHqLW4r
+[2020-02-18 18:25:41]-[INFO]-[DApps-Metadata-Controller]: A dapp metadata with hash [QmUQ8PN2G19pMbTsRRpoopgCcoi3Fd4ty2yKxb7yHqLW4r] has been uploaded successfully
+[2020-02-18 18:25:41]-[ERROR]-[Base-Email]: Email service verification failed due to Error: connect ECONNREFUSED 127.0.0.1:587
+[2020-02-18 18:29:17]-[INFO]-[IPFS-Service]: Content uploaded to IPFS: QmUcKZys3xD4phMPqom8Nb4KWwu7Tav5xoBDVCCX9W8uqd
+[2020-02-18 18:29:19]-[INFO]-[IPFS-Service]: Content uploaded to IPFS: QmS69gv8dPutbQko5ohfEWotujj8QMRR9oMbD9dTnn1NVR
+[2020-02-18 18:29:19]-[INFO]-[DApps-Metadata-Controller]: A dapp metadata with hash [QmS69gv8dPutbQko5ohfEWotujj8QMRR9oMbD9dTnn1NVR] has been uploaded successfully
+[2020-02-18 18:29:24]-[ERROR]-[Base-Email]: Email service verification failed due to Error: connect ECONNREFUSED 127.0.0.1:587

@@ -1,0 +1,13 @@
+@import '../../common/styles/variables';
+
+.ts__root {
+}
+
+.ts__select-root {
+  .option {
+    order: 2;
+    &.active {
+      order: 1;
+    }
+  }
+}
