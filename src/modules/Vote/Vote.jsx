@@ -9,6 +9,7 @@ import icon from '../../common/assets/images/icon.svg'
 import Modal from '../../common/components/Modal'
 import { DappModel } from '../../common/utils/models'
 import { DappState } from '../../common/data/dapp'
+import { TokenSelector } from '../../modules/TokenSelector'
 
 const getCategoryName = category =>
   Categories.find(x => x.key === category).value
@@ -193,6 +194,7 @@ class Vote extends Component {
                   <div
                     className={`${styles.inputArea} ${styles.inputAreaBorder}`}
                   >
+                    <TokenSelector></TokenSelector>
                     <input
                       type="text"
                       value={sntValue}

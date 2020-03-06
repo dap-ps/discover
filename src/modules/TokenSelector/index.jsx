@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import EthScan, { HttpProvider } from '@mycrypto/eth-scan'
-import {
-  currencies as rootCurrencies,
-  currencyOrder,
-} from '../../utils/currencies'
-import { getKyberCurrencies } from '../../remote/kyber'
+// import {
+//   currencies as rootCurrencies,
+//   currencyOrder,
+// } from '../../utils/currencies'
+// import { getKyberCurrencies } from '../../remote/kyber'
 import { getUsdPrice, getPrices, generatePairKey } from '../../utils/prices'
 import styles from './TokenSelector.module.scss'
 
@@ -50,7 +50,7 @@ const TokenSelector = props => {
     return { prices }
   }
 
-  const setCurrencies = async network => {
+  const setCurrenciesData = async network => {
     const kyberCurrencies = await getKyberCurrencies(network)
     setCurrencies([...rootCurrencies, ...kyberCurrencies].sort(currencyOrder))
     // Update state
@@ -61,7 +61,7 @@ const TokenSelector = props => {
 
   useEffect(() => {
     setScanner(EthScan(new HttpProvider(Infura[network])))
-    setCurrencies(network)
+    setCurrenciesData(network)
     setGraphClient(network)
     grabAddress()
   }, [])
@@ -73,9 +73,11 @@ const TokenSelector = props => {
   const [account, setAccount] = useState()
 
   const [currencies, setCurrencies] = useState(rootCurrencies)
-  console.log(styles)
+
+  console.log(currencies)
   return (
     <section className={styles.ts__root}>
+      <h1>FUUUUUUUUUUUUUUUUUUUu</h1>
       <div className={styles.ts__select - root}>
         {currencies.map((currency, index) => (
           <div

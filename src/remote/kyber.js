@@ -1,5 +1,5 @@
 /*global web3*/
-import ERC20 from '../embarkArtifacts/contracts/ERC20'
+import ERC20 from '../embarkArtifacts/contracts/ERC20Token'
 import { isNil } from 'ramda'
 import {
   NEW_TOKEN_ICON_API,
