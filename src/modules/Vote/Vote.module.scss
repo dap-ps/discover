@@ -153,6 +153,8 @@
   text-align: center;
   margin-top: calculateRem(24);
   margin-bottom: calculateRem(26);
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .inputArea.inputAreaBorder {
@@ -167,7 +169,7 @@
   line-height: calculateRem(28);
   font-family: $font;
   caret-color: $link-color;
-  margin-right: calculateRem(6);
+  // margin-right: calculateRem(6);
 }
 
 input::placeholder {
@@ -178,14 +180,14 @@ input::placeholder {
   outline: none;
 }
 
-.inputArea::after {
-  transition: all 0.05s ease-in-out;
-  content: 'SNT';
-  color: #878e94;
-  font-size: calculateRem(32);
-  line-height: calculateRem(28);
-  font-family: $font;
-}
+// .inputArea::after {
+//   transition: all 0.05s ease-in-out;
+//   content: 'SNT';
+//   color: #878e94;
+//   font-size: calculateRem(32);
+//   line-height: calculateRem(28);
+//   font-family: $font;
+// }
 
 .inputArea span {
   font-size: calculateRem(32);

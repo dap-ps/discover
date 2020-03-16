@@ -194,7 +194,6 @@ class Vote extends Component {
                   <div
                     className={`${styles.inputArea} ${styles.inputAreaBorder}`}
                   >
-                    <TokenSelector></TokenSelector>
                     <input
                       type="text"
                       value={sntValue}
@@ -205,6 +204,7 @@ class Vote extends Component {
                         width: `${21 * Math.max(1, sntValue.length)}px`,
                       }}
                     />
+                    <TokenSelector></TokenSelector>
                   </div>
                 )}
                 {isUpvote && (

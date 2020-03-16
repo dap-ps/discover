@@ -30,16 +30,6 @@ const TokenSelector = props => {
 
   const [balances, setBalances] = useState()
 
-  const grabAddress = () => {
-    if (window.ethereum) {
-      accountListener()
-      const { selectedAddress: account } = window.ethereum
-      if (account) setAccount(account)
-    } else {
-      console.log('window.ethreum not found :', { window })
-    }
-  }
-
   const accountListener = () => {
     try {
       window.ethereum.on('accountsChanged', function(accounts) {
@@ -52,10 +42,24 @@ const TokenSelector = props => {
   }
 
   const getAndSetBalances = async acc => {
-    if (!acc && !account) return
+    if (window.ethereum) {
+      accountListener()
+      const { selectedAddress: account } = window.ethereum
+      setAccount(account)
+    } else {
+      console.log('window.ethreum not found :', { window })
+      return
+    }
+    console.log(EmbarkJS.Blockchain.Providers.web3.getCurrentProvider())
+
     const tokenAddresses = currencies
       .filter(c => c.label !== 'ETH')
+      .filter(c => {
+        console.log(c)
+        return true
+      })
       .map(c => c.value)
+
     const fetchedBalances = await getTokensBalance(
       EmbarkJS.Blockchain.Providers.web3.getCurrentProvider(),
       acc || account,
@@ -82,37 +86,42 @@ const TokenSelector = props => {
     getAndSetBalances()
   }
 
-  // Unsure if needed
-
-  // setGraphClient = network => {
-  //   const graphUri = uris[network]
-  //   const client = new ApolloClient({
-  //     uri: graphUri
-  //   })
-  //   this.client = client
-  //   this.setState({ clientReady: true })
-  // }
-
   useEffect(() => {
-    //
     setCurrenciesData(network)
-    // setGraphClient(network)
-    grabAddress()
   }, [])
+
+  // Template state
+  const [modalActive, setModalActive] = useState(false)
+
+  const selectCurrency = selection => {
+    setSelectedToken(selection)
+    setModalActive(false)
+  }
 
   return (
     <section className={styles.root}>
-      {currencies &&
-        currencies.map((currency, index) => (
-          <div
-            className={`${styles.option}${
-              currency.label == selectedToken ? ` ${styles.active}` : ''
-            }`}
-            key={`currency-${index}`}
-          >
-            {currency.label}
-          </div>
-        ))}
+      <div className={styles.current} onClick={() => setModalActive(true)}>
+        {selectedToken}
+      </div>
+      <section
+        className={`${styles.modal}${modalActive ? ` ${styles.active}` : ''}`}
+      >
+        <div className={styles.selection}>
+          <h3 className={styles.heading}>Select your prefered token</h3>
+          {currencies &&
+            currencies.map((currency, index) => (
+              <div
+                className={`${styles.option}${
+                  currency.label == selectedToken ? ` ${styles.selected}` : ''
+                }`}
+                key={`currency-${index}`}
+                onClick={() => selectCurrency(currency.label)}
+              >
+                {currency.label}
+              </div>
+            ))}
+        </div>
+      </section>
     </section>
   )
 }
