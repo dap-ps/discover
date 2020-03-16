@@ -1,10 +1,13 @@
 @import '../../common/styles/variables';
 
-.ts__root {
-}
-
-.ts__select-root {
+.root {
+  display: flex;
+  flex-direction: column;
   .option {
+    color: #878e94;
+    font-size: 2rem;
+    line-height: 1.75rem;
+    font-family: Inter;
     order: 2;
     &.active {
       order: 1;

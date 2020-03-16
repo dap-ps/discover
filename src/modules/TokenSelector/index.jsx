@@ -1,17 +1,34 @@
-import React, { useState } from 'react'
-import EthScan, { HttpProvider } from '@mycrypto/eth-scan'
-// import {
-//   currencies as rootCurrencies,
-//   currencyOrder,
-// } from '../../utils/currencies'
-// import { getKyberCurrencies } from '../../remote/kyber'
-import { getUsdPrice, getPrices, generatePairKey } from '../../utils/prices'
+import React, { useState, useEffect } from 'react'
+import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
+
+import {
+  currencies as rootCurrencies,
+  currencyOrder,
+} from '../../utils/currencies'
+import { getTokensBalance } from '@mycrypto/eth-scan'
+import { getKyberCurrencies } from '../../remote/kyber'
+import {
+  // getUsdPrice,
+  getPrices,
+  // generatePairKey
+} from '../../utils/prices'
+import EmbarkJS from '../../embarkArtifacts/embarkjs'
+
 import styles from './TokenSelector.module.scss'
 
 const TokenSelector = props => {
   const {} = props
 
   const network = 'mainnet' // "rinkeby"
+
+  const [selectedToken, setSelectedToken] = useState('SNT')
+
+  const [account, setAccount] = useState()
+
+  const [currencies, setCurrencies] = useState(rootCurrencies)
+
+  const [balances, setBalances] = useState()
 
   const grabAddress = () => {
     if (window.ethereum) {
@@ -35,18 +52,24 @@ const TokenSelector = props => {
   }
 
   const getAndSetBalances = async acc => {
-    const { account } = this.state
     if (!acc && !account) return
-    const addresses = currencies
+    const tokenAddresses = currencies
       .filter(c => c.label !== 'ETH')
       .map(c => c.value)
-    const balances = await scanner.getTokensBalance(acc || account, addresses)
-    this.setState({ balances })
+    const fetchedBalances = await getTokensBalance(
+      EmbarkJS.Blockchain.Providers.web3.getCurrentProvider(),
+      acc || account,
+      tokenAddresses,
+    )
+    setBalances(fetchedBalances)
+    console.log(fetchedBalances)
+    // Parse
   }
 
   const getAndSetPrices = async () => {
-    const currencies = this.currencies.map(c => c.label)
-    const prices = await getPrices(currencies)
+    const parsedCurrencies = currencies.map(c => c.label)
+    const prices = await getPrices(parsedCurrencies)
+    console.log(prices)
     return { prices }
   }
 
@@ -59,39 +82,44 @@ const TokenSelector = props => {
     getAndSetBalances()
   }
 
+  // Unsure if needed
+
+  // setGraphClient = network => {
+  //   const graphUri = uris[network]
+  //   const client = new ApolloClient({
+  //     uri: graphUri
+  //   })
+  //   this.client = client
+  //   this.setState({ clientReady: true })
+  // }
+
   useEffect(() => {
-    setScanner(EthScan(new HttpProvider(Infura[network])))
+    //
     setCurrenciesData(network)
-    setGraphClient(network)
+    // setGraphClient(network)
     grabAddress()
   }, [])
 
-  const [selectedToken, setSelectedToken] = useState('SNT')
-
-  const [scanner, setScanner] = useState()
-
-  const [account, setAccount] = useState()
-
-  const [currencies, setCurrencies] = useState(rootCurrencies)
-
-  console.log(currencies)
   return (
-    <section className={styles.ts__root}>
-      <h1>FUUUUUUUUUUUUUUUUUUUu</h1>
-      <div className={styles.ts__select - root}>
-        {currencies.map((currency, index) => (
+    <section className={styles.root}>
+      {currencies &&
+        currencies.map((currency, index) => (
           <div
-            className={`option ${
-              currency.label == selectedToken ? 'active' : ''
+            className={`${styles.option}${
+              currency.label == selectedToken ? ` ${styles.active}` : ''
             }`}
             key={`currency-${index}`}
           >
             {currency.label}
           </div>
         ))}
-      </div>
     </section>
   )
 }
 
-export default TokenSelector
+const mapStateToProps = state => {}
+const mapDispatchToProps = dispatch => ({})
+
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(TokenSelector),
+)

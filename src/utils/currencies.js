@@ -1,6 +1,4 @@
 /*global web3*/
-import SNT from '../embarkArtifacts/contracts/SNT'
-import SwapProxy from '../embarkArtifacts/contracts/SwapProxy'
 import { toEther, toWei, toBN } from './conversions'
 
 export const TOKEN_ICON_API =
@@ -65,30 +63,25 @@ export const setAllowanceFromAddress = async (tokenAddres, amount) => {
   return token.setAllowance(amount)
 }
 
-export const getLpAllowance = async (
-  contract,
-  spender = SwapProxy._address,
-) => {
+export const getLpAllowance = async (contract, spender) => {
   const {
     methods: { allowance },
-  } = contract || SNT
+  } = contract
   const account = await web3.eth.getCoinbase()
   const allowanceAmt = await allowance(account, spender).call()
   return allowanceAmt
 }
 
-export const transferApproval = (contract, amount, spender = SwapProxy) => {
+export const transferApproval = (contract, amount, spender) => {
   const {
     methods: { approve },
-  } = contract || SNT
+  } = contract
   const spenderAddress = spender._address
   return approve(spenderAddress, amount)
 }
 
-export const generateSetApprovalFn = contract => (
-  amount,
-  spender = SwapProxy,
-) => transferApproval(contract, amount, spender)
+export const generateSetApprovalFn = contract => (amount, spender) =>
+  transferApproval(contract, amount, spender)
 
 export const generateHumanReadibleFn = decimals => num =>
   toBN(num)
