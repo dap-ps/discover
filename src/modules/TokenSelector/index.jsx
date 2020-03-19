@@ -17,6 +17,8 @@ import EmbarkJS from '../../embarkArtifacts/embarkjs'
 
 import styles from './TokenSelector.module.scss'
 
+import Web3 from 'web3'
+
 const TokenSelector = props => {
   const {} = props
 
@@ -41,49 +43,47 @@ const TokenSelector = props => {
     }
   }
 
-  const getAndSetBalances = async acc => {
+  const setCurrenciesData = async network => {
+    const kyberCurrencies = await getKyberCurrencies(network)
+    const resolved = [...rootCurrencies, ...kyberCurrencies].sort(currencyOrder)
+    setCurrencies(resolved)
+    // Update state
+    await getAndSetPrices(resolved)
+    // Update state
+    await getAndSetBalances(resolved)
+  }
+
+  const getAndSetPrices = async (cur = currencies) => {
+    const parsedCurrencies = cur.map(c => c.label)
+    const prices = await getPrices(parsedCurrencies)
+    console.log('get & set ', prices)
+    return { prices }
+  }
+
+  const getAndSetBalances = async (cur = currencies) => {
+    // TODO need to refactor fetch logic into selectors
+    let targetAccount
     if (window.ethereum) {
       accountListener()
-      const { selectedAddress: account } = window.ethereum
+      const { selectedAddress: fetchedAccount } = window.ethereum
+      targetAccount = fetchedAccount
+      await window.ethereum.enable()
+
       setAccount(account)
     } else {
       console.log('window.ethreum not found :', { window })
       return
     }
-    console.log(EmbarkJS.Blockchain.Providers.web3.getCurrentProvider())
 
-    const tokenAddresses = currencies
-      .filter(c => c.label !== 'ETH')
-      .filter(c => {
-        console.log(c)
-        return true
-      })
-      .map(c => c.value)
+    const tokenAddresses = cur.filter(c => c.label !== 'ETH').map(c => c.value)
 
+    // TODO: Provider fetched via Embark & Web3 throws invalid provider
     const fetchedBalances = await getTokensBalance(
-      EmbarkJS.Blockchain.Providers.web3.getCurrentProvider(),
-      acc || account,
+      'https://api.mycryptoapi.com/eth',
+      targetAccount,
       tokenAddresses,
     )
     setBalances(fetchedBalances)
-    console.log(fetchedBalances)
-    // Parse
-  }
-
-  const getAndSetPrices = async () => {
-    const parsedCurrencies = currencies.map(c => c.label)
-    const prices = await getPrices(parsedCurrencies)
-    console.log(prices)
-    return { prices }
-  }
-
-  const setCurrenciesData = async network => {
-    const kyberCurrencies = await getKyberCurrencies(network)
-    setCurrencies([...rootCurrencies, ...kyberCurrencies].sort(currencyOrder))
-    // Update state
-    await getAndSetPrices()
-    // Update state
-    getAndSetBalances()
   }
 
   useEffect(() => {
