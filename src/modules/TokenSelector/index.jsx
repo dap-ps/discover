@@ -13,14 +13,13 @@ import {
   getPrices,
   // generatePairKey
 } from '../../utils/prices'
-import EmbarkJS from '../../embarkArtifacts/embarkjs'
 
 import styles from './TokenSelector.module.scss'
 
-import Web3 from 'web3'
+import ExchangeIcon from '../../common/assets/images/exchange.svg'
 
 const TokenSelector = props => {
-  const {} = props
+  const { valueInput } = props
 
   const network = 'mainnet' // "rinkeby"
 
@@ -64,10 +63,10 @@ const TokenSelector = props => {
     // TODO need to refactor fetch logic into selectors
     let targetAccount
     if (window.ethereum) {
+      await window.ethereum.enable()
       accountListener()
       const { selectedAddress: fetchedAccount } = window.ethereum
       targetAccount = fetchedAccount
-      await window.ethereum.enable()
 
       setAccount(account)
     } else {
@@ -84,6 +83,8 @@ const TokenSelector = props => {
       tokenAddresses,
     )
     setBalances(fetchedBalances)
+    console.log(cur)
+    console.log(fetchedBalances)
   }
 
   useEffect(() => {
@@ -101,7 +102,9 @@ const TokenSelector = props => {
   return (
     <section className={styles.root}>
       <div className={styles.current} onClick={() => setModalActive(true)}>
-        {selectedToken}
+        <span>{selectedToken}</span>
+        <img className={styles.icon} src={ExchangeIcon} />
+        {selectedToken != 'SNT' && <span>~1.111 SNT</span>}
       </div>
       <section
         className={`${styles.modal}${modalActive ? ` ${styles.active}` : ''}`}
@@ -109,17 +112,26 @@ const TokenSelector = props => {
         <div className={styles.selection}>
           <h3 className={styles.heading}>Select your prefered token</h3>
           {currencies &&
-            currencies.map((currency, index) => (
-              <div
-                className={`${styles.option}${
-                  currency.label == selectedToken ? ` ${styles.selected}` : ''
-                }`}
-                key={`currency-${index}`}
-                onClick={() => selectCurrency(currency.label)}
-              >
-                {currency.label}
-              </div>
-            ))}
+            balances &&
+            currencies
+              .filter(
+                currency =>
+                  currency.value != 'ETH' &&
+                  (currency.label == 'SNT' ||
+                    (balances[currency.value] &&
+                      balances[currency.value]._hex != '0x00')),
+              )
+              .map((currency, index) => (
+                <div
+                  className={`${styles.option}${
+                    currency.label == selectedToken ? ` ${styles.selected}` : ''
+                  }`}
+                  key={`currency-${index}`}
+                  onClick={() => selectCurrency(currency.label)}
+                >
+                  {currency.label}
+                </div>
+              ))}
         </div>
       </section>
     </section>
