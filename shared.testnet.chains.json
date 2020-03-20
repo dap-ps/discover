@@ -8,6 +8,14 @@
       "0x608829b14a067d406fd623b20919d4a7719c06bb7bccdc3a7d18b11f15d8e11a": {
         "name": "Discover",
         "address": "0xC8d48B421eAFdD75d5144E8f06882Cb5F0746Bd2"
+      },
+      "0xa4375ab33cee855df7ced45caa843fb9f450adb7944cea8fd46710f06587686c": {
+        "name": "Discover",
+        "address": "0x8Da31cc44Fec5C84c48573EE419cAD33719DC943"
+      },
+      "0x21389315d2b5cfa1d29b352c3c4cc6df2dc1002591c18150de310a8781ce1438": {
+        "name": "DiscoverKyberSwap",
+        "address": "0xF6c7Decc101Bab140c63c958658b7d99F191C8B7"
       }
     }
   }
