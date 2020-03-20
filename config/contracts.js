@@ -20,9 +20,12 @@ module.exports = {
       'https://ropsten.infura.io/v3/8675214b97b44e96b70d05326c61fd6a',
     ],
     deploy: {
-      MiniMeToken: {
-        address: '0xc55cf4b03948d7ebc8b9e8bad92643703811d162',
+      Discover: {
+        args:["0xbF5d8683b9BE6C43fcA607eb2a6f2626A18837a6"]
       },
+      DiscoverKyberSwap: {
+        args: ["$Discover", "0x818E6FECD516Ecc3849DAf6845e3EC868087B755", "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee", "0xbF5d8683b9BE6C43fcA607eb2a6f2626A18837a6", "0x0000000000000000000000000000000000000000", 20]
+      }
     },
     tracking: 'shared.development.chains.json',
   },
