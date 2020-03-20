@@ -78,6 +78,20 @@
   flex-direction: row;
   justify-content: start;
   margin: 20px 0 20px 10px;
+  position: relative;
+}
+
+.resolvedPrice {
+  font-size: calculateRem(12) !important;
+  top: 100%;
+  text-align: right;
+  transform: translate(-32px, -3px);
+  margin-right: 0 !important;
+  position: absolute;
+  width: calc(100vw - 100%);
+  right: 0;
+  line-height: 15px !important;
+  height: 15px;
 }
 
 .option {

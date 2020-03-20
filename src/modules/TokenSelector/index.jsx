@@ -29,6 +29,8 @@ const TokenSelector = props => {
 
   const [currencies, setCurrencies] = useState(rootCurrencies)
 
+  const [prices, setPrices] = useState()
+
   const [balances, setBalances] = useState()
 
   const accountListener = () => {
@@ -47,16 +49,16 @@ const TokenSelector = props => {
     const resolved = [...rootCurrencies, ...kyberCurrencies].sort(currencyOrder)
     setCurrencies(resolved)
     // Update state
-    await getAndSetPrices(resolved)
+    getAndSetPrices(resolved)
     // Update state
-    await getAndSetBalances(resolved)
+    getAndSetBalances(resolved)
   }
 
   const getAndSetPrices = async (cur = currencies) => {
     const parsedCurrencies = cur.map(c => c.label)
     const prices = await getPrices(parsedCurrencies)
     console.log('get & set ', prices)
-    return { prices }
+    setPrices(prices)
   }
 
   const getAndSetBalances = async (cur = currencies) => {
@@ -83,13 +85,23 @@ const TokenSelector = props => {
       tokenAddresses,
     )
     setBalances(fetchedBalances)
-    console.log(cur)
-    console.log(fetchedBalances)
   }
 
   useEffect(() => {
     setCurrenciesData(network)
   }, [])
+
+  // Price resolution
+  const [resolvedPrice, setResolvedPrice] = useState(0)
+  useEffect(() => {
+    if (selectedToken != 'SNT') {
+      const SNTPrice = prices['SNT'].USD
+      const targetUSD = prices[selectedToken].USD * valueInput
+
+      const result = targetUSD / SNTPrice
+      setResolvedPrice(result)
+    }
+  }, [valueInput])
 
   // Template state
   const [modalActive, setModalActive] = useState(false)
@@ -103,8 +115,14 @@ const TokenSelector = props => {
     <section className={styles.root}>
       <div className={styles.current} onClick={() => setModalActive(true)}>
         <span>{selectedToken}</span>
-        <img className={styles.icon} src={ExchangeIcon} />
-        {selectedToken != 'SNT' && <span>~1.111 SNT</span>}
+        {selectedToken == 'SNT' && (
+          <img className={styles.icon} src={ExchangeIcon} />
+        )}
+        {selectedToken != 'SNT' && (
+          <span className={styles.resolvedPrice}>
+            ~{resolvedPrice.toFixed(2)} SNT
+          </span>
+        )}
       </div>
       <section
         className={`${styles.modal}${modalActive ? ` ${styles.active}` : ''}`}
