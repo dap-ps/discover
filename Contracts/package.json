@@ -1,0 +1,27 @@
+{
+  "name": "dap.ps-contracts",
+  "version": "1.0.0",
+  "description": "Embark contracts",
+  "main": "index.js",
+  "scripts": {
+    "build": "./node_modules/.bin/embark build testnet",
+    "build:development": "./node_modules/.bin/embark build development",
+    "build:production": "./node_modules/.bin/embark build livenet",
+    "slither": "./node_modules/.bin/slither . --exclude naming-convention --filter-paths token"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "embark": "5.1.0",
+    "embark-etherscan-verifier": "^4.0.0",
+    "embark-solc": "5.1.0",
+    "embark-solium": "0.1.0",
+    "embarkjs": "5.1.0",
+    "embarkjs-ens": "5.1.0",
+    "embarkjs-ipfs": "5.1.0",
+    "embarkjs-swarm": "5.1.0",
+    "embarkjs-web3": "5.1.0",
+    "embarkjs-whisper": "5.1.0",
+    "web3": "1.2.4",
+    "web3-utils": "^1.0.0-beta.35"
+  }
+}
