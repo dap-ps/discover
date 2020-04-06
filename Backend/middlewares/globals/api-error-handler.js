@@ -1,12 +1,12 @@
-// This only works for express(4.x) with routes set in style ->  
+// This only works for express(4.x) with routes set in style ->
 //      router.#method('url', middleware, action)
 //      app.use('router url', router);
 // #Method can be each one of the http's methods
 //
-// Errors Handler works for already routed app 
+// Errors Handler works for already routed app
 // It's purpose is to handle routes and middleware errors
 
-const logger = require('./../../logger/logger').getLoggerFor('Global-API-error-handler');
+const logger = require('../../logger/logger').getLoggerFor('Global-API-error-handler');
 
 class AppErrorsHandler {
 

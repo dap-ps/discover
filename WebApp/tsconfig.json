@@ -27,13 +27,14 @@
     "noUnusedLocals": true,
     "strict": true,
     "strictFunctionTypes": false,
+    "resolveJsonModule": true,
     "pretty": true,
     "removeComments": true,
     "sourceMap": true,
     "skipLibCheck": true
   },
   "exclude": [
-      "node_modules", 
+      "node_modules",
       "../node_modules",
   ]
 }

@@ -7,7 +7,7 @@ export WALLET_MNEMONIC ?= erupt point century seek certain escape solution flee 
 ifeq ($(NODE_ENV),production)
 export EMBARK_TARGET ?= livenet
 else
-ifeq ($(NODE_ENV), localhost) 
+ifeq ($(NODE_ENV), localhost)
 export EMBARK_TARGET ?= development
 else
 export EMBARK_TARGET ?= testnet
@@ -61,16 +61,16 @@ mk-build-dir: ##@create Create the destination directory for full build if the f
 copy-backend: ##@copy Copy over the backend files to full-build dir
 ifeq ($(NODE_ENV),localhost)
 	if [ -f ./full-build/yarn.lock ]; then \
-		cmp -s ./back-end/yarn.lock ./full-build/yarn.lock; \
+		cmp -s ./Backend/yarn.lock ./full-build/yarn.lock; \
 		RETVAL=$$?; \
 		if [ ! $$RETVAL -eq 0 ]; then \
 			echo "yarn.lock is different. Removing node_modules and replacingyarn.lock"; \
 			rm -rf full-build/yarn.lock full-build/node_modules; \
 		fi \
 	fi
-	rsync -r --exclude node_modules ./back-end/* ./full-build/
+	rsync -r --exclude node_modules ./Backend/* ./full-build/
 else
-	cp -r back-end/* full-build/
+	cp -r Backend/* full-build/
 endif
 
 copy-frontend: ##@copy Copy over the frontend files to full-build dir
@@ -101,7 +101,7 @@ clean-build-dir: ##@clean Remove full-build folder and keep node_modules (depend
 ifeq ($(NODE_ENV),localhost)
 	find ./full-build -mindepth 1 ! -regex '^./full-build/\(node_modules\|yarn.lock\).*' -delete; 2> /dev/null
 else
-	rm -fr full-build 
+	rm -fr full-build
 endif
 
 clean: clean-build-dir clean-archive ##@clean Cleanup all the build artifacts

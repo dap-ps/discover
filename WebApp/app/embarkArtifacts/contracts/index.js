@@ -1,0 +1,16 @@
+module.exports = {
+"TestBancorFormula": require('./TestBancorFormula.js').default,
+"Controlled": require('./Controlled.js').default,
+"KyberNetworkProxy": require('./KyberNetworkProxy.js').default,
+"MiniMeToken": require('./MiniMeToken.js').default,
+"TokenController": require('./TokenController.js').default,
+"TokenFactory": require('./TokenFactory.js').default,
+"MiniMeTokenInterface": require('./MiniMeTokenInterface.js').default,
+"ERC20Token": require('./ERC20Token.js').default,
+"MiniMeTokenFactory": require('./MiniMeTokenFactory.js').default,
+"ApproveAndCallFallBack": require('./ApproveAndCallFallBack.js').default,
+"SafeMath": require('./SafeMath.js').default,
+"BancorFormula": require('./BancorFormula.js').default,
+"Discover": require('./Discover.js').default,
+"DiscoverKyberSwap": require('./DiscoverKyberSwap.js').default,
+};

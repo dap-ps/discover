@@ -64,12 +64,12 @@ On Linux, setting up `mongodb` is as easy as `sudo apt install -y mongodb`, whic
 2. `yarn run build:localhost`. This will:
     1. Compile all your contracts using Embark, connecting to Ropsten and IPFS through an Infura gateway.
     2. Deploy a new instance of Discover onto the Ropsten test network for you to work from. It will only be deployed once, after that the address of your contract is stored in, and fetched from, `shared.development.chains.json`.
-    3. Build the frontend, create a directory called `full-build`, move each directory from the `back-end` into it, and include the `frontend` as a directory of its own. It will make sure `node_modules` are installed, then you can serve everything in `full-build` by running:
+    3. Build the frontend, create a directory called `full-build`, move each directory from the `Backend` into it, and include the `frontend` as a directory of its own. It will make sure `node_modules` are installed, then you can serve everything in `full-build` by running:
 3. `yarn server-start`. Navigate to `http://localhost:4000` to get developing cool new things for the future of curated information.
 
 **Note:**
 
-1. Change this line in [back-end/config/index.js](https://github.com/dap-ps/discover/blob/master/back-end/config/index.js#L24) to your local Ropsten version of the contract, stored in `shared.development.chains.json`.
+1. Change this line in [Backend/config/index.js](https://github.com/dap-ps/discover/blob/master/Backend/config/index.js#L24) to your local Ropsten version of the contract, stored in `shared.development.chains.json`.
 2. You'll need to visit [simpledapp.eth using Status](https://status.im/get/) -> Assets Tab -> Request `STT`. This is the Status Test Token on Ropsten that needs to be used with your instance of Discover in order to submit/upvote/downvote in your local app. Using a proper test network even for local development allows us to better understand what the user experience is actually like in production more easily.
 
 #### Work to be done

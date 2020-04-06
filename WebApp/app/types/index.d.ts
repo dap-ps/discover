@@ -1,5 +1,6 @@
 import { Reducer, Store } from 'redux';
 import { ContainerState as AppState } from '../domain/App/types';
+import { ContainerState as Erc20State } from '../domain/Erc20/types';
 
 export interface LifeStore extends Store<{}> {
   injectedReducers: any;
@@ -22,4 +23,5 @@ export interface InjectSagaParams {
 // Your root reducer type, which is your redux state types also
 export interface ApplicationRootState {
   readonly global: AppState;
+  readonly erc20: Erc20State;
 }

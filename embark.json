@@ -1,6 +1,6 @@
 {
   "contracts": [
-    "contracts/**"
+    "Contracts/contracts/**"
   ],
   "buildDir": "dist/",
   "config": "config/",
@@ -20,5 +20,5 @@
       "optimize-runs": 200
     }
   },
-  "generationDir": "src/embarkArtifacts"
+  "generationDir": "WebApp/app/embarkArtifacts"
 }

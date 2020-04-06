@@ -1,8 +1,8 @@
-const DAppsMetadataController = require('./../controllers/dapps-metadata-controller');
+const DAppsMetadataController = require('../controllers/dapps-metadata-controller');
 
-const rateLimit = require('./../middlewares/route-specifics/rate-limit');
-const cutSensitives = require('./../middlewares/route-specifics/cut-sensitives');
-const adminAuthorization = require('./../middlewares/route-specifics/admin-authorization');
+const rateLimit = require('../middlewares/route-specifics/rate-limit');
+const cutSensitives = require('../middlewares/route-specifics/cut-sensitives');
+const adminAuthorization = require('../middlewares/route-specifics/admin-authorization');
 
 class DappRoute {
 
