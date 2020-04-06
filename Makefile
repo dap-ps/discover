@@ -53,7 +53,7 @@ compile-contracts: check-prod-vars
 	./node_modules/.bin/embark build "${EMBARK_TARGET}"
 
 compile-js: ##@compile Compile the React application
-	./node_modules/.bin/react-scripts build
+	./WebApp/node_modules/.bin/cross-env NODE_ENV=production webpack --config internals/webpack/webpack.prod.babel.js --color -p --progress --hide-modules --display-optimization-bailout
 
 mk-build-dir: ##@create Create the destination directory for full build if the folder doesn't exist
 	[ -d full-build ] || mkdir -p full-build
@@ -64,7 +64,7 @@ ifeq ($(NODE_ENV),localhost)
 		cmp -s ./Backend/yarn.lock ./full-build/yarn.lock; \
 		RETVAL=$$?; \
 		if [ ! $$RETVAL -eq 0 ]; then \
-			echo "yarn.lock is different. Removing node_modules and replacingyarn.lock"; \
+			echo "yarn.lock is different. Removing node_modules and replacing yarn.lock"; \
 			rm -rf full-build/yarn.lock full-build/node_modules; \
 		fi \
 	fi
@@ -75,7 +75,7 @@ endif
 
 copy-frontend: ##@copy Copy over the frontend files to full-build dir
 	mkdir full-build/frontend
-	cp -r build/* full-build/frontend/
+	cp -r WebApp/build/* full-build/frontend/
 
 copy-misc: ##@copy Copy over the miscalenious config config files
 	cp .npmrc full-build/

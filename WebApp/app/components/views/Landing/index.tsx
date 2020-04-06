@@ -3,7 +3,7 @@ import { createStyles, withStyles } from '@material-ui/core/styles';
 import React from 'react';
 import { appColors } from 'theme';
 import { connectorsByName } from 'utils/connectors';
-import { AbstractConnectorInterface } from '@web3-react/types';
+// import AbstractConnectorInterface  from '@web3-react/types';
 import classNames from 'classnames';
 
 const styles = ({ spacing, breakpoints }: Theme) => createStyles({
@@ -39,10 +39,10 @@ const styles = ({ spacing, breakpoints }: Theme) => createStyles({
 });
 
 interface OwnProps extends WithStyles<typeof styles> {
-  connector: AbstractConnectorInterface | undefined,
-  activatingConnector: AbstractConnectorInterface,
-  setActivatingConnector(connector: AbstractConnectorInterface): void,
-  activate(connector: AbstractConnectorInterface): void,
+  connector: Any | undefined,
+  activatingConnector: Any,
+  setActivatingConnector(connector: Any): void,
+  activate(connector: Any): void,
 }
 
 const Landing: React.SFC<OwnProps> = (props: OwnProps) => {
