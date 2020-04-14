@@ -89,7 +89,7 @@
     "dayjs": "^1.8.12",
     "dotenv": "^6.1.0",
     "dotenv-webpack": "^1.5.7",
-    "ethers": "^4.0.43",
+    "embarkjs": "5.2.3",
     "express": "4.16.4",
     "fontfaceobserver": "2.1.0",
     "formik": "1.5.8",
@@ -128,6 +128,7 @@
     "typesafe-actions": "4.4.0",
     "validator": "^10.11.0",
     "warning": "4.0.2",
+    "web3": "^1.2.6",
     "yup": "0.27.0"
   },
   "devDependencies": {
