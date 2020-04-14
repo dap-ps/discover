@@ -4,8 +4,8 @@ import React, { ReactNode } from 'react';
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { brandColors, uiConstants, appColors } from 'theme';
-import { Typography, Button } from '@material-ui/core';
 import LoadingComponent from 'components/LoadingComponent';
+import { AppRoute } from 'routes';
 
 
 const styles = theme => createStyles({
@@ -83,9 +83,7 @@ interface Props extends WithStyles<typeof styles> {
   currentlySending: boolean;
   isConnected: boolean;
   children: ReactNode,
-  active: boolean,
-  deactivate(): void,
-  account: string | null | undefined
+  navLinks: AppRoute[]
 }
 
 
@@ -93,34 +91,20 @@ const AppWrapper: React.SFC<Props> = (props: Props) => {
   const {
     classes,
     children,
-    active,
-    deactivate,
-    account,
     currentlySending
   } = props;
-
-
 
   return (
     <div className={classes.root}>
       <CssBaseline />
       <header className={classes.header}>
-        {
-          active &&
-          <Button variant="contained" onClick={() => deactivate()}>
-            Disconnect
-          </Button>
-        }
+
       </header>
       <main className={classes.content}>
         {children}
       </main>
       <footer className={classes.footer}>
-        {
-          account && <Typography variant="body1" component="span">
-          Account: {account}
-        </Typography>
-        }
+
       </footer>
       <ToastContainer autoClose={5000} />
       <LoadingComponent loading={currentlySending} />

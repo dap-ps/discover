@@ -1,7 +1,6 @@
 import { SvgIconProps } from '@material-ui/core/SvgIcon';
 import HomePage from 'containers/pages/HomePage';
 import { ROUTE_LINKS } from 'routeLinks';
-import DashboardPage from 'containers/pages/DashboardPage';
 
 export interface AppRoute {
   name: string;
@@ -19,13 +18,6 @@ const routes: AppRoute[] = [
     component: HomePage,
     isProtected: false, // This allows general access control
     isNavRequired: true, // This allows mapping into a navigation bar
-  },
-  {
-    name: 'Dashboard',
-    path: ROUTE_LINKS.Dashboard,
-    component: DashboardPage,
-    isProtected: true,
-    isNavRequired: true,
   },
 ];
 

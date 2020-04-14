@@ -3,11 +3,12 @@ import { connectWalletAction, setConnectedStateAction } from "../actions";
 import EmbarkJS from "embarkArtifacts/embarkjs";
 
 function* connectWalletSaga() {
-  const derp = yield call(async () => await EmbarkJS.enableEthereum())
-  console.log(derp);
-
-  debugger;
-  yield put(setConnectedStateAction(true))
+  const addresses: string[] = yield call(async () => await EmbarkJS.enableEthereum())
+  if(addresses.length > 0){
+    yield put(setConnectedStateAction(true))
+  }else{
+    yield put(setConnectedStateAction(false))
+  }
 }
 
 function* connectWalletListener(){

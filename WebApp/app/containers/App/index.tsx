@@ -28,9 +28,7 @@ import rootDaemonSaga from 'domain/App/saga';
 import { ROUTE_LINKS } from 'routeLinks';
 import { RouteComponentProps } from 'react-router';
 import { makeSelectCurrentlySending, makeSelectIsConnected } from 'domain/App/selectors';
-import { useWeb3React } from '@web3-react/core';
 import { setConnectedStateAction } from 'domain/App/actions';
-import { blockchainContext } from 'domain/App/blockchainContext';
 
 function PrivateRoute({ component: Component, isConnected, ...rest }) {
   return (
@@ -95,21 +93,7 @@ interface OwnProps extends RouteComponentProps<RouteParams>, React.Props<RoutePa
 type Props = StateProps & DispatchProps & OwnProps;
 
 function App(props: Props) {
-  const { isConnected, currentlySending, onSetConnected } = props;
-  const {
-    account,
-    active,
-    deactivate,
-    library,
-    connector,
-  } = useWeb3React();
-
-  // Simple redirect
-  if(active != isConnected){
-    onSetConnected(active)
-    blockchainContext.library = library;
-    blockchainContext.connector = connector;
-  }
+  const { isConnected, currentlySending } = props;
 
   // The PublicRoute and PrivateRoute components below should only be used for top level components
   // that will be connected to the store, as no props can be passed down to the child components from here.
@@ -117,10 +101,7 @@ function App(props: Props) {
     <AppWrapper
       isConnected={isConnected}
       currentlySending={currentlySending}
-      account={account}
-      active={active}
-      deactivate={deactivate}
-      // navLinks={routes.filter(r => r.isNavRequired)}
+      navLinks={routes.filter(r => r.isNavRequired)}
       >
       <Switch>
         {routes.map(r => {

@@ -33,7 +33,7 @@ const Landing: React.SFC<OwnProps> = (props: OwnProps) => {
 
   return <article className={classes.root}>
     <Typography className={classes.heading} variant="h1" component="h1">
-      YAS DAPPS YAS
+      Discover
     </Typography>
   </article>
 }
