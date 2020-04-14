@@ -19,4 +19,7 @@ function* connectWalletListener(){
 
 export function* WalletSaga(){
   yield fork(connectWalletListener)
+
+  // Init
+  yield put(connectWalletAction())
 }
