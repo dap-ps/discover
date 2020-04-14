@@ -7,7 +7,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { compose, Dispatch } from 'redux';
-import Landing from 'components/views/Landing';
+import Landing from 'components/pages/Landing';
 
 interface OwnProps {}
 

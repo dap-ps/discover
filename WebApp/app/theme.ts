@@ -2,20 +2,43 @@ import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
 import { fade } from '@material-ui/core';
 
 export const appColors = {
-  black: '#000000',
-  controls:{
-
+  general: {
+    backgroundColor: "#ffffff",
+    gray: {
+      base: "#939ba1",
+      light: "#eef2f5"
+    }
+  },
+  sections:{
+    exchange: {
+      base: "#887af9"
+    },
+    marketplaces: {
+      base: "#fe8f59"
+    },
+    collectibles: {
+      base: "#51d0f0"
+    },
+    games: {
+      base: "#d37ef4"
+    },
+    socialNetworks: {
+      base: "#7cda00"
+    },
+    utilities: {
+      base: "#fa6565"
+    },
+    other: {
+      base: "#ffca0f"
+    }
   }
 }
 
 export const brandColors = {
   default: {
-    main: "#744eaa",
+    main: "#4360df",
     secondary: "#81e4da"
   },
-  portis: {
-    primary: "#6db2d8"
-  }
 }
 
 export const uiConstants = {
