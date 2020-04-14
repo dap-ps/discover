@@ -185,7 +185,7 @@ package-lock.json
 dist
 full-build
 flattenedContracts
-src/embarkArtifacts
+WebApp/app/embarkArtifacts/
 shared.development.chains.json
 
 # production
@@ -203,3 +203,4 @@ app.zip
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+WebApp/app/embarkArtifacts

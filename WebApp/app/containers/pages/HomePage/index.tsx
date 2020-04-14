@@ -27,13 +27,14 @@ const HomePage: React.SFC<Props> = (props: Props) => {
   }  = useWeb3React();
 
 
-   // handle logic to recognize the connector currently being activated
-   const [activatingConnector, setActivatingConnector] = React.useState();
-   React.useEffect(() => {
-    if (activatingConnector && activatingConnector === connector) {
-      setActivatingConnector(undefined);
-    }
-   }, [activatingConnector, connector]);
+  // handle logic to recognize the connector currently being activated
+  const [activatingConnector, setActivatingConnector] = React.useState();
+  React.useEffect(() => {
+  if (activatingConnector && activatingConnector === connector) {
+    setActivatingConnector(undefined);
+  }
+  }, [activatingConnector, connector]);
+
 
 
   return <Landing

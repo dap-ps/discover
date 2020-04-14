@@ -4,6 +4,7 @@ import { setApiSendingFlag } from './actions';
 
 import { apiRequestListener } from './sagas/toggleApiSendingFlag';
 import { errorMessageHandler } from './sagas/errorMessageHandler';
+import { WalletSaga } from './sagas/wallet.saga';
 
 export default function* rootDaemonSaga() {
   yield put(setApiSendingFlag(false));
@@ -12,4 +13,6 @@ export default function* rootDaemonSaga() {
   // Add other global DAEMON sagas here.
   // To prevent performance bottlenecks add sagas with caution.
   yield fork(errorMessageHandler)
+
+  yield fork(WalletSaga);
 }

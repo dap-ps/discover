@@ -1,15 +1,18 @@
-import { call, select } from "redux-saga/effects";
-import { ApplicationRootState } from "types";
-import { ethers, Wallet } from "ethers";
-import { blockchainContext } from "domain/App/blockchainContext";
+// import { call, select } from "redux-saga/effects";
+// import { ApplicationRootState } from "types";
+// import { ethers, Wallet } from "ethers";
+// import { blockchainContext } from "domain/App/blockchainContext";
 import { utils } from "ethers";
-import { abi } from "../../../contractAbi/MintyToken.json";
+import ERC20Token from "../../embarkArtifacts/contracts/ERC20Token.js";
 
 export function* getTokenContract() {
-  const tokenAddress = yield select((state: ApplicationRootState) => state.erc20.tokenAddress);
-  const signer: Wallet = yield call(async () => await blockchainContext.library?.getSigner());
+  // const tokenAddress = yield select((state: ApplicationRootState) => state.erc20.tokenAddress);
+  // const signer: Wallet = yield call(async () => await blockchainContext.library?.getSigner());
+  console.log(ERC20Token)
+  debugger;
 
-  return yield call(async () => await new ethers.Contract(tokenAddress, JSON.stringify(abi), signer));
+  return ERC20Token;
+  // return yield call(async () => await new ethers.Contract(tokenAddress, JSON.stringify(abi), signer));
 }
 
 export const BNToNumber = (value: utils.BigNumber, decimals: number = 18) => {

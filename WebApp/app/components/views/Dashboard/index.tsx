@@ -7,6 +7,7 @@
 import React from 'react';
 import { Theme, createStyles, withStyles, WithStyles, Typography } from '@material-ui/core';
 import { uiConstants } from 'theme';
+import Erc20Module from 'containers/modules/Erc20Module';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -49,9 +50,7 @@ const Dashboard: React.SFC<OwnProps> = (props: OwnProps) => {
       <Typography variant="h1" component="h1">
         Dapp Dashboard
       </Typography>
-      <Typography variant="h3" component="h3">
-        Olla, you're successfully connected
-      </Typography>
+      <Erc20Module />
     </div>
   </section>
 };

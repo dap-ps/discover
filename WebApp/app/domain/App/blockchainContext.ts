@@ -1,9 +1,9 @@
 import { Web3Provider } from "ethers/providers";
-import { AbstractConnectorInterface } from '@web3-react/types'
+import { AbstractConnector } from '@web3-react/abstract-connector'
 
 export interface BlockchainContext {
   library?: Web3Provider,
-  connector?: AbstractConnectorInterface,
+  connector?: AbstractConnector,
 }
 
 export let blockchainContext: BlockchainContext = {
