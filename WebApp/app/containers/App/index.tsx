@@ -25,7 +25,6 @@ import routes from 'routes';
 import { RootState } from 'domain/App/types';
 import appReducer from 'domain/App/reducer';
 import rootDaemonSaga from 'domain/App/saga';
-import { ROUTE_LINKS } from 'routeLinks';
 import { RouteComponentProps } from 'react-router';
 import { makeSelectCurrentlySending, makeSelectIsConnected } from 'domain/App/selectors';
 import { setConnectedStateAction } from 'domain/App/actions';
@@ -58,16 +57,7 @@ function PublicRoute({ component: Component, isConnected, ...rest }) {
       exact
       {...rest}
       render={props => {
-        return !isConnected ? (
-          <Component {...props} />
-        ) : (
-            <Redirect
-              to={{
-                pathname: ROUTE_LINKS.Dashboard,
-                state: { from: props.location },
-              }}
-            />
-          );
+        return <Component {...props} />
       }
       }
     />

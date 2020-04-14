@@ -1,7 +1,6 @@
 import { Theme, Typography, WithStyles } from '@material-ui/core';
 import { createStyles, withStyles } from '@material-ui/core/styles';
 import React from 'react';
-import { appColors } from 'theme';
 
 // Future feature
 // import { connectorsByName } from 'utils/connectors';
@@ -9,12 +8,8 @@ import { appColors } from 'theme';
 
 const styles = ({ spacing, breakpoints }: Theme) => createStyles({
   root:{
-    margin: "10px auto",
-    textAlign: "center",
   },
   heading:{
-    color: appColors.black,
-    marginBottom: 15
   },
   subheading:{
 

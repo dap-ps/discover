@@ -5,6 +5,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import LoadingComponent from 'components/module-markup/LoadingComponent';
 import { AppRoute } from 'routes';
+import NavMenu from 'components/module-markup/NavMenu';
 
 
 const styles = theme => createStyles({
@@ -30,12 +31,14 @@ const AppWrapper: React.SFC<Props> = (props: Props) => {
   const {
     classes,
     children,
-    currentlySending
+    currentlySending,
+    navLinks
   } = props;
 
   return (
     <div className={classes.root}>
       <CssBaseline />
+      <NavMenu navLinks={navLinks}/>
       <header className={classes.header}>
 
       </header>

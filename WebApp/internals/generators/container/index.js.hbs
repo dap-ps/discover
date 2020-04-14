@@ -97,11 +97,11 @@ const withSaga = injectSaga<OwnProps>({ key: '{{ camelCase name }}', saga: saga 
 {{/if}}
 
 export default compose(
+  withConnect,
 {{#if wantActionsAndReducer}}
   withReducer,
 {{/if}}
 {{#if wantSaga}}
   withSaga,
 {{/if}}
-  withConnect,
 )({{ properCase name }});

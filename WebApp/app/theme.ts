@@ -55,7 +55,7 @@ export const uiConstants = {
 const theme = createMuiTheme({
   typography: {
     fontFamily: [
-      "'Roboto'",
+      "'Inter'",
       "'sans-serif'"
     ].join(','),
   },

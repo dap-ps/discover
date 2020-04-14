@@ -1,12 +1,11 @@
 /**
  *
- * NavMenu
+ * CategoryView
  *
  */
 
 import React, { Fragment } from 'react';
 import { Theme, createStyles, withStyles, WithStyles } from '@material-ui/core';
-import { AppRoute } from 'routes';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -14,17 +13,15 @@ const styles = (theme: Theme) =>
     root: {},
   });
 
-interface OwnProps extends WithStyles<typeof styles> {
-  navLinks: AppRoute[]
-}
+interface OwnProps extends WithStyles<typeof styles> {}
 
-const NavMenu: React.SFC<OwnProps> = (props: OwnProps) => {
+const CategoryView: React.SFC<OwnProps> = (props: OwnProps) => {
   const { classes } = props;
   return <Fragment>
     <span className={classes.root}>
-
+      CategoryView
     </span>
   </Fragment>;
 };
 
-export default withStyles(styles, { withTheme: true })(NavMenu);
+export default withStyles(styles, { withTheme: true })(CategoryView);
