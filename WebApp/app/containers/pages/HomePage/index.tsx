@@ -20,7 +20,6 @@ const HomePage: React.SFC<Props> = (props: Props) => {
   const {
   } = props;
 
-  // handle logic to recognize the connector currently being activated
   return <Landing />;
 };
 

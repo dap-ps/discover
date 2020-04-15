@@ -1,6 +1,13 @@
 import { SvgIconProps } from '@material-ui/core/SvgIcon';
 import HomePage from 'containers/pages/HomePage';
 import { ROUTE_LINKS } from 'routeLinks';
+import MarketplacesIcon from './images/icons/categories/marketplaces.svg';
+import CollectiblesIcon from './images/icons/categories/collectibles.svg';
+import ExchangesIcon from './images/icons/categories/exchanges.svg';
+import GamesIcon from './images/icons/categories/games.svg';
+import SocialNetworksIcon from './images/icons/categories/social-networks.svg';
+import UtilitiesIcon from './images/icons/categories/utilities.svg';
+import OtherIcon from './images/icons/categories/other.svg';
 
 enum ROUTE_TYPE {
   CATEGORY = "Category",
@@ -33,6 +40,7 @@ const routes: AppRoute[] = [
     isProtected: false, // This allows general access control
     isNavRequired: true, // This allows mapping into a navigation bar
     routeType: ROUTE_TYPE.CATEGORY,
+    routeNavLinkIcon: ExchangesIcon
   },
   {
     name: 'Marketplaces',
@@ -41,6 +49,7 @@ const routes: AppRoute[] = [
     isProtected: false, // This allows general access control
     isNavRequired: true, // This allows mapping into a navigation bar
     routeType: ROUTE_TYPE.CATEGORY,
+    routeNavLinkIcon: MarketplacesIcon
   },
   {
     name: 'Collectibles',
@@ -49,6 +58,7 @@ const routes: AppRoute[] = [
     isProtected: false, // This allows general access control
     isNavRequired: true, // This allows mapping into a navigation bar
     routeType: ROUTE_TYPE.CATEGORY,
+    routeNavLinkIcon: CollectiblesIcon
   },
   {
     name: 'Games',
@@ -57,6 +67,7 @@ const routes: AppRoute[] = [
     isProtected: false, // This allows general access control
     isNavRequired: false, // This allows mapping into a navigation bar
     routeType: ROUTE_TYPE.CATEGORY,
+    routeNavLinkIcon: GamesIcon
   },
   {
     name: 'Social Networks',
@@ -65,6 +76,7 @@ const routes: AppRoute[] = [
     isProtected: false, // This allows general access control
     isNavRequired: true, // This allows mapping into a navigation bar
     routeType: ROUTE_TYPE.CATEGORY,
+    routeNavLinkIcon: SocialNetworksIcon
   },
   {
     name: 'Utilities',
@@ -73,6 +85,7 @@ const routes: AppRoute[] = [
     isProtected: false, // This allows general access control
     isNavRequired: true, // This allows mapping into a navigation bar
     routeType: ROUTE_TYPE.CATEGORY,
+    routeNavLinkIcon: UtilitiesIcon
   },
   {
     name: 'Other',
@@ -81,6 +94,7 @@ const routes: AppRoute[] = [
     isProtected: false, // This allows general access control
     isNavRequired: true, // This allows mapping into a navigation bar
     routeType: ROUTE_TYPE.CATEGORY,
+    routeNavLinkIcon: OtherIcon
   },
   // List
   {
