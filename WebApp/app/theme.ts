@@ -5,9 +5,15 @@ import { Inter, InterMedium, InterBold } from '../fonts/font-faces';
 export const appColors = {
   general: {
     backgroundColor: "#ffffff",
+    black: {
+      base: "#000000",
+    },
     gray: {
       base: "#939ba1",
       light: "#eef2f5"
+    },
+    white:{
+      base: "#ffffff"
     }
   },
   sections:{
@@ -50,27 +56,28 @@ export const uiConstants = {
         movement: "400ms"
       }
     },
-    nav:{
-      position:{
-        top: 20,
-        left: 15
-      },
-      burger:{
-        size: 40,
-        patties:{
-          height: 6,
-          width: 16
-        }
-      }
-    }
+    headerHeight: 50,
+    footerHeight: 40,
+    pageMargin: 40,
   },
-  headerHeight: 50,
-  footerHeight: 40,
-  pageMargin: 40,
   modal:{
     modalWidthMax: 640,
     borderThickness: 1,
     borderColor: fade(brandColors.default.main, 0.8)
+  },
+  nav:{
+    position:{
+      top: 10,
+      left: 10
+    },
+    burger:{
+      size: 40,
+      patties:{
+        spacing: 5,
+        height: 2,
+        width: 16
+      }
+    }
   }
 }
 

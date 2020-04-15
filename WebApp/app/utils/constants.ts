@@ -16,3 +16,8 @@ export enum DappLists {
   highestRated = `highest-rated`,
   recentlyAdded = `recently-added`,
 }
+
+export enum ROUTE_TYPE {
+  CATEGORY = "Category",
+  LIST = "List",
+}

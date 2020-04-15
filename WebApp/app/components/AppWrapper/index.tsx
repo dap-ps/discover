@@ -8,15 +8,16 @@ import { AppRoute } from 'routes';
 import NavMenu from 'components/module-markup/NavMenu';
 import { Typography } from '@material-ui/core';
 import SearchContainer from 'containers/modules/SearchContainer';
+import { uiConstants } from 'theme';
 
 
 const styles = theme => createStyles({
   root: {
   },
   header:{
-    padding: 15,
-
-    "& h2":{
+    padding: "20px 10px",
+    "& h2": {
+      marginLeft: 5 + uiConstants.nav.burger.size + uiConstants.nav.position.left,
       fontSize: 17,
       fontWeight: 700
     }
