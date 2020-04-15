@@ -1,5 +1,6 @@
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
 import { fade } from '@material-ui/core';
+import { Inter, InterMedium, InterBold } from '../fonts/font-faces';
 
 export const appColors = {
   general: {
@@ -42,6 +43,27 @@ export const brandColors = {
 }
 
 export const uiConstants = {
+  global:{
+    animation:{
+      speeds: {
+        mutation: "200ms",
+        movement: "400ms"
+      }
+    },
+    nav:{
+      position:{
+        top: 20,
+        left: 15
+      },
+      burger:{
+        size: 40,
+        patties:{
+          height: 6,
+          width: 16
+        }
+      }
+    }
+  },
   headerHeight: 50,
   footerHeight: 40,
   pageMargin: 40,
@@ -73,6 +95,11 @@ const theme = createMuiTheme({
     }
   },
   overrides:{
+    MuiCssBaseline:{
+      '@global':{
+        '@font-face': [Inter, InterMedium, InterBold]
+      }
+    },
     MuiTypography:{
       h1:{
         fontSize: "3.5rem"

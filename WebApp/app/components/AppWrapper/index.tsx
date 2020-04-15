@@ -6,12 +6,20 @@ import "react-toastify/dist/ReactToastify.css";
 import LoadingComponent from 'components/module-markup/LoadingComponent';
 import { AppRoute } from 'routes';
 import NavMenu from 'components/module-markup/NavMenu';
+import { Typography } from '@material-ui/core';
+import SearchContainer from 'containers/modules/SearchContainer';
 
 
 const styles = theme => createStyles({
   root: {
   },
   header:{
+    padding: 15,
+
+    "& h2":{
+      fontSize: 17,
+      fontWeight: 700
+    }
   },
   content: {
 
@@ -40,7 +48,10 @@ const AppWrapper: React.SFC<Props> = (props: Props) => {
       <CssBaseline />
       <NavMenu navLinks={navLinks}/>
       <header className={classes.header}>
-
+        <Typography variant="h1" component="h2">
+          Discover
+        </Typography>
+        <SearchContainer />
       </header>
       <main className={classes.content}>
         {children}
