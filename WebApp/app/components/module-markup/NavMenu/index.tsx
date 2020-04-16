@@ -4,13 +4,14 @@
  *
  */
 
-import React, {  useState } from 'react';
+import React, {  useState, useRef } from 'react';
 import { Theme, createStyles, withStyles, WithStyles, Typography } from '@material-ui/core';
 import { AppRoute } from 'routes';
 import classNames from 'classnames';
 import { uiConstants, appColors } from 'theme';
 import { ROUTE_TYPE } from 'utils/constants';
 import AddIcon from '../../../images/icons/add.svg';
+import { useOnClickOutside } from 'hooks/useOnClickOutside';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -77,9 +78,10 @@ const styles = (theme: Theme) =>
       opacity: 0,
       visibility: "hidden",
 
-      padding: "12px 16px",
+      padding: "12px 24px 12px 16px",
       transitionDuration: uiConstants.global.animation.speeds.mutation,
       "&.active":{
+        // width: uiConstants.nav.menu.width,
         maxWidth: "80vw",
         maxHeight: "80vh",
         visibility: "visible",
@@ -91,8 +93,23 @@ const styles = (theme: Theme) =>
       fontSize: 13,
     },
     item:{
-
+      display: "flex",
+      flexDirection: "row",
+      margin: "10px 0",
+      alignItems: "center",
+      "& span": {
+        display: "block",
+        marginLeft: 20,
+      }
     },
+    icon:{
+      display: "flex",
+      width: 24,
+      justifyContent: "space-around"
+    },
+    submit: {
+      marginTop: 20
+    }
   });
 
 interface OwnProps extends WithStyles<typeof styles> {
@@ -105,8 +122,16 @@ const NavMenu: React.SFC<OwnProps> = (props: OwnProps) => {
     navLinks
   } = props;
 
+  const navRef = useRef(null);
   const [open, setOpen] = useState<boolean>(false);
-  return <div className={classNames(classes.root, open ? "open" : "")}>
+
+  useOnClickOutside(navRef, () => {
+    if(open){
+      setOpen(false)
+    }
+  });
+
+  return <div ref={navRef} className={classNames(classes.root, open ? "open" : "")}>
     <span className={classNames(classes.burger,  !open ? "active" : "")} onClick={() => setOpen(true)}>
 
     </span>
@@ -117,8 +142,13 @@ const NavMenu: React.SFC<OwnProps> = (props: OwnProps) => {
         </Typography>
         <nav>
           {
-            navLinks.filter(item => item.routeType == ROUTE_TYPE.CATEGORY && item.routeNavLinkIcon != undefined).map((item, index) => <div className={classes.item} key={`cat-${index}`}>
-              {item.routeNavLinkIcon && item.routeNavLinkIcon({})}
+            navLinks
+            .filter(item => item.routeType == ROUTE_TYPE.CATEGORY && item.routeNavLinkIcon != undefined)
+            .map((item, index) =>
+            <div className={classes.item} key={`cat-${index}`}>
+              <div className={classes.icon}>
+                {item.routeNavLinkIcon && item.routeNavLinkIcon({})}
+              </div>
               <span>
                 {item.name}
               </span>
@@ -134,16 +164,23 @@ const NavMenu: React.SFC<OwnProps> = (props: OwnProps) => {
       <div>
         <nav>
           {
-            navLinks.filter(item => item.routeType == ROUTE_TYPE.LIST && item.routeNavLinkIcon != undefined).map((item, index) => <div className={classes.item} key={`list-${index}`}>
-              {item.routeNavLinkIcon && item.routeNavLinkIcon({})}
+            navLinks
+            .filter(item => item.routeType == ROUTE_TYPE.LIST && item.routeNavLinkIcon != undefined)
+            .map((item, index) =>
+            <div className={classes.item} key={`list-${index}`}>
+              <div className={classes.icon}>
+                {item.routeNavLinkIcon && item.routeNavLinkIcon({})}
+              </div>
               <span>
                 {item.name}
               </span>
             </div>)
           }
         </nav>
-        <div className={classes.item}>
-          <AddIcon />
+        <div className={classNames(classes.item, classes.submit)}>
+          <div className={classes.icon}>
+            <AddIcon />
+          </div>
           <span>
             Submit a Ðapp
           </span>

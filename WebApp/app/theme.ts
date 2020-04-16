@@ -66,6 +66,8 @@ export const uiConstants = {
     borderColor: fade(brandColors.default.main, 0.8)
   },
   nav:{
+    menu:{
+    },
     position:{
       top: 10,
       left: 10
