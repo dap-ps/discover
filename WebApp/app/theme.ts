@@ -80,6 +80,15 @@ export const uiConstants = {
         width: 16
       }
     }
+  },
+  search: {
+    position: {
+      top: 10,
+      right: 10
+    },
+    input: {
+      width: 260
+    }
   }
 }
 

@@ -4,9 +4,10 @@
  *
  */
 
-import React, { Fragment } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { compose, Dispatch } from 'redux';
+import SearchView from 'components/module-markup/SearchView';
 
 interface OwnProps {}
 
@@ -15,7 +16,10 @@ interface DispatchProps {}
 type Props = DispatchProps & OwnProps;
 
 const SearchContainer: React.SFC<Props> = (props: Props) => {
-  return <Fragment>SearchContainer</Fragment>;
+
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  console.log(searchTerm)
+  return <SearchView setSearchTerm={setSearchTerm} />
 };
 
 const mapDispatchToProps = (
