@@ -112,6 +112,10 @@ const styles = (theme: Theme) =>
     }
   });
 
+// TODO: Prune input data
+// TODO: Coloured hovers
+// TODO: Wire up to router
+// TODO: Responsive
 interface OwnProps extends WithStyles<typeof styles> {
   navLinks: AppRoute[]
 }
