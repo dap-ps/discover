@@ -10,6 +10,7 @@ import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext, CarouselProvid
 import 'pure-react-carousel/dist/react-carousel.es.css';
 import { uiConstants } from 'theme';
 import classNames from 'classnames';
+import { isArray } from 'util';
 
 // TODO: Button styling
 // TODO:
@@ -30,7 +31,7 @@ const styles = (theme: Theme) =>
   });
 
 interface OwnProps extends WithStyles<typeof styles> {
-  children: ReactNode[],
+  children: ReactNode[] | ReactNode,
   providerProps: CarouselProviderProps
 }
 
@@ -55,9 +56,14 @@ const Carousel: React.SFC<OwnProps> = (props: OwnProps) => {
   return  <CarouselProvider {...finalProps} >
     <Slider>
       {
-        children.map((item, index) => <Slide index={index}>
+        isArray(children) && children.map((item, index) => <Slide index={index}>
           <Fragment>{item}</Fragment>
         </Slide>)
+      }
+      {
+        !isArray(children) && <Slide index={0}>
+          {children}
+        </Slide>
       }
     </Slider>
     <ButtonBack className={classNames(classes.button, classes.back)}>Back</ButtonBack>

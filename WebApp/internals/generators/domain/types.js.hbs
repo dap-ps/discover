@@ -15,7 +15,7 @@ type {{ properCase name }}Actions = ActionType<typeof actions>;
 /* --- EXPORTS --- */
 
 type RootState = ApplicationRootState;
-type ContainerState = {{ properCase name }}State;
-type ContainerActions = {{ properCase name }}Actions;
+type DomainState = {{ properCase name }}State;
+type DomainActions = {{ properCase name }}Actions;
 
-export { RootState, ContainerState, ContainerActions };
+export { RootState, DomainState, DomainActions };

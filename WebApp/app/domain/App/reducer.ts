@@ -1,5 +1,5 @@
 import { getType } from 'typesafe-actions';
-import { ContainerState, ContainerActions } from './types';
+import { DomainState, DomainActions } from './types';
 import { setApiSendingFlag, setErrorMessageAction, setConnectedStateAction } from './actions';
 
 /*
@@ -8,13 +8,13 @@ import { setApiSendingFlag, setErrorMessageAction, setConnectedStateAction } fro
  *
  */
 
-export const initialState: ContainerState = {
+export const initialState: DomainState = {
   currentlySending: true,
   errorMessage: "",
   connected: false
 };
 
-function appReducer(state = initialState, action: ContainerActions) {
+function appReducer(state = initialState, action: DomainActions) {
   switch (action.type) {
     case getType(setConnectedStateAction):
       return {

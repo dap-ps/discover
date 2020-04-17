@@ -1,5 +1,7 @@
 import { Reducer, Store } from 'redux';
-import { ContainerState as AppState } from '../domain/App/types';
+import { DomainState as AppState } from '../domain/App/types';
+import { DomainState as DappsState } from '../domain/Dapps/types';
+import { DomainState as TokensState } from '../domain/Tokens/types';
 
 export interface LifeStore extends Store<{}> {
   injectedReducers: any;
@@ -22,4 +24,6 @@ export interface InjectSagaParams {
 // Your root reducer type, which is your redux state types also
 export interface ApplicationRootState {
   readonly global: AppState;
+  readonly dapps: DappsState;
+  readonly tokens: TokensState;
 }

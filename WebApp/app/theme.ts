@@ -89,6 +89,14 @@ export const uiConstants = {
     input: {
       width: 260
     }
+  },
+  carousel: {
+    defaults: {
+      slide: {
+        height: 0,
+        width: 0
+      }
+    }
   }
 }
 

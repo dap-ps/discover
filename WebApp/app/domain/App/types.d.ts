@@ -14,7 +14,7 @@ type AppActions = ActionType<typeof actions>;
 
 /* --- EXPORTS --- */
 type RootState = ApplicationRootState;
-type ContainerState = AppState;
-type ContainerActions = AppActions;
+type DomainState = AppState;
+type DomainActions = AppActions;
 
-export { RootState, ContainerState, ContainerActions };
+export { RootState, DomainState, DomainActions };
