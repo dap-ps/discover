@@ -13,6 +13,8 @@ export interface Dapp {
   category: DappCategories,
   description: string,
   url: string,
+  banner: string,
+  icon: string,
   reviewed: boolean,
   ranking: DappRank[],
   votes: number

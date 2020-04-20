@@ -35,17 +35,17 @@ import { Router } from 'react-router';
 import theme from "theme";
 import { ErrorBoundry } from "containers/componentContainers/ErrorBoundry";
 
-import { Web3ReactProvider } from '@web3-react/core'
-import { providers } from "ethers";
+// import { Web3ReactProvider } from '@web3-react/core'
+// import { providers } from "ethers";
 
 // import * as connectors from "utils/connectors";
 
 // PROVIDER SET UP
-function getLibrary(provider) {
-  const library = new providers.Web3Provider(provider);
-  library.pollingInterval = 8000;
-  return library;
-}
+// function getLibrary(provider) {
+//   const library = new providers.Web3Provider(provider);
+//   library.pollingInterval = 8000;
+//   return library;
+// }
 const persistedState = loadState();
 const store = configureStore(persistedState);
 
@@ -65,17 +65,15 @@ const MOUNT_NODE = document.getElementById('app') as HTMLElement;
 
 const render = (Component = App) => {
   ReactDOM.render(
-    <Web3ReactProvider getLibrary={getLibrary}>
-      <Provider store={store}>
-        <ErrorBoundry>
-          <MuiThemeProvider theme={theme}>
-            <Router history={history}>
-              <Component />
-            </Router>
-          </MuiThemeProvider>
-        </ErrorBoundry>
-      </Provider>
-    </Web3ReactProvider>,
+    <Provider store={store}>
+      <ErrorBoundry>
+        <MuiThemeProvider theme={theme}>
+          <Router history={history}>
+            <Component />
+          </Router>
+        </MuiThemeProvider>
+      </ErrorBoundry>
+    </Provider>,
     MOUNT_NODE,
   );
 };

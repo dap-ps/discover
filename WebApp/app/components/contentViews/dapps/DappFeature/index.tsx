@@ -6,6 +6,7 @@
 
 import React, { Fragment } from 'react';
 import { Theme, createStyles, withStyles, WithStyles } from '@material-ui/core';
+import { Dapp } from 'domain/Dapps/types';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -13,7 +14,9 @@ const styles = (theme: Theme) =>
     root: {},
   });
 
-interface OwnProps extends WithStyles<typeof styles> {}
+interface OwnProps extends WithStyles<typeof styles> {
+  dapp: Dapp
+}
 
 const DappFeature: React.SFC<OwnProps> = (props: OwnProps) => {
   const { classes } = props;
