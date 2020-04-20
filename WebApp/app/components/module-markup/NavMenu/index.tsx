@@ -26,6 +26,7 @@ const styles = (theme: Theme) =>
       overflow: "hidden",
       ...uiConstants.nav.position,
       transitionDuration: uiConstants.global.animation.speeds.mutation,
+      zIndex: 999,
       "&.open":{
         borderRadius: 10,
       }

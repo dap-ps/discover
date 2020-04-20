@@ -9,7 +9,7 @@ import { CarouselProviderProps } from 'pure-react-carousel';
 import { Link } from 'react-router-dom';
 import { ROUTE_LINKS } from 'routeLinks';
 import ArrowRightAltIcon from '@material-ui/icons/ArrowRightAlt';
-import { DAPP_CATEGORY_STRINGS } from 'utils/constants';
+import { DAPP_CATEGORY_STRINGS, DAPP_CATEGORY_ICONS } from 'utils/constants';
 import classNames from 'classnames';
 
 let categoryColors = {};
@@ -54,6 +54,7 @@ const styles = ({ spacing, breakpoints }: Theme) => createStyles({
   },
   categories:{
     display: "grid",
+    marginTop: 15,
     [breakpoints.up('xs')]: {
       gridTemplateColumns: "1fr 1fr",
       gridTemplateRows: "1fr 1fr 1fr 1fr"
@@ -70,6 +71,15 @@ const styles = ({ spacing, breakpoints }: Theme) => createStyles({
   },
   category:{
     position: "relative",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "column",
+    padding: 15,
+    margin: 4,
+    cursor: "pointer",
+    color: appColors.general.black.base,
+    textDecoration: "none",
     "&:before":{
       content: "''",
       display: "block",
@@ -79,9 +89,15 @@ const styles = ({ spacing, breakpoints }: Theme) => createStyles({
       height: "100%",
       width: "100%",
       opacity: 0.2,
-      zIndex: -1
+      zIndex: -1,
+      borderRadius: 10
     },
-    ...categoryColors
+    ...categoryColors,
+    "& span":{
+      marginTop: 10,
+      fontSize: 13,
+      fontWeight: 500,
+    }
   },
   heading:{
   },
@@ -129,11 +145,12 @@ const Landing: React.SFC<OwnProps> = (props: OwnProps) => {
       </div>
       <div className={classes.categories}>
         {
-          Object.keys(DAPP_CATEGORY_STRINGS).map(key => <div key={`${key}`} className={classNames(classes.category, `${key}`)}>
+          Object.keys(DAPP_CATEGORY_STRINGS).map(key => <Link to={ROUTE_LINKS.categories[key]} key={`${key}`} className={classNames(classes.category, `${key}`)}>
+            {DAPP_CATEGORY_ICONS[key].base({})}
             <span>
               {DAPP_CATEGORY_STRINGS[key]}
             </span>
-          </div>)
+          </Link>)
         }
       </div>
     </section>

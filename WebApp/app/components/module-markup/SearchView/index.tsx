@@ -10,7 +10,7 @@ import classNames from 'classnames';
 import { useOnClickOutside } from 'hooks/useOnClickOutside';
 
 import SearchIcon from '../../../images/icons/search.svg';
-import { uiConstants } from 'theme';
+import { uiConstants, appColors } from 'theme';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -26,6 +26,8 @@ const styles = (theme: Theme) =>
       ...uiConstants.search.position,
       boxShadow: "0 4px 12px rgba(0,34,51,.08), 0 2px 4px rgba(0,34,51,.16)",
       cursor: "pointer",
+      zIndex: 9999,
+      backgroundColor: appColors.general.white.base
     },
     icon:{
       height: 30,

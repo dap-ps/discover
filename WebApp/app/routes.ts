@@ -1,16 +1,10 @@
 import HomePage from 'containers/pages/HomePage';
 import { ROUTE_LINKS } from 'routeLinks';
-import MarketplacesIcon from './images/icons/categories/marketplaces-minimal.svg';
-import CollectiblesIcon from './images/icons/categories/collectibles-minimal.svg';
-import ExchangesIcon from './images/icons/categories/exchanges-minimal.svg';
-import GamesIcon from './images/icons/categories/games-minimal.svg';
-import SocialNetworksIcon from './images/icons/categories/social-networks-minimal.svg';
-import UtilitiesIcon from './images/icons/categories/utilities-minimal.svg';
-import OtherIcon from './images/icons/categories/other-minimal.svg';
+
 
 import StarIcon from './images/icons/star.svg';
 import ClockIcon from './images/icons/clock.svg';
-import { ROUTE_TYPE } from 'utils/constants';
+import { ROUTE_TYPE, DAPP_CATEGORY, DAPP_CATEGORY_ICONS } from 'utils/constants';
 
 export interface AppRoute {
   name: string;
@@ -33,73 +27,73 @@ const routes: AppRoute[] = [
   // Categories
   {
     name: 'All Dapps',
-    path: ROUTE_LINKS.categories.Exchanges,
+    path: ROUTE_LINKS.categories.All,
     component: HomePage,
     isProtected: false, // This allows general access control
     isNavRequired: true, // This allows mapping into a navigation bar
   },
   {
     name: 'Exchanges',
-    path: ROUTE_LINKS.categories.Exchanges,
+    path: ROUTE_LINKS.categories.EXCHANGES,
     component: HomePage,
     isProtected: false, // This allows general access control
     isNavRequired: true, // This allows mapping into a navigation bar
     routeType: ROUTE_TYPE.CATEGORY,
-    routeNavLinkIcon: ExchangesIcon
+    routeNavLinkIcon: DAPP_CATEGORY_ICONS[DAPP_CATEGORY.EXCHANGES].minimal
   },
   {
     name: 'Marketplaces',
-    path: ROUTE_LINKS.categories.Marketplaces,
+    path: ROUTE_LINKS.categories.MARKETPLACES,
     component: HomePage,
     isProtected: false, // This allows general access control
     isNavRequired: true, // This allows mapping into a navigation bar
     routeType: ROUTE_TYPE.CATEGORY,
-    routeNavLinkIcon: MarketplacesIcon
+    routeNavLinkIcon: DAPP_CATEGORY_ICONS[DAPP_CATEGORY.MARKETPLACES].minimal
   },
   {
     name: 'Collectibles',
-    path: ROUTE_LINKS.categories.Collectibles,
+    path: ROUTE_LINKS.categories.COLLECTIBLES,
     component: HomePage,
     isProtected: false, // This allows general access control
     isNavRequired: true, // This allows mapping into a navigation bar
     routeType: ROUTE_TYPE.CATEGORY,
-    routeNavLinkIcon: CollectiblesIcon
+    routeNavLinkIcon: DAPP_CATEGORY_ICONS[DAPP_CATEGORY.COLLECTIBLES].minimal
   },
   {
     name: 'Games',
-    path: ROUTE_LINKS.categories.Games,
+    path: ROUTE_LINKS.categories.GAMES,
     component: HomePage,
     isProtected: false, // This allows general access control
     isNavRequired: false, // This allows mapping into a navigation bar
     routeType: ROUTE_TYPE.CATEGORY,
-    routeNavLinkIcon: GamesIcon
+    routeNavLinkIcon: DAPP_CATEGORY_ICONS[DAPP_CATEGORY.GAMES].minimal
   },
   {
     name: 'Social Networks',
-    path: ROUTE_LINKS.categories.SocialNetworks,
+    path: ROUTE_LINKS.categories.SOCIAL_NETWORKS,
     component: HomePage,
     isProtected: false, // This allows general access control
     isNavRequired: true, // This allows mapping into a navigation bar
     routeType: ROUTE_TYPE.CATEGORY,
-    routeNavLinkIcon: SocialNetworksIcon
+    routeNavLinkIcon: DAPP_CATEGORY_ICONS[DAPP_CATEGORY.SOCIAL_NETWORKS].minimal
   },
   {
     name: 'Utilities',
-    path: ROUTE_LINKS.categories.Utilities,
+    path: ROUTE_LINKS.categories.UTILITIES,
     component: HomePage,
     isProtected: false, // This allows general access control
     isNavRequired: true, // This allows mapping into a navigation bar
     routeType: ROUTE_TYPE.CATEGORY,
-    routeNavLinkIcon: UtilitiesIcon
+    routeNavLinkIcon: DAPP_CATEGORY_ICONS[DAPP_CATEGORY.UTILITIES].minimal
   },
   {
     name: 'Other',
-    path: ROUTE_LINKS.categories.Other,
+    path: ROUTE_LINKS.categories.OTHER,
     component: HomePage,
     isProtected: false, // This allows general access control
     isNavRequired: true, // This allows mapping into a navigation bar
     routeType: ROUTE_TYPE.CATEGORY,
-    routeNavLinkIcon: OtherIcon
+    routeNavLinkIcon: DAPP_CATEGORY_ICONS[DAPP_CATEGORY.OTHER].minimal
   },
   // List
   {

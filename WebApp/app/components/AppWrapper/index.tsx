@@ -15,7 +15,7 @@ const styles = theme => createStyles({
   root: {
   },
   header:{
-    padding: "20px 10px",
+    padding: "25px 10px",
     "& h2": {
       marginLeft: 5 + uiConstants.nav.burger.size + uiConstants.nav.position.left,
       fontSize: 17,
