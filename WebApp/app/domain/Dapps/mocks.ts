@@ -1,4 +1,4 @@
-import { Dapp } from "./types";
+import { IDapp } from "./types";
 // No clue why the IDE complains about the pathing but it works
 // @ts-ignore
 import SablierBanner from '../../images/featured/sablier_banner.png'
@@ -17,7 +17,7 @@ import { DAPP_CATEGORY } from "utils/constants";
 export const FEATURED_DAPPS = ['sablier', 'oasis', 'zerion']
 
 export const DAPPS: {
-  [key: string]: Dapp
+  [key: string]: IDapp
 } = {
   'sablier': {
     name: "Sablier",

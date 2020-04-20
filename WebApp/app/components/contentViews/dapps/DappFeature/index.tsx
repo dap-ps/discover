@@ -6,7 +6,7 @@
 
 import React from 'react';
 import { Theme, createStyles, withStyles, WithStyles, Typography } from '@material-ui/core';
-import { Dapp } from 'domain/Dapps/types';
+import { IDapp } from 'domain/Dapps/types';
 import classNames from 'classnames';
 import { appColors } from 'theme';
 
@@ -47,7 +47,7 @@ const styles = (theme: Theme) =>
   });
 
 interface OwnProps extends WithStyles<typeof styles> {
-  dapp: Dapp,
+  dapp: IDapp,
   className?: String
 }
 

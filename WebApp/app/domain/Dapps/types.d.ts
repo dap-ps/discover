@@ -3,12 +3,12 @@ import * as actions from './actions';
 import { ApplicationRootState } from 'types';
 
 // Data interfaces
-export interface DappRank {
+export interface IDappRank {
   place: number,
   list: string
 }
 
-export interface Dapp {
+export interface IDapp {
   name: string,
   category: DappCategories,
   description: string,

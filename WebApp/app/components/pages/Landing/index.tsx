@@ -11,6 +11,7 @@ import { ROUTE_LINKS } from 'routeLinks';
 import ArrowRightAltIcon from '@material-ui/icons/ArrowRightAlt';
 import { DAPP_CATEGORY_STRINGS, DAPP_CATEGORY_ICONS } from 'utils/constants';
 import classNames from 'classnames';
+import DappCard from 'components/contentViews/dapps/DappCard';
 
 let categoryColors = {};
 Object.keys(DAPP_CATEGORY_STRINGS).map(key => {
@@ -34,6 +35,7 @@ const styles = ({ spacing, breakpoints }: Theme) => createStyles({
   bannerItem:{
   },
   content: {
+    margin: "10px 0"
   },
   sectionTitle:{
     display: "flex",
@@ -153,6 +155,26 @@ const Landing: React.SFC<OwnProps> = (props: OwnProps) => {
           </Link>)
         }
       </div>
+    </section>
+    <section className={classes.content}>
+      <div className={classes.sectionTitle}>
+        <Typography variant="h2" component="span">
+          Highest Ranked
+        </Typography>
+      </div>
+      <div>
+        {
+          Object.keys(DAPPS).map(key => <DappCard key={`dapp-${key}`} dapp={DAPPS[key]} />)
+        }
+      </div>
+    </section>
+    <section className={classes.content}>
+      <div className={classes.sectionTitle}>
+        <Typography variant="h2" component="span">
+          Recently Added
+        </Typography>
+      </div>
+
     </section>
   </article>
 }
