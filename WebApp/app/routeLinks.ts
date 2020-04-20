@@ -3,6 +3,7 @@ import { DAPP_CATEGORY_STRINGS, DAPP_CATEGORY, DAPP_LIST } from "utils/constants
 export const ROUTE_LINKS = {
   Home: `/`,
   categories: {
+    All: `/category/`,
     Exchanges: `/category/${DAPP_CATEGORY_STRINGS[DAPP_CATEGORY.EXCHANGES]}`.toLowerCase(),
     Marketplaces: `/category/${DAPP_CATEGORY_STRINGS[DAPP_CATEGORY.MARKETPLACES]}`.toLowerCase(),
     Collectibles: `/category/${DAPP_CATEGORY_STRINGS[DAPP_CATEGORY.COLLECTIBLES]}`.toLowerCase(),

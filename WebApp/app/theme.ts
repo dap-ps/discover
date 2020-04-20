@@ -17,25 +17,25 @@ export const appColors = {
     }
   },
   sections:{
-    exchange: {
+    EXCHANGES: {
       base: "#887af9"
     },
-    marketplaces: {
+    MARKETPLACES: {
       base: "#fe8f59"
     },
-    collectibles: {
+    COLLECTIBLES: {
       base: "#51d0f0"
     },
-    games: {
+    GAMES: {
       base: "#d37ef4"
     },
-    socialNetworks: {
+    SOCIAL_NETWORKS: {
       base: "#7cda00"
     },
-    utilities: {
+    UTILITIES: {
       base: "#fa6565"
     },
-    other: {
+    OTHER: {
       base: "#ffca0f"
     }
   }
@@ -142,6 +142,12 @@ const theme = createMuiTheme({
       },
       h2:{
         fontSize: "2rem"
+      }
+    },
+    MuiLink:{
+      root:{
+        color: brandColors.default.main,
+        textDecoration: "none"
       }
     }
   }

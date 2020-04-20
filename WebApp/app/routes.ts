@@ -32,6 +32,13 @@ const routes: AppRoute[] = [
   },
   // Categories
   {
+    name: 'All Dapps',
+    path: ROUTE_LINKS.categories.Exchanges,
+    component: HomePage,
+    isProtected: false, // This allows general access control
+    isNavRequired: true, // This allows mapping into a navigation bar
+  },
+  {
     name: 'Exchanges',
     path: ROUTE_LINKS.categories.Exchanges,
     component: HomePage,
