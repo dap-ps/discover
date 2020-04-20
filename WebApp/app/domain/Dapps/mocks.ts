@@ -1,10 +1,16 @@
 import { Dapp } from "./types";
-
+// No clue why the IDE complains about the pathing but it works
+// @ts-ignore
 import SablierBanner from '../../images/featured/sablier_banner.png'
+// @ts-ignore
 import SablierLogo from '../../images/featured/sablier_logo.png'
+// @ts-ignore
 import OasisBanner from '../../images/featured/oasis_banner.png'
+// @ts-ignore
 import OasisLogo from '../../images/featured/oasis_logo.png'
+// @ts-ignore
 import ZerionBanner from '../../images/featured/zerion_banner.png'
+// @ts-ignore
 import ZerionLogo from '../../images/featured/zerion_logo.png'
 import { DAPP_CATEGORY } from "utils/constants";
 
@@ -14,7 +20,7 @@ export const DAPPS: {
   [key: string]: Dapp
 } = {
   'sablier': {
-    name: "Stream money, just like you stream music or videos",
+    name: "Sablier",
     description: "Stream money, just like you stream music or videos",
     url: 'https://pay.sablier.finance',
     ranking: [],

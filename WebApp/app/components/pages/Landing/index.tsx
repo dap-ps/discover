@@ -1,16 +1,22 @@
-import { Theme, WithStyles } from '@material-ui/core';
+import { Theme, WithStyles, useMediaQuery } from '@material-ui/core';
 import { createStyles, withStyles } from '@material-ui/core/styles';
 import React from 'react';
-import SimpleWideBanner from 'components/helpers/SimpleWideBanner';
 import DappFeature from 'components/contentViews/dapps/DappFeature';
 import { DAPPS, FEATURED_DAPPS } from 'domain/Dapps/mocks';
-
-// Future feature
-// import { connectorsByName } from 'utils/connectors';
-// import { AbstractConnector } from '@web3-react/abstract-connector'
+import { uiConstants } from 'theme';
+import Carousel from 'components/module-markup/Carousel';
+import { CarouselProviderProps } from 'pure-react-carousel';
 
 const styles = ({ spacing, breakpoints }: Theme) => createStyles({
   root:{
+  },
+  banner:{
+    maxWidth: "100vw"
+  },
+  bannerItem:{
+    // Mobile
+
+
   },
   heading:{
   },
@@ -20,20 +26,42 @@ const styles = ({ spacing, breakpoints }: Theme) => createStyles({
 });
 
 interface OwnProps extends WithStyles<typeof styles> {
-
+  theme: Theme
 }
 
 const Landing: React.SFC<OwnProps> = (props: OwnProps) => {
   const {
     classes,
+    theme
   } = props;
+  console.log(props)
+  const desktop = useMediaQuery(theme.breakpoints.up('md'));
+  const tablet = useMediaQuery(theme.breakpoints.up('sm'));
 
+  const desktopCarouselSettings: Partial<CarouselProviderProps>= {
+    visibleSlides: uiConstants.banner.itemsPerSlide.desktop
+  }
+
+  const tabletCarouselSettings: Partial<CarouselProviderProps>= {
+    visibleSlides: uiConstants.banner.itemsPerSlide.tablet
+  }
+  const mobileCarouselSettings: Partial<CarouselProviderProps>= {
+    visibleSlides: uiConstants.banner.itemsPerSlide.mobile
+  }
+  console.log(desktop ? desktopCarouselSettings : tablet ? tabletCarouselSettings : mobileCarouselSettings)
+  console.log(desktopCarouselSettings, tabletCarouselSettings, mobileCarouselSettings )
+  // Desktop full screen, mobile carousel
   return <article className={classes.root}>
-    <SimpleWideBanner>
+    {/* <SimpleWideBanner className={classes.banner}>
       {
-        FEATURED_DAPPS.map(key => <DappFeature key={`feature-${key}`} dapp={DAPPS[key]} />)
+        FEATURED_DAPPS.map(key => <DappFeature className={classes.bannerItem} key={`feature-${key}`} dapp={DAPPS[key]} />)
       }
-    </SimpleWideBanner>
+    </SimpleWideBanner> */}
+    <Carousel providerProps={desktop ? desktopCarouselSettings : tablet ? tabletCarouselSettings : mobileCarouselSettings}>
+      {
+        FEATURED_DAPPS.map(key => <DappFeature className={classes.bannerItem} key={`feature-${key}`} dapp={DAPPS[key]} />)
+      }
+    </Carousel>
   </article>
 }
 

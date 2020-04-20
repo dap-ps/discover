@@ -60,6 +60,16 @@ export const uiConstants = {
     footerHeight: 40,
     pageMargin: 40,
   },
+  banner:{
+    itemsPerSlide: {
+      desktop: 3,
+      tablet: 2,
+      mobile: 1
+    },
+    item:{
+      minWidth: 360
+    }
+  },
   modal:{
     modalWidthMax: 640,
     borderThickness: 1,
@@ -93,8 +103,8 @@ export const uiConstants = {
   carousel: {
     defaults: {
       slide: {
-        height: 0,
-        width: 0
+        height: 260,
+        width: 360
       }
     }
   }

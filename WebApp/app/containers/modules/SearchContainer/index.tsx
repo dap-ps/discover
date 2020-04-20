@@ -18,6 +18,7 @@ type Props = DispatchProps & OwnProps;
 const SearchContainer: React.SFC<Props> = (props: Props) => {
 
   const [searchTerm, setSearchTerm] = useState<string>("");
+  // TODO: wire up
   console.log(searchTerm)
   return <SearchView setSearchTerm={setSearchTerm} />
 };
