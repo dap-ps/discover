@@ -8,9 +8,14 @@ import { AppRoute } from 'routes';
 import NavMenu from 'components/module-markup/NavMenu';
 import { Typography } from '@material-ui/core';
 import SearchContainer from 'containers/modules/SearchContainer';
-import { uiConstants } from 'theme';
+import { uiConstants, appColors } from 'theme';
+import { Link } from 'react-router-dom';
 
+import DappIcon from "../../images/icons/add-dapp.svg"
+import CommunityIcon from "../../images/icons/community.svg"
+import SupportIcon from "../../images/icons/support.svg"
 
+const iconSize = 40;
 const styles = theme => createStyles({
   root: {
   },
@@ -26,6 +31,43 @@ const styles = theme => createStyles({
 
   },
   footer: {
+    backgroundColor: appColors.general.gray.light,
+    padding: 32,
+  },
+  footerItem: {
+    textDecoration: "none",
+    color: "unset",
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    alignItems: "center",
+    margin: "15px 0",
+    "& div:first-child":{
+      display: "block",
+      width: iconSize,
+      height: iconSize,
+      backgroundColor: appColors.general.gray.base,
+      borderRadius: 200,
+      position: "relative",
+      "& svg":{
+        position: "absolute",
+        top: "50%",
+        left: "50%",
+        transform: "translate(-50%, -50%)",
+      }
+    },
+    "& div:last-child":{
+      maxWidth: `calc(100% - ${iconSize + 15}px)`,
+      paddingLeft: 15
+    },
+    "& h5":{
+      fontSize: 15,
+      fontWeight: 500
+    },
+    "& p":{
+      fontSize: 13,
+      color: appColors.general.gray.base
+    }
   }
 });
 
@@ -58,7 +100,48 @@ const AppWrapper: React.SFC<Props> = (props: Props) => {
         {children}
       </main>
       <footer className={classes.footer}>
-
+        <section>
+          <Link to="https://join.status.im/chat/public/dap-ps" target="_blank" className={classes.footerItem}>
+            <div>
+              <CommunityIcon />
+            </div>
+            <div>
+              <Typography variant="h5" component="h5">
+                Join the DApp community chat
+              </Typography>
+              <Typography variant="body1" component="p">
+                Status is a worldwide community committed to web3. Come discuss your new favourite DApp with us.
+              </Typography>
+            </div>
+          </Link>
+          {/* TODO: submit action for dapp modal */}
+          <div className={classes.footerItem}>
+            <div>
+              <DappIcon/>
+            </div>
+            <div>
+              <Typography variant="h5" component="h5">
+                Submit a DApp
+              </Typography>
+              <Typography variant="body1" component="p">
+                Submit your favourite DApp now! No permission required.
+              </Typography>
+            </div>
+          </div>
+          <Link to="https://join.status.im/chat/public/status-core-dapps" target="_blank" className={classes.footerItem}>
+            <div>
+              <SupportIcon />
+            </div>
+            <div>
+              <Typography variant="h5" component="h5">
+                Support
+              </Typography>
+              <Typography variant="body1" component="p">
+                Can't find what you're looking for? Reach out and we'll see if we can help.
+              </Typography>
+            </div>
+          </Link>
+        </section>
       </footer>
       <ToastContainer autoClose={5000} />
       <LoadingComponent loading={currentlySending} />
