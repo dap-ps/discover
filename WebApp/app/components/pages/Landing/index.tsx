@@ -48,15 +48,8 @@ const Landing: React.SFC<OwnProps> = (props: OwnProps) => {
   const mobileCarouselSettings: Partial<CarouselProviderProps>= {
     visibleSlides: uiConstants.banner.itemsPerSlide.mobile
   }
-  console.log(desktop ? desktopCarouselSettings : tablet ? tabletCarouselSettings : mobileCarouselSettings)
-  console.log(desktopCarouselSettings, tabletCarouselSettings, mobileCarouselSettings )
-  // Desktop full screen, mobile carousel
+
   return <article className={classes.root}>
-    {/* <SimpleWideBanner className={classes.banner}>
-      {
-        FEATURED_DAPPS.map(key => <DappFeature className={classes.bannerItem} key={`feature-${key}`} dapp={DAPPS[key]} />)
-      }
-    </SimpleWideBanner> */}
     <Carousel providerProps={desktop ? desktopCarouselSettings : tablet ? tabletCarouselSettings : mobileCarouselSettings}>
       {
         FEATURED_DAPPS.map(key => <DappFeature className={classes.bannerItem} key={`feature-${key}`} dapp={DAPPS[key]} />)
