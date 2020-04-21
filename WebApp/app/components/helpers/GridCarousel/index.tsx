@@ -24,14 +24,19 @@ const styles = (theme: Theme) =>
       flexDirection: "row",
       flexWrap: "wrap",
       justifyContent: "space-between",
+      "&.large":{
+        "& > *":{
+          width: `calc(25% - 20px)`
+        }
+      },
       "&.desktop":{
         "& > *":{
-          width: "25%"
+          width: `calc(33% - 20px)`
         }
       },
       "&.tablet": {
         "& > *":{
-          width: "33%"
+          width: `calc(50% - 20px)`
         }
       },
       "&.mobile":{
@@ -63,12 +68,13 @@ const GridCarousel: React.SFC<OwnProps> = (props: OwnProps) => {
     theme
   } = props;
 
+  const large = useMediaQuery(theme.breakpoints.up('lg'));
   const desktop = useMediaQuery(theme.breakpoints.up('md'));
   const tablet = useMediaQuery(theme.breakpoints.up('sm'));
 
   const createGridSlide = (children: ReactNode[]): Array<ReactNode[]> => {
     let slides: Array<ReactNode[]> = [];
-    const perSlide: number = desktop ? uiConstants.gridCarousel.itemsPerSlide.desktop : tablet ? uiConstants.gridCarousel.itemsPerSlide.tablet : uiConstants.gridCarousel.itemsPerSlide.mobile;
+    const perSlide: number = large ? uiConstants.gridCarousel.itemsPerSlide.large : desktop ? uiConstants.gridCarousel.itemsPerSlide.desktop : tablet ? uiConstants.gridCarousel.itemsPerSlide.tablet : uiConstants.gridCarousel.itemsPerSlide.mobile;
 
     for(let i = 0; i < children.length; i++){
       if(i % perSlide == 0){
@@ -84,9 +90,9 @@ const GridCarousel: React.SFC<OwnProps> = (props: OwnProps) => {
     ...providerProps,
   }}>
     {
-      isArray(children) ? createGridSlide(children).map((slideItems, index) => <div className={classNames(classes.gridSlide, desktop ? "desktop" : tablet ? "tablet" : "mobile")} key={`grid-slide-${index}`}>
+      isArray(children) ? createGridSlide(children).map((slideItems, index) => <div className={classNames(classes.gridSlide, large ? "large" : desktop ? "desktop" : tablet ? "tablet" : "mobile")} key={`grid-slide-${index}`}>
         {slideItems}
-      </div>) : <div className={classNames(classes.gridSlide, desktop ? "desktop" : tablet ? "tablet" : "mobile")}>
+      </div>) : <div className={classNames(classes.gridSlide, large ? "large" : desktop ? "desktop" : tablet ? "tablet" : "mobile")}>
         {children}
       </div>
     }

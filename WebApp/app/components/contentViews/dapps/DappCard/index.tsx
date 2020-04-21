@@ -68,6 +68,7 @@ const styles = (theme: Theme) =>
       display: "flex",
       flexDirection: "row",
       alignItems: "center",
+      minWidth: 82,
       "& svg":{
         marginRight: 5
       }

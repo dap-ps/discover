@@ -119,6 +119,7 @@ export const uiConstants = {
   },
   gridCarousel: {
     itemsPerSlide: {
+      large: 12,
       desktop: 9,
       tablet: 6,
       mobile: 4
