@@ -6,6 +6,7 @@
 
 import React from 'react';
 import { Theme, createStyles, withStyles, WithStyles, Typography } from '@material-ui/core';
+// @ts-ignore
 import { IDapp } from 'domain/Dapps/types';
 import classNames from 'classnames';
 import ArrowUpIcon from '../../../../images/icons/upvote-arrow.svg';
@@ -13,6 +14,7 @@ import ArrowDownIcon from '../../../../images/icons/downvote-arrow.svg';
 import ReviewBadgeIcon from '../../../../images/icons/reviewBadge.svg';
 import SNTIcon from '../../../../images/icons/SNT.svg';
 import { uiConstants, appColors, brandColors } from 'theme';
+import { DAPP_STATUS } from 'utils/constants';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -99,10 +101,10 @@ const DappCard: React.SFC<OwnProps> = (props: OwnProps) => {
   const { classes, dapp } = props;
   return <article className={classes.root}>
     <div>
-      <div className={classNames(classes.icon, dapp.reviewed ? "reviewed" : "")}>
+      <div className={classNames(classes.icon, dapp.status  == DAPP_STATUS.APPROVED ? "approved" : "")}>
         <img src={dapp.icon} alt={`${dapp.name}-icon`}/>
         {
-          dapp.reviewed && <ReviewBadgeIcon />
+          dapp.status  == DAPP_STATUS.APPROVED && <ReviewBadgeIcon />
         }
       </div>
     </div>

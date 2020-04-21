@@ -117,6 +117,13 @@ export const uiConstants = {
       }
     }
   },
+  gridCarousel: {
+    itemsPerSlide: {
+      desktop: 9,
+      tablet: 6,
+      mobile: 4
+    }
+  },
   dapps:{
     card: {
       iconSize: 40,

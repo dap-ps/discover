@@ -1,6 +1,7 @@
 import { ActionType } from 'typesafe-actions';
 import * as actions from './actions';
 import { ApplicationRootState } from 'types';
+import { DAPP_STATUS } from 'utils/constants';
 
 // Data interfaces
 export interface IDappRank {
@@ -15,9 +16,14 @@ export interface IDapp {
   url: string,
   banner: string,
   icon: string,
-  reviewed: boolean,
-  ranking: DappRank[],
-  votes: number
+  status: DAPP_STATUS,
+  ranking?: DappRank[],
+  votes: number,
+  dateAdded?: number,
+  uploader?: string,
+  ipfsHash?: string,
+  hash?: string,
+  compressedMetadata?: string
 }
 
 /* --- STATE --- */

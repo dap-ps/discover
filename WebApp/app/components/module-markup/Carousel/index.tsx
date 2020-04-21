@@ -89,7 +89,8 @@ const styles = (theme: Theme) =>
 
 interface OwnProps extends WithStyles<typeof styles> {
   children: ReactNode[] | ReactNode,
-  providerProps?: Partial<CarouselProviderProps>
+  providerProps?: Partial<CarouselProviderProps>,
+  className?: string
 }
 
 const defaultProps: CarouselProviderProps = {
@@ -106,7 +107,8 @@ const Carousel: React.SFC<OwnProps> = (props: OwnProps) => {
   const {
     classes,
     children,
-    providerProps
+    providerProps,
+    className
   } = props;
 
   const finalProps: CarouselProviderProps = {
@@ -115,7 +117,7 @@ const Carousel: React.SFC<OwnProps> = (props: OwnProps) => {
     totalSlides: isArray(children) ? children.length : 1
   }
 
-  return  <CarouselProvider className={classes.root} {...finalProps} >
+  return  <CarouselProvider className={classNames(classes.root, className)} {...finalProps} >
     <Slider>
       {
         isArray(children) && children.map((item, index) => <Slide key={index} index={index}>
@@ -141,12 +143,16 @@ const Carousel: React.SFC<OwnProps> = (props: OwnProps) => {
     }
 
     </section>
-    <ButtonBack className={classNames(classes.button, classes.back)}>
-      <ChevronLeft />
-    </ButtonBack>
-    <ButtonNext className={classNames(classes.button, classes.next)}>
-      <ChevronRight />
-    </ButtonNext>
+    {
+      isArray(children) && children.length > 1 && <Fragment>
+        <ButtonBack className={classNames(classes.button, classes.back)}>
+          <ChevronLeft />
+        </ButtonBack>
+        <ButtonNext className={classNames(classes.button, classes.next)}>
+          <ChevronRight />
+        </ButtonNext>
+      </Fragment>
+    }
   </CarouselProvider> ;
 };
 

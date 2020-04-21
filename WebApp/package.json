@@ -24,7 +24,7 @@
     "build": "cross-env NODE_ENV=production webpack --config internals/webpack/webpack.prod.babel.js --color -p --progress --hide-modules --display-optimization-bailout",
     "build:clean": "rimraf ./build",
     "start": "cross-env NODE_ENV=development node server",
-    "start:dev": "cross-env NODE_ENV=development node server",
+    "start:dev": "cross-env NODE_ENV=development node server --display-error-details",
     "start:tunnel": "cross-env NODE_ENV=development ENABLE_TUNNEL=true node server",
     "start:production": "yarn test && yarn build && yarn start:prod",
     "start:prod": "cross-env NODE_ENV=production node server",

@@ -17,6 +17,11 @@ import UtilitiesIcon from '../images/icons/categories/utilities.svg';
 import OtherMinimalIcon from '../images/icons/categories/other-minimal.svg';
 import OtherIcon from '../images/icons/categories/other.svg';
 
+export enum DAPP_STATUS {
+  PENDING = "PENDING",
+  APPROVED = "APPROVED"
+}
+
 export enum DAPP_CATEGORY  {
   EXCHANGES = 'EXCHANGES',
   MARKETPLACES = 'MARKETPLACES',

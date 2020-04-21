@@ -12,6 +12,7 @@ import ArrowRightAltIcon from '@material-ui/icons/ArrowRightAlt';
 import { DAPP_CATEGORY_STRINGS, DAPP_CATEGORY_ICONS } from 'utils/constants';
 import classNames from 'classnames';
 import DappCard from 'components/contentViews/dapps/DappCard';
+import GridCarousel from 'components/helpers/GridCarousel';
 
 let categoryColors = {};
 Object.keys(DAPP_CATEGORY_STRINGS).map(key => {
@@ -106,6 +107,9 @@ const styles = ({ spacing, breakpoints }: Theme) => createStyles({
   subheading:{
 
   },
+  gridCarousel:{
+    margin: "15px 0"
+  }
 });
 
 interface OwnProps extends WithStyles<typeof styles> {
@@ -162,11 +166,13 @@ const Landing: React.SFC<OwnProps> = (props: OwnProps) => {
           Highest Ranked
         </Typography>
       </div>
-      <div>
+      <GridCarousel className={classes.gridCarousel}>
         {
-          Object.keys(DAPPS).map(key => <DappCard key={`dapp-${key}`} dapp={DAPPS[key]} />)
+          Object.keys(DAPPS)
+            .sort((key0, key1) => DAPPS[key0].votes > DAPPS[key1].votes ? -1 : +1)
+            .map(key => <DappCard key={`dapp-${key}`} dapp={DAPPS[key]} />)
         }
-      </div>
+      </GridCarousel>
     </section>
     <section className={classes.content}>
       <div className={classes.sectionTitle}>
@@ -174,7 +180,13 @@ const Landing: React.SFC<OwnProps> = (props: OwnProps) => {
           Recently Added
         </Typography>
       </div>
-
+      <GridCarousel className={classes.gridCarousel}>
+        {
+          Object.keys(DAPPS)
+            .sort((key0, key1) => DAPPS[key0].votes > DAPPS[key1].votes ? -1 : +1)
+            .map(key => <DappCard key={`dapp-${key}`} dapp={DAPPS[key]} />)
+        }
+      </GridCarousel>
     </section>
   </article>
 }

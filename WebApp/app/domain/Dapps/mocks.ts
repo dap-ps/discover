@@ -1,4 +1,3 @@
-import { IDapp } from "./types";
 // No clue why the IDE complains about the pathing but it works
 // @ts-ignore
 import SablierBanner from '../../images/featured/sablier_banner.png'
@@ -12,7 +11,8 @@ import OasisLogo from '../../images/featured/oasis_logo.png'
 import ZerionBanner from '../../images/featured/zerion_banner.png'
 // @ts-ignore
 import ZerionLogo from '../../images/featured/zerion_logo.png'
-import { DAPP_CATEGORY } from "utils/constants";
+import { DAPP_CATEGORY, DAPP_STATUS } from "utils/constants";
+import { IDapp } from './types'
 
 export const FEATURED_DAPPS = ['sablier', 'oasis', 'zerion']
 
@@ -24,7 +24,7 @@ export const DAPPS: {
     description: "Stream money, just like you stream music or videos",
     url: 'https://pay.sablier.finance',
     ranking: [],
-    reviewed: true,
+    status: DAPP_STATUS.APPROVED,
     votes: 0,
     category: DAPP_CATEGORY.EXCHANGES,
     banner: SablierBanner,
@@ -35,8 +35,8 @@ export const DAPPS: {
     description: 'Trade tokens, borrow Dai, and earn savings — all in one place',
     url: 'https://oasis.app',
     ranking: [],
-    reviewed: true,
-    votes: 0,
+    status: DAPP_STATUS.APPROVED,
+    votes: 10,
     category: DAPP_CATEGORY.EXCHANGES,
     banner: OasisBanner,
     icon: OasisLogo
@@ -46,8 +46,8 @@ export const DAPPS: {
     description: 'Zerion is the simplest way to invest in DeFi from anywhere in the world',
     url: 'https://app.zerion.io',
     ranking: [],
-    reviewed: true,
-    votes: 0,
+    status: DAPP_STATUS.APPROVED,
+    votes: 20,
     category: DAPP_CATEGORY.EXCHANGES,
     banner: ZerionBanner,
     icon: ZerionLogo
