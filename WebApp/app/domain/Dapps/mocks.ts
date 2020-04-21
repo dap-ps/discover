@@ -26,6 +26,7 @@ export const DAPPS: {
     ranking: [],
     status: DAPP_STATUS.APPROVED,
     votes: 0,
+    dateAdded: 1582043136071.0,
     category: DAPP_CATEGORY.EXCHANGES,
     banner: SablierBanner,
     icon: SablierLogo
@@ -37,6 +38,7 @@ export const DAPPS: {
     ranking: [],
     status: DAPP_STATUS.APPROVED,
     votes: 10,
+    dateAdded: 1582043136051.0,
     category: DAPP_CATEGORY.EXCHANGES,
     banner: OasisBanner,
     icon: OasisLogo
@@ -48,6 +50,7 @@ export const DAPPS: {
     ranking: [],
     status: DAPP_STATUS.APPROVED,
     votes: 20,
+    dateAdded: 1582043136061.0,
     category: DAPP_CATEGORY.EXCHANGES,
     banner: ZerionBanner,
     icon: ZerionLogo

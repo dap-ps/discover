@@ -19,7 +19,7 @@ export interface IDapp {
   status: DAPP_STATUS,
   ranking?: DappRank[],
   votes: number,
-  dateAdded?: number,
+  dateAdded: number,
   uploader?: string,
   ipfsHash?: string,
   hash?: string,

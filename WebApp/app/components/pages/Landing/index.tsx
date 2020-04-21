@@ -183,7 +183,7 @@ const Landing: React.SFC<OwnProps> = (props: OwnProps) => {
       <GridCarousel className={classes.gridCarousel}>
         {
           Object.keys(DAPPS)
-            .sort((key0, key1) => DAPPS[key0].votes > DAPPS[key1].votes ? -1 : +1)
+            .sort((key0, key1) => DAPPS[key0].dateAdded > DAPPS[key1].dateAdded ? -1 : +1)
             .map(key => <DappCard key={`dapp-${key}`} dapp={DAPPS[key]} />)
         }
       </GridCarousel>
