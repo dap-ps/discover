@@ -26,7 +26,7 @@ const styles = (theme: Theme) =>
     },
     icon: {
       position: "relative",
-      marginRight: 25,
+      marginRight: uiConstants.dapps.card.iconMargin,
       "& img":{
         width: uiConstants.dapps.card.iconSize,
         height: uiConstants.dapps.card.iconSize,
@@ -41,6 +41,7 @@ const styles = (theme: Theme) =>
     },
     meta: {
       width: "100%",
+      maxWidth: `calc(100% - ${uiConstants.dapps.card.iconSize}px - ${uiConstants.dapps.card.iconMargin}px)`,
       "& h3":{
         fontSize: uiConstants.global.fonts.item.headerSize,
         fontWeight: 500
@@ -58,7 +59,8 @@ const styles = (theme: Theme) =>
       display: "flex",
       flexDirection: "row",
       justifyContent: "space-between",
-      alignItems: "center"
+      alignItems: "center",
+      flexWrap: "wrap",
     },
     voteCount:{
       display: "flex",
@@ -72,6 +74,7 @@ const styles = (theme: Theme) =>
       display: "flex",
       flexDirection: "row",
       color: brandColors.default.main,
+      flexWrap: "wrap",
       textTransform: "uppercase",
       fontWeight: 600,
       fontSize: 11,

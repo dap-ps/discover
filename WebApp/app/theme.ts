@@ -120,7 +120,8 @@ export const uiConstants = {
   dapps:{
     card: {
       iconSize: 40,
-      reviewedSize: 24
+      reviewedSize: 24,
+      iconMargin: 25
     }
   }
 }
