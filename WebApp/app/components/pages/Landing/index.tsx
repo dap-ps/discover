@@ -97,7 +97,7 @@ const styles = ({ spacing, breakpoints }: Theme) => createStyles({
     ...categoryColors,
     "& span":{
       marginTop: 10,
-      fontSize: 13,
+      fontSize: uiConstants.global.fonts.item.bodySize,
       fontWeight: 500,
     }
   },

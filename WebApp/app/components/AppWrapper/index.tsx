@@ -61,11 +61,11 @@ const styles = theme => createStyles({
       paddingLeft: 15
     },
     "& h5":{
-      fontSize: 15,
+      fontSize: uiConstants.global.fonts.item.headerSize,
       fontWeight: 500
     },
     "& p":{
-      fontSize: 13,
+      fontSize: uiConstants.global.fonts.item.bodySize,
       color: appColors.general.gray.base
     }
   }

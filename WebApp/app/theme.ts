@@ -14,6 +14,9 @@ export const appColors = {
     },
     white:{
       base: "#ffffff"
+    },
+    blue:{
+      base: "#4360df",
     }
   },
   sections:{
@@ -54,6 +57,12 @@ export const uiConstants = {
       speeds: {
         mutation: "200ms",
         movement: "400ms"
+      }
+    },
+    fonts:{
+      item:{
+        headerSize: 15,
+        bodySize: 13
       }
     },
     headerHeight: 50,
@@ -106,6 +115,12 @@ export const uiConstants = {
         height: 260,
         width: 360
       }
+    }
+  },
+  dapps:{
+    card: {
+      iconSize: 40,
+      reviewedSize: 24
     }
   }
 }

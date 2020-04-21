@@ -8,7 +8,7 @@ import React from 'react';
 import { Theme, createStyles, withStyles, WithStyles, Typography } from '@material-ui/core';
 import { IDapp } from 'domain/Dapps/types';
 import classNames from 'classnames';
-import { appColors } from 'theme';
+import { appColors, uiConstants } from 'theme';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -36,10 +36,10 @@ const styles = (theme: Theme) =>
     },
     description: {
       "& h4":{
-        fontSize: 15
+        fontSize: uiConstants.global.fonts.item.headerSize
       },
       "& p": {
-        fontSize: 13,
+        fontSize: uiConstants.global.fonts.item.bodySize,
         marginTop: 5,
         color: appColors.general.gray.base
       }

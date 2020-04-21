@@ -91,7 +91,7 @@ const styles = (theme: Theme) =>
     },
     sectionTitle:{
       color: appColors.general.gray.base,
-      fontSize: 13,
+      fontSize: uiConstants.global.fonts.item.bodySize,
     },
     item:{
       display: "flex",
