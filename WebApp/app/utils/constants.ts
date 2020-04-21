@@ -17,6 +17,9 @@ import UtilitiesIcon from '../images/icons/categories/utilities.svg';
 import OtherMinimalIcon from '../images/icons/categories/other-minimal.svg';
 import OtherIcon from '../images/icons/categories/other.svg';
 
+// While this is quite monolythic, enums for types seem to only compile properly from here for an unknown reason
+// TODO: Resolve monolythic structure
+
 export enum DAPP_STATUS {
   PENDING = "PENDING",
   APPROVED = "APPROVED"

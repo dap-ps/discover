@@ -1,5 +1,6 @@
 import { createSelector } from 'reselect';
 import { ApplicationRootState } from 'types';
+import { MODAL_COMPONENTS } from './constants';
 
 
 /**
@@ -7,6 +8,11 @@ import { ApplicationRootState } from 'types';
  */
 
 // const selectAppDomain = (state: ApplicationRootState) => state.app;
+
+// Notes: Its done like this for allowing complex selection actions to be memoized
+const selectModalState = (state: ApplicationRootState) => {
+  return state.global.modal;
+};
 
 const selectCurrentlySending = (state: ApplicationRootState) => {
   return state.global.currentlySending;
@@ -18,13 +24,19 @@ const selectIsConnected = (state: ApplicationRootState) => {
 };
 
 export const makeSelectIsConnected =
-  createSelector(selectIsConnected, substate => {
+  createSelector(selectIsConnected, (substate: boolean) => {
     return substate;
   });
 
 export const makeSelectCurrentlySending =
-  createSelector(selectCurrentlySending, substate =>{
+  createSelector(selectCurrentlySending, (substate: boolean) =>{
     return substate;
+  })
+
+
+export const makeSelectModalState =
+  createSelector(selectModalState, (substate: MODAL_COMPONENTS) => {
+    return substate
   })
 /**
  * Other specific selectors

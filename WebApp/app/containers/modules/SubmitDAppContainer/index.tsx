@@ -1,6 +1,6 @@
 /**
  *
- * ModalModule
+ * SubmitDAppContainer
  *
  */
 
@@ -14,8 +14,8 @@ interface DispatchProps {}
 
 type Props = DispatchProps & OwnProps;
 
-const ModalModule: React.SFC<Props> = (props: Props) => {
-  return <Fragment>ModalModule</Fragment>;
+const SubmitDAppContainer: React.SFC<Props> = (props: Props) => {
+  return <Fragment>SubmitDAppContainer</Fragment>;
 };
 
 const mapDispatchToProps = (
@@ -29,4 +29,4 @@ const mapDispatchToProps = (
 
 const withConnect = connect(mapDispatchToProps);
 
-export default compose(withConnect)(ModalModule);
+export default compose(withConnect)(SubmitDAppContainer);

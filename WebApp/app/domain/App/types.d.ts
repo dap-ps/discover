@@ -7,6 +7,7 @@ interface AppState {
   currentlySending: boolean;
   errorMessage: string;
   connected: false;
+  modal: MODAL_COMPONENTS;
 }
 
 /* --- ACTIONS --- */
