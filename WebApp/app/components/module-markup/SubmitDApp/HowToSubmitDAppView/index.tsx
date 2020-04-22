@@ -7,7 +7,7 @@
 import React from 'react';
 import { Theme, createStyles, withStyles, WithStyles, Typography, Button } from '@material-ui/core';
 import { Link } from 'react-router-dom';
-import { uiConstants, appColors, brandColors } from 'theme';
+import { uiConstants, appColors } from 'theme';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -35,11 +35,11 @@ const styles = (theme: Theme) =>
         fontSize: 17
       }
     },
+    // @ts-ignore
     content:{
       // The modal's max height is 100vh - margin top & bottom, then the modal has padding, and the header has padding, and the lineheight is 19
       height: `calc(100vh - ${(uiConstants.modal.margin * 2) + (uiConstants.modal.padding.paddingTop + (uiConstants.modal.padding.paddingBottom * 2)) + 19}px)`,
-
-      ...uiConstants.global.mixins.scrollBar
+      ...uiConstants.global.mixins.scrollBar,
 
     },
 

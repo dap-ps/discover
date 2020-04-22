@@ -71,7 +71,6 @@ export const uiConstants = {
           width: 11
         },
         "&::-webkit-scrollbar-track":{
-          // background: brandColors.default.secondary,
           borderRadius: 6,
           opacity: 0
         },
