@@ -5,7 +5,7 @@
  */
 
 enum ActionTypes {
-  DEFAULT_ACTION = '@@app/Dapps/DEFAULT_ACTION',
+  DEFAULT_ACTION = '@@dapps/Dapps/DEFAULT_ACTION',
 }
 
 export default ActionTypes;

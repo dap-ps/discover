@@ -26,7 +26,7 @@ const styles = (theme: Theme) =>
       ...uiConstants.search.position,
       boxShadow: "0 4px 12px rgba(0,34,51,.08), 0 2px 4px rgba(0,34,51,.16)",
       cursor: "pointer",
-      zIndex: 9999,
+      zIndex: uiConstants.global.zIndex.raisedElement,
       backgroundColor: appColors.general.white.base
     },
     icon:{
@@ -40,7 +40,7 @@ const styles = (theme: Theme) =>
     search:{
       width: 0,
       overflow: "hidden",
-      transitionDuration: uiConstants.global.animation.speeds.movement,
+      transitionDuration: `${uiConstants.global.animation.speeds.movement}ms`,
       position: "relative",
 
       "&.focused":{

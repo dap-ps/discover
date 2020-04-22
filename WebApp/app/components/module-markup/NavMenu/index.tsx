@@ -12,6 +12,7 @@ import { uiConstants, appColors } from 'theme';
 import { ROUTE_TYPE } from 'utils/constants';
 import AddIcon from '../../../images/icons/add.svg';
 import { useOnClickOutside } from 'hooks/useOnClickOutside';
+import { MODAL_COMPONENTS } from 'domain/App/constants';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -25,8 +26,8 @@ const styles = (theme: Theme) =>
       boxShadow: "0 4px 12px rgba(0,34,51,.08), 0 2px 4px rgba(0,34,51,.16)",
       overflow: "hidden",
       ...uiConstants.nav.position,
-      transitionDuration: uiConstants.global.animation.speeds.mutation,
-      zIndex: 999,
+      transitionDuration: `${uiConstants.global.animation.speeds.mutation}ms`,
+      zIndex: uiConstants.global.zIndex.raisedElement,
       "&.open":{
         borderRadius: 10,
       }
@@ -41,9 +42,9 @@ const styles = (theme: Theme) =>
       width: uiConstants.nav.burger.size,
       opacity: 0,
       visibility: "hidden",
-      transitionDuration: uiConstants.global.animation.speeds.mutation,
+      transitionDuration: `${uiConstants.global.animation.speeds.mutation}ms`,
       // transitionDelay: "100ms",
-      zIndex: 3,
+      zIndex: uiConstants.global.zIndex.raisedElement,
       "&.active": {
         opacity: 1,
         visibility: "visible",
@@ -80,7 +81,7 @@ const styles = (theme: Theme) =>
       visibility: "hidden",
 
       padding: "12px 24px 12px 16px",
-      transitionDuration: uiConstants.global.animation.speeds.mutation,
+      transitionDuration: `${uiConstants.global.animation.speeds.mutation}ms`,
       "&.active":{
         // width: uiConstants.nav.menu.width,
         maxWidth: "80vw",
@@ -98,6 +99,7 @@ const styles = (theme: Theme) =>
       flexDirection: "row",
       margin: "10px 0",
       alignItems: "center",
+      cursor: "pointer",
       "& span": {
         display: "block",
         marginLeft: 20,
@@ -118,13 +120,15 @@ const styles = (theme: Theme) =>
 // TODO: Wire up to router
 // TODO: Responsive
 interface OwnProps extends WithStyles<typeof styles> {
-  navLinks: AppRoute[]
+  navLinks: AppRoute[];
+  setModal: (component: MODAL_COMPONENTS) => void;
 }
 
 const NavMenu: React.SFC<OwnProps> = (props: OwnProps) => {
   const {
     classes,
-    navLinks
+    navLinks,
+    setModal
   } = props;
 
   const navRef = useRef(null);
@@ -135,6 +139,11 @@ const NavMenu: React.SFC<OwnProps> = (props: OwnProps) => {
       setOpen(false)
     }
   });
+
+  const andClose = (callback: (param?: any) => any) => {
+    setOpen(false)
+    callback()
+  }
 
   return <div ref={navRef} className={classNames(classes.root, open ? "open" : "")}>
     <span className={classNames(classes.burger,  !open ? "active" : "")} onClick={() => setOpen(true)}>
@@ -182,7 +191,7 @@ const NavMenu: React.SFC<OwnProps> = (props: OwnProps) => {
             </div>)
           }
         </nav>
-        <div className={classNames(classes.item, classes.submit)}>
+        <div className={classNames(classes.item, classes.submit)} onClick={() => andClose(() => setModal(MODAL_COMPONENTS.SUBMIT_DAPP))}>
           <div className={classes.icon}>
             <AddIcon />
           </div>

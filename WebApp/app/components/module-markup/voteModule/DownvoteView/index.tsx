@@ -1,10 +1,10 @@
 /**
  *
- * CategorySelector
+ * DownvoteView
  *
  */
 
-import React, { Fragment } from 'react';
+import React from 'react';
 import { Theme, createStyles, withStyles, WithStyles } from '@material-ui/core';
 
 const styles = (theme: Theme) =>
@@ -15,9 +15,11 @@ const styles = (theme: Theme) =>
 
 interface OwnProps extends WithStyles<typeof styles> {}
 
-const CategorySelector: React.SFC<OwnProps> = (props: OwnProps) => {
+const DownvoteView: React.SFC<OwnProps> = (props: OwnProps) => {
   const { classes } = props;
-  return <Fragment>CategorySelector</Fragment>;
+  return <section className={classes.root}>
+    DownvoteView
+  </section>;
 };
 
-export default withStyles(styles, { withTheme: true })(CategorySelector);
+export default withStyles(styles, { withTheme: true })(DownvoteView);

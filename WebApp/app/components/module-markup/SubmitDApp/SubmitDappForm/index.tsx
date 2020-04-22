@@ -8,7 +8,7 @@ import React from 'react';
 import { Theme, createStyles, withStyles, WithStyles, Typography, FormControl, Button } from '@material-ui/core';
 import { Form, Field } from 'formik';
 import { TextField } from 'formik-material-ui';
-import UploadImageField from '../../../helpers/UploadImageField';
+import UploadImageField from '../../../forms/fields/UploadImageField';
 
 const styles = (theme: Theme) =>
   createStyles({

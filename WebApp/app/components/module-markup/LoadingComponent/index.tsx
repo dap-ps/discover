@@ -7,7 +7,7 @@
 import React from 'react';
 import { Theme, createStyles, withStyles, WithStyles, CircularProgress } from '@material-ui/core';
 import classNames from 'classnames';
-import { brandColors } from 'theme';
+import { brandColors, uiConstants } from 'theme';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -20,7 +20,7 @@ const styles = (theme: Theme) =>
       transitionDuration: "200ms",
       opacity: 0,
       visibility: "hidden",
-      zIndex: 9999999999999,
+      zIndex: uiConstants.global.zIndex.blocker,
       "&:before":{
         content: "''",
         position: "absolute",

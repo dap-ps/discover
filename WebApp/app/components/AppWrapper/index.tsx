@@ -14,6 +14,8 @@ import { Link } from 'react-router-dom';
 import DappIcon from "../../images/icons/add-dapp.svg"
 import CommunityIcon from "../../images/icons/community.svg"
 import SupportIcon from "../../images/icons/support.svg"
+import { MODAL_COMPONENTS } from 'domain/App/constants';
+import ModalModule from 'containers/modules/ModalModule';
 
 const iconSize = 40;
 const styles = theme => createStyles({
@@ -75,7 +77,8 @@ interface Props extends WithStyles<typeof styles> {
   currentlySending: boolean;
   isConnected: boolean;
   children: ReactNode,
-  navLinks: AppRoute[]
+  navLinks: AppRoute[],
+  setModal: (component: MODAL_COMPONENTS) => void;
 }
 
 const AppWrapper: React.SFC<Props> = (props: Props) => {
@@ -83,13 +86,14 @@ const AppWrapper: React.SFC<Props> = (props: Props) => {
     classes,
     children,
     currentlySending,
-    navLinks
+    navLinks,
+    setModal
   } = props;
 
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <NavMenu navLinks={navLinks}/>
+      <NavMenu setModal={setModal} navLinks={navLinks}/>
       <header className={classes.header}>
         <Typography variant="h1" component="h2">
           Discover
@@ -145,6 +149,7 @@ const AppWrapper: React.SFC<Props> = (props: Props) => {
       </footer>
       <ToastContainer autoClose={5000} />
       <LoadingComponent loading={currentlySending} />
+      <ModalModule />
     </div>
   )
 }

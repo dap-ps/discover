@@ -92,7 +92,7 @@ const styles = ({ spacing, breakpoints }: Theme) => createStyles({
       height: "100%",
       width: "100%",
       opacity: 0.2,
-      zIndex: -1,
+      zIndex: uiConstants.global.zIndex.background,
       borderRadius: 10
     },
     ...categoryColors,

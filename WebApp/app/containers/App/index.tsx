@@ -27,7 +27,8 @@ import appReducer from 'domain/App/reducer';
 import rootDaemonSaga from 'domain/App/saga';
 import { RouteComponentProps } from 'react-router';
 import { makeSelectCurrentlySending, makeSelectIsConnected } from 'domain/App/selectors';
-import { setConnectedStateAction } from 'domain/App/actions';
+import { setModalAction } from 'domain/App/actions';
+import { MODAL_COMPONENTS } from 'domain/App/constants';
 
 function PrivateRoute({ component: Component, isConnected, ...rest }) {
   return (
@@ -70,8 +71,8 @@ interface StateProps {
 }
 
 interface DispatchProps {
-  onSetConnected(
-    state: boolean
+  setModal(
+    component: MODAL_COMPONENTS
   ): void;
 }
 
@@ -83,15 +84,18 @@ interface OwnProps extends RouteComponentProps<RouteParams>, React.Props<RoutePa
 type Props = StateProps & DispatchProps & OwnProps;
 
 function App(props: Props) {
-  const { isConnected, currentlySending } = props;
+  const { isConnected, currentlySending, setModal } = props;
 
   // The PublicRoute and PrivateRoute components below should only be used for top level components
   // that will be connected to the store, as no props can be passed down to the child components from here.
+
+
   return (
     <AppWrapper
       isConnected={isConnected}
       currentlySending={currentlySending}
       navLinks={routes.filter(r => r.isNavRequired)}
+      setModal={setModal}
       >
       <Switch>
         {routes.map(r => {
@@ -111,9 +115,9 @@ const mapStateToProps = createStructuredSelector<RootState, StateProps>({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onSetConnected: (state: boolean) => {
-    dispatch(setConnectedStateAction(state))
-  },
+  setModal:(component: MODAL_COMPONENTS) => {
+    dispatch(setModalAction(component))
+  }
 });
 
 const withConnect = connect(

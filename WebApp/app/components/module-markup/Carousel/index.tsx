@@ -29,13 +29,13 @@ const styles = (theme: Theme) =>
       overflow: "hidden",
       width: 40,
       height: 40,
-      transitionDuration: uiConstants.global.animation.speeds.mutation,
+      transitionDuration: `${uiConstants.global.animation.speeds.mutation}ms`,
       outline: "none",
       "&:before":{
         content: "''",
         display: "block",
         backgroundColor: brandColors.default.main,
-        transitionDuration: uiConstants.global.animation.speeds.mutation,
+        transitionDuration: `${uiConstants.global.animation.speeds.mutation}ms`,
         opacity: 0.3,
         position: "absolute",
         top: 0,
@@ -80,7 +80,7 @@ const styles = (theme: Theme) =>
       backgroundColor: brandColors.default.main,
       borderRadius: 200,
       opacity: 0.2,
-      transitionDuration: uiConstants.global.animation.speeds.mutation,
+      transitionDuration: `${uiConstants.global.animation.speeds.mutation}ms`,
       "&.carousel__dot--selected":{
         opacity: 1
       }

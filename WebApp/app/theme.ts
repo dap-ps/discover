@@ -53,10 +53,17 @@ export const brandColors = {
 
 export const uiConstants = {
   global:{
+    zIndex: {
+      background: -1,
+      page: 1,
+      raisedElement: 100,
+      front: 400,
+      blocker: 1000
+    },
     animation:{
       speeds: {
-        mutation: "200ms",
-        movement: "400ms"
+        mutation: 200,
+        movement: 400
       }
     },
     fonts:{
@@ -82,7 +89,18 @@ export const uiConstants = {
   modal:{
     modalWidthMax: 640,
     borderThickness: 1,
-    borderColor: fade(brandColors.default.main, 0.8)
+    borderColor: fade(brandColors.default.main, 0.8),
+    close:{
+      position:{
+        top: 0,
+        right: 0
+      },
+      size: 24,
+      lineThickness: 2,
+      lineLength: 12,
+      backgroundColor: appColors.general.gray.base,
+      lineColor: appColors.general.white.base
+    }
   },
   nav:{
     menu:{

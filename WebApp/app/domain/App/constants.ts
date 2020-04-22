@@ -4,10 +4,10 @@
  */
 
 export enum MODAL_COMPONENTS{
-  CLEAR = 0,
-  SUBMIT_DAPP = 1,
-  UPVOTE = 2,
-  DOWNVOTE = 3
+  CLEAR =  "CLEAR",
+  SUBMIT_DAPP =  "SUBMIT_DAPP",
+  UPVOTE =  "UPVOTE",
+  DOWNVOTE = "DOWNVOTE",
 }
 
 enum ActionTypes {

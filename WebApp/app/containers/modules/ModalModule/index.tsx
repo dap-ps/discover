@@ -4,18 +4,45 @@
  *
  */
 
-import React, { Fragment } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { compose, Dispatch } from 'redux';
+import { createStructuredSelector } from 'reselect';
+import { RootState } from 'domain/App/types';
+import { makeSelectModalState } from 'domain/App/selectors';
+import { MODAL_COMPONENTS } from 'domain/App/constants';
+import ModalView from 'components/module-markup/ModalView';
+import SubmitDAppContainer from '../SubmitDAppContainer';
+import VoteModule from '../VoteModule';
+import { setModalAction } from 'domain/App/actions';
 
 interface OwnProps {}
 
-interface DispatchProps {}
+interface DispatchProps {
+  setModal(
+    component: MODAL_COMPONENTS
+  ): void;
+}
 
-type Props = DispatchProps & OwnProps;
+interface StateProps {
+  modalState: MODAL_COMPONENTS
+}
+
+type Props = DispatchProps & StateProps & OwnProps;
 
 const ModalModule: React.SFC<Props> = (props: Props) => {
-  return <Fragment>ModalModule</Fragment>;
+  const {
+    modalState,
+    setModal
+  } = props;
+  return <ModalView setModal={setModal} active={modalState !== MODAL_COMPONENTS.CLEAR}>
+    {
+      modalState === MODAL_COMPONENTS.SUBMIT_DAPP && <SubmitDAppContainer />
+    }
+    {
+      modalState === MODAL_COMPONENTS.UPVOTE || modalState === MODAL_COMPONENTS.DOWNVOTE && <VoteModule />
+    }
+  </ModalView>;
 };
 
 const mapDispatchToProps = (
@@ -23,10 +50,19 @@ const mapDispatchToProps = (
   ownProps: OwnProps,
 ): DispatchProps => {
   return {
-    dispatch: dispatch,
+    setModal:(component: MODAL_COMPONENTS) => {
+      dispatch(setModalAction(component))
+    }
   };
 };
 
-const withConnect = connect(mapDispatchToProps);
+const mapStateToProps = createStructuredSelector<RootState, StateProps>({
+  modalState: makeSelectModalState
+});
+
+const withConnect = connect(
+  mapStateToProps,
+  mapDispatchToProps
+);
 
 export default compose(withConnect)(ModalModule);
