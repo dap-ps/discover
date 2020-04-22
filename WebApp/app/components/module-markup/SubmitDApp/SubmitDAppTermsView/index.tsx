@@ -26,13 +26,17 @@ const styles = (theme: Theme) =>
     }
   });
 
-interface OwnProps extends WithStyles<typeof styles> {}
+interface OwnProps extends WithStyles<typeof styles> {
+  continue: React.Dispatch<React.SetStateAction<number>>
+}
 
 const SubmitDAppTermsView: React.SFC<OwnProps> = (props: OwnProps) => {
   const { classes } = props;
   return <article className={classes.root}>
     <header>
-      Terms and Conditions
+      <Typography variant="h1" component="h1">
+        Terms and Conditions
+      </Typography>
     </header>
     <section>
       <Typography className={classes.sectionTitle} variant="h2" component="h3">

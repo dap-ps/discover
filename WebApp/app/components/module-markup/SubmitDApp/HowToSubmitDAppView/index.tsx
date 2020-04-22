@@ -7,28 +7,60 @@
 import React from 'react';
 import { Theme, createStyles, withStyles, WithStyles, Typography, Button } from '@material-ui/core';
 import { Link } from 'react-router-dom';
+import { uiConstants, appColors, brandColors } from 'theme';
 
 const styles = (theme: Theme) =>
   createStyles({
     // JSS in CSS goes here
-    root: {},
+    root: {
+      ...uiConstants.modal.padding,
+      height: "100%"
+    },
     header:{
+      position: "relative",
+      paddingBottom: uiConstants.modal.padding.paddingTop,
+      "&:before":{
+        content: "''",
+        display: "block",
+        position: "absolute",
+        bottom: 0,
+        left: -uiConstants.modal.padding.paddingRight,
+        height: 1,
+        width: `calc(100% + ${uiConstants.modal.padding.paddingLeft + uiConstants.modal.padding.paddingRight}px)`,
+        backgroundColor: appColors.general.gray.light
+      },
+      "& h1":{
+        textAlign: "center",
+        fontWeight: 600,
+        fontSize: 17
+      }
+    },
+    content:{
+      // The modal's max height is 100vh - margin top & bottom, then the modal has padding, and the header has padding, and the lineheight is 19
+      height: `calc(100vh - ${(uiConstants.modal.margin * 2) + (uiConstants.modal.padding.paddingTop + (uiConstants.modal.padding.paddingBottom * 2)) + 19}px)`,
+
+      ...uiConstants.global.mixins.scrollBar
 
     },
+
     infoBlock:{
 
     }
   });
 
-interface OwnProps extends WithStyles<typeof styles> {}
+interface OwnProps extends WithStyles<typeof styles> {
+  continue: React.Dispatch<React.SetStateAction<number>>
+}
 
 const HowToSubmitDAppView: React.SFC<OwnProps> = (props: OwnProps) => {
   const { classes } = props;
   return <article className={classes.root}>
-    <header>
-      How to submit a dapp
+    <header className={classes.header}>
+      <Typography variant="h1" component="h1">
+        How to submit a dapp
+      </Typography>
     </header>
-    <section>
+    <section className={classes.content}>
       <Typography>
         Submit your ÐApp
       </Typography>
@@ -87,10 +119,10 @@ const HowToSubmitDAppView: React.SFC<OwnProps> = (props: OwnProps) => {
       <Typography variant="body1" component="p">
         Anyone is welcome to fork the software and implement different UI choices for the same underlying contract. Note that Discover is not affiliated with Status directly, we have simply chosen to use SNT as a token of value, to abide by <Link to="https://status.im/about/" target="_blank">Status' principles</Link>, and to take a mobile-first approach to development.
       </Typography>
+      <Button variant="outlined">
+        Continue
+      </Button>
     </section>
-    <Button variant="outlined">
-      Continue
-    </Button>
   </article>;
 };
 

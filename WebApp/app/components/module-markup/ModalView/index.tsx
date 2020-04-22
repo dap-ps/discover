@@ -51,7 +51,7 @@ const styles = ({breakpoints}: Theme) =>
       opacity: 0,
       backgroundColor: appColors.general.white.base,
       borderRadius: 20,
-      maxHeight: "calc(100% - 40px)",
+      maxHeight: `calc(100% - ${uiConstants.modal.margin * 2}px)`,
       [breakpoints.up("md")]:{
         width: "100%",
       },

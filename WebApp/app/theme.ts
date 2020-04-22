@@ -2,6 +2,8 @@ import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
 import { fade } from '@material-ui/core';
 import { Inter, InterMedium, InterBold } from '../fonts/font-faces';
 
+
+// TODO Extract colors into css variables, potentially inject via css baseline or theme provider
 export const appColors = {
   general: {
     backgroundColor: "#ffffff",
@@ -60,6 +62,26 @@ export const uiConstants = {
       front: 400,
       blocker: 1000
     },
+    mixins:{
+      scrollBar:{
+        scrollbarWidth: "thin",
+        scrollbarColor: `${brandColors.default.main} ${appColors.general.white.base}`,
+        overflowY: "auto",
+        "&::-webkit-scrollbar":{
+          width: 11
+        },
+        "&::-webkit-scrollbar-track":{
+          // background: brandColors.default.secondary,
+          borderRadius: 6,
+          opacity: 0
+        },
+        "&::-webkit-scrollbar-thumb":{
+          backgroundColor: brandColors.default.main,
+          borderRadius: 6,
+          border: `2px solid ${appColors.general.white.base}`
+        }
+      }
+    },
     animation:{
       speeds: {
         mutation: 200,
@@ -87,9 +109,16 @@ export const uiConstants = {
     }
   },
   modal:{
-    modalWidthMax: 640,
+    modalWidthMax: 860,
     borderThickness: 1,
     borderColor: fade(brandColors.default.main, 0.8),
+    margin: 20,
+    padding: {
+      paddingLeft: 15,
+      paddingRight: 15,
+      paddingTop: 20,
+      paddingBottom: 20
+    },
     close:{
       position:{
         top: 0,
@@ -151,6 +180,7 @@ export const uiConstants = {
     }
   }
 }
+
 
 const theme = createMuiTheme({
   typography: {
