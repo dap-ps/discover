@@ -1,13 +1,20 @@
 import { ActionType } from 'typesafe-actions';
 import * as actions from './actions';
 import { ApplicationRootState } from 'types';
+import { BigNumber } from 'ethers/utils';
 
 // TODO: need to see what embark returns for these values
 
+export interface TokenPriceData{
+  [symbol: string]: {
+    [resolvedCurrency: string]: number
+  }
+}
+
 export interface ERC20Token {
   address: string,
-  allowance: number, // Always towards the SNT contract
-  balance: number, // Always of the current user
+  allowance: BigNumber, // Always towards the SNT contract
+  balance: BigNumber, // Always of the current user
   decimals: number,
   logo: string,
   name: string,

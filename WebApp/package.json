@@ -78,6 +78,7 @@
     "dotenv": "^6.1.0",
     "dotenv-webpack": "^1.5.7",
     "embarkjs": "5.2.3",
+    "ethers": "^4.0.47",
     "express": "4.16.4",
     "fontfaceobserver": "2.1.0",
     "formik": "1.5.8",

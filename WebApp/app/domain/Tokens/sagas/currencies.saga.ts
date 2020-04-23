@@ -1,10 +1,10 @@
-import { getBalancesAction } from "../actions";
-import { take, fork, call, put, select } from "redux-saga/effects";
+import { getBalancesAction, getPricesAction } from "../actions";
+import { take, fork, call, put, select, race } from "redux-saga/effects";
 import { getKyberCurrencies, KyberERC20Token } from "./kyber.saga";
 import { getTokensBalance } from '@mycrypto/eth-scan'
 import { RootState } from "domain/App/types";
 import { DAppsToken } from "../types";
-
+import { utils } from 'ethers'
 
 function* getBalancesSaga(){
   while(true){
@@ -15,7 +15,6 @@ function* getBalancesSaga(){
       const currencies: KyberERC20Token[] = yield call(getKyberCurrencies, "mainnet")
       const tokenAddresses = currencies.filter(c => c.symbol !== 'ETH').map(c => c.address)
 
-      // TODO: Provider fetched via Embark & Web3 throws invalid provider
       const fetchedBalances = (yield call(async () => await getTokensBalance(
         'https://api.mycryptoapi.com/eth',
         account,
@@ -27,7 +26,7 @@ function* getBalancesSaga(){
           const target = currencies.filter(cur => cur.address == tokenAddress)[0];
             return {
               address: tokenAddress,
-              allowance: 0,
+              allowance: utils.bigNumberify(0),
               balance: fetchedBalances[tokenAddress],
               decimals: target.decimals,
               logo: "",
@@ -36,7 +35,19 @@ function* getBalancesSaga(){
               symbol: target.symbol,
             }
         })
-      debugger;
+      yield put(getPricesAction.request(balances.map(token => token.symbol)))
+      const {
+        prices,
+        error
+      } = yield race({
+        success: yield take(getPricesAction.success),
+        error: yield take(getPricesAction.failure)
+      })
+      if(error){
+        yield put(getBalancesAction.failure("Price saga error"))
+      }else if(prices){
+        const resolved =prices;
+      }
       yield put(getBalancesAction.success(balances))
     }catch(error){
       console.error(error)
