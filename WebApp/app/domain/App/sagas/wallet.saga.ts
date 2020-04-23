@@ -1,13 +1,17 @@
 import { take, call, put, fork } from "redux-saga/effects";
-import { connectWalletAction, setConnectedStateAction } from "../actions";
+import { connectWalletAction, setWalletAction } from "../actions";
 import EmbarkJS from "embarkArtifacts/embarkjs";
+import { getBalancesAction } from "domain/Tokens/actions";
 
 function* connectWalletSaga() {
   const addresses: string[] = yield call(async () => await EmbarkJS.enableEthereum())
   if(addresses.length > 0){
-    yield put(setConnectedStateAction(true))
+    yield put(setWalletAction(addresses[0]))
+    // TODO set network
+    yield put(getBalancesAction.request())
   }else{
-    yield put(setConnectedStateAction(false))
+    // TODO pull from utils
+    yield put(setWalletAction("0x0000000000000000000000000000000000000000"))
   }
 }
 

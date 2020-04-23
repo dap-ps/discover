@@ -116,7 +116,7 @@ module.exports = {
       });
       actions.push({
         type: 'add',
-        path: '../../app/domain/{{properCase name}}/sagas/defaultSaga.ts',
+        path: '../../app/domain/{{properCase name}}/sagas/default.saga.ts',
         templateFile: './domain/subSaga.js.hbs',
         abortOnFail: true,
       });

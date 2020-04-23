@@ -6,7 +6,7 @@ import { ApplicationRootState } from 'types';
 interface AppState {
   currentlySending: boolean;
   errorMessage: string;
-  connected: false;
+  walletAddress: string;
   modal: MODAL_COMPONENTS;
 }
 

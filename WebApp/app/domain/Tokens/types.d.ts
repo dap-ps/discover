@@ -6,16 +6,23 @@ import { ApplicationRootState } from 'types';
 
 export interface ERC20Token {
   address: string,
-  name: string,
-  totalSupply: number,
-  decimals: number,
   allowance: number, // Always towards the SNT contract
-  balance: number // Always of the current user
+  balance: number, // Always of the current user
+  decimals: number,
+  logo: string,
+  name: string,
+  symbol: string,
 }
+
+export interface SNTPrice {
+  price: number
+}
+
+export interface DAppsToken extends ERC20Token, KyberERC20Token, SNTPrice {}
 
 /* --- STATE --- */
 interface TokensState {
-  readonly tokens: ERC20Token[];
+  readonly tokens: DAppsToken[];
 }
 
 /* --- ACTIONS --- */

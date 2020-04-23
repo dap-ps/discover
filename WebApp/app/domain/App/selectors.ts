@@ -20,7 +20,7 @@ const selectCurrentlySending = (state: ApplicationRootState) => {
 
 const selectIsConnected = (state: ApplicationRootState) => {
   // TODO check provider state
-  return state.global.connected;
+  return state.global.walletAddress != "0x0000000000000000000000000000000000000000";
 };
 
 export const makeSelectIsConnected =
