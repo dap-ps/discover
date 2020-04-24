@@ -5,8 +5,7 @@ import { toast } from "react-toastify";
 export function* errorMessageHandler(){
   while(true){
     const { payload } = yield take(setErrorMessageAction);
-
-    toast.error(payload, {
+    toast.error(`${payload}`, {
       position: "bottom-center",
       autoClose: 5000,
       hideProgressBar: false,

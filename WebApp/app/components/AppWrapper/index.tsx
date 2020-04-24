@@ -1,21 +1,23 @@
 import CssBaseline from '@material-ui/core/CssBaseline';
-import { createStyles, withStyles, WithStyles } from '@material-ui/core/styles';
 import React, { ReactNode } from 'react';
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import LoadingComponent from 'components/module-markup/LoadingComponent';
-import { AppRoute } from 'routes';
-import NavMenu from 'components/module-markup/NavMenu';
 import { Typography } from '@material-ui/core';
-import SearchContainer from 'containers/modules/SearchContainer';
-import { uiConstants, appColors } from 'theme';
+import { createStyles, withStyles, WithStyles } from '@material-ui/core/styles';
+import NavMenu from 'components/module-markup/NavMenu';
+import { AppRoute } from 'routes';
 import { Link } from 'react-router-dom';
 
+import { uiConstants, appColors } from 'theme';
 import DappIcon from "../../images/icons/add-dapp.svg"
 import CommunityIcon from "../../images/icons/community.svg"
 import SupportIcon from "../../images/icons/support.svg"
-import { MODAL_COMPONENTS } from 'domain/App/constants';
+
+import SearchContainer from 'containers/modules/SearchContainer';
 import ModalModule from 'containers/modules/ModalModule';
+import { MODAL_COMPONENTS } from 'domain/App/constants';
+
+import LoadingComponent from 'components/module-markup/LoadingComponent';
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const iconSize = 40;
 const styles = theme => createStyles({

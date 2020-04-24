@@ -31,7 +31,6 @@ function tokensReducer(
         ]
       }
     case getType(getBalancesAction.success):
-      console.log(`Balance success ${action.payload}`)
       return{
         ...state,
         tokens: [
