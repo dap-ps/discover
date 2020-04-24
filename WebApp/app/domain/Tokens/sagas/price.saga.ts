@@ -7,7 +7,7 @@ import { RootState } from 'domain/App/types';
 function* resolvePricesSaga() {
   while(true){
     yield take(getPricesAction.request);
-    const tokens: string[] = yield select((state: RootState) => state.token.tokens)
+    const tokens: string[] = yield select((state: RootState) => state.token.tokens.map((token: DAppsToken) => token.symbol))
     try{
       let prices: TokenPriceData = {};
 
