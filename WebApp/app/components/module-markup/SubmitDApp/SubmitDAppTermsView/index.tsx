@@ -7,39 +7,122 @@
 import React from 'react';
 import { Theme, createStyles, withStyles, WithStyles, Typography, Button } from '@material-ui/core';
 import { Link } from 'react-router-dom';
+import { appColors, uiConstants, brandColors } from 'theme';
 
 const styles = (theme: Theme) =>
   createStyles({
     // JSS in CSS goes here
-    root: {},
+    root: {
+      ...uiConstants.modal.padding,
+      height: "100%"
+    },
     header:{
-
+      position: "relative",
+      paddingBottom: uiConstants.modal.padding.paddingTop,
+      "&:before":{
+        content: "''",
+        display: "block",
+        position: "absolute",
+        bottom: 0,
+        left: -uiConstants.modal.padding.paddingRight,
+        height: 1,
+        width: `calc(100% + ${uiConstants.modal.padding.paddingLeft + uiConstants.modal.padding.paddingRight}px)`,
+        backgroundColor: appColors.general.gray.light
+      },
+      "& h1":{
+        textAlign: "center",
+        fontWeight: 600,
+        fontSize: 17
+      }
+    },
+     // @ts-ignore
+     content:{
+      // The modal's max height is 100vh - margin top & bottom, then the modal has padding, and the header has padding, and the lineheight is 19
+      height: `calc(100vh -
+        ${(uiConstants.modal.margin * 2) +
+          (((uiConstants.modal.padding.paddingTop +
+            (uiConstants.modal.padding.paddingBottom * 2)
+          ) + 19) * 2)}px)`,
+      ...uiConstants.global.mixins.scrollBar,
+      padding: "10px",
+      "& > p":{
+        textIndent: 20,
+        margin: "5px 0",
+        fontSize: 14,
+      },
+      "& a":{
+        color: brandColors.default.main,
+        textDecoration: "none"
+      }
     },
     heading: {
-
-    },
-    sectionTitle:{
-
+      fontSize: 15,
+      color: appColors.general.gray.base,
+      margin: "10px 0",
     },
     infoBlock:{
-
+      border: `1px solid ${appColors.general.gray.light}`,
+      borderRadius: 16,
+      margin: "15px 0",
+      padding: "10px 15px",
+      "& ol":{
+        margin: "0",
+        listStyle: "none",
+        counterReset: "li",
+        paddingLeft: 20,
+        "& li":{
+          margin: "5px 0",
+          counterIncrement: "li",
+          position: "relative",
+          fontSize: 14,
+          "&:before": {
+            content: "counter(li) '.'",
+            color: appColors.general.gray.base,
+            display: "inline-block",
+            width: "1em",
+            position: "absolute",
+            left: -20
+          }
+        }
+      }
+    },
+    expandable:{
+      position: "relative"
+    },
+    footer:{
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      flexDirection: "row",
+      padding: "15px 0 0",
+      position: "relative",
+      "&:before":{
+        content: "''",
+        display: "block",
+        position: "absolute",
+        top: 0,
+        left: -uiConstants.modal.padding.paddingRight,
+        height: 1,
+        width: `calc(100% + ${uiConstants.modal.padding.paddingLeft + uiConstants.modal.padding.paddingRight}px)`,
+        backgroundColor: appColors.general.gray.light
+      },
     }
   });
 
 interface OwnProps extends WithStyles<typeof styles> {
-  continue: React.Dispatch<React.SetStateAction<number>>
+  nextPage: () => void;
 }
 
 const SubmitDAppTermsView: React.SFC<OwnProps> = (props: OwnProps) => {
-  const { classes } = props;
+  const { classes, nextPage } = props;
   return <article className={classes.root}>
-    <header>
+    <header className={classes.header}>
       <Typography variant="h1" component="h1">
         Terms and Conditions
       </Typography>
     </header>
-    <section>
-      <Typography className={classes.sectionTitle} variant="h2" component="h3">
+    <section className={classes.content}>
+      <Typography className={classes.heading} variant="h2" component="h3">
         Terms and conditions
       </Typography>
       <div className={classes.infoBlock}>
@@ -50,7 +133,7 @@ const SubmitDAppTermsView: React.SFC<OwnProps> = (props: OwnProps) => {
           We are not lawyers or financial advisors, and you use this software at your own risk.
         </Typography>
       </div>
-      <section>
+      <section className={classes.expandable}>
         <Typography variant="body1" component="p">
           You accept the Terms by either (1) clicking to agree or accept where these options are presented to you, or (2) actually using Discover (“Discover”) at <Link to="https://dap.ps" target="_blank">https://dap.ps</Link>
         </Typography>
@@ -63,12 +146,12 @@ const SubmitDAppTermsView: React.SFC<OwnProps> = (props: OwnProps) => {
         <Typography variant="body1" component="p">
           Neither Discover nor any of the persons or entities involved in any way in respect of Discover, including its host and its contributors, provide for specific legal, fiscal, economical and/or any other kind of advice or recommendation that may be relied upon. A visitor to Discover will therefore act at their own risk in accessing or in any way relying on the content of the Discover and the visitor is therefore solely responsible for any consequences thereof.
         </Typography>
-        <Button>
+        <Button variant="outlined">
           Read more
         </Button>
       </section>
 
-      <Typography className={classes.sectionTitle} variant="h2" component="h3">
+      <Typography className={classes.heading} variant="h2" component="h3">
         Your Responsibilities
       </Typography>
       <div className={classes.infoBlock}>
@@ -89,12 +172,12 @@ const SubmitDAppTermsView: React.SFC<OwnProps> = (props: OwnProps) => {
         <Typography variant="body1" component="p">
           You will not engage in any activity with Discover, including making Your Dapp available via Discover, that interferes with, disrupts, damages, or accesses in an unauthorized manner the devices, servers, networks, or other properties or services of any third party including, but not limited to, Status or any Authorized Provider. You may not use user information obtained via Discover to sell or distribute DApp outside of Discover.
         </Typography>
-        <Button>
+        <Button variant="outlined">
           Read more
         </Button>
       </section>
 
-      <Typography className={classes.sectionTitle} variant="h2" component="h3">
+      <Typography className={classes.heading} variant="h2" component="h3">
         Limitation of liability
       </Typography>
       <div className={classes.infoBlock}>
@@ -112,19 +195,19 @@ const SubmitDAppTermsView: React.SFC<OwnProps> = (props: OwnProps) => {
         <Typography variant="body1" component="p">
           In no way are the operators, contributors to or host of Discover responsible for the actions, decisions, transactions, or other behavior taken or not taken by You or person relying on You in reliance upon Discover and its contents from time to time.
         </Typography>
-        <Button>
+        <Button variant="outlined">
           Read more
         </Button>
       </section>
 
-      <Typography className={classes.sectionTitle} variant="h2" component="h3">
+      <Typography className={classes.heading} variant="h2" component="h3">
         Limitation of liability
       </Typography>
       <Typography variant="body1" component="p">
         Swiss law exclusively applies to the use of content, data, materials and/or other services provided for/on Discover. The court of the Canton of Zug, Switzerland, will be the sole and exclusive competent court regarding any dispute relating to or stemming from the use of Discover including, without limitation, in respect of any breach of or dispute in respect as referred above, irrespective of the jurisdiction applicable thereto.
       </Typography>
 
-      <Typography className={classes.sectionTitle} variant="h2" component="h3">
+      <Typography className={classes.heading} variant="h2" component="h3">
         Last Amendment
       </Typography>
       <Typography variant="body1" component="p">
@@ -134,9 +217,11 @@ const SubmitDAppTermsView: React.SFC<OwnProps> = (props: OwnProps) => {
         Good luck reaching the top of the rankings!
       </Typography>
     </section>
-    <Button>
-      Get Started
-    </Button>
+    <footer className={classes.footer}>
+      <Button variant="outlined" onClick={nextPage}>
+        Get Started
+      </Button>
+    </footer>
   </article>
 };
 

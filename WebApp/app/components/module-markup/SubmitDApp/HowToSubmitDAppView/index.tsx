@@ -182,10 +182,10 @@ const HowToSubmitDAppView: React.SFC<OwnProps> = (props: OwnProps) => {
 
     </section>
     <footer className={classes.footer}>
-        <Button variant="outlined" onClick={nextPage}>
-          Continue
-        </Button>
-      </footer>
+      <Button variant="outlined" onClick={nextPage}>
+        Continue
+      </Button>
+    </footer>
   </article>;
 };
 

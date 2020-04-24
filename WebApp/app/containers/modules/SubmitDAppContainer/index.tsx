@@ -24,7 +24,7 @@ const SubmitDAppContainer: React.SFC<Props> = (props: Props) => {
       slide === 0 && <HowToSubmitDAppView nextPage={() => setSlide(1)} />
     }
     {
-      slide === 1 && <SubmitDAppTermsView continue={() => setSlide(2)} />
+      slide === 1 && <SubmitDAppTermsView nextPage={() => setSlide(2)} />
     }
     {
       slide === 2 && <SubmitDappForm />
