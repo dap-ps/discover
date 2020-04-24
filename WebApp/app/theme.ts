@@ -207,12 +207,30 @@ const theme = createMuiTheme({
         '@font-face': [Inter, InterMedium, InterBold]
       }
     },
+    MuiButton:{
+
+      outlined:{
+        textTransform: "unset",
+        backgroundColor: brandColors.default.main,
+        color: appColors.general.white.base,
+        border: "none",
+        "&:hover": {
+          backgroundColor: fade(brandColors.default.main, 0.8)
+        }
+      }
+    },
     MuiTypography:{
       h1:{
-        fontSize: "3.5rem"
+        fontSize: 17,
+        fontWeight: 600
       },
       h2:{
-        fontSize: "2rem"
+        fontSize: 15,
+        fontWeight: 600
+      },
+      h3:{
+        fontSize: 13,
+        fontWeight: 500
       }
     },
     MuiLink:{

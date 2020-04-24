@@ -7,7 +7,7 @@
 import React from 'react';
 import { Theme, createStyles, withStyles, WithStyles, Typography, Button } from '@material-ui/core';
 import { Link } from 'react-router-dom';
-import { uiConstants, appColors } from 'theme';
+import { uiConstants, appColors, brandColors } from 'theme';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -38,13 +38,71 @@ const styles = (theme: Theme) =>
     // @ts-ignore
     content:{
       // The modal's max height is 100vh - margin top & bottom, then the modal has padding, and the header has padding, and the lineheight is 19
-      height: `calc(100vh - ${(uiConstants.modal.margin * 2) + (uiConstants.modal.padding.paddingTop + (uiConstants.modal.padding.paddingBottom * 2)) + 19}px)`,
+      height: `calc(100vh -
+        ${(uiConstants.modal.margin * 2) +
+          (((uiConstants.modal.padding.paddingTop +
+            (uiConstants.modal.padding.paddingBottom * 2)
+          ) + 19) * 2)}px)`,
       ...uiConstants.global.mixins.scrollBar,
-
+      padding: "10px",
+      "& > p":{
+        textIndent: 20,
+        margin: "5px 0",
+        fontSize: 14,
+      },
+      "& a":{
+        color: brandColors.default.main,
+        textDecoration: "none"
+      }
     },
-
+    heading:{
+      fontSize: 15,
+      color: appColors.general.gray.base,
+      margin: "10px 0",
+    },
     infoBlock:{
-
+      border: `1px solid ${appColors.general.gray.light}`,
+      borderRadius: 16,
+      margin: "15px 0",
+      padding: "10px 15px",
+      "& ol":{
+        margin: "0",
+        listStyle: "none",
+        counterReset: "li",
+        paddingLeft: 20,
+        "& li":{
+          margin: "5px 0",
+          counterIncrement: "li",
+          position: "relative",
+          fontSize: 14,
+          "&:before": {
+            content: "counter(li) '.'",
+            color: appColors.general.gray.base,
+            display: "inline-block",
+            width: "1em",
+            position: "absolute",
+            left: -20
+          }
+        }
+      }
+    },
+    footer:{
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      flexDirection: "row",
+      padding: "15px 0 0",
+      position: "relative",
+      "&:before":{
+        content: "''",
+        display: "block",
+        position: "absolute",
+        top: 0,
+        left: -uiConstants.modal.padding.paddingRight,
+        height: 1,
+        width: `calc(100% + ${uiConstants.modal.padding.paddingLeft + uiConstants.modal.padding.paddingRight}px)`,
+        backgroundColor: appColors.general.gray.light
+      },
     }
   });
 
@@ -61,24 +119,26 @@ const HowToSubmitDAppView: React.SFC<OwnProps> = (props: OwnProps) => {
       </Typography>
     </header>
     <section className={classes.content}>
-      <Typography>
+      <Typography className={classes.heading} variant="h3" component="h4">
         Submit your ÐApp
       </Typography>
-      <ol>
-        <li>
-          Upload a name, url, description, category and image for your DApp in the next step compulsory.
-        </li>
-        <li>
-          Stake the amount of SNT you want to rank your DApp optional.
-        </li>
-        <li>
-          Hit “submit”.
-        </li>
-        <li>
-          Our team will ensure that your DApp works well on mobile devices and will then include it on the live site using the information you provided in Step 1.
-        </li>
-      </ol>
-      <Typography>
+      <div className={classes.infoBlock}>
+        <ol>
+          <li>
+            Upload a name, url, description, category and image for your DApp in the next step compulsory.
+          </li>
+          <li>
+            Stake the amount of SNT you want to rank your DApp optional.
+          </li>
+          <li>
+            Hit “submit”.
+          </li>
+          <li>
+            Our team will ensure that your DApp works well on mobile devices and will then include it on the live site using the information you provided in Step 1.
+          </li>
+        </ol>
+      </div>
+      <Typography className={classes.heading} variant="h3" component="h4">
         Staking
       </Typography>
       <Typography variant="body1" component="p">
@@ -90,10 +150,10 @@ const HowToSubmitDAppView: React.SFC<OwnProps> = (props: OwnProps) => {
       <div className={classes.infoBlock}>
         <ol>
           <li>
-            Staking 10 000 SNT returns a rate of 99.5%, so you can withdraw up to 9 950 SNT.
+            Staking <strong>10 000 SNT</strong> returns a rate of <strong>99.5%</strong>, so you can withdraw up to <strong>9 950 SNT</strong>.
           </li>
           <li>
-            Staking 1 000 000 SNT returns a rate of 50.99%, so you can withdraw up to 509 958 SNT.
+            Staking <strong>1 000 000 SNT</strong> returns a rate of <strong>50.99%</strong>, so you can withdraw up to <strong>509 958 SNT</strong>.
           </li>
         </ol>
       </div>
@@ -119,10 +179,13 @@ const HowToSubmitDAppView: React.SFC<OwnProps> = (props: OwnProps) => {
       <Typography variant="body1" component="p">
         Anyone is welcome to fork the software and implement different UI choices for the same underlying contract. Note that Discover is not affiliated with Status directly, we have simply chosen to use SNT as a token of value, to abide by <Link to="https://status.im/about/" target="_blank">Status' principles</Link>, and to take a mobile-first approach to development.
       </Typography>
-      <Button variant="outlined">
-        Continue
-      </Button>
+
     </section>
+    <footer className={classes.footer}>
+        <Button variant="outlined">
+          Continue
+        </Button>
+      </footer>
   </article>;
 };
 
