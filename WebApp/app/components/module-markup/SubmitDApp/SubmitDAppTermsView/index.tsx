@@ -8,6 +8,7 @@ import React from 'react';
 import { Theme, createStyles, withStyles, WithStyles, Typography, Button } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { appColors, uiConstants, brandColors } from 'theme';
+import ExpandSection from 'components/helpers/ExpandSection';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -58,36 +59,21 @@ const styles = (theme: Theme) =>
     heading: {
       fontSize: 15,
       color: appColors.general.gray.base,
-      margin: "10px 0",
+      margin: "30px 0",
     },
     infoBlock:{
       border: `1px solid ${appColors.general.gray.light}`,
       borderRadius: 16,
       margin: "15px 0",
       padding: "10px 15px",
-      "& ol":{
-        margin: "0",
-        listStyle: "none",
-        counterReset: "li",
-        paddingLeft: 20,
-        "& li":{
-          margin: "5px 0",
-          counterIncrement: "li",
-          position: "relative",
-          fontSize: 14,
-          "&:before": {
-            content: "counter(li) '.'",
-            color: appColors.general.gray.base,
-            display: "inline-block",
-            width: "1em",
-            position: "absolute",
-            left: -20
-          }
-        }
+      "& p":{
+        fontWeight: 500,
       }
     },
-    expandable:{
-      position: "relative"
+    termSection:{
+      "& p":{
+        textIndent: 20
+      }
     },
     footer:{
       display: "flex",
@@ -133,7 +119,7 @@ const SubmitDAppTermsView: React.SFC<OwnProps> = (props: OwnProps) => {
           We are not lawyers or financial advisors, and you use this software at your own risk.
         </Typography>
       </div>
-      <section className={classes.expandable}>
+      <ExpandSection className={classes.termSection}>
         <Typography variant="body1" component="p">
           You accept the Terms by either (1) clicking to agree or accept where these options are presented to you, or (2) actually using Discover (“Discover”) at <Link to="https://dap.ps" target="_blank">https://dap.ps</Link>
         </Typography>
@@ -146,10 +132,7 @@ const SubmitDAppTermsView: React.SFC<OwnProps> = (props: OwnProps) => {
         <Typography variant="body1" component="p">
           Neither Discover nor any of the persons or entities involved in any way in respect of Discover, including its host and its contributors, provide for specific legal, fiscal, economical and/or any other kind of advice or recommendation that may be relied upon. A visitor to Discover will therefore act at their own risk in accessing or in any way relying on the content of the Discover and the visitor is therefore solely responsible for any consequences thereof.
         </Typography>
-        <Button variant="outlined">
-          Read more
-        </Button>
-      </section>
+      </ExpandSection>
 
       <Typography className={classes.heading} variant="h2" component="h3">
         Your Responsibilities
@@ -162,7 +145,7 @@ const SubmitDAppTermsView: React.SFC<OwnProps> = (props: OwnProps) => {
           You will not use information you do not have permission to use, and you may not hack anyone by submitting malicious code or otherwise manipulating our service.
         </Typography>
       </div>
-      <section>
+      <ExpandSection className={classes.termSection}>
         <Typography variant="body1" component="p">
           You agree that if You make Your DApp available through Discover, You will protect the privacy and legal rights of users. If the users provide You with, or Your DApp accesses or uses, usernames, passwords, or other login information or personal information, You agree to make the users aware that the information will be available to Your DApp, and You agree to provide legally adequate privacy notice and protection for those users. Further, Your Dapp may only use that information for the limited purposes for which the user has given You permission to do so.
         </Typography>
@@ -175,7 +158,7 @@ const SubmitDAppTermsView: React.SFC<OwnProps> = (props: OwnProps) => {
         <Button variant="outlined">
           Read more
         </Button>
-      </section>
+      </ExpandSection>
 
       <Typography className={classes.heading} variant="h2" component="h3">
         Limitation of liability
@@ -185,7 +168,7 @@ const SubmitDAppTermsView: React.SFC<OwnProps> = (props: OwnProps) => {
           The people responsible for Discover are not liable for your mistakes.
         </Typography>
       </div>
-      <section>
+      <ExpandSection className={classes.termSection}>
         <Typography variant="body1" component="p">
           The content, data, materials and/or other services on Discover are provided without any warranties of any kind regarding its title, ownership, accuracy, completeness and correctness.
         </Typography>
@@ -198,7 +181,7 @@ const SubmitDAppTermsView: React.SFC<OwnProps> = (props: OwnProps) => {
         <Button variant="outlined">
           Read more
         </Button>
-      </section>
+      </ExpandSection>
 
       <Typography className={classes.heading} variant="h2" component="h3">
         Limitation of liability
@@ -214,7 +197,9 @@ const SubmitDAppTermsView: React.SFC<OwnProps> = (props: OwnProps) => {
         These terms of use were amended for the last time on 15th April 2019 and may be altered at any time without prior notice.
       </Typography>
       <Typography variant="body1" component="p">
-        Good luck reaching the top of the rankings!
+        <strong>
+          Good luck reaching the top of the rankings!
+        </strong>
       </Typography>
     </section>
     <footer className={classes.footer}>
