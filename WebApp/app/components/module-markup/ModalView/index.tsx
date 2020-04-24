@@ -52,11 +52,13 @@ const styles = ({breakpoints}: Theme) =>
       backgroundColor: appColors.general.white.base,
       borderRadius: 20,
       maxHeight: `calc(100% - ${uiConstants.modal.margin * 2}px)`,
-      [breakpoints.up("md")]:{
+      [breakpoints.up('xs')]:{
+        maxWidth: "80vw",
         width: "100%",
       },
-      [breakpoints.up('xs')]:{
-        width: "80vw"
+      [breakpoints.up('md')]:{
+        maxWidth: "80vw",
+        width: "auto !important"
       },
       "&.active":{
         transitionDelay: `${uiConstants.global.animation.speeds.mutation}ms`,
@@ -75,6 +77,7 @@ const styles = ({breakpoints}: Theme) =>
       width: uiConstants.modal.close.size,
       transform: "translate(50%, -50%)",
       cursor: "pointer",
+      transitionDuration: `${uiConstants.global.animation.speeds.mutation}ms`,
       "&:before,&:after":{
         content: "''",
         position: "absolute",
@@ -91,6 +94,9 @@ const styles = ({breakpoints}: Theme) =>
       "&:after":{
         transform: "translate(-50%, -50%) rotateZ(45deg)"
       },
+      "&:hover":{
+        backgroundColor: uiConstants.modal.close.hoverColor
+      }
     }
   });
 

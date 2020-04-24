@@ -123,10 +123,11 @@ export const uiConstants = {
         top: 0,
         right: 0
       },
-      size: 24,
+      size: 35,
       lineThickness: 2,
-      lineLength: 12,
+      lineLength: 17,
       backgroundColor: appColors.general.gray.base,
+      hoverColor: brandColors.default.main,
       lineColor: appColors.general.white.base
     }
   },

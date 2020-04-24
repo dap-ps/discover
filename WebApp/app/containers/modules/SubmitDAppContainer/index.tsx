@@ -41,7 +41,7 @@ const SubmitDAppContainer: React.SFC<Props> = (props: Props) => {
     email: Yup.string().email("Please provide a valid email").required(),
   })
 
-  return <Fragment>)
+  return <Fragment>
     {
       slide === 0 && <HowToSubmitDAppView nextPage={() => setSlide(1)} />
     }
@@ -66,10 +66,9 @@ const SubmitDAppContainer: React.SFC<Props> = (props: Props) => {
       }
 
       render={({submitForm}) =>
-      <SubmitDappForm
-        submitForm={submitForm}
-      />
-
+        <SubmitDappForm
+          submitForm={submitForm}
+        />
       }
     />
     }
