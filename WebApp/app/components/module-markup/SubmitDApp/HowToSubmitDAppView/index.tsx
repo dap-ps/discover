@@ -107,11 +107,11 @@ const styles = (theme: Theme) =>
   });
 
 interface OwnProps extends WithStyles<typeof styles> {
-  continue: React.Dispatch<React.SetStateAction<number>>
+  nextPage: () => void
 }
 
 const HowToSubmitDAppView: React.SFC<OwnProps> = (props: OwnProps) => {
-  const { classes } = props;
+  const { classes, nextPage } = props;
   return <article className={classes.root}>
     <header className={classes.header}>
       <Typography variant="h1" component="h1">
@@ -182,7 +182,7 @@ const HowToSubmitDAppView: React.SFC<OwnProps> = (props: OwnProps) => {
 
     </section>
     <footer className={classes.footer}>
-        <Button variant="outlined">
+        <Button variant="outlined" onClick={nextPage}>
           Continue
         </Button>
       </footer>

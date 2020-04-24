@@ -21,10 +21,10 @@ const SubmitDAppContainer: React.SFC<Props> = (props: Props) => {
   const [slide, setSlide] = useState<number>(0);
   return <Fragment>
     {
-      slide === 0 && <HowToSubmitDAppView continue={setSlide} />
+      slide === 0 && <HowToSubmitDAppView nextPage={() => setSlide(1)} />
     }
     {
-      slide === 1 && <SubmitDAppTermsView continue={setSlide} />
+      slide === 1 && <SubmitDAppTermsView continue={() => setSlide(2)} />
     }
     {
       slide === 2 && <SubmitDappForm />
