@@ -1,5 +1,5 @@
 import { getBalancesAction, getPricesAction } from "../actions";
-import { take, fork, call, put, select, race } from "redux-saga/effects";
+import { take, fork, call, put, select } from "redux-saga/effects";
 import { getKyberCurrencies, KyberERC20Token } from "./kyber.saga";
 import { getTokensBalance } from '@mycrypto/eth-scan'
 import { RootState } from "domain/App/types";
@@ -20,6 +20,7 @@ function* getBalancesSaga(){
         account,
         tokenAddresses,
       )))
+
       let balances: DAppsToken[] = Object.keys(fetchedBalances)
         .filter(key => fetchedBalances[key].gt(0))
         .map(tokenAddress => {
@@ -35,20 +36,9 @@ function* getBalancesSaga(){
               symbol: target.symbol,
             }
         })
-      yield put(getPricesAction.request(balances.map(token => token.symbol)))
-      const {
-        prices,
-        error
-      } = yield race({
-        success: yield take(getPricesAction.success),
-        error: yield take(getPricesAction.failure)
-      })
-      if(error){
-        yield put(getBalancesAction.failure("Price saga error"))
-      }else if(prices){
-        const resolved =prices;
-      }
+
       yield put(getBalancesAction.success(balances))
+      yield put(getPricesAction.request())
     }catch(error){
       console.error(error)
       yield put(getBalancesAction.failure(error))

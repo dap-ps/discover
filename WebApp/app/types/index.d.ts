@@ -24,6 +24,6 @@ export interface InjectSagaParams {
 // Your root reducer type, which is your redux state types also
 export interface ApplicationRootState {
   readonly global: AppState;
-  readonly dapps: DappsState;
-  readonly tokens: TokensState;
+  readonly dapp: DappsState;
+  readonly token: TokensState;
 }

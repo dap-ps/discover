@@ -1,26 +1,29 @@
 import cc from 'cryptocompare'
-import { take, call, fork, put } from 'redux-saga/effects';
+import { take, call, fork, put, select } from 'redux-saga/effects';
 import { getPricesAction } from '../actions';
-import { TokenPriceData } from '../types';
+import { TokenPriceData, DAppsToken } from '../types';
+import { RootState } from 'domain/App/types';
 
 function* resolvePricesSaga() {
   while(true){
-    const currencies = yield take(getPricesAction.request);
+    yield take(getPricesAction.request);
+    const tokens: string[] = yield select((state: RootState) => state.token.tokens.map((token: DAppsToken) => token.symbol))
     try{
       let prices: TokenPriceData = {};
 
-      if(currencies.length > 65){
-        const requests = Math.ceil(currencies.length / 65);
+      if(tokens.length > 65){
+        const requests = Math.ceil(tokens.length / 65);
         for(let i = 0; i < requests; i++){
           prices = {
             ...prices,
-            ...(yield call(async () => await cc.priceMulti(currencies.slice((i * 65), ((i + 1) * 65)), ['SNT'])))
+            ...(yield call(async () => await cc.priceMulti(tokens.slice((i * 65), ((i + 1) * 65)), ['SNT'])))
           }
         }
 
       }else {
-        prices = yield call(async () => await cc.priceMulti(currencies, ['SNT']))
+        prices = yield call(async () => await cc.priceMulti(tokens, ['SNT']))
       }
+
       yield put(getPricesAction.success({ ...prices,  WETH: { ...prices['ETH'] } }))
     }catch(error){
       console.error(error)

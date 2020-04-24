@@ -19,7 +19,7 @@ const SearchContainer: React.SFC<Props> = (props: Props) => {
 
   const [searchTerm, setSearchTerm] = useState<string>("");
   // TODO: wire up
-  console.log(searchTerm)
+  console.log(`Search input: ${searchTerm}`)
   return <SearchView setSearchTerm={setSearchTerm} />
 };
 

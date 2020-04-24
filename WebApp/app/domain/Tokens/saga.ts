@@ -3,7 +3,9 @@
 
 import { fork } from 'redux-saga/effects';
 import { CurrenciesSaga } from './sagas/currencies.saga';
+import { PriceSaga } from './sagas/price.saga';
 
 export default function* TokensSaga() {
   yield fork(CurrenciesSaga)
+  yield fork(PriceSaga)
 }

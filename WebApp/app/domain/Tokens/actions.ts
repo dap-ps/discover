@@ -21,7 +21,7 @@ export const getPricesAction = createAsyncAction(
   ActionTypes.GET_PRICES_REQUEST,
   ActionTypes.GET_PRICES_SUCCESS,
   ActionTypes.GET_PRICES_FAILURE)<
-  string[],
+  void,
   TokenPriceData,
   string
 >();
