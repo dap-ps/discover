@@ -1,6 +1,6 @@
 /**
  *
- * DappCard
+ * ÐAppCard
  *
  */
 

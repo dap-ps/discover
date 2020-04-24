@@ -1,6 +1,6 @@
 /**
  *
- * HowToSubmitDAppView
+ * HowToSubmitÐAppView
  *
  */
 
@@ -115,7 +115,7 @@ const HowToSubmitDAppView: React.SFC<OwnProps> = (props: OwnProps) => {
   return <article className={classes.root}>
     <header className={classes.header}>
       <Typography variant="h1" component="h1">
-        How to submit a dapp
+        How to submit a Ðapp
       </Typography>
     </header>
     <section className={classes.content}>
@@ -125,16 +125,16 @@ const HowToSubmitDAppView: React.SFC<OwnProps> = (props: OwnProps) => {
       <div className={classes.infoBlock}>
         <ol>
           <li>
-            Upload a name, url, description, category and image for your DApp in the next step compulsory.
+            Upload a name, url, description, category and image for your ÐApp in the next step compulsory.
           </li>
           <li>
-            Stake the amount of SNT you want to rank your DApp optional.
+            Stake the amount of SNT you want to rank your ÐApp optional.
           </li>
           <li>
             Hit “submit”.
           </li>
           <li>
-            Our team will ensure that your DApp works well on mobile devices and will then include it on the live site using the information you provided in Step 1.
+            Our team will ensure that your ÐApp works well on mobile devices and will then include it on the live site using the information you provided in Step 1.
           </li>
         </ol>
       </div>
@@ -142,7 +142,7 @@ const HowToSubmitDAppView: React.SFC<OwnProps> = (props: OwnProps) => {
         Staking
       </Typography>
       <Typography variant="body1" component="p">
-        You need not stake anything to be included - your DApp just won’t appear in the “Highest Ranked” section. If you do stake SNT, your DApp will appear in that section immediately. The DApp with the highest effective balance (that is, SNT staked plus/minus votes cast for/against) ranks highest.
+        You need not stake anything to be included - your ÐApp just won’t appear in the “Highest Ranked” section. If you do stake SNT, your ÐApp will appear in that section immediately. The ÐApp with the highest effective balance (that is, SNT staked plus/minus votes cast for/against) ranks highest.
       </Typography>
       <Typography variant="body1" component="p">
         SNT you stake is locked in the Discover contract. You can, at any time, withdraw a percentage of what you have staked. The more you stake, the lower the percentage you can withdraw. Withdrawals must be made from the same wallet as you submitted with, so PLEASE SECURE THIS ADDRESS.
@@ -158,7 +158,7 @@ const HowToSubmitDAppView: React.SFC<OwnProps> = (props: OwnProps) => {
         </ol>
       </div>
       <Typography variant="body1" component="p">
-        Furthermore, the operators of <Link to="https://dap.ps" target="_blank">https://dap.ps</Link> reserve the right to remove any DApp from the UI for reasons including, but not limited to:
+        Furthermore, the operators of <Link to="https://dap.ps" target="_blank">https://dap.ps</Link> reserve the right to remove any ÐApp from the UI for reasons including, but not limited to:
       </Typography>
       <div className={classes.infoBlock}>
         <ol>

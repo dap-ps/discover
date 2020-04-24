@@ -78,7 +78,7 @@ const SearchView: React.SFC<OwnProps> = (props: OwnProps) => {
       <SearchIcon />
     </div>
     <div className={classNames(classes.search, focused ? "focused" : "")}>
-      <Input type="text" fullWidth={true} disableUnderline={true} placeholder="Search Dapps" onChange={(event) => setSearchTerm(event.target.value)}/>
+      <Input type="text" fullWidth={true} disableUnderline={true} placeholder="Search Ðapp" onChange={(event) => setSearchTerm(event.target.value)}/>
     </div>
     <section className={classNames(classes.content)}>
 

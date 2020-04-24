@@ -1,6 +1,6 @@
 /**
  *
- * SubmitDAppTermsView
+ * SubmitÐAppTermsView
  *
  */
 
@@ -127,7 +127,7 @@ const SubmitDAppTermsView: React.SFC<OwnProps> = (props: OwnProps) => {
           In order to use Discover you must be 13 years of age or older. If you are between 13 and 18 years of age, you must have your parent or legal guardian’s permission to use Discover.
         </Typography>
         <Typography variant="body1" component="p">
-          By accessing Discover you accept the terms of use as set out herein. All information is provided of a mere general nature for informational purposes only. By accessing Discover you warrant to the operators, contributors and the host thereof that you may freely, without limitation, access the DApp store and all of its contents in your jurisdiction and shall not use Discover and its contents in any way that infringes on laws or the rights of others including those of the aforementioned persons (including the entities they may represent).
+          By accessing Discover you accept the terms of use as set out herein. All information is provided of a mere general nature for informational purposes only. By accessing Discover you warrant to the operators, contributors and the host thereof that you may freely, without limitation, access the ÐApp store and all of its contents in your jurisdiction and shall not use Discover and its contents in any way that infringes on laws or the rights of others including those of the aforementioned persons (including the entities they may represent).
         </Typography>
         <Typography variant="body1" component="p">
           Neither Discover nor any of the persons or entities involved in any way in respect of Discover, including its host and its contributors, provide for specific legal, fiscal, economical and/or any other kind of advice or recommendation that may be relied upon. A visitor to Discover will therefore act at their own risk in accessing or in any way relying on the content of the Discover and the visitor is therefore solely responsible for any consequences thereof.
@@ -147,13 +147,13 @@ const SubmitDAppTermsView: React.SFC<OwnProps> = (props: OwnProps) => {
       </div>
       <ExpandSection className={classes.termSection}>
         <Typography variant="body1" component="p">
-          You agree that if You make Your DApp available through Discover, You will protect the privacy and legal rights of users. If the users provide You with, or Your DApp accesses or uses, usernames, passwords, or other login information or personal information, You agree to make the users aware that the information will be available to Your DApp, and You agree to provide legally adequate privacy notice and protection for those users. Further, Your Dapp may only use that information for the limited purposes for which the user has given You permission to do so.
+          You agree that if You make Your ÐApp available through Discover, You will protect the privacy and legal rights of users. If the users provide You with, or Your ÐApp accesses or uses, usernames, passwords, or other login information or personal information, You agree to make the users aware that the information will be available to Your ÐApp, and You agree to provide legally adequate privacy notice and protection for those users. Further, Your ÐApp may only use that information for the limited purposes for which the user has given You permission to do so.
         </Typography>
         <Typography variant="body1" component="p">
-          If Your DApp stores personal or sensitive information provided by users, You agree to do so securely and only for as long as it is needed. However, if the user has opted into a separate agreement with You that allows You or Your DApp to store or use personal or sensitive information directly related to Your DApp (not including other products or applications), then the terms of that separate agreement will govern Your use of such information.
+          If Your ÐApp stores personal or sensitive information provided by users, You agree to do so securely and only for as long as it is needed. However, if the user has opted into a separate agreement with You that allows You or Your ÐApp to store or use personal or sensitive information directly related to Your ÐApp (not including other products or applications), then the terms of that separate agreement will govern Your use of such information.
         </Typography>
         <Typography variant="body1" component="p">
-          You will not engage in any activity with Discover, including making Your Dapp available via Discover, that interferes with, disrupts, damages, or accesses in an unauthorized manner the devices, servers, networks, or other properties or services of any third party including, but not limited to, Status or any Authorized Provider. You may not use user information obtained via Discover to sell or distribute DApp outside of Discover.
+          You will not engage in any activity with Discover, including making Your ÐApp available via Discover, that interferes with, disrupts, damages, or accesses in an unauthorized manner the devices, servers, networks, or other properties or services of any third party including, but not limited to, Status or any Authorized Provider. You may not use user information obtained via Discover to sell or distribute ÐApp outside of Discover.
         </Typography>
         <Button variant="outlined">
           Read more
@@ -173,7 +173,7 @@ const SubmitDAppTermsView: React.SFC<OwnProps> = (props: OwnProps) => {
           The content, data, materials and/or other services on Discover are provided without any warranties of any kind regarding its title, ownership, accuracy, completeness and correctness.
         </Typography>
         <Typography variant="body1" component="p">
-          Specifically, unless otherwise required by law, in no event shall the operators, contributors to or hosts of Discover be liable for any damages of any kind, including, but not limited to, loss of use, loss of assets or rights or privileges, loss of profits, or loss of data arising out of or in any way connected with the use of the DApps and the information thereon from time to time.
+          Specifically, unless otherwise required by law, in no event shall the operators, contributors to or hosts of Discover be liable for any damages of any kind, including, but not limited to, loss of use, loss of assets or rights or privileges, loss of profits, or loss of data arising out of or in any way connected with the use of the ÐApps and the information thereon from time to time.
         </Typography>
         <Typography variant="body1" component="p">
           In no way are the operators, contributors to or host of Discover responsible for the actions, decisions, transactions, or other behavior taken or not taken by You or person relying on You in reliance upon Discover and its contents from time to time.

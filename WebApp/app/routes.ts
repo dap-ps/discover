@@ -26,7 +26,7 @@ const routes: AppRoute[] = [
   },
   // Categories
   {
-    name: 'All Dapps',
+    name: 'All ÐApps',
     path: ROUTE_LINKS.categories.All,
     component: HomePage,
     isProtected: false, // This allows general access control

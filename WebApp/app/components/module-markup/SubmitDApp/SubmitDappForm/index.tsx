@@ -16,10 +16,12 @@ const styles = (theme: Theme) =>
     root: {},
   });
 
-interface OwnProps extends WithStyles<typeof styles> {}
+interface OwnProps extends WithStyles<typeof styles> {
+  submitForm(data): void;
+}
 
 const SubmitDappForm: React.SFC<OwnProps> = (props: OwnProps) => {
-  const { classes } = props;
+  const { classes, submitForm } = props;
   return  <Form className={classes.root}>
     <Typography  component="h1" variant="h1">
       SUBMIT A ÐAPP
@@ -35,7 +37,7 @@ const SubmitDappForm: React.SFC<OwnProps> = (props: OwnProps) => {
     </FormControl>
     <FormControl>
       <Typography component="h4" variant="h4">
-        Upload the logo or icon of your Ðapp
+        Upload the logo or icon of your ÐApp
       </Typography>
       <Field component={UploadImageField} name="logo"  />
       <Typography component="h4" variant="h4">
@@ -50,7 +52,7 @@ const SubmitDappForm: React.SFC<OwnProps> = (props: OwnProps) => {
       By continuing you agree to our <span onClick={() => console.log("back a step")}>Terms and Conditions.</span>
     </Typography>
     <div>
-      <Button>
+      <Button variant="outlined" onClick={submitForm}>
         Continue
       </Button>
     </div>
