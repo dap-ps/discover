@@ -26,7 +26,7 @@ Object.keys(DAPP_CATEGORY_STRINGS).map(key => {
   }
 })
 
-const styles = ({ spacing, breakpoints }: Theme) => createStyles({
+const styles = ({ breakpoints }: Theme) => createStyles({
   root:{
     padding: "0 15px"
   },

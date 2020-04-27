@@ -103,6 +103,9 @@ const SubmitDappForm: React.SFC<OwnProps> = (props: OwnProps) => {
     </header>
     <section className={classes.content}>
       <FormControl className={classes.input}>
+        <Field component={UploadImageField} name="logo"  />
+      </FormControl>
+      <FormControl className={classes.input}>
         <Field fullWidth size="small" name="name" label="Name of your Ðapp" placeholder="Name" variant="outlined" component={TextField} />
       </FormControl>
       <FormControl  className={classes.input}>
@@ -112,18 +115,10 @@ const SubmitDappForm: React.SFC<OwnProps> = (props: OwnProps) => {
         <Field fullWidth size="small" name="name" label="URL" variant="outlined" component={TextField} />
       </FormControl>
       <FormControl className={classes.input}>
-        <Typography component="h4" variant="h4">
-          Upload the logo or icon of your ÐApp
-        </Typography>
-        <Field component={UploadImageField} name="logo"  />
-        <Typography component="h4" variant="h4">
-          The image should be a square 1:1 ratio JPG or PNG file, minimum size is 160 × 160 pixels. The image will be placed in a circle
-        </Typography>
-      </FormControl>
-      {/* Category choice */}
-      <FormControl className={classes.input}>
         <Field fullWidth size="small" name="email" label="Your email" placeholder="email" variant="outlined" component={TextField} />
       </FormControl>
+      {/* Category choice */}
+
 
     </section>
     <footer className={classes.footer}>

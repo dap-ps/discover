@@ -4,19 +4,27 @@
  *
  */
 
-import { createStyles, Theme, withStyles, WithStyles, Typography, Slider, Button } from '@material-ui/core';
+import { createStyles, Theme, withStyles, WithStyles, Typography, Slider, Button, FormHelperText } from '@material-ui/core';
 import { FieldProps, getIn } from 'formik';
 import React, { useState, useCallback } from 'react';
 import classNames from 'classnames';
 import Cropper from 'react-easy-crop'
 import { appColors, uiConstants, brandColors } from 'theme';
 
-const styles = ({ breakpoints }: Theme) => createStyles({
+const styles = ({ breakpoints, palette }: Theme) => createStyles({
   root:{
 
   },
+  error:{
+    color: palette.error.main
+  },
+  errorText:{
+    marginLeft: 15,
+    marginRight: 15,
+  },
   label:{
-    fontSize: 15
+    fontSize: 15,
+    color: appColors.general.gray.base,
   },
   cta:{
     position: "relative",
@@ -37,6 +45,9 @@ const styles = ({ breakpoints }: Theme) => createStyles({
       left: 0,
       width: "100%",
       height: "100%",
+      backgroundSize: "cover",
+      backgroundPosition: "50%",
+      borderRadius: "50%"
     },
     "& > span":{
       color: appColors.general.gray.base,
@@ -158,7 +169,6 @@ const styles = ({ breakpoints }: Theme) => createStyles({
     margin: "20px 0 15px",
     "& button:first-child":{
       backgroundColor: appColors.general.gray.background,
-      // color: brandColors.default.main
     },
     "& button:last-child":{
       color: appColors.general.white.base,
@@ -178,26 +188,35 @@ const styles = ({ breakpoints }: Theme) => createStyles({
 });
 
 interface OwnProps extends FieldProps, WithStyles<typeof styles> {
-  disabled?: boolean;
-  // logo?: string | any // TODO: Clarify type
+}
+
+interface ImageCropData {
+  height: number,
+  width: number,
+  x: number,
+  y: number,
 }
 
 const UploadImageField: React.SFC<OwnProps> = (props: OwnProps) => {
   const {
-    classes, field, form: { touched, errors, isSubmitting, setFieldValue, setTouched, values }, disabled,
+    classes, field, form: { touched, errors, setFieldValue },
   } = props;
   const error = getIn(touched, field.name) && getIn(errors, field.name);
 
+  const [backupValue, setBackupValue] = useState(field.value);
+
   const [cropOpen, setCropOpen] = useState<boolean>(false);
 
-  const [crop, setCrop] = useState({ x: 0, y: 0 })
-  const [zoom, setZoom] = useState<number>(1)
-  const [imageSrc, setImageSrc] = useState<string>(field.value);
+  const [crop, setCrop] = useState({ x: backupValue.x, y: backupValue.y })
+  const [zoom, setZoom] = useState<number>(backupValue.zoom)
+  const [imageSrc, setImageSrc] = useState<string>(backupValue.imageSrc);
 
-  const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
-    console.log(croppedArea, croppedAreaPixels)
-    // setFieldValue()
-  }, [])
+  const [cropData, setCropData] = useState<ImageCropData>({
+    width: 0,
+    height: 0,
+    x: 0,
+    y: 0
+  })
 
   const readFile = (file: File) => {
     return new Promise(resolve => {
@@ -218,10 +237,61 @@ const UploadImageField: React.SFC<OwnProps> = (props: OwnProps) => {
     }
   }
 
-  // const processImage = () => (canvasRef.current)?.toDataURL('image/jpg');
+
+
+  const onCancel = () => {
+    setFieldValue(field.name, backupValue);
+    setCropOpen(false)
+  }
+
+  const onConfirm = () => {
+    exportCrop();
+    setFieldValue(field.name, imageSrc);
+    setBackupValue(imageSrc)
+    setCropOpen(false)
+  }
+
+  const exportCrop = () =>{
+    const canvas = document.createElement("canvas");
+    const image = document.createElement("img");
+    image.src = imageSrc
+    const scaleX = image.naturalWidth / image.width;
+    const scaleY = image.naturalHeight / image.height;
+
+    canvas.width = cropData.width;
+    canvas.height = cropData.height;
+    const ctx = canvas.getContext("2d");
+
+    ctx?.drawImage(
+        image,
+        cropData.x * scaleX,
+        cropData.y * scaleY,
+        cropData.width * scaleX,
+        cropData.height * scaleY,
+        0,
+        0,
+        cropData.width,
+        cropData.height
+     )
+
+    const reader = new FileReader()
+    canvas.toBlob(blob => {
+      if(blob){
+        reader.readAsDataURL(blob)
+        reader.onloadend = () => {
+          console.log(reader.result)
+          setImageSrc(`${reader.result}`)
+        }
+      }
+    })
+  }
+
+  const onCropComplete = useCallback((croppedArea, croppedAreaPixels: ImageCropData) => {
+    setCropData(croppedAreaPixels)
+  }, [])
 
   return (
-    <section className={classes.root}>
+    <section className={classNames(classes.root, error ? classes.error : "")}>
       <div>
         <Typography className={classes.label}>
           Upload the logo or icon of your Ðapp
@@ -243,6 +313,7 @@ const UploadImageField: React.SFC<OwnProps> = (props: OwnProps) => {
           a circle
         </Typography>
       </div>
+      { error && <FormHelperText className={classes.errorText} error>{error}</FormHelperText>}
       <div className={classNames(classes.modal, cropOpen ? "active" : "")}>
         <div className={classNames(classes.modalInner, cropOpen ? "active" : "")}>
           <Typography className={classes.modalHeader} variant="h3" component="p">
@@ -254,6 +325,7 @@ const UploadImageField: React.SFC<OwnProps> = (props: OwnProps) => {
               crop={crop}
               zoom={zoom}
               aspect={1}
+              zoomWithScroll={false}
               cropShape="round"
               showGrid={false}
               onCropChange={setCrop}
@@ -273,6 +345,7 @@ const UploadImageField: React.SFC<OwnProps> = (props: OwnProps) => {
                 step={0.1}
                 aria-labelledby="Zoom"
                 onChange={(e, zoom: number) => setZoom(zoom)}
+
                 classes={{root: classes.sliderRoot, thumb: classes.thumb}}
               />
               <div>
@@ -280,10 +353,10 @@ const UploadImageField: React.SFC<OwnProps> = (props: OwnProps) => {
               </div>
             </section>
             <section className={classes.controls}>
-              <Button size="large" variant="contained" color="inherit">
+              <Button size="large" variant="contained" color="inherit" onClick={() => onCancel()}>
                 Cancel
               </Button>
-              <Button size="large" variant="contained">
+              <Button size="large" variant="contained" onClick={() => onConfirm()}>
                 Done
               </Button>
             </section>
