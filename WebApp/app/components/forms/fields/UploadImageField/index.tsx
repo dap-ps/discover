@@ -4,142 +4,293 @@
  *
  */
 
-import { createStyles, Theme, withStyles, WithStyles, Fab } from '@material-ui/core';
-import FormControl from '@material-ui/core/FormControl';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import Input from '@material-ui/core/Input';
-import { CloudUpload, Image } from '@material-ui/icons';
-import apiUrlBuilder from 'api/apiUrlBuilder';
+import { createStyles, Theme, withStyles, WithStyles, Typography, Slider, Button } from '@material-ui/core';
 import { FieldProps, getIn } from 'formik';
-import React, { Fragment } from 'react';
-import { appColors, brandColors } from 'theme';
+import React, { useState, useCallback } from 'react';
+import classNames from 'classnames';
+import Cropper from 'react-easy-crop'
+import { appColors, uiConstants, brandColors } from 'theme';
 
-interface ThumbProps {
-  file: any;
-  name: string,
-  classes: any,
-  disabled: boolean | undefined,
-  isSubmitting: boolean | undefined,
-}
+const styles = ({ breakpoints }: Theme) => createStyles({
+  root:{
 
-interface ThumbState {
-  loading: boolean;
-  thumb?: any;
-}
-
-class Thumb extends React.Component<ThumbProps, ThumbState> {
-  public state = {
-    loading: false,
-    thumb: '',
-  };
-
-  constructor(props: ThumbProps) {
-    super(props);
-    const thumb = (typeof(props.file) === 'object') ? URL.createObjectURL(props.file) : apiUrlBuilder.attachmentStream(props.file);
-    this.state = {...this.state, thumb: thumb};
-  }
-
-  public componentWillReceiveProps(nextProps) {
-    if (!nextProps.file) { return; }
-    if (this.props.file === nextProps.file) { return; }
-
-    const thumb = (typeof(nextProps.file) === 'object') ? URL.createObjectURL(nextProps.file) : apiUrlBuilder.attachmentStream(nextProps.file);
-    this.setState({ thumb: thumb });
-  }
-
-  public render() {
-    const { file, name, classes, disabled, isSubmitting } = this.props;
-    const { loading, thumb } = this.state;
-
-    if (!file) {
-      return (
-        <Fragment>
-          <Image className={classes.image} style={{width:"100%", height: "100%"}}/>
-          <label htmlFor={name}>
-            <Fab component="span" className={classes.imageButton} disabled={disabled || isSubmitting}>
-              <CloudUpload />
-            </Fab>
-          </label>
-        </Fragment>
-      );
+  },
+  label:{
+    fontSize: 15
+  },
+  cta:{
+    position: "relative",
+    width: 150,
+    height: 150,
+    borderRadius: "50%",
+    border: `1px dashed ${appColors.general.gray.base}`,
+    margin: "16px auto",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: appColors.general.gray.light,
+    cursor: "pointer",
+    "& > div":{
+      position: "absolute",
+      top: 0,
+      left: 0,
+      width: "100%",
+      height: "100%",
+    },
+    "& > span":{
+      color: appColors.general.gray.base,
+      width: "100%",
+      position: "absolute",
+      top: "50%",
+      left: "50%",
+      transform: "translate(-50%, -50%)",
+      textAlign: "center"
+    },
+    "& input": {
+      opacity: 0
     }
-
-    if (loading) { return <p>loading...</p>; }
-
-    return (
-      <Fragment>
-        <img src={thumb}
-          alt={file.name}
-          className="img-thumbnail mt-2"
-          width="100%"
-          height="100%"
-          style={{objectFit: "cover"}}
-         >
-        </img>
-        <label htmlFor={name}>
-          <Fab component="span" className={classes.imageButton} disabled={disabled || isSubmitting}>
-            <CloudUpload />
-          </Fab>
-        </label>
-      </Fragment>
-    );
-  }
-}
-
-const styles = ({ spacing }: Theme) => createStyles({
-  imageButton: {
-    position: 'absolute',
-    bottom: '10px',
-    right: '10px',
-    "&:hover":{
+  },
+  helperText: {
+    color: appColors.general.gray.base,
+  },
+  modal: {
+    position: "fixed",
+    top: 0,
+    left: 0,
+    height: "100%",
+    width: "100%",
+    zIndex: uiConstants.global.zIndex.blocker,
+    opacity: 0,
+    visibility: "hidden",
+    transitionDuration: `${uiConstants.global.animation.speeds.mutation}ms`,
+    "&:before":{
+      content: "''",
+      position: "absolute",
+      top: 0,
+      left: 0,
+      width: "100%",
+      height: "100%",
+      zIndex: uiConstants.global.zIndex.background,
+      borderRadius: 20,
+      opacity: 0.2,
+      backgroundColor: appColors.general.blue.base
+    },
+    "&.active":{
+      opacity: 1,
+      visibility: "visible",
+    }
+  },
+  modalInner:{
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    zIndex: uiConstants.global.zIndex.raisedElement,
+    opacity: 0,
+    visibility: "hidden",
+    transitionDuration: `${uiConstants.global.animation.speeds.mutation}ms`,
+    backgroundColor: appColors.general.white.base,
+    maxHeight: `calc(100% - ${uiConstants.modal.margin * 2}px)`,
+    borderRadius: 20,
+    width: "100%",
+    [breakpoints.up('xs')]:{
+      maxWidth: "90vw",
+      width: "100%",
+    },
+    [breakpoints.up('md')]:{
+      maxWidth: "500px",
+      width: "100% !important"
+    },
+    "&.active":{
+      transitionDelay: `${uiConstants.global.animation.speeds.mutation}ms`,
+      opacity: 1,
+      visibility: "visible",
+    }
+  },
+  modalHeader:{
+    padding: "15px 20px",
+    textAlign: "center",
+    borderBottom: `1px solid ${appColors.general.gray.base}`,
+    fontSize: 15,
+    textTransform: "uppercase",
+  },
+  sliderRoot:{
+    // margin: "0 15px",
+    width: `calc(100% - ${(20 * 2) + 40}px)`
+  },
+  slider:{
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    padding: "0 20px",
+    margin: "10px 0",
+    "& > div":{
+      display: "block",
+      height: 20,
+      width: 20,
+      position: "relative",
+      "&:before":{
+        content: "''",
+        display: "block",
+        height: "100%",
+        width: "100%",
+        position: "absolute",
+        border: `1px solid ${appColors.general.gray.base}`,
+        borderRadius: 2,
+        top: "50%",
+        left: "50%",
+        transform: "translate(-50%, -50%)"
+      },
+      "&:first-child:before":{
+        height: "60%",
+        width: "60%",
+      }
+    }
+  },
+  controls:{
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    padding: "0 40px",
+    margin: "20px 0 15px",
+    "& button:first-child":{
+      backgroundColor: appColors.general.gray.background,
+      // color: brandColors.default.main
+    },
+    "& button:last-child":{
+      color: appColors.general.white.base,
       backgroundColor: brandColors.default.main
     }
   },
-  hiddenInput: {
-    display: 'none',
+  cropContainer:{
+    position: "relative",
+    height: "45vh"
   },
-  controlRoot:{
-    border: `5px solid ${appColors.general.white.base}`,
-    height: "20vh", // TODO: Make dynamic
-    maxHeight: "300px"
-  },
-  image: {
-    objectFit: "cover",
+  thumb:{
+    height: 20,
+    width: 20,
+    marginTop: -9,
+    marginLeft: -10
   }
 });
 
 interface OwnProps extends FieldProps, WithStyles<typeof styles> {
   disabled?: boolean;
+  // logo?: string | any // TODO: Clarify type
 }
 
 const UploadImageField: React.SFC<OwnProps> = (props: OwnProps) => {
-  const { classes, field, form: { touched, errors, isSubmitting, setFieldValue, setTouched }, disabled } = props;
+  const {
+    classes, field, form: { touched, errors, isSubmitting, setFieldValue, setTouched, values }, disabled,
+  } = props;
   const error = getIn(touched, field.name) && getIn(errors, field.name);
 
+  const [cropOpen, setCropOpen] = useState<boolean>(false);
+
+  const [crop, setCrop] = useState({ x: 0, y: 0 })
+  const [zoom, setZoom] = useState<number>(1)
+  const [imageSrc, setImageSrc] = useState<string>(field.value);
+
+  const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
+    console.log(croppedArea, croppedAreaPixels)
+    // setFieldValue()
+  }, [])
+
+  const readFile = (file: File) => {
+    return new Promise(resolve => {
+      const reader = new FileReader()
+      reader.addEventListener('load', () => resolve(reader.result), false)
+      reader.readAsDataURL(file)
+    })
+  }
+
+  const onFileChange = async e => {
+    if (e.target.files && e.target.files.length > 0) {
+      const file = e.target.files[0]
+      let imageDataUrl = await readFile(file)
+      setCropOpen(true)
+      setImageSrc(`${imageDataUrl}`)
+      setCrop({ x: 0, y: 0 });
+      setZoom(1);
+    }
+  }
+
+  // const processImage = () => (canvasRef.current)?.toDataURL('image/jpg');
+
   return (
-    <React.Fragment>
-      <FormControl className={classes.controlRoot}>
-        <Thumb file={field.value} classes={classes} name={field.name} disabled={disabled} isSubmitting={isSubmitting} />
-        {error && <FormHelperText error>{error}</FormHelperText>}
-        <Input
-          error={!!error}
-          className={classes.hiddenInput}
-          inputProps={{
-            id: field.name,
-            type: 'file',
-            disabled: disabled || isSubmitting,
-            name: field.name,
-            accept: 'image/*',
-            value: '',
-            onChange: (event: any) => {
-              const file = event.currentTarget.files[0];
-              setFieldValue(field.name, file);
-              setTouched({ [field.name]: true });
-            },
-          }}
-        />
-      </FormControl>
-    </React.Fragment>
+    <section className={classes.root}>
+      <div>
+        <Typography className={classes.label}>
+          Upload the logo or icon of your Ðapp
+        </Typography>
+        <label className={classes.cta}>
+          <span>Choose image</span>
+          <div
+            style={{ backgroundImage: `url(${imageSrc})` }}
+          />
+          <input
+            type="file"
+            onChange={onFileChange}
+            accept=".jpg, .png"
+          />
+        </label>
+        <Typography className={classes.helperText}>
+          The image should be a square 1:1 ratio JPG or PNG file,
+          minimum size is 160 × 160 pixels. The image will be placed in
+          a circle
+        </Typography>
+      </div>
+      <div className={classNames(classes.modal, cropOpen ? "active" : "")}>
+        <div className={classNames(classes.modalInner, cropOpen ? "active" : "")}>
+          <Typography className={classes.modalHeader} variant="h3" component="p">
+            Position and size your image
+          </Typography>
+          <div className={classes.cropContainer}>
+            <Cropper
+              image={imageSrc}
+              crop={crop}
+              zoom={zoom}
+              aspect={1}
+              cropShape="round"
+              showGrid={false}
+              onCropChange={setCrop}
+              onCropComplete={onCropComplete}
+              onZoomChange={setZoom}
+            />
+          </div>
+          <div>
+            <section className={classes.slider}>
+              <div>
+
+              </div>
+              <Slider
+                value={zoom}
+                min={1}
+                max={3}
+                step={0.1}
+                aria-labelledby="Zoom"
+                onChange={(e, zoom: number) => setZoom(zoom)}
+                classes={{root: classes.sliderRoot, thumb: classes.thumb}}
+              />
+              <div>
+
+              </div>
+            </section>
+            <section className={classes.controls}>
+              <Button size="large" variant="contained" color="inherit">
+                Cancel
+              </Button>
+              <Button size="large" variant="contained">
+                Done
+              </Button>
+            </section>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 };
 
