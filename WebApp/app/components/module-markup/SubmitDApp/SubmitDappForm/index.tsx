@@ -91,10 +91,11 @@ const styles = (theme: Theme) =>
 
 interface OwnProps extends WithStyles<typeof styles> {
   submitForm(data): void;
+  back: () => void;
 }
 
 const SubmitDappForm: React.SFC<OwnProps> = (props: OwnProps) => {
-  const { classes, submitForm } = props;
+  const { classes, submitForm, back } = props;
   return  <Form className={classes.root}>
     <header className={classes.header}>
       <Typography  component="h1" variant="h1">
@@ -112,7 +113,7 @@ const SubmitDappForm: React.SFC<OwnProps> = (props: OwnProps) => {
         <Field fullWidth size="small" name="description" label="Short Description" variant="outlined" placeholder="Max 140 characters" component={TextField} />
       </FormControl>
       <FormControl className={classes.input}>
-        <Field fullWidth size="small" name="name" label="URL" variant="outlined" component={TextField} />
+        <Field fullWidth size="small" name="url" label="URL" variant="outlined" component={TextField} />
       </FormControl>
       <FormControl className={classes.input}>
         <Field fullWidth size="small" name="email" label="Your email" placeholder="email" variant="outlined" component={TextField} />
@@ -123,7 +124,7 @@ const SubmitDappForm: React.SFC<OwnProps> = (props: OwnProps) => {
     </section>
     <footer className={classes.footer}>
       <Typography>
-        By continuing you agree to our <span onClick={() => console.log("back a step")}>Terms and Conditions.</span>
+        By continuing you agree to our <span onClick={back}>Terms and Conditions.</span>
       </Typography>
       <Button variant="outlined" onClick={submitForm}>
         Continue

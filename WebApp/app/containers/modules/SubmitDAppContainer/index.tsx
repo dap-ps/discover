@@ -67,6 +67,7 @@ const SubmitDAppContainer: React.SFC<Props> = (props: Props) => {
 
       render={({submitForm}) =>
         <SubmitDappForm
+          back={() => setSlide(1)}
           submitForm={submitForm}
         />
       }
