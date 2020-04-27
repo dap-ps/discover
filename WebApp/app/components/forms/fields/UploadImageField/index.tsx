@@ -207,9 +207,9 @@ const UploadImageField: React.SFC<OwnProps> = (props: OwnProps) => {
 
   const [cropOpen, setCropOpen] = useState<boolean>(false);
 
-  const [crop, setCrop] = useState({ x: backupValue.x, y: backupValue.y })
-  const [zoom, setZoom] = useState<number>(backupValue.zoom)
-  const [imageSrc, setImageSrc] = useState<string>(backupValue.imageSrc);
+  const [crop, setCrop] = useState({ x: 0, y: 0 })
+  const [zoom, setZoom] = useState<number>(1)
+  const [imageSrc, setImageSrc] = useState<string>(backupValue);
 
   const [cropData, setCropData] = useState<ImageCropData>({
     width: 0,
@@ -279,7 +279,6 @@ const UploadImageField: React.SFC<OwnProps> = (props: OwnProps) => {
       if(blob){
         reader.readAsDataURL(blob)
         reader.onloadend = () => {
-          console.log(reader.result)
           setImageSrc(`${reader.result}`)
         }
       }
