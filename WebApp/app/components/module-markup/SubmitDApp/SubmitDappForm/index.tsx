@@ -10,6 +10,7 @@ import { Form, Field } from 'formik';
 import { TextField } from 'formik-material-ui';
 import UploadImageField from '../../../forms/fields/UploadImageField';
 import { uiConstants, appColors, brandColors } from 'theme';
+import CategorySelector from 'components/forms/fields/CategorySelector';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -110,7 +111,9 @@ const SubmitDappForm: React.SFC<OwnProps> = (props: OwnProps) => {
         <Field fullWidth size="small" name="name" label="Name of your Ðapp" placeholder="Name" variant="outlined" component={TextField} />
       </FormControl>
       <FormControl  className={classes.input}>
-        <Field fullWidth size="small" name="description" label="Short Description" variant="outlined" placeholder="Max 140 characters" component={TextField} />
+        <Field fullWidth size="small" name="description" label="Short Description" variant="outlined" max="140" multiline
+          rows={4}
+          rowsMax={10} placeholder="Max 140 characters" component={TextField} />
       </FormControl>
       <FormControl className={classes.input}>
         <Field fullWidth size="small" name="url" label="URL" variant="outlined" component={TextField} />
@@ -119,8 +122,9 @@ const SubmitDappForm: React.SFC<OwnProps> = (props: OwnProps) => {
         <Field fullWidth size="small" name="email" label="Your email" placeholder="email" variant="outlined" component={TextField} />
       </FormControl>
       {/* Category choice */}
-
-
+      <FormControl className={classes.input}>
+        <Field name="category" component={CategorySelector} />
+      </FormControl>
     </section>
     <footer className={classes.footer}>
       <Typography>

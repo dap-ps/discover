@@ -35,10 +35,10 @@ const SubmitDAppContainer: React.SFC<Props> = (props: Props) => {
     logo: Yup.mixed().required("Please provide a logo"),
       // .test('fileSize', 'Maximum file size of 10MB exceeded', file => fileSizeValidation(file, MAX_FILE_SIZE))
       // .test('fileType', 'Please supply an image file', file => fileTypeValidation(file, SUPPORTED_IMAGE_FORMATS)),
-    description: Yup.string().max(140,"140 character limit exceeded").required(),
-    url: Yup.string().url("Please provide a valid url").required(),
-    // category: Yup.string().email("Please provide a valid email").required(),
-    email: Yup.string().email("Please provide a valid email").required(),
+    description: Yup.string().max(140,"140 character limit exceeded").required("Please provide a description"),
+    url: Yup.string().url("Please provide a valid url").required("Please provide a valid url"),
+    category: Yup.string().required("Please select a category"),
+    email: Yup.string().email("Please provide a valid email").required("Please provide a valid email"),
   })
 
   return <Fragment>
@@ -55,6 +55,7 @@ const SubmitDAppContainer: React.SFC<Props> = (props: Props) => {
         logo: "",
         description: "",
         url: "",
+        category: "",
         email: ""
       }}
       validationSchema={SubmitDappSchema}

@@ -25,6 +25,9 @@ const styles = ({ breakpoints, palette }: Theme) => createStyles({
   label:{
     fontSize: 15,
     color: appColors.general.gray.base,
+    "&.error":{
+      color: palette.error.main,
+    }
   },
   cta:{
     position: "relative",
@@ -237,8 +240,6 @@ const UploadImageField: React.SFC<OwnProps> = (props: OwnProps) => {
     }
   }
 
-
-
   const onCancel = () => {
     setFieldValue(field.name, backupValue);
     setCropOpen(false)
@@ -292,7 +293,7 @@ const UploadImageField: React.SFC<OwnProps> = (props: OwnProps) => {
   return (
     <section className={classNames(classes.root, error ? classes.error : "")}>
       <div>
-        <Typography className={classes.label}>
+        <Typography className={classNames(classes.label, error ? "error" : "  ")}>
           Upload the logo or icon of your Ðapp
         </Typography>
         <label className={classes.cta}>
