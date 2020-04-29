@@ -87,6 +87,10 @@ const styles = (theme: Theme) =>
         width: `calc(100% + ${uiConstants.modal.padding.paddingLeft + uiConstants.modal.padding.paddingRight}px)`,
         backgroundColor: appColors.general.gray.light
       },
+    },
+    link:{
+      color: brandColors.default.main,
+      cursor: "pointer"
     }
   });
 
@@ -121,14 +125,13 @@ const SubmitDappForm: React.SFC<OwnProps> = (props: OwnProps) => {
       <FormControl className={classes.input}>
         <Field fullWidth size="small" name="email" label="Your email" placeholder="email" variant="outlined" component={TextField} />
       </FormControl>
-      {/* Category choice */}
       <FormControl className={classes.input}>
         <Field name="category" component={CategorySelector} />
       </FormControl>
     </section>
     <footer className={classes.footer}>
       <Typography>
-        By continuing you agree to our <span onClick={back}>Terms and Conditions.</span>
+        By continuing you agree to our <span className={classes.link} onClick={back}>Terms and Conditions.</span>
       </Typography>
       <Button variant="outlined" onClick={submitForm}>
         Continue
