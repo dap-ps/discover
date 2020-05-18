@@ -15,6 +15,8 @@ import ReviewBadgeIcon from '../../../../images/icons/reviewBadge.svg';
 import SNTIcon from '../../../../images/icons/SNT.svg';
 import { uiConstants, appColors, brandColors } from 'theme';
 import { DAPP_STATUS } from 'utils/constants';
+import { Link } from 'react-router-dom';
+import { ROUTE_LINKS } from 'routeLinks';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -81,12 +83,14 @@ const styles = (theme: Theme) =>
       textTransform: "uppercase",
       fontWeight: 600,
       fontSize: 11,
-      "& > div":{
+      "& > a":{
         display: "flex",
         flexDirection: "row",
         alignItems: "center",
         marginLeft: 7.5,
         cursor: "pointer",
+        color: "inherit",
+        textDecoration: "none",
         "& svg":{
           marginRight: 2
         }
@@ -122,18 +126,18 @@ const DappCard: React.SFC<OwnProps> = (props: OwnProps) => {
           {dapp.votes}
         </span>
         <div className={classes.voteControls}>
-          <div>
+          <Link to={ROUTE_LINKS.Vote(`${dapp.ipfsHash}`, "upvote")}>
             <ArrowUpIcon/>
             <span>
               upvote
             </span>
-          </div>
-          <div>
+          </Link>
+          <Link to={ROUTE_LINKS.Vote(`${dapp.ipfsHash}`, "downvote")}>
             <ArrowDownIcon/>
             <span>
               downvote
             </span>
-          </div>
+          </Link>
         </div>
       </div>
 

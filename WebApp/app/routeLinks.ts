@@ -3,12 +3,11 @@ import { DAPP_CATEGORY_STRINGS, DAPP_CATEGORY, DAPP_LIST } from "utils/constants
 export const ROUTE_LINKS = {
   Home: `/`,
   CreateDApp: `/dapp/create`, // TODO: Implement single view
-  UpdateDApp: `/dapp/:dappID`, // TODO: Implement single view
+  UpdateDApp: (dappID:string) => `/dapp/${dappID}`, // TODO: Implement single view
 
-  Discover: `/discover/:dappID`, // TODO: Implement single view
-  UpvoteDApp: `/discover/:dappID/upvote`, // TODO: Implement single view
-  DownvoteDApp: `/discover/:dappID/downvote`, // TODO: Implement single view
+  Vote: (dappID: string, voteType: "upvote" | "downvote" | ":voteType") => `/vote/${dappID}/${voteType}`, // TODO: Implement single view
 
+  Discover: (dappID:string) => `/discover/${dappID}`, // TODO: Implement single view
   categories: {
     All: `/category/`,
     [DAPP_CATEGORY.EXCHANGES]: `/category/${DAPP_CATEGORY_STRINGS[DAPP_CATEGORY.EXCHANGES]}`.toLowerCase(),

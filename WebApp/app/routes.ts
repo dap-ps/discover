@@ -6,16 +6,18 @@ import StarIcon from './images/icons/star.svg';
 import ClockIcon from './images/icons/clock.svg';
 import { ROUTE_TYPE, DAPP_CATEGORY, DAPP_CATEGORY_ICONS } from 'utils/constants';
 import DAppManagementContainer from 'containers/modules/DAppManagementContainer';
+import VoteModule from 'containers/modules/VoteModule';
+import { FunctionComponent, ReactNode, ComponentType } from 'react';
 
 export interface AppRoute {
   name: string;
   path: string;
-  component: React.ComponentType<any>;
+  component: ComponentType<any>;
   isProtected: boolean;
   isNavRequired: boolean;
-  routeNavLinkIcon?: React.FunctionComponent<React.ReactNode>; // Should be provided if Nav is required
+  routeNavLinkIcon?: FunctionComponent<ReactNode>; // Should be provided if Nav is required
   routeType?: ROUTE_TYPE
-  ModalComponent?: React.ComponentType<any>;
+  modalComponent?: FunctionComponent<any>;
 }
 
 const routes: AppRoute[] = [
@@ -33,32 +35,25 @@ const routes: AppRoute[] = [
     component: HomePage,
     isProtected: false, // This allows general access control
     isNavRequired: false, // This allows mapping into a navigation bar
-    ModalComponent: DAppManagementContainer
+    modalComponent: DAppManagementContainer
   },
 
   {
     name: 'Update DApp',
-    path: ROUTE_LINKS.UpdateDApp,
+    path: ROUTE_LINKS.UpdateDApp(':dappID'),
     component: HomePage,
     isProtected: false, // This allows general access control
     isNavRequired: false, // This allows mapping into a navigation bar
-    ModalComponent: DAppManagementContainer
+    modalComponent: DAppManagementContainer
   },
 
   {
-    name: 'Upvote DApp',
-    path: ROUTE_LINKS.UpvoteDApp,
+    name: 'Vote on DApp',
+    path: ROUTE_LINKS.Vote(':dappID', ':voteType'),
     component: HomePage,
     isProtected: false, // This allows general access control
     isNavRequired: false, // This allows mapping into a navigation bar
-  },
-
-  {
-    name: 'Downvote DApp',
-    path: ROUTE_LINKS.DownvoteDApp,
-    component: HomePage,
-    isProtected: false, // This allows general access control
-    isNavRequired: false, // This allows mapping into a navigation bar
+    modalComponent: VoteModule
   },
 
   // Categories

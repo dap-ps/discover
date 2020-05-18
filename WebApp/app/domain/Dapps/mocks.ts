@@ -20,6 +20,7 @@ export const DAPPS: {
   [key: string]: IDapp
 } = {
   'sablier': {
+    ipfsHash: "asdasdasdasd",
     name: "Sablier",
     description: "Stream money, just like you stream music or videos",
     url: 'https://pay.sablier.finance',
@@ -32,6 +33,7 @@ export const DAPPS: {
     icon: SablierLogo
   },
   'oasis': {
+    ipfsHash: "asdasdas3456789dasd",
     name: 'Oasis',
     description: 'Trade tokens, borrow Dai, and earn savings — all in one place',
     url: 'https://oasis.app',
@@ -44,6 +46,7 @@ export const DAPPS: {
     icon: OasisLogo
   },
   'zerion': {
+    ipfsHash: "asdasd10101010101asdasd",
     name: 'Zerion',
     description: 'Zerion is the simplest way to invest in DeFi from anywhere in the world',
     url: 'https://app.zerion.io',

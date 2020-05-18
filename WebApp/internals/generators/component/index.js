@@ -16,11 +16,7 @@ module.exports = {
       name: 'type',
       message: 'Select the type of component',
       default: 'Stateless Function',
-      choices: () => [
-        'Stateless Function',
-        'React.PureComponent',
-        'React.Component',
-      ],
+      choices: () => ['Stateless Function', 'React.PureComponent'],
     },
     {
       type: 'input',
@@ -61,12 +57,8 @@ module.exports = {
     let componentTemplate;
 
     switch (data.type) {
-      case 'Stateless Function': {
-        componentTemplate = './component/stateless.js.hbs';
-        break;
-      }
       default: {
-        componentTemplate = './component/class.js.hbs';
+        componentTemplate = './component/stateless.js.hbs';
       }
     }
 

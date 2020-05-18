@@ -4,12 +4,11 @@
  *
  */
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, ReactNode } from 'react';
 import classNames from 'classnames';
 import { WithStyles, createStyles, withStyles, Theme } from '@material-ui/core';
 import { useOnClickOutside } from 'hooks/useOnClickOutside';
 import { appColors, uiConstants } from 'theme';
-import { Location } from 'history';
 import { ROUTE_LINKS } from 'routeLinks';
 import { forwardTo } from 'utils/history';
 import { Link } from 'react-router-dom';
@@ -108,16 +107,16 @@ const styles = ({
 
 
 interface OwnProps extends WithStyles<typeof styles>{
-  location: Location
-  ModalComponent?: React.ComponentType<any>
+  children: ReactNode;
 }
 
+
 const Modal: React.SFC<OwnProps> = ({
-  location,
-  ModalComponent,
-  classes
+  children,
+  classes,
 }: OwnProps) => {
-  const [active, setActive] = useState<boolean>(ModalComponent ? true : false)
+
+  const [active, setActive] = useState<boolean>(children !== undefined)
   const ref = useRef(null);
   useOnClickOutside(ref, () =>{
     if(active){
@@ -125,21 +124,13 @@ const Modal: React.SFC<OwnProps> = ({
       forwardTo(ROUTE_LINKS.Home)
     }
   })
-
-  useEffect(() => {
-    if(ModalComponent){
-      setActive(true)
-    }else{
-      setActive(false)
-    }
-  }, [ModalComponent])
   return <article ref={ref} className={classNames(classes.root, active ? "active" : "closed")}>
     <section className={classNames(classes.inner, active ? "active" : "")}>
       <Link to={ROUTE_LINKS.Home} className={classes.close}>
 
       </Link>
       {
-        ModalComponent && <ModalComponent location={location} />
+        children
       }
     </section>
   </article>

@@ -3,8 +3,8 @@ import React, { ReactNode } from 'react';
 import { Typography } from '@material-ui/core';
 import { createStyles, withStyles, WithStyles } from '@material-ui/core/styles';
 import NavMenu from 'components/views/modules/NavMenu';
-import { AppRoute } from 'routes';
-import { Link } from 'react-router-dom';
+import routes, { AppRoute } from 'routes';
+import { Link, Switch, Route } from 'react-router-dom';
 
 import { uiConstants, appColors } from 'theme';
 import DappIcon from "../../images/icons/add-dapp.svg"
@@ -17,11 +17,11 @@ import LoadingComponent from 'components/views/modules/LoadingComponent';
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Modal from 'components/theme/elements/Modal';
-import { Location } from 'history';
 
 const iconSize = 40;
 const styles = theme => createStyles({
   root: {
+
   },
   header:{
     padding: "25px 10px",
@@ -81,7 +81,6 @@ interface Props extends WithStyles<typeof styles> {
   children: ReactNode,
   navLinks: AppRoute[],
   modalComponent?: React.ComponentType<any>
-  location: Location
 }
 
 const AppWrapper: React.SFC<Props> = ({
@@ -90,7 +89,6 @@ const AppWrapper: React.SFC<Props> = ({
   currentlySending,
   navLinks,
   modalComponent,
-  location
 }: Props) => {
 
   return (
@@ -108,7 +106,7 @@ const AppWrapper: React.SFC<Props> = ({
       </main>
       <footer className={classes.footer}>
         <section>
-          <Link to="https://join.status.im/chat/public/dap-ps" target="_blank" className={classes.footerItem}>
+          <a href="https://join.status.im/chat/public/dap-ps" target="_blank" className={classes.footerItem}>
             <div>
               <CommunityIcon />
             </div>
@@ -120,7 +118,7 @@ const AppWrapper: React.SFC<Props> = ({
                 Status is a worldwide community committed to web3. Come discuss your new favourite DApp with us.
               </Typography>
             </div>
-          </Link>
+          </a>
           {/* TODO: submit action for dapp modal */}
           <div className={classes.footerItem}>
             <div>
@@ -152,7 +150,23 @@ const AppWrapper: React.SFC<Props> = ({
       </footer>
       <ToastContainer autoClose={5000} />
       <LoadingComponent loading={currentlySending} />
-      <Modal location={location} ModalComponent={modalComponent}/>
+
+        <Switch>
+          {
+            routes.map(({path, modalComponent }) => <Route
+              exact
+              path={path}
+              key={`modal-switch-${path}`}
+              render={props => <Modal>
+                {
+                  modalComponent && React.createElement(modalComponent, {})
+                }
+              </Modal> }
+            />
+            )
+          }
+        </Switch>
+
     </div>
   )
 }

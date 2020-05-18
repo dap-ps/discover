@@ -19,19 +19,21 @@ const styles = (theme: Theme) =>
   });
 
 interface OwnProps extends WithStyles<typeof styles> {
-  upvote: boolean
+  upvote: boolean,
+  dappID: string
 }
 
 const VoteModuleView: React.SFC<OwnProps> = ({
   classes,
-  upvote
+  upvote,
+  dappID
 }: OwnProps) => {
   return <article className={classes.root}>
     <header>
-      <Link to={ROUTE_LINKS.UpvoteDApp}>
+      <Link to={ROUTE_LINKS.Vote(dappID, "upvote")}>
         Upvote
       </Link>
-      <Link to={ROUTE_LINKS.DownvoteDApp}>
+      <Link to={ROUTE_LINKS.Vote(dappID, "downvote")}>
         Downvote
       </Link>
     </header>
