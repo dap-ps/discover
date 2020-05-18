@@ -7,7 +7,7 @@
 import React, { ReactNode } from 'react';
 import { Theme, createStyles, withStyles, WithStyles, useMediaQuery } from '@material-ui/core';
 import { CarouselProviderProps } from 'pure-react-carousel';
-import Carousel from 'components/module-markup/Carousel';
+import Carousel from 'components/views/modules/Carousel';
 import classNames from 'classnames';
 import { isArray } from 'util';
 import { uiConstants } from 'theme';

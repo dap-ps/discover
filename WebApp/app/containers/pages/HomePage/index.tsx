@@ -7,7 +7,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { compose, Dispatch } from 'redux';
-import Landing from 'components/pages/Landing';
+import Landing from 'components/views/pages/Landing';
 
 interface OwnProps {}
 
@@ -33,8 +33,8 @@ const mapDispatchToProps = (
 };
 
 const withConnect = connect(
-  null,
   mapDispatchToProps,
+  null,
 );
 
 export default compose(withConnect)(HomePage);

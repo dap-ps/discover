@@ -2,7 +2,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import React, { ReactNode } from 'react';
 import { Typography } from '@material-ui/core';
 import { createStyles, withStyles, WithStyles } from '@material-ui/core/styles';
-import NavMenu from 'components/module-markup/NavMenu';
+import NavMenu from 'components/views/modules/NavMenu';
 import { AppRoute } from 'routes';
 import { Link } from 'react-router-dom';
 
@@ -15,7 +15,7 @@ import SearchContainer from 'containers/modules/SearchContainer';
 import ModalModule from 'containers/modules/ModalModule';
 import { MODAL_COMPONENTS } from 'domain/App/constants';
 
-import LoadingComponent from 'components/module-markup/LoadingComponent';
+import LoadingComponent from 'components/views/modules/LoadingComponent';
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 

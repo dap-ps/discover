@@ -50,19 +50,22 @@ const styles = ({ breakpoints, palette }: Theme) => createStyles({
       height: "100%",
       backgroundSize: "cover",
       backgroundPosition: "50%",
-      borderRadius: "50%"
+      borderRadius: "50%",
+      cursor: "pointer",
     },
     "& > span":{
       color: appColors.general.gray.base,
       width: "100%",
       position: "absolute",
       top: "50%",
+      cursor: "pointer",
       left: "50%",
       transform: "translate(-50%, -50%)",
       textAlign: "center"
     },
     "& input": {
-      opacity: 0
+      opacity: 0,
+      visibility: "hidden"
     }
   },
   helperText: {

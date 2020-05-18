@@ -7,12 +7,17 @@ import { initialState } from './reducer';
  */
 
 const selectDappsDomain = (state: ApplicationRootState) => {
-  return state ? state : initialState;
+  return state ? state.dapp : initialState;
 };
 
 /**
  * Other specific selectors
  */
+
+export const makeSelectDapp = (dappID: string) => createSelector(
+  selectDappsDomain,
+  domain => domain.dapps[dappID]
+)
 
 /**
  * Default selector used by Dapps

@@ -8,9 +8,9 @@ import React from 'react';
 import { Theme, createStyles, withStyles, WithStyles, Typography, FormControl, Button } from '@material-ui/core';
 import { Form, Field } from 'formik';
 import { TextField } from 'formik-material-ui';
-import UploadImageField from '../../../forms/fields/UploadImageField';
+import UploadImageField from '../../../../theme/formElements/UploadImageField';
 import { uiConstants, appColors, brandColors } from 'theme';
-import CategorySelector from 'components/forms/fields/CategorySelector';
+import CategorySelector from 'components/theme/formElements/CategorySelector';
 
 const styles = (theme: Theme) =>
   createStyles({

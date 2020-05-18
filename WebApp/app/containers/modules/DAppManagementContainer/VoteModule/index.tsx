@@ -10,7 +10,7 @@ import { createStructuredSelector } from 'reselect';
 import { compose, Dispatch } from 'redux';
 import { makeSelectModalState } from 'domain/App/selectors';
 import { MODAL_COMPONENTS } from 'domain/App/constants';
-import VoteModuleView from 'components/module-markup/voteModule/VoteModuleView';
+import VoteModuleView from 'components/views/modules/voteModule/VoteModuleView';
 import { setModalAction } from 'domain/App/actions';
 
 interface OwnProps {}

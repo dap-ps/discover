@@ -11,9 +11,9 @@ import { createStructuredSelector } from 'reselect';
 import { RootState } from 'domain/App/types';
 import { makeSelectModalState } from 'domain/App/selectors';
 import { MODAL_COMPONENTS } from 'domain/App/constants';
-import ModalView from 'components/module-markup/ModalView';
-import SubmitDAppContainer from '../SubmitDAppContainer';
-import VoteModule from '../VoteModule';
+import ModalView from 'components/views/modules/ModalView';
+import DAppManagementContainer from '../DAppManagementContainer';
+import VoteModule from '../DAppManagementContainer/VoteModule';
 import { setModalAction } from 'domain/App/actions';
 
 interface OwnProps {}
@@ -37,7 +37,7 @@ const ModalModule: React.SFC<Props> = (props: Props) => {
   } = props;
   return <ModalView setModal={setModal} active={modalState !== MODAL_COMPONENTS.CLEAR}>
     {
-      modalState === MODAL_COMPONENTS.SUBMIT_DAPP && <SubmitDAppContainer />
+      modalState === MODAL_COMPONENTS.SUBMIT_DAPP && <DAppManagementContainer dappId={"asdasd"}  />
     }
     {
       modalState === MODAL_COMPONENTS.UPVOTE || modalState === MODAL_COMPONENTS.DOWNVOTE && <VoteModule />

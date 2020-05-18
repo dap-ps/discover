@@ -7,8 +7,8 @@
 import React from 'react';
 import { Theme, createStyles, withStyles, WithStyles } from '@material-ui/core';
 import { MODAL_COMPONENTS } from 'domain/App/constants';
-import DownvoteContainer from 'containers/modules/VoteModule/subContainers/DownvoteContainer';
-import UpvoteContainer from 'containers/modules/VoteModule/subContainers/UpvoteContainer';
+import DownvoteContainer from 'containers/modules/DAppManagementContainer/VoteModule/subContainers/DownvoteContainer';
+import UpvoteContainer from 'containers/modules/DAppManagementContainer/VoteModule/subContainers/UpvoteContainer';
 import classNames from 'classnames';
 
 const styles = (theme: Theme) =>

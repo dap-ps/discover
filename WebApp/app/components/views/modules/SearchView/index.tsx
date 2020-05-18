@@ -9,7 +9,7 @@ import { Theme, createStyles, withStyles, WithStyles, Input } from '@material-ui
 import classNames from 'classnames';
 import { useOnClickOutside } from 'hooks/useOnClickOutside';
 
-import SearchIcon from '../../../images/icons/search.svg';
+import SearchIcon from '../../../../images/icons/search.svg';
 import { uiConstants, appColors } from 'theme';
 
 const styles = (theme: Theme) =>

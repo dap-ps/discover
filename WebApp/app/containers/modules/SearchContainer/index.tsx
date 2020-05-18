@@ -7,7 +7,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { compose, Dispatch } from 'redux';
-import SearchView from 'components/module-markup/SearchView';
+import SearchView from 'components/views/modules/SearchView';
 
 interface OwnProps {}
 

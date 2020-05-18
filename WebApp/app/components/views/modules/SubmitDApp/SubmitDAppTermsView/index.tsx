@@ -8,7 +8,7 @@ import React from 'react';
 import { Theme, createStyles, withStyles, WithStyles, Typography, Button } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { appColors, uiConstants, brandColors } from 'theme';
-import ExpandSection from 'components/helpers/ExpandSection';
+import ExpandSection from 'components/theme/elements/ExpandSection';
 
 const styles = (theme: Theme) =>
   createStyles({

@@ -90,7 +90,8 @@ const styles = (theme: Theme) =>
 interface OwnProps extends WithStyles<typeof styles> {
   children: ReactNode[] | ReactNode,
   providerProps?: Partial<CarouselProviderProps>,
-  className?: string
+  className?: string,
+  arrows?: boolean;
 }
 
 const defaultProps: CarouselProviderProps = {
@@ -108,7 +109,8 @@ const Carousel: React.SFC<OwnProps> = (props: OwnProps) => {
     classes,
     children,
     providerProps,
-    className
+    className,
+    arrows = false
   } = props;
 
   const finalProps: CarouselProviderProps = {
@@ -144,7 +146,7 @@ const Carousel: React.SFC<OwnProps> = (props: OwnProps) => {
 
     </section>
     {
-      isArray(children) && children.length > 1 && <Fragment>
+      arrows && isArray(children) && children.length > 1 && <Fragment>
         <ButtonBack className={classNames(classes.button, classes.back)}>
           <ChevronLeft />
         </ButtonBack>

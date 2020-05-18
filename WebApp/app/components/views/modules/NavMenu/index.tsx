@@ -10,7 +10,7 @@ import { AppRoute } from 'routes';
 import classNames from 'classnames';
 import { uiConstants, appColors } from 'theme';
 import { ROUTE_TYPE } from 'utils/constants';
-import AddIcon from '../../../images/icons/add.svg';
+import AddIcon from '../../../../images/icons/add.svg';
 import { useOnClickOutside } from 'hooks/useOnClickOutside';
 import { MODAL_COMPONENTS } from 'domain/App/constants';
 

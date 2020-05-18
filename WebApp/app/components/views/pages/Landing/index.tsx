@@ -3,6 +3,8 @@ import { createStyles, withStyles } from '@material-ui/core/styles';
 import React from 'react';
 import DappFeature from 'components/theme/content/DappFeature';
 import { DAPPS, FEATURED_DAPPS } from 'domain/Dapps/mocks';
+import { uiConstants, brandColors, appColors } from 'theme';
+import Carousel from 'components/views/modules/Carousel';
 import { CarouselProviderProps } from 'pure-react-carousel';
 import { Link } from 'react-router-dom';
 import { ROUTE_LINKS } from 'routeLinks';
@@ -11,8 +13,6 @@ import { DAPP_CATEGORY_STRINGS, DAPP_CATEGORY_ICONS } from 'utils/constants';
 import classNames from 'classnames';
 import DappCard from 'components/theme/content/DappCard';
 import GridCarousel from 'components/theme/elements/GridCarousel';
-import { appColors, uiConstants, brandColors } from 'theme';
-import Carousel from 'components/views/modules/Carousel';
 
 let categoryColors = {};
 Object.keys(DAPP_CATEGORY_STRINGS).map(key => {
