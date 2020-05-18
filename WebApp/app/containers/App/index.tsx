@@ -27,18 +27,16 @@ import appReducer from 'domain/App/reducer';
 import rootDaemonSaga from 'domain/App/saga';
 import { RouteComponentProps } from 'react-router';
 import { makeSelectCurrentlySending } from 'domain/App/selectors';
-import { setModalAction } from 'domain/App/actions';
-import { MODAL_COMPONENTS } from 'domain/App/constants';
 import { makeSelectIsConnected } from 'domain/Wallet/selectors';
 
-function PrivateRoute({ component: Component, isConnected, ...rest }) {
+function PrivateRoute({ component: Component, isConnected, ModalComponent, ...rest }) {
   return (
     <Route
       exact
       {...rest}
       render={props => {
         return isConnected ? (
-          <Component {...props} />
+          ModalComponent ?  <Component {...props} ModalComponent={ModalComponent} />:  <Component {...props} />
         ) : (
             <Redirect
               to={{
@@ -53,13 +51,13 @@ function PrivateRoute({ component: Component, isConnected, ...rest }) {
   );
 }
 
-function PublicRoute({ component: Component, isConnected, ...rest }) {
+function PublicRoute({ component: Component, isConnected, ModalComponent, ...rest }) {
   return (
     <Route
       exact
       {...rest}
       render={props => {
-        return <Component {...props} />
+        return ModalComponent ?  <Component {...props} ModalComponent={ModalComponent} />:  <Component {...props} />
       }
       }
     />
@@ -72,9 +70,6 @@ interface StateProps {
 }
 
 interface DispatchProps {
-  setModal(
-    component: MODAL_COMPONENTS
-  ): void;
 }
 
 interface RouteParams {
@@ -84,8 +79,7 @@ interface OwnProps extends RouteComponentProps<RouteParams>, React.Props<RoutePa
 
 type Props = StateProps & DispatchProps & OwnProps;
 
-function App(props: Props) {
-  const { isConnected, currentlySending, setModal } = props;
+function App({ isConnected, currentlySending, location }: Props) {
 
   // The PublicRoute and PrivateRoute components below should only be used for top level components
   // that will be connected to the store, as no props can be passed down to the child components from here.
@@ -96,13 +90,14 @@ function App(props: Props) {
       isConnected={isConnected}
       currentlySending={currentlySending}
       navLinks={routes.filter(r => r.isNavRequired)}
-      setModal={setModal}
+      modalComponent={routes.find(r => r.path === location.pathname)?.ModalComponent}
+      location={location}
       >
       <Switch>
         {routes.map(r => {
           const route = (r.isProtected) ?
-            (<PrivateRoute path={r.path} exact component={r.component} isConnected={isConnected} key={r.path} />) :
-            (<PublicRoute path={r.path} exact component={r.component} isConnected={isConnected} key={r.path} />);
+            (<PrivateRoute path={r.path} exact component={r.component} isConnected={isConnected} key={r.path} ModalComponent={r.ModalComponent} />) :
+            (<PublicRoute path={r.path} exact component={r.component} isConnected={isConnected} key={r.path} ModalComponent={r.ModalComponent} />);
           return route;
         })}
       </Switch>
@@ -116,9 +111,6 @@ const mapStateToProps = createStructuredSelector<RootState, StateProps>({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  setModal:(component: MODAL_COMPONENTS) => {
-    dispatch(setModalAction(component))
-  }
 });
 
 const withConnect = connect(

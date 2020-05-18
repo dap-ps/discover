@@ -57,8 +57,6 @@ interface OwnProps extends WithStyles<typeof styles> {
   theme: Theme
 }
 
-
-
 const GridCarousel: React.SFC<OwnProps> = (props: OwnProps) => {
   const {
     classes,

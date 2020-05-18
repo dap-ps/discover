@@ -1,17 +1,23 @@
 /**
  *
- * ModalView
+ * Modal
  *
  */
 
-import React, { ReactNode, useRef } from 'react';
-import { Theme, createStyles, withStyles, WithStyles } from '@material-ui/core';
+import React, { useState, useRef, useEffect } from 'react';
 import classNames from 'classnames';
-import { uiConstants, appColors } from 'theme';
-import { MODAL_COMPONENTS } from 'domain/App/constants';
+import { WithStyles, createStyles, withStyles, Theme } from '@material-ui/core';
 import { useOnClickOutside } from 'hooks/useOnClickOutside';
+import { appColors, uiConstants } from 'theme';
+import { Location } from 'history';
+import { ROUTE_LINKS } from 'routeLinks';
+import { forwardTo } from 'utils/history';
+import { Link } from 'react-router-dom';
 
-const styles = ({breakpoints}: Theme) =>
+
+const styles = ({
+  breakpoints
+}: Theme) =>
   createStyles({
     // JSS in CSS goes here
     root: {
@@ -40,7 +46,7 @@ const styles = ({breakpoints}: Theme) =>
         opacity: 1,
       }
     },
-    modal:{
+    inner:{
       position: "absolute",
       top: "50%",
       left: "50%",
@@ -100,33 +106,43 @@ const styles = ({breakpoints}: Theme) =>
     }
   });
 
-interface OwnProps extends WithStyles<typeof styles> {
-  children: ReactNode[] | ReactNode | null,
-  active: boolean,
-  setModal(
-    component: MODAL_COMPONENTS
-  ): void;
+
+interface OwnProps extends WithStyles<typeof styles>{
+  location: Location
+  ModalComponent?: React.ComponentType<any>
 }
 
-const ModalView: React.SFC<OwnProps> = (props: OwnProps) => {
-  const { classes, children, active, setModal } = props;
-
-  const navRef = useRef(null);
-
-  useOnClickOutside(navRef, () => {
+const Modal: React.SFC<OwnProps> = ({
+  location,
+  ModalComponent,
+  classes
+}: OwnProps) => {
+  const [active, setActive] = useState<boolean>(ModalComponent ? true : false)
+  const ref = useRef(null);
+  useOnClickOutside(ref, () =>{
     if(active){
-      setModal(MODAL_COMPONENTS.CLEAR)
+      setActive(false)
+      forwardTo(ROUTE_LINKS.Home)
     }
-  });
+  })
 
-  return <div className={classNames(classes.root, active ? "active" : "")}>
-    <section ref={navRef} className={classNames(classes.modal, active ? "active" : "")}>
-      <div className={classes.close} onClick={() => setModal(MODAL_COMPONENTS.CLEAR)}>
+  useEffect(() => {
+    if(ModalComponent){
+      setActive(true)
+    }else{
+      setActive(false)
+    }
+  }, [ModalComponent])
+  return <article ref={ref} className={classNames(classes.root, active ? "active" : "closed")}>
+    <section className={classNames(classes.inner, active ? "active" : "")}>
+      <Link to={ROUTE_LINKS.Home} className={classes.close}>
 
-      </div>
-      {children}
+      </Link>
+      {
+        ModalComponent && <ModalComponent location={location} />
+      }
     </section>
-  </div>;
+  </article>
 };
 
-export default withStyles(styles, { withTheme: true })(ModalView);
+export default withStyles(styles, { withTheme: true })(Modal);

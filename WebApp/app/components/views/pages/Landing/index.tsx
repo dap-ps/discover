@@ -119,7 +119,7 @@ interface OwnProps extends WithStyles<typeof styles> {
 const Landing: React.SFC<OwnProps> = (props: OwnProps) => {
   const {
     classes,
-    theme
+    theme,
   } = props;
   const desktop = useMediaQuery(theme.breakpoints.up('md'));
   const tablet = useMediaQuery(theme.breakpoints.up('sm'));

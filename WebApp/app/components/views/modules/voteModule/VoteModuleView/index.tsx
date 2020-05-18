@@ -6,10 +6,11 @@
 
 import React from 'react';
 import { Theme, createStyles, withStyles, WithStyles } from '@material-ui/core';
-import { MODAL_COMPONENTS } from 'domain/App/constants';
-import DownvoteContainer from 'containers/modules/DAppManagementContainer/VoteModule/subContainers/DownvoteContainer';
-import UpvoteContainer from 'containers/modules/DAppManagementContainer/VoteModule/subContainers/UpvoteContainer';
+import DownvoteContainer from 'containers/modules/VoteModule/subContainers/DownvoteContainer';
+import UpvoteContainer from 'containers/modules/VoteModule/subContainers/UpvoteContainer';
 import classNames from 'classnames';
+import { ROUTE_LINKS } from 'routeLinks';
+import { Link } from 'react-router-dom';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -18,24 +19,23 @@ const styles = (theme: Theme) =>
   });
 
 interface OwnProps extends WithStyles<typeof styles> {
-  modalState: MODAL_COMPONENTS;
-  setModal(
-    component: MODAL_COMPONENTS
-  ): void;
+  upvote: boolean
 }
 
-const VoteModuleView: React.SFC<OwnProps> = (props: OwnProps) => {
-  const { classes, modalState, setModal } = props;
+const VoteModuleView: React.SFC<OwnProps> = ({
+  classes,
+  upvote
+}: OwnProps) => {
   return <article className={classes.root}>
     <header>
-      <span onClick={() => setModal(MODAL_COMPONENTS.UPVOTE)}>
+      <Link to={ROUTE_LINKS.UpvoteDApp}>
         Upvote
-      </span>
-      <span onClick={() => setModal(MODAL_COMPONENTS.DOWNVOTE)}>
+      </Link>
+      <Link to={ROUTE_LINKS.DownvoteDApp}>
         Downvote
-      </span>
+      </Link>
     </header>
-    <div className={classNames(classes.root, modalState === MODAL_COMPONENTS.UPVOTE  ? "upvote" : modalState === MODAL_COMPONENTS.DOWNVOTE ? "downvote" : "" )}>
+    <div className={classNames(classes.root, upvote  ? "upvote" : "downvote" )}>
       <UpvoteContainer />
       <DownvoteContainer />
     </div>

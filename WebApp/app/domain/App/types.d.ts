@@ -6,7 +6,6 @@ import { ApplicationRootState } from 'types';
 interface AppState {
   currentlySending: boolean;
   errorMessage: string;
-  modal: MODAL_COMPONENTS;
 }
 
 /* --- ACTIONS --- */

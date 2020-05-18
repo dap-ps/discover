@@ -9,17 +9,16 @@ import { connect } from 'react-redux';
 import { compose, Dispatch } from 'redux';
 import Landing from 'components/views/pages/Landing';
 
-interface OwnProps {}
+interface OwnProps {
+}
 
 interface DispatchProps {
 }
 
 type Props = DispatchProps & OwnProps;
 
-const HomePage: React.SFC<Props> = (props: Props) => {
-  const {
-  } = props;
-
+const HomePage: React.SFC<Props> = ({
+}: Props) => {
   return <Landing />;
 };
 

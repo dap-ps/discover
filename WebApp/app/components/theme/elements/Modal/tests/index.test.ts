@@ -1,8 +1,8 @@
 // import React from 'react';
 // import { mount } from 'enzyme';
 
-// import ModalView from '../index';
+// import Modal from '../index';
 
-describe('<ModalView />', () => {
+describe('<Modal />', () => {
   test.todo('Expect to have unit tests specified')
 });

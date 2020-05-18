@@ -207,7 +207,7 @@ const theme = createMuiTheme({
     MuiCssBaseline:{
       '@global':{
         '@font-face': [Inter, InterMedium, InterBold]
-      }
+      },
     },
     MuiButton:{
 

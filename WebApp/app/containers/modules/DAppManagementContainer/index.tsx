@@ -132,8 +132,10 @@ const mapDispatchToProps = (
   };
 };
 
-const mapStateToProps = (state: ApplicationRootState, props: OwnProps) => createStructuredSelector<RootState, StateProps>({
+const mapStateToProps = (state: ApplicationRootState, props: OwnProps) => props.dappId ? createStructuredSelector<RootState, StateProps>({
   dapp: props.dappId ? makeSelectDapp(props.dappId) : undefined
+}) :
+createStructuredSelector<RootState, StateProps>({
 });
 
 

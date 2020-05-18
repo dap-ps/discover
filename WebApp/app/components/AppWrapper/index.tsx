@@ -12,12 +12,12 @@ import CommunityIcon from "../../images/icons/community.svg"
 import SupportIcon from "../../images/icons/support.svg"
 
 import SearchContainer from 'containers/modules/SearchContainer';
-import ModalModule from 'containers/modules/ModalModule';
-import { MODAL_COMPONENTS } from 'domain/App/constants';
 
 import LoadingComponent from 'components/views/modules/LoadingComponent';
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Modal from 'components/theme/elements/Modal';
+import { Location } from 'history';
 
 const iconSize = 40;
 const styles = theme => createStyles({
@@ -80,22 +80,23 @@ interface Props extends WithStyles<typeof styles> {
   isConnected: boolean;
   children: ReactNode,
   navLinks: AppRoute[],
-  setModal: (component: MODAL_COMPONENTS) => void;
+  modalComponent?: React.ComponentType<any>
+  location: Location
 }
 
-const AppWrapper: React.SFC<Props> = (props: Props) => {
-  const {
-    classes,
-    children,
-    currentlySending,
-    navLinks,
-    setModal
-  } = props;
+const AppWrapper: React.SFC<Props> = ({
+  classes,
+  children,
+  currentlySending,
+  navLinks,
+  modalComponent,
+  location
+}: Props) => {
 
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <NavMenu setModal={setModal} navLinks={navLinks}/>
+      <NavMenu navLinks={navLinks}/>
       <header className={classes.header}>
         <Typography variant="h1" component="h2">
           Discover
@@ -151,7 +152,7 @@ const AppWrapper: React.SFC<Props> = (props: Props) => {
       </footer>
       <ToastContainer autoClose={5000} />
       <LoadingComponent loading={currentlySending} />
-      <ModalModule />
+      <Modal location={location} ModalComponent={modalComponent}/>
     </div>
   )
 }

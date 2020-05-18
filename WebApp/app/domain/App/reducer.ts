@@ -1,7 +1,6 @@
 import { getType } from 'typesafe-actions';
 import { DomainState, DomainActions } from './types';
-import { setApiSendingFlag, setErrorMessageAction, setModalAction } from './actions';
-import { MODAL_COMPONENTS } from './constants';
+import { setApiSendingFlag, setErrorMessageAction } from './actions';
 
 /*
  *
@@ -12,16 +11,10 @@ import { MODAL_COMPONENTS } from './constants';
 export const initialState: DomainState = {
   currentlySending: true,
   errorMessage: "",
-  modal: MODAL_COMPONENTS.CLEAR
 };
 
 function appReducer(state = initialState, action: DomainActions) {
   switch (action.type) {
-    case getType(setModalAction):
-        return {
-          ...state,
-          modal: action.payload
-        }
     case getType(setApiSendingFlag):
       return {
         ...state,

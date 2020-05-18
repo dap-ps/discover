@@ -12,7 +12,8 @@ import { uiConstants, appColors } from 'theme';
 import { ROUTE_TYPE } from 'utils/constants';
 import AddIcon from '../../../../images/icons/add.svg';
 import { useOnClickOutside } from 'hooks/useOnClickOutside';
-import { MODAL_COMPONENTS } from 'domain/App/constants';
+import { Link } from 'react-router-dom';
+import { ROUTE_LINKS } from 'routeLinks';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -100,6 +101,8 @@ const styles = (theme: Theme) =>
       margin: "10px 0",
       alignItems: "center",
       cursor: "pointer",
+      color: "initial",
+      textDecoration: "none",
       "& span": {
         display: "block",
         marginLeft: 20,
@@ -121,14 +124,12 @@ const styles = (theme: Theme) =>
 // TODO: Responsive
 interface OwnProps extends WithStyles<typeof styles> {
   navLinks: AppRoute[];
-  setModal: (component: MODAL_COMPONENTS) => void;
 }
 
 const NavMenu: React.SFC<OwnProps> = (props: OwnProps) => {
   const {
     classes,
     navLinks,
-    setModal
   } = props;
 
   const navRef = useRef(null);
@@ -140,10 +141,6 @@ const NavMenu: React.SFC<OwnProps> = (props: OwnProps) => {
     }
   });
 
-  const andClose = (callback: (param?: any) => any) => {
-    setOpen(false)
-    callback()
-  }
 
   return <div ref={navRef} className={classNames(classes.root, open ? "open" : "")}>
     <span className={classNames(classes.burger,  !open ? "active" : "")} onClick={() => setOpen(true)}>
@@ -191,14 +188,14 @@ const NavMenu: React.SFC<OwnProps> = (props: OwnProps) => {
             </div>)
           }
         </nav>
-        <div className={classNames(classes.item, classes.submit)} onClick={() => andClose(() => setModal(MODAL_COMPONENTS.SUBMIT_DAPP))}>
+        <Link to={ROUTE_LINKS.CreateDApp} className={classNames(classes.item, classes.submit)} onClick={() => setOpen(false)}>
           <div className={classes.icon}>
             <AddIcon />
           </div>
           <span>
             Submit a Ðapp
           </span>
-        </div>
+        </Link>
       </div>
     </section>
   </div>;
