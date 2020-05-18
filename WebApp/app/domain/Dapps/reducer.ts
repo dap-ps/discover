@@ -4,10 +4,8 @@
  *
  */
 
-import { defaultAction } from './actions';
 
 import { DomainState, DomainActions } from './types';
-import { getType } from 'typesafe-actions';
 
 export const initialState: DomainState = {
   dapps: []
@@ -18,8 +16,8 @@ function dappsReducer(
   action: DomainActions,
 ) {
   switch (action.type) {
-    case getType(defaultAction):
-      return state;
+    // case getType(defaultAction):
+    //   return state;
     default:
       return state;
   }

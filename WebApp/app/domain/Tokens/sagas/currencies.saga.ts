@@ -11,7 +11,7 @@ function* getBalancesSaga(){
     yield take(getBalancesAction.request);
     // TODO get network from provider
     try{
-      const account = yield select((state: RootState) => state.global.walletAddress);
+      const account = yield select((state: RootState) => state.wallet.walletAddress);
       const currencies: KyberERC20Token[] = yield call(getKyberCurrencies, "mainnet")
       const tokenAddresses = currencies.filter(c => c.symbol !== 'ETH').map(c => c.address)
 

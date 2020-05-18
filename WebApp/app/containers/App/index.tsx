@@ -26,9 +26,10 @@ import { RootState } from 'domain/App/types';
 import appReducer from 'domain/App/reducer';
 import rootDaemonSaga from 'domain/App/saga';
 import { RouteComponentProps } from 'react-router';
-import { makeSelectCurrentlySending, makeSelectIsConnected } from 'domain/App/selectors';
+import { makeSelectCurrentlySending } from 'domain/App/selectors';
 import { setModalAction } from 'domain/App/actions';
 import { MODAL_COMPONENTS } from 'domain/App/constants';
+import { makeSelectIsConnected } from 'domain/Wallet/selectors';
 
 function PrivateRoute({ component: Component, isConnected, ...rest }) {
   return (

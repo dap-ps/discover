@@ -3,18 +3,17 @@ import * as actions from './actions';
 import { ApplicationRootState } from 'types';
 
 /* --- STATE --- */
-interface AppState {
-  currentlySending: boolean;
-  errorMessage: string;
-  modal: MODAL_COMPONENTS;
+interface WalletState {
+  readonly walletAddress: string;
 }
 
 /* --- ACTIONS --- */
-type AppActions = ActionType<typeof actions>;
+type WalletActions = ActionType<typeof actions>;
 
 /* --- EXPORTS --- */
+
 type RootState = ApplicationRootState;
-type DomainState = AppState;
-type DomainActions = AppActions;
+type DomainState = WalletState;
+type DomainActions = WalletActions;
 
 export { RootState, DomainState, DomainActions };

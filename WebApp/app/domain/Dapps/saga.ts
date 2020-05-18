@@ -1,9 +1,12 @@
-// This file is just a stub showing a sample Api request saga.
-// For more information on Saga see: https://redux-saga.js.org/
-
 import { fork } from 'redux-saga/effects';
-import { defaultListener } from './sagas/default.saga';
+import { createDappListener } from './sagas/createDapp.saga';
+import { updateDappListener } from './sagas/updateDapp.saga';
+import { upvoteListener } from './sagas/upvote.saga';
+import { downvoteListener } from './sagas/downvote.saga';
 
 export default function* DappsSaga() {
-  yield fork(defaultListener);
+  yield fork(createDappListener)
+  yield fork(updateDappListener)
+  yield fork(upvoteListener)
+  yield fork(downvoteListener)
 }

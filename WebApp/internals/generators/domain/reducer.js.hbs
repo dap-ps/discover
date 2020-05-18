@@ -6,14 +6,14 @@
 
 import { defaultAction } from './actions';
 
-import { ContainerState, ContainerActions } from './types';
+import { DomainState, DomainActions } from './types';
 import { getType } from 'typesafe-actions';
 
-export const initialState: ContainerState = {
+export const initialState: DomainState = {
   default: null,
 };
 
- function {{ camelCase name }}Reducer(state: ContainerState = initialState, action: ContainerActions ) {
+ function {{ camelCase name }}Reducer(state: DomainState = initialState, action: DomainActions ) {
    switch (action.type) {
      case getType(defaultAction):
        return state;

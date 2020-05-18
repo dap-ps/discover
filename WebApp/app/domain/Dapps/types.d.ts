@@ -2,8 +2,14 @@ import { ActionType } from 'typesafe-actions';
 import * as actions from './actions';
 import { ApplicationRootState } from 'types';
 import { DAPP_STATUS } from 'utils/constants';
+import { BigNumber } from 'ethers/utils';
 
-// Data interfaces
+export interface IDappVote {
+  identifier: string;
+  token: string;
+  amount: BigNumber;
+}
+
 export interface IDappRank {
   place: number,
   list: string

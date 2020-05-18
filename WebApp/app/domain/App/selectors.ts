@@ -18,16 +18,6 @@ const selectCurrentlySending = (state: ApplicationRootState) => {
   return state.global.currentlySending;
 };
 
-const selectIsConnected = (state: ApplicationRootState) => {
-  // TODO check provider state
-  return state.global.walletAddress != "0x0000000000000000000000000000000000000000";
-};
-
-export const makeSelectIsConnected =
-  createSelector(selectIsConnected, (substate: boolean) => {
-    return substate;
-  });
-
 export const makeSelectCurrentlySending =
   createSelector(selectCurrentlySending, (substate: boolean) =>{
     return substate;

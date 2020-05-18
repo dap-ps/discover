@@ -1,4 +1,4 @@
-import { take, call, put, fork } from "redux-saga/effects";
+import { take, call, put } from "redux-saga/effects";
 import { connectWalletAction, setWalletAction } from "../actions";
 import EmbarkJS from "embarkArtifacts/embarkjs";
 import { getBalancesAction } from "domain/Tokens/actions";
@@ -16,16 +16,9 @@ function* connectWalletSaga() {
   }
 }
 
-function* connectWalletListener(){
+export function* connectWalletListener(){
   while(true){
     yield take(connectWalletAction);
     yield call(connectWalletSaga);
   }
-}
-
-export function* WalletSaga(){
-  yield fork(connectWalletListener)
-
-  // Init
-  yield put(connectWalletAction())
 }

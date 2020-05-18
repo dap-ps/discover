@@ -7,7 +7,7 @@ import { initialState } from './reducer';
  */
 
 const selectTokensDomain = (state: ApplicationRootState) => {
-  return state ? state : initialState;
+  return state ? state.token : initialState;
 };
 
 /**

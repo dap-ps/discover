@@ -2,6 +2,7 @@ import { DAPP_CATEGORY_STRINGS, DAPP_CATEGORY, DAPP_LIST } from "utils/constants
 
 export const ROUTE_LINKS = {
   Home: `/`,
+  View: (dappID:string) => `/view/${dappID}`, // TODO: Implement single view
   categories: {
     All: `/category/`,
     [DAPP_CATEGORY.EXCHANGES]: `/category/${DAPP_CATEGORY_STRINGS[DAPP_CATEGORY.EXCHANGES]}`.toLowerCase(),
