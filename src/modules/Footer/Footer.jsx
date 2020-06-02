@@ -11,7 +11,7 @@ const Footer = props => {
   return (
     <div className={styles.footer}>
       <a
-        href="https://join.status.im/chat/public/dap-ps"
+        href="https://join.status.im/dap-ps"
         className={styles.footerItem}
       >
         <div className={styles.iconWrap}>
@@ -35,7 +35,7 @@ const Footer = props => {
         </div>
       </div>
       <a
-        href="https://get.status.im/chat/public/status-core-dapps"
+        href="https://join.status.im/support"
         className={styles.footerItem}
       >
         <div className={styles.iconWrap}>
