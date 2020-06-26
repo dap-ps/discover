@@ -16,7 +16,9 @@ const selectDappsDomain = (state: ApplicationRootState) => {
 
 export const makeSelectDapp = (dappID: string) => createSelector(
   selectDappsDomain,
-  domain => domain.dapps[dappID]
+  domain => {
+    return domain.dapps.find(dapp => dapp.ipfsHash == dappID)
+  }
 )
 
 /**

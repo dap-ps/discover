@@ -9,21 +9,36 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose, Dispatch } from 'redux';
 import UpvoteView from 'components/views/modules/voteModule/UpvoteView';
+import { ApplicationRootState } from 'types';
+import { makeSelectDapp } from 'domain/Dapps/selectors';
+import { RootState } from 'domain/App/types';
+import { IDapp } from 'domain/Dapps/types';
 
-interface OwnProps {}
+interface OwnProps {
+  dappID: string
+}
 
 interface DispatchProps {}
 
-interface StateProps {}
+interface StateProps {
+  dapp: IDapp | undefined
+}
 
 type Props = StateProps & DispatchProps & OwnProps;
 
-const UpvoteContainer: React.SFC<Props> = (props: Props) => {
-  return <UpvoteView />
+const UpvoteContainer: React.SFC<Props> = ({
+  dapp,
+  dappID
+}: Props) => {
+  return dapp ?  <UpvoteView
+    dapp={dapp}
+  /> :
+  <></>
 }
 
-const mapStateToProps = createStructuredSelector({
-});
+const mapStateToProps = (state: ApplicationRootState, props: OwnProps) => createStructuredSelector<RootState, StateProps>({
+  dapp: makeSelectDapp(props.dappID)
+})
 
 const mapDispatchToProps = (
   dispatch: Dispatch,

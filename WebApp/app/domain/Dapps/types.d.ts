@@ -34,7 +34,7 @@ export interface IDapp {
 
 /* --- STATE --- */
 interface DappsState {
-  readonly dapps: Dapp[]
+  readonly dapps: IDapp[]
 }
 
 /* --- ACTIONS --- */

@@ -76,16 +76,19 @@ const styles = (theme: Theme) =>
 
       '& > *': {
         transitionDuration: '400ms',
-        height: 0,
-        width: 0,
+        opacity: 0,
+        visibility: 'hidden',
         overflow: 'hidden',
+        height: 0,
       },
       '&.upvote > *:first-child': {
-        width: "100%",
+        opacity: 1,
+        visibility: 'visible',
         height: 'initial',
       },
       '&.downvote > *:last-child': {
-        width: "100%",
+        opacity: 1,
+        visibility: 'visible',
         height: 'initial',
       },
     }
@@ -114,8 +117,16 @@ const VoteModuleView: React.SFC<OwnProps> = ({
       </Link>
     </header>
     <div className={classNames(classes.viewArea, upvote  ? "upvote" : "downvote" )}>
-      <UpvoteContainer />
-      <DownvoteContainer />
+     <div>
+      <UpvoteContainer
+        dappID={dappID}
+      />
+     </div>
+      <div>
+        <DownvoteContainer
+          dappID={dappID}
+        />
+      </div>
     </div>
   </article>
 };

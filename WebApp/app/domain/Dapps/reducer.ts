@@ -6,9 +6,10 @@
 
 
 import { DomainState, DomainActions } from './types';
+import { DAPPS } from './mocks';
 
 export const initialState: DomainState = {
-  dapps: []
+  dapps: Object.keys(DAPPS).map(key => DAPPS[key])
 };
 
 function dappsReducer(
