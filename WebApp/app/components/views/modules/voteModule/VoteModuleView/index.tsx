@@ -4,18 +4,91 @@
  *
  */
 
-import React from 'react';
-import { Theme, createStyles, withStyles, WithStyles } from '@material-ui/core';
-import DownvoteContainer from 'containers/modules/VoteModule/subContainers/DownvoteContainer';
-import UpvoteContainer from 'containers/modules/VoteModule/subContainers/UpvoteContainer';
-import classNames from 'classnames';
-import { ROUTE_LINKS } from 'routeLinks';
-import { Link } from 'react-router-dom';
+import React from 'react'
+import { Theme, createStyles, withStyles, WithStyles } from '@material-ui/core'
+import DownvoteContainer from 'containers/modules/VoteModule/subContainers/DownvoteContainer'
+import UpvoteContainer from 'containers/modules/VoteModule/subContainers/UpvoteContainer'
+import classNames from 'classnames'
+import { ROUTE_LINKS } from 'routeLinks'
+import { Link, useLocation } from 'react-router-dom'
+import { appColors } from 'theme'
+import UpvoteArrow from '../../../../../images/icons/upvote-arrow.svg'
+import DownvoteArrow from '../../../../../images/icons/downvote-arrow.svg'
+
 
 const styles = (theme: Theme) =>
   createStyles({
     // JSS in CSS goes here
     root: {},
+    header: {
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'center',
+      borderBottom: `1px solid ${appColors.general.gray.background}`,
+      '& > *': {
+        textTransform: 'uppercase',
+        position: 'relative',
+        display: 'block',
+        padding: `15px 0px 10px`,
+        margin: `0px 15px`,
+        textDecoration: 'none',
+        transitionDuration: '200ms',
+        color: appColors.general.gray.base,
+        '& svg': {
+          transitionDuration: '200ms',
+          fill: appColors.general.gray.base,
+          position: 'relative',
+          top: -1,
+          marginRight: 5,
+          '& path': {
+            stroke: appColors.general.gray.base,
+          }
+        },
+        '&:after': {
+          content: `''`,
+          display: 'block',
+          height: 1,
+          position: 'absolute',
+          bottom: 0,
+          left: '50%',
+          transitionDuration: '200ms',
+          transform: 'translate(-50%, -50%)',
+          width: `calc(100% - 20px)`,
+        },
+      },
+
+      '& .active': {
+        color: appColors.general.blue.base,
+        '& svg': {
+          transitionDuration: '200ms',
+          fill: appColors.general.blue.base,
+          '& path': {
+            stroke: appColors.general.blue.base,
+          },
+        },
+        '&:after': {
+          backgroundColor:appColors.general.blue.base,
+        },
+      }
+    },
+    viewArea: {
+      position: 'relative',
+
+      '& > *': {
+        transitionDuration: '400ms',
+        height: 0,
+        width: 0,
+        overflow: 'hidden',
+      },
+      '&.upvote > *:first-child': {
+        width: "100%",
+        height: 'initial',
+      },
+      '&.downvote > *:last-child': {
+        width: "100%",
+        height: 'initial',
+      },
+    }
   });
 
 interface OwnProps extends WithStyles<typeof styles> {
@@ -28,16 +101,19 @@ const VoteModuleView: React.SFC<OwnProps> = ({
   upvote,
   dappID
 }: OwnProps) => {
+  const location = useLocation()
   return <article className={classes.root}>
-    <header>
-      <Link to={ROUTE_LINKS.Vote(dappID, "upvote")}>
+    <header className={classes.header}>
+      <Link className={location.pathname == ROUTE_LINKS.Vote(dappID, "upvote") ? 'active' : ''} to={ROUTE_LINKS.Vote(dappID, "upvote")}>
+        <UpvoteArrow/>
         Upvote
       </Link>
-      <Link to={ROUTE_LINKS.Vote(dappID, "downvote")}>
+      <Link className={location.pathname == ROUTE_LINKS.Vote(dappID, "downvote") ? 'active' : ''}  to={ROUTE_LINKS.Vote(dappID, "downvote")}>
+        <DownvoteArrow/>
         Downvote
       </Link>
     </header>
-    <div className={classNames(classes.root, upvote  ? "upvote" : "downvote" )}>
+    <div className={classNames(classes.viewArea, upvote  ? "upvote" : "downvote" )}>
       <UpvoteContainer />
       <DownvoteContainer />
     </div>

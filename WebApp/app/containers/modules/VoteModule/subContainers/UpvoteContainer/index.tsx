@@ -4,10 +4,11 @@
  *
  */
 
-import React, { Fragment } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose, Dispatch } from 'redux';
+import UpvoteView from 'components/views/modules/voteModule/UpvoteView';
 
 interface OwnProps {}
 
@@ -18,8 +19,8 @@ interface StateProps {}
 type Props = StateProps & DispatchProps & OwnProps;
 
 const UpvoteContainer: React.SFC<Props> = (props: Props) => {
-  return <Fragment>UpvoteContainer</Fragment>;
-};
+  return <UpvoteView />
+}
 
 const mapStateToProps = createStructuredSelector({
 });
