@@ -106,8 +106,8 @@ const styles = ({ breakpoints }: Theme) =>
         fontWeight: 500,
       },
       '& svg': {
-        height: 52
-      }
+        height: 52,
+      },
     },
     heading: {},
     subheading: {},

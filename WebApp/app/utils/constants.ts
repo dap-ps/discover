@@ -92,3 +92,8 @@ export enum ROUTE_TYPE {
   CATEGORY = 'Category',
   LIST = 'List',
 }
+
+export enum TOKENS {
+  SNT = 'SNT',
+  DAI = 'DAI'
+}

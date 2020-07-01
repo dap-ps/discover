@@ -21,10 +21,9 @@ interface OwnProps extends WithStyles<typeof styles> { }
 interface OwnProps { }
 {{/if}}
 
-const {{ properCase name }}: React.SFC<OwnProps> = (props: OwnProps) => {
-  const {
+const {{ properCase name }}: React.SFC<OwnProps> = ({
     classes,
-  } = props;
+  }: OwnProps) => {
   return (
     <Fragment>
       {{#if wantMessages}}
