@@ -18,19 +18,15 @@ const styles = (theme: Theme) =>
   });
 
 interface OwnProps extends WithStyles<typeof styles> {
-  dapp: IDapp
+  dapp: IDapp;
 }
 
-const UpvoteView: React.SFC<OwnProps> = ({
-  classes,
-  dapp
-}: OwnProps) => {
-  return <section className={classes.root}>
-    <DappInfoHeader
-      dapp={dapp}
-    />
-
-  </section>
+const UpvoteView: React.SFC<OwnProps> = ({ classes, dapp }: OwnProps) => {
+  return (
+    <section className={classes.root}>
+      <DappInfoHeader dapp={dapp} />
+    </section>
+  );
 };
 
 export default withStyles(styles, { withTheme: true })(UpvoteView);

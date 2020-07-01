@@ -4,17 +4,16 @@
  *
  */
 
-import React from 'react'
-import { Theme, createStyles, withStyles, WithStyles } from '@material-ui/core'
-import DownvoteContainer from 'containers/modules/VoteModule/subContainers/DownvoteContainer'
-import UpvoteContainer from 'containers/modules/VoteModule/subContainers/UpvoteContainer'
-import classNames from 'classnames'
-import { ROUTE_LINKS } from 'routeLinks'
-import { Link, useLocation } from 'react-router-dom'
-import { appColors } from 'theme'
-import UpvoteArrow from '../../../../../images/icons/upvote-arrow.svg'
-import DownvoteArrow from '../../../../../images/icons/downvote-arrow.svg'
-
+import React from 'react';
+import { Theme, createStyles, withStyles, WithStyles } from '@material-ui/core';
+import DownvoteContainer from 'containers/modules/VoteModule/subContainers/DownvoteContainer';
+import UpvoteContainer from 'containers/modules/VoteModule/subContainers/UpvoteContainer';
+import classNames from 'classnames';
+import { ROUTE_LINKS } from 'routeLinks';
+import { Link, useLocation } from 'react-router-dom';
+import { appColors } from 'theme';
+import UpvoteArrow from '../../../../../images/icons/upvote-arrow.svg';
+import DownvoteArrow from '../../../../../images/icons/downvote-arrow.svg';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -42,7 +41,7 @@ const styles = (theme: Theme) =>
           marginRight: 5,
           '& path': {
             stroke: appColors.general.gray.base,
-          }
+          },
         },
         '&:after': {
           content: `''`,
@@ -67,9 +66,9 @@ const styles = (theme: Theme) =>
           },
         },
         '&:after': {
-          backgroundColor:appColors.general.blue.base,
+          backgroundColor: appColors.general.blue.base,
         },
-      }
+      },
     },
     viewArea: {
       position: 'relative',
@@ -91,44 +90,58 @@ const styles = (theme: Theme) =>
         visibility: 'visible',
         height: 'initial',
       },
-    }
+    },
   });
 
 interface OwnProps extends WithStyles<typeof styles> {
-  upvote: boolean,
-  dappID: string
+  upvote: boolean;
+  dappID: string;
 }
 
 const VoteModuleView: React.SFC<OwnProps> = ({
   classes,
   upvote,
-  dappID
+  dappID,
 }: OwnProps) => {
-  const location = useLocation()
-  return <article className={classes.root}>
-    <header className={classes.header}>
-      <Link className={location.pathname == ROUTE_LINKS.Vote(dappID, "upvote") ? 'active' : ''} to={ROUTE_LINKS.Vote(dappID, "upvote")}>
-        <UpvoteArrow/>
-        Upvote
-      </Link>
-      <Link className={location.pathname == ROUTE_LINKS.Vote(dappID, "downvote") ? 'active' : ''}  to={ROUTE_LINKS.Vote(dappID, "downvote")}>
-        <DownvoteArrow/>
-        Downvote
-      </Link>
-    </header>
-    <div className={classNames(classes.viewArea, upvote  ? "upvote" : "downvote" )}>
-     <div>
-      <UpvoteContainer
-        dappID={dappID}
-      />
-     </div>
-      <div>
-        <DownvoteContainer
-          dappID={dappID}
-        />
+  const location = useLocation();
+  return (
+    <article className={classes.root}>
+      <header className={classes.header}>
+        <Link
+          className={
+            location.pathname == ROUTE_LINKS.Vote(dappID, 'upvote')
+              ? 'active'
+              : ''
+          }
+          to={ROUTE_LINKS.Vote(dappID, 'upvote')}
+        >
+          <UpvoteArrow />
+          Upvote
+        </Link>
+        <Link
+          className={
+            location.pathname == ROUTE_LINKS.Vote(dappID, 'downvote')
+              ? 'active'
+              : ''
+          }
+          to={ROUTE_LINKS.Vote(dappID, 'downvote')}
+        >
+          <DownvoteArrow />
+          Downvote
+        </Link>
+      </header>
+      <div
+        className={classNames(classes.viewArea, upvote ? 'upvote' : 'downvote')}
+      >
+        <div>
+          <UpvoteContainer dappID={dappID} />
+        </div>
+        <div>
+          <DownvoteContainer dappID={dappID} />
+        </div>
       </div>
-    </div>
-  </article>
+    </article>
+  );
 };
 
 export default withStyles(styles, { withTheme: true })(VoteModuleView);

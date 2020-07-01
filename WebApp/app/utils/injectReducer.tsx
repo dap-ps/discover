@@ -25,9 +25,9 @@ export default function hocWithReducer<P>({
       public static WrappedComponent = WrappedComponent;
 
       static contextType = ReactReduxContext;
-      public static displayName = `withReducer(${WrappedComponent.displayName ||
-        WrappedComponent.name ||
-        'Component'})`;
+      public static displayName = `withReducer(${
+        WrappedComponent.displayName || WrappedComponent.name || 'Component'
+      })`;
 
       constructor(props: any, context: any) {
         super(props, context);

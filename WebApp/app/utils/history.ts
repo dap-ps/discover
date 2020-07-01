@@ -6,6 +6,6 @@ export function forwardTo(location) {
   history.push(location);
 }
 
-export function goBack(){
+export function goBack() {
   history.goBack();
 }

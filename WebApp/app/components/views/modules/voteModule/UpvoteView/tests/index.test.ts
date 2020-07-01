@@ -4,5 +4,5 @@
 // import UpvoteView from '../index';
 
 describe('<UpvoteView />', () => {
-  test.todo('Expect to have unit tests specified')
+  test.todo('Expect to have unit tests specified');
 });

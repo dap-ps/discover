@@ -5,5 +5,5 @@ import { fork } from 'redux-saga/effects';
 import { connectWalletListener } from './sagas/connectWallet.saga';
 
 export default function* walletSaga() {
-  yield fork(connectWalletListener)
+  yield fork(connectWalletListener);
 }

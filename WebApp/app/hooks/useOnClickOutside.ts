@@ -1,10 +1,10 @@
-import { useEffect, MutableRefObject } from "react";
+import { useEffect, MutableRefObject } from 'react';
 
 // Hook
 export function useOnClickOutside(ref: MutableRefObject<any>, handler) {
   useEffect(
     () => {
-      const listener = event => {
+      const listener = (event) => {
         // Do nothing if clicking ref's element or descendent elements
         if (!ref.current || ref.current.contains(event.target)) {
           return;
@@ -27,6 +27,6 @@ export function useOnClickOutside(ref: MutableRefObject<any>, handler) {
     // ... callback/cleanup to run every render. It's not a big deal ...
     // ... but to optimize you can wrap handler in useCallback before ...
     // ... passing it into this hook.
-    [ref, handler]
+    [ref, handler],
   );
 }

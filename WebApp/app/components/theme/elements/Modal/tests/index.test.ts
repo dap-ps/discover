@@ -4,5 +4,5 @@
 // import Modal from '../index';
 
 describe('<Modal />', () => {
-  test.todo('Expect to have unit tests specified')
+  test.todo('Expect to have unit tests specified');
 });

@@ -13,15 +13,15 @@ const xmark = require('./helpers/xmark');
 
 process.chdir(path.join(__dirname, '../generators'));
 
-const prettyStringify = data => JSON.stringify(data, null, 2);
+const prettyStringify = (data) => JSON.stringify(data, null, 2);
 
-const checkForErrors = result => {
+const checkForErrors = (result) => {
   if (Array.isArray(result.failures) && result.failures.length > 0) {
     throw result.failures;
   }
 };
 
-const reportErrorsFor = title => err => {
+const reportErrorsFor = (title) => (err) => {
   // TODO Replace with our own helpers/log that is guaranteed to be blocking?
   xmark(() =>
     console.error(
@@ -33,7 +33,7 @@ const reportErrorsFor = title => err => {
 };
 
 // Generated tests are designed to fail, which would in turn fail CI builds
-const removeTestsDirFrom = relativePath => () =>
+const removeTestsDirFrom = (relativePath) => () =>
   rimraf.sync(path.join(__dirname, '/../../app/', relativePath, '/tests'));
 
 const plop = nodePlop('./index.js');

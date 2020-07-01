@@ -110,7 +110,6 @@
 //   ]
 // });
 
-
 // // export const torus = new TorusConnector({ chainId: 5 });
 
 // // export const authereum = new AuthereumConnector({ chainId: 42 });

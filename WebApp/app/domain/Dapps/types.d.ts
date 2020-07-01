@@ -11,30 +11,30 @@ export interface IDappVote {
 }
 
 export interface IDappRank {
-  place: number,
-  list: string
+  place: number;
+  list: string;
 }
 
 export interface IDapp {
-  name: string,
-  category: DappCategories,
-  description: string,
-  url: string,
-  banner: string,
-  icon: string,
-  status: DAPP_STATUS,
-  ranking?: DappRank[],
-  votes: number,
-  dateAdded: number,
-  uploader?: string,
-  ipfsHash?: string,
-  hash?: string,
-  compressedMetadata?: string
+  name: string;
+  category: DappCategories;
+  description: string;
+  url: string;
+  banner: string;
+  icon: string;
+  status: DAPP_STATUS;
+  ranking?: DappRank[];
+  votes: number;
+  dateAdded: number;
+  uploader?: string;
+  ipfsHash?: string;
+  hash?: string;
+  compressedMetadata?: string;
 }
 
 /* --- STATE --- */
 interface DappsState {
-  readonly dapps: IDapp[]
+  readonly dapps: IDapp[];
 }
 
 /* --- ACTIONS --- */

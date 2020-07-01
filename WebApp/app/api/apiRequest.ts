@@ -1,4 +1,11 @@
-const apiRequest = async (method, url, body?, contentType?, authenticate = false, token?) => {
+const apiRequest = async (
+  method,
+  url,
+  body?,
+  contentType?,
+  authenticate = false,
+  token?,
+) => {
   const options = {
     method: method,
     body: body,
@@ -10,7 +17,9 @@ const apiRequest = async (method, url, body?, contentType?, authenticate = false
   }
 
   if (authenticate) {
-    if (!token) { throw new Error('No Authentication token provided'); }
+    if (!token) {
+      throw new Error('No Authentication token provided');
+    }
     // tslint:disable-next-line: no-string-literal
     options.headers['Authorization'] = `Bearer ${token}`;
   }

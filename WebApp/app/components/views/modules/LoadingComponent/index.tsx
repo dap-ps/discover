@@ -5,62 +5,68 @@
  */
 
 import React from 'react';
-import { Theme, createStyles, withStyles, WithStyles, CircularProgress } from '@material-ui/core';
+import {
+  Theme,
+  createStyles,
+  withStyles,
+  WithStyles,
+  CircularProgress,
+} from '@material-ui/core';
 import classNames from 'classnames';
 import { brandColors, uiConstants } from 'theme';
 
 const styles = (theme: Theme) =>
   createStyles({
-    loader:{
-      position: "fixed",
+    loader: {
+      position: 'fixed',
       top: 0,
       left: 0,
-      width: "100%",
-      height: "100%",
-      transitionDuration: "200ms",
+      width: '100%',
+      height: '100%',
+      transitionDuration: '200ms',
       opacity: 0,
-      visibility: "hidden",
+      visibility: 'hidden',
       zIndex: uiConstants.global.zIndex.blocker,
-      "&:before":{
+      '&:before': {
         content: "''",
-        position: "absolute",
+        position: 'absolute',
         left: 0,
         top: 0,
-        width: "100%",
-        height: "100%",
+        width: '100%',
+        height: '100%',
         backgroundColor: brandColors.default.secondary,
-        opacity: 0.4
+        opacity: 0.4,
       },
-      "&.active":{
+      '&.active': {
         opacity: 1,
-        visibility: "visible",
+        visibility: 'visible',
       },
-      "& > *":{
-        position: "absolute",
-        top: "50%",
-        left: "50%",
-        transform: "translate(-50%,-50%)",
-        height: "120px",
-        width:"120px"
-      }
+      '& > *': {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%,-50%)',
+        height: '120px',
+        width: '120px',
+      },
     },
-    loadingLogo:{
+    loadingLogo: {
       backgroundColor: brandColors.default.secondary,
-      position: "absolute",
-      top: "50%",
-      left: "50%",
-      height: "calc(100% - 18px)",
-      width: "calc(100% - 18px)",
-      borderRadius: "1000px",
-      transform: "translate(-50%,-50%)",
-      "& > *":{
-        position: "absolute",
-        top: "50%",
-        left: "50%",
-        width: "90%",
-        transform: "translate(-50%,-50%)",
-      }
-    }
+      position: 'absolute',
+      top: '50%',
+      left: '50%',
+      height: 'calc(100% - 18px)',
+      width: 'calc(100% - 18px)',
+      borderRadius: '1000px',
+      transform: 'translate(-50%,-50%)',
+      '& > *': {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        width: '90%',
+        transform: 'translate(-50%,-50%)',
+      },
+    },
   });
 
 interface OwnProps extends WithStyles<typeof styles> {
@@ -68,18 +74,17 @@ interface OwnProps extends WithStyles<typeof styles> {
 }
 
 const LoadingComponent: React.SFC<OwnProps> = (props: OwnProps) => {
-  const {
-    classes,
-    loading
-  } = props;
-  return <div className={classNames(classes.loader, loading ? "active" : "")}>
-  {
-    loading && <div>
-      <CircularProgress size={120} color="secondary" />
-      <img className={classes.loadingLogo} src="/cat.png" alt=""/>
+  const { classes, loading } = props;
+  return (
+    <div className={classNames(classes.loader, loading ? 'active' : '')}>
+      {loading && (
+        <div>
+          <CircularProgress size={120} color="secondary" />
+          <img className={classes.loadingLogo} src="/cat.png" alt="" />
+        </div>
+      )}
     </div>
-  }
-</div>;
+  );
 };
 
 export default withStyles(styles, { withTheme: true })(LoadingComponent);

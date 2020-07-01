@@ -1,7 +1,6 @@
 import { createSelector } from 'reselect';
 import { ApplicationRootState } from 'types';
 
-
 /**
  * Direct selector to the user state domain
  */
@@ -14,16 +13,16 @@ const selectCurrentlySending = (state: ApplicationRootState) => {
   return state.global.currentlySending;
 };
 
-export const makeSelectCurrentlySending =
-  createSelector(selectCurrentlySending, (substate: boolean) =>{
+export const makeSelectCurrentlySending = createSelector(
+  selectCurrentlySending,
+  (substate: boolean) => {
     return substate;
-  })
-
+  },
+);
 
 /**
  * Other specific selectors
  */
-
 
 /**
  * Default selector used by App

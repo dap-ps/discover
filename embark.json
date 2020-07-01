@@ -1,7 +1,5 @@
 {
-  "contracts": [
-    "Contracts/contracts/**"
-  ],
+  "contracts": ["Contracts/contracts/**"],
   "buildDir": "dist/",
   "config": "config/",
   "versions": {

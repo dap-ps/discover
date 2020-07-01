@@ -20,15 +20,15 @@ function walletReducer(
 ) {
   switch (action.type) {
     case getType(setWalletAction):
-        return {
-          ...state,
-          walletAddress: action.payload
-        }
+      return {
+        ...state,
+        walletAddress: action.payload,
+      };
     case getType(disconnectWalletAction):
       return {
         ...state,
         modal: constants.AddressZero,
-      }
+      };
     default:
       return state;
   }

@@ -4,5 +4,5 @@
 // import { CategoryModule } from '../index';
 
 describe('<CategoryModule />', () => {
-  test.todo('Expect to have unit tests specified')
+  test.todo('Expect to have unit tests specified');
 });

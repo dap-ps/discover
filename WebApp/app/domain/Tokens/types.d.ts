@@ -5,24 +5,24 @@ import { BigNumber } from 'ethers/utils';
 
 // TODO: need to see what embark returns for these values
 
-export interface TokenPriceData{
+export interface TokenPriceData {
   [symbol: string]: {
-    [resolvedCurrency: string]: number
-  }
+    [resolvedCurrency: string]: number;
+  };
 }
 
 export interface ERC20Token {
-  address: string,
-  allowance: BigNumber, // Always towards the SNT contract
-  balance: BigNumber, // Always of the current user
-  decimals: number,
-  logo: string,
-  name: string,
-  symbol: string,
+  address: string;
+  allowance: BigNumber; // Always towards the SNT contract
+  balance: BigNumber; // Always of the current user
+  decimals: number;
+  logo: string;
+  name: string;
+  symbol: string;
 }
 
 export interface SNTPrice {
-  price: number
+  price: number;
 }
 
 export interface DAppsToken extends ERC20Token, KyberERC20Token, SNTPrice {}

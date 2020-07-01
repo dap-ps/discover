@@ -1,22 +1,11 @@
 {
-    "extends": "solium:all",
-    "plugins": [
-      "security"
-    ],
-    "rules": {
-      "security/no-inline-assembly": "off",
-      "security/no-assign-params": "off",
-      "quotes": [
-        "error",
-        "double"
-      ],
-      "indentation": [
-        "error",
-        4
-      ],
-      "arg-overflow": [
-        "warning",
-        3
-      ]
-    }
+  "extends": "solium:all",
+  "plugins": ["security"],
+  "rules": {
+    "security/no-inline-assembly": "off",
+    "security/no-assign-params": "off",
+    "quotes": ["error", "double"],
+    "indentation": ["error", 4],
+    "arg-overflow": ["warning", 3]
   }
+}

@@ -4,5 +4,5 @@
 // import CategorySelector from '../index';
 
 describe('<CategorySelector />', () => {
-  test.todo('Expect to have unit tests specified')
+  test.todo('Expect to have unit tests specified');
 });

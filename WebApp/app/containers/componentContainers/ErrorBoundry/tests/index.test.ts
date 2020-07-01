@@ -4,5 +4,5 @@
 // import { ErrorBoundry } from '../index';
 
 describe('<ErrorBoundry />', () => {
-  test.todo('Expect to have unit tests specified')
+  test.todo('Expect to have unit tests specified');
 });

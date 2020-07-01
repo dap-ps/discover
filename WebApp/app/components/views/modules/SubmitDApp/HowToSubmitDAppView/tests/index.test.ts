@@ -4,5 +4,5 @@
 // import HowToSubmitDAppView from '../index';
 
 describe('<HowToSubmitDAppView />', () => {
-  test.todo('Expect to have unit tests specified')
+  test.todo('Expect to have unit tests specified');
 });

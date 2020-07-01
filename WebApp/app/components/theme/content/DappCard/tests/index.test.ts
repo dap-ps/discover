@@ -4,5 +4,5 @@
 // import DappCard from '../index';
 
 describe('<DappCard />', () => {
-  test.todo('Expect to have unit tests specified')
+  test.todo('Expect to have unit tests specified');
 });

@@ -1,10 +1,13 @@
 import HomePage from 'containers/pages/HomePage';
 import { ROUTE_LINKS } from 'routeLinks';
 
-
 import StarIcon from './images/icons/star.svg';
 import ClockIcon from './images/icons/clock.svg';
-import { ROUTE_TYPE, DAPP_CATEGORY, DAPP_CATEGORY_ICONS } from 'utils/constants';
+import {
+  ROUTE_TYPE,
+  DAPP_CATEGORY,
+  DAPP_CATEGORY_ICONS,
+} from 'utils/constants';
 import DAppManagementContainer from 'containers/modules/DAppManagementContainer';
 import VoteModule from 'containers/modules/VoteModule';
 import { FunctionComponent, ReactNode, ComponentType } from 'react';
@@ -16,7 +19,7 @@ export interface AppRoute {
   isProtected: boolean;
   isNavRequired: boolean;
   routeNavLinkIcon?: FunctionComponent<ReactNode>; // Should be provided if Nav is required
-  routeType?: ROUTE_TYPE
+  routeType?: ROUTE_TYPE;
   modalComponent?: FunctionComponent<any>;
 }
 
@@ -35,7 +38,7 @@ const routes: AppRoute[] = [
     component: HomePage,
     isProtected: false, // This allows general access control
     isNavRequired: false, // This allows mapping into a navigation bar
-    modalComponent: DAppManagementContainer
+    modalComponent: DAppManagementContainer,
   },
 
   {
@@ -44,7 +47,7 @@ const routes: AppRoute[] = [
     component: HomePage,
     isProtected: false, // This allows general access control
     isNavRequired: false, // This allows mapping into a navigation bar
-    modalComponent: DAppManagementContainer
+    modalComponent: DAppManagementContainer,
   },
 
   {
@@ -53,7 +56,7 @@ const routes: AppRoute[] = [
     component: HomePage,
     isProtected: false, // This allows general access control
     isNavRequired: false, // This allows mapping into a navigation bar
-    modalComponent: VoteModule
+    modalComponent: VoteModule,
   },
 
   // Categories
@@ -71,7 +74,7 @@ const routes: AppRoute[] = [
     isProtected: false, // This allows general access control
     isNavRequired: true, // This allows mapping into a navigation bar
     routeType: ROUTE_TYPE.CATEGORY,
-    routeNavLinkIcon: DAPP_CATEGORY_ICONS[DAPP_CATEGORY.EXCHANGES].minimal
+    routeNavLinkIcon: DAPP_CATEGORY_ICONS[DAPP_CATEGORY.EXCHANGES].minimal,
   },
   {
     name: 'Marketplaces',
@@ -80,7 +83,7 @@ const routes: AppRoute[] = [
     isProtected: false, // This allows general access control
     isNavRequired: true, // This allows mapping into a navigation bar
     routeType: ROUTE_TYPE.CATEGORY,
-    routeNavLinkIcon: DAPP_CATEGORY_ICONS[DAPP_CATEGORY.MARKETPLACES].minimal
+    routeNavLinkIcon: DAPP_CATEGORY_ICONS[DAPP_CATEGORY.MARKETPLACES].minimal,
   },
   {
     name: 'Collectibles',
@@ -89,7 +92,7 @@ const routes: AppRoute[] = [
     isProtected: false, // This allows general access control
     isNavRequired: true, // This allows mapping into a navigation bar
     routeType: ROUTE_TYPE.CATEGORY,
-    routeNavLinkIcon: DAPP_CATEGORY_ICONS[DAPP_CATEGORY.COLLECTIBLES].minimal
+    routeNavLinkIcon: DAPP_CATEGORY_ICONS[DAPP_CATEGORY.COLLECTIBLES].minimal,
   },
   {
     name: 'Games',
@@ -98,7 +101,7 @@ const routes: AppRoute[] = [
     isProtected: false, // This allows general access control
     isNavRequired: false, // This allows mapping into a navigation bar
     routeType: ROUTE_TYPE.CATEGORY,
-    routeNavLinkIcon: DAPP_CATEGORY_ICONS[DAPP_CATEGORY.GAMES].minimal
+    routeNavLinkIcon: DAPP_CATEGORY_ICONS[DAPP_CATEGORY.GAMES].minimal,
   },
   {
     name: 'Social Networks',
@@ -107,7 +110,8 @@ const routes: AppRoute[] = [
     isProtected: false, // This allows general access control
     isNavRequired: true, // This allows mapping into a navigation bar
     routeType: ROUTE_TYPE.CATEGORY,
-    routeNavLinkIcon: DAPP_CATEGORY_ICONS[DAPP_CATEGORY.SOCIAL_NETWORKS].minimal
+    routeNavLinkIcon:
+      DAPP_CATEGORY_ICONS[DAPP_CATEGORY.SOCIAL_NETWORKS].minimal,
   },
   {
     name: 'Utilities',
@@ -116,7 +120,7 @@ const routes: AppRoute[] = [
     isProtected: false, // This allows general access control
     isNavRequired: true, // This allows mapping into a navigation bar
     routeType: ROUTE_TYPE.CATEGORY,
-    routeNavLinkIcon: DAPP_CATEGORY_ICONS[DAPP_CATEGORY.UTILITIES].minimal
+    routeNavLinkIcon: DAPP_CATEGORY_ICONS[DAPP_CATEGORY.UTILITIES].minimal,
   },
   {
     name: 'Other',
@@ -125,7 +129,7 @@ const routes: AppRoute[] = [
     isProtected: false, // This allows general access control
     isNavRequired: true, // This allows mapping into a navigation bar
     routeType: ROUTE_TYPE.CATEGORY,
-    routeNavLinkIcon: DAPP_CATEGORY_ICONS[DAPP_CATEGORY.OTHER].minimal
+    routeNavLinkIcon: DAPP_CATEGORY_ICONS[DAPP_CATEGORY.OTHER].minimal,
   },
   // List
   {
@@ -135,7 +139,7 @@ const routes: AppRoute[] = [
     isProtected: false, // This allows general access control
     isNavRequired: true, // This allows mapping into a navigation bar
     routeType: ROUTE_TYPE.LIST,
-    routeNavLinkIcon: StarIcon
+    routeNavLinkIcon: StarIcon,
   },
   {
     name: 'Recently added',
@@ -144,7 +148,7 @@ const routes: AppRoute[] = [
     isProtected: false, // This allows general access control
     isNavRequired: true, // This allows mapping into a navigation bar
     routeType: ROUTE_TYPE.LIST,
-    routeNavLinkIcon: ClockIcon
+    routeNavLinkIcon: ClockIcon,
   },
 ];
 

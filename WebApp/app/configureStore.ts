@@ -8,8 +8,7 @@ import createReducer from './reducers';
 import { LifeStore } from 'types';
 
 const sagaMiddleware = createSagaMiddleware({
-  context: {
-  }
+  context: {},
 });
 
 declare interface IWindow extends Window {
@@ -28,7 +27,6 @@ export default function configureStore(initialState = {}) {
     if (window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) {
       composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({});
     }
-
   }
   const enhancers = [applyMiddleware(...middlewares)];
 

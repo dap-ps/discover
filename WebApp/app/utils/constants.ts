@@ -21,11 +21,11 @@ import OtherIcon from '../images/icons/categories/other.svg';
 // TODO: Resolve monolythic structure
 
 export enum DAPP_STATUS {
-  PENDING = "PENDING",
-  APPROVED = "APPROVED"
+  PENDING = 'PENDING',
+  APPROVED = 'APPROVED',
 }
 
-export enum DAPP_CATEGORY  {
+export enum DAPP_CATEGORY {
   EXCHANGES = 'EXCHANGES',
   MARKETPLACES = 'MARKETPLACES',
   COLLECTIBLES = 'COLLECTIBLES',
@@ -37,52 +37,51 @@ export enum DAPP_CATEGORY  {
 
 export const DAPP_CATEGORY_ICONS: {
   [key: string]: {
-    base: any,
-    minimal: any
-  }
+    base: any;
+    minimal: any;
+  };
 } = {
   [DAPP_CATEGORY.EXCHANGES]: {
     base: ExchangesIcon,
-    minimal: ExchangesMinimalIcon
+    minimal: ExchangesMinimalIcon,
   },
   [DAPP_CATEGORY.MARKETPLACES]: {
     base: MarketplacesIcon,
-    minimal: MarketplacesMinimalIcon
+    minimal: MarketplacesMinimalIcon,
   },
   [DAPP_CATEGORY.COLLECTIBLES]: {
     base: CollectiblesIcon,
-    minimal: CollectiblesMinimalIcon
+    minimal: CollectiblesMinimalIcon,
   },
   [DAPP_CATEGORY.GAMES]: {
     base: GamesIcon,
-    minimal: GamesMinimalIcon
+    minimal: GamesMinimalIcon,
   },
   [DAPP_CATEGORY.SOCIAL_NETWORKS]: {
     base: SocialNetworksIcon,
-    minimal: SocialNetworksMinimalIcon
+    minimal: SocialNetworksMinimalIcon,
   },
   [DAPP_CATEGORY.UTILITIES]: {
     base: UtilitiesIcon,
-    minimal: UtilitiesMinimalIcon
+    minimal: UtilitiesMinimalIcon,
   },
   [DAPP_CATEGORY.OTHER]: {
     base: OtherIcon,
-    minimal: OtherMinimalIcon
-  }
-}
-
+    minimal: OtherMinimalIcon,
+  },
+};
 
 export const DAPP_CATEGORY_STRINGS: {
-  [key: string]: string
+  [key: string]: string;
 } = {
-  [DAPP_CATEGORY.EXCHANGES]: "Exchanges",
-  [DAPP_CATEGORY.MARKETPLACES]: "Marketplaces",
-  [DAPP_CATEGORY.COLLECTIBLES]: "Collectibles",
-  [DAPP_CATEGORY.GAMES]: "Games",
-  [DAPP_CATEGORY.SOCIAL_NETWORKS]: "Social Networks",
-  [DAPP_CATEGORY.UTILITIES]: "Utilities",
-  [DAPP_CATEGORY.OTHER]: "Other"
-}
+  [DAPP_CATEGORY.EXCHANGES]: 'Exchanges',
+  [DAPP_CATEGORY.MARKETPLACES]: 'Marketplaces',
+  [DAPP_CATEGORY.COLLECTIBLES]: 'Collectibles',
+  [DAPP_CATEGORY.GAMES]: 'Games',
+  [DAPP_CATEGORY.SOCIAL_NETWORKS]: 'Social Networks',
+  [DAPP_CATEGORY.UTILITIES]: 'Utilities',
+  [DAPP_CATEGORY.OTHER]: 'Other',
+};
 
 export enum DAPP_LIST {
   HIGHEST_RATED = `highest-rated`,
@@ -90,6 +89,6 @@ export enum DAPP_LIST {
 }
 
 export enum ROUTE_TYPE {
-  CATEGORY = "Category",
-  LIST = "List",
+  CATEGORY = 'Category',
+  LIST = 'List',
 }

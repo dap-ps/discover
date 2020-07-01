@@ -20,7 +20,7 @@ module.exports = (
   plop.setGenerator('container', containerGenerator);
   plop.setGenerator('domain', domainGenerator);
   plop.setGenerator('language', languageGenerator);
-  plop.addHelper('directory', comp => {
+  plop.addHelper('directory', (comp) => {
     const directories = ['components', 'containers', 'domains'];
     for (let i = 0; i < directories.length; i + 1) {
       try {

@@ -19,12 +19,9 @@ const selectTokensDomain = (state: ApplicationRootState) => {
  */
 
 const selectTokens = () =>
-  createSelector(
-    selectTokensDomain,
-    substate => {
-      return substate;
-    },
-  );
+  createSelector(selectTokensDomain, (substate) => {
+    return substate;
+  });
 
 export default selectTokens;
 export { selectTokensDomain };

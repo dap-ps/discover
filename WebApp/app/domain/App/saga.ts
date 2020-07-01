@@ -14,11 +14,11 @@ export default function* rootDaemonSaga() {
 
   // Add other global DAEMON sagas here.
   // To prevent performance bottlenecks add sagas with caution.
-  yield fork(errorMessageHandler)
+  yield fork(errorMessageHandler);
 
   // Domain Sagas
-  yield fork(DappsSaga)
-  yield fork(TokensSaga)
+  yield fork(DappsSaga);
+  yield fork(TokensSaga);
   yield fork(walletSaga);
 
   // App domain internal saga's

@@ -4,5 +4,5 @@
 // import SimpleWideBanner from '../index';
 
 describe('<SimpleWideBanner />', () => {
-  test.todo('Expect to have unit tests specified')
+  test.todo('Expect to have unit tests specified');
 });

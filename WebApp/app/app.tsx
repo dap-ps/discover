@@ -6,8 +6,8 @@
  */
 
 // Needed for redux-saga es6 generator support
-import "core-js/stable";
-import "regenerator-runtime/runtime";
+import 'core-js/stable';
+import 'regenerator-runtime/runtime';
 
 // Import all the third party stuff
 import * as React from 'react';
@@ -31,9 +31,8 @@ import { loadState, saveState } from './utils/localStorage';
 import { ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles';
 import { Router } from 'react-router';
 
-
-import theme from "theme";
-import { ErrorBoundry } from "containers/componentContainers/ErrorBoundry";
+import theme from 'theme';
+import { ErrorBoundry } from 'containers/componentContainers/ErrorBoundry';
 
 // import { Web3ReactProvider } from '@web3-react/core'
 // import { providers } from "ethers";
@@ -49,17 +48,20 @@ import { ErrorBoundry } from "containers/componentContainers/ErrorBoundry";
 const persistedState = loadState();
 const store = configureStore(persistedState);
 
-
-store.subscribe(throttle(() => {
-  //@ts-ignore
-  saveState(store.getState());
-}, 1000));
-
-store.subscribe(throttle(() => {
-  saveState({
+store.subscribe(
+  throttle(() => {
     //@ts-ignore
-  });
-}, 1000));
+    saveState(store.getState());
+  }, 1000),
+);
+
+store.subscribe(
+  throttle(() => {
+    saveState({
+      //@ts-ignore
+    });
+  }, 1000),
+);
 
 const MOUNT_NODE = document.getElementById('app') as HTMLElement;
 
@@ -77,7 +79,6 @@ const render = (Component = App) => {
     MOUNT_NODE,
   );
 };
-
 
 declare const module: any;
 if (module.hot) {

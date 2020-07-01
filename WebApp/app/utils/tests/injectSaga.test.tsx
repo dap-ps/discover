@@ -7,7 +7,6 @@ import * as React from 'react';
 import { put } from 'redux-saga/effects';
 import { shallow } from 'enzyme';
 
-
 import configureStore from '../../configureStore';
 import { DAEMON } from '../constants';
 

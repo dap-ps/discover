@@ -1,4 +1,3 @@
-
 export class ResponseError extends Error {
   public response: Response;
 
@@ -42,10 +41,13 @@ function checkStatus(response): Response {
  *
  * @return {object}           An object containing either "data" or "err"
  */
-export default function request(url: string, options?: RequestInit): Promise<{ } | { err: ResponseError }> {
+export default function request(
+  url: string,
+  options?: RequestInit,
+): Promise<{} | { err: ResponseError }> {
   return fetch(url, options)
     .then(checkStatus)
     .then(parseJSON)
-    .then((data) => (data))
-    .catch((err) => (err));
+    .then((data) => data)
+    .catch((err) => err);
 }

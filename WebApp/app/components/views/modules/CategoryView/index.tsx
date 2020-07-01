@@ -17,11 +17,11 @@ interface OwnProps extends WithStyles<typeof styles> {}
 
 const CategoryView: React.SFC<OwnProps> = (props: OwnProps) => {
   const { classes } = props;
-  return <Fragment>
-    <span className={classes.root}>
-      CategoryView
-    </span>
-  </Fragment>;
+  return (
+    <Fragment>
+      <span className={classes.root}>CategoryView</span>
+    </Fragment>
+  );
 };
 
 export default withStyles(styles, { withTheme: true })(CategoryView);

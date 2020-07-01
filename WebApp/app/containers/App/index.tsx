@@ -34,19 +34,18 @@ function PrivateRoute({ component: Component, isConnected, ...rest }) {
     <Route
       exact
       {...rest}
-      render={props => {
+      render={(props) => {
         return isConnected ? (
           <Component {...props} />
         ) : (
-            <Redirect
-              to={{
-                pathname: '/',
-                state: { from: props.location },
-              }}
-            />
-          );
-      }
-      }
+          <Redirect
+            to={{
+              pathname: '/',
+              state: { from: props.location },
+            }}
+          />
+        );
+      }}
     />
   );
 }
@@ -56,10 +55,9 @@ function PublicRoute({ component: Component, isConnected, ...rest }) {
     <Route
       exact
       {...rest}
-      render={props => {
-        return <Component {...props} />
-      }
-      }
+      render={(props) => {
+        return <Component {...props} />;
+      }}
     />
   );
 }
@@ -69,18 +67,17 @@ interface StateProps {
   currentlySending: boolean;
 }
 
-interface DispatchProps {
-}
+interface DispatchProps {}
 
-interface RouteParams {
-}
+interface RouteParams {}
 
-interface OwnProps extends RouteComponentProps<RouteParams>, React.Props<RouteParams> { }
+interface OwnProps
+  extends RouteComponentProps<RouteParams>,
+    React.Props<RouteParams> {}
 
 type Props = StateProps & DispatchProps & OwnProps;
 
 function App({ isConnected, currentlySending, location }: Props) {
-
   // The PublicRoute and PrivateRoute components below should only be used for top level components
   // that will be connected to the store, as no props can be passed down to the child components from here.
 
@@ -88,13 +85,29 @@ function App({ isConnected, currentlySending, location }: Props) {
     <AppWrapper
       isConnected={isConnected}
       currentlySending={currentlySending}
-      navLinks={routes.filter(r => r.isNavRequired)}
-      >
+      navLinks={routes.filter((r) => r.isNavRequired)}
+    >
       <Switch>
-        {routes.map(r => {
-          const route = (r.isProtected) ?
-            (<PrivateRoute path={r.path} exact component={r.component} isConnected={isConnected} key={r.path} modalComponent={r.modalComponent} />) :
-            (<PublicRoute path={r.path} exact component={r.component} isConnected={isConnected} key={r.path} modalComponent={r.modalComponent} />);
+        {routes.map((r) => {
+          const route = r.isProtected ? (
+            <PrivateRoute
+              path={r.path}
+              exact
+              component={r.component}
+              isConnected={isConnected}
+              key={r.path}
+              modalComponent={r.modalComponent}
+            />
+          ) : (
+            <PublicRoute
+              path={r.path}
+              exact
+              component={r.component}
+              isConnected={isConnected}
+              key={r.path}
+              modalComponent={r.modalComponent}
+            />
+          );
           return route;
         })}
       </Switch>
@@ -107,20 +120,18 @@ const mapStateToProps = createStructuredSelector<RootState, StateProps>({
   isConnected: makeSelectIsConnected,
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch) => ({});
+
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
+
+const withReducer = injectReducer<OwnProps>({
+  key: 'global',
+  reducer: appReducer,
+});
+const withSaga = injectSaga<OwnProps>({
+  key: 'global',
+  saga: rootDaemonSaga,
+  mode: DAEMON,
 });
 
-const withConnect = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-);
-
-const withReducer = injectReducer<OwnProps>({key: 'global', reducer: appReducer})
-const withSaga = injectSaga<OwnProps>({ key: 'global', saga: rootDaemonSaga, mode: DAEMON });
-
-export default compose(
-  withRouter,
-  withReducer,
-  withSaga,
-  withConnect,
-)(App);
+export default compose(withRouter, withReducer, withSaga, withConnect)(App);

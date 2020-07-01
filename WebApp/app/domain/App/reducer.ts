@@ -10,7 +10,7 @@ import { setApiSendingFlag, setErrorMessageAction } from './actions';
 
 export const initialState: DomainState = {
   currentlySending: true,
-  errorMessage: "",
+  errorMessage: '',
 };
 
 function appReducer(state = initialState, action: DomainActions) {
@@ -18,13 +18,13 @@ function appReducer(state = initialState, action: DomainActions) {
     case getType(setApiSendingFlag):
       return {
         ...state,
-        currentlySending: action.payload
-      }
+        currentlySending: action.payload,
+      };
     case getType(setErrorMessageAction):
       return {
         ...state,
-        errorMessage: action.payload
-      }
+        errorMessage: action.payload,
+      };
     default:
       return state;
   }

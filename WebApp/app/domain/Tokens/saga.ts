@@ -6,6 +6,6 @@ import { CurrenciesSaga } from './sagas/currencies.saga';
 import { PriceSaga } from './sagas/price.saga';
 
 export default function* TokensSaga() {
-  yield fork(CurrenciesSaga)
-  yield fork(PriceSaga)
+  yield fork(CurrenciesSaga);
+  yield fork(PriceSaga);
 }

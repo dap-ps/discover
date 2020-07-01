@@ -5,7 +5,13 @@
  */
 
 import React from 'react';
-import { Theme, createStyles, withStyles, WithStyles, Typography } from '@material-ui/core';
+import {
+  Theme,
+  createStyles,
+  withStyles,
+  WithStyles,
+  Typography,
+} from '@material-ui/core';
 // @ts-ignore
 import { IDapp } from 'domain/Dapps/types';
 import classNames from 'classnames';
@@ -22,127 +28,127 @@ const styles = (theme: Theme) =>
   createStyles({
     // JSS in CSS goes here
     root: {
-      display: "flex",
-      flexDirection: "row",
+      display: 'flex',
+      flexDirection: 'row',
       margin: 5,
-      justifyContent: "flex-start",
+      justifyContent: 'flex-start',
       // alignItems: "center",
     },
     icon: {
-      position: "relative",
+      position: 'relative',
       marginRight: uiConstants.dapps.card.iconMargin,
-      "& img":{
+      '& img': {
         width: uiConstants.dapps.card.iconSize,
         height: uiConstants.dapps.card.iconSize,
       },
-      "& svg":{
+      '& svg': {
         width: uiConstants.dapps.card.reviewedSize,
         height: uiConstants.dapps.card.reviewedSize,
-        position: "absolute",
-        top: "60%",
-        left: "60%"
-      }
+        position: 'absolute',
+        top: '60%',
+        left: '60%',
+      },
     },
     meta: {
-      width: "100%",
+      width: '100%',
       maxWidth: `calc(100% - ${uiConstants.dapps.card.iconSize}px - ${uiConstants.dapps.card.iconMargin}px)`,
-      "& h3":{
+      '& h3': {
         fontSize: uiConstants.global.fonts.item.headerSize,
-        fontWeight: 500
+        fontWeight: 500,
       },
-      "& p":{
+      '& p': {
         fontSize: uiConstants.global.fonts.item.bodySize,
         color: appColors.general.gray.base,
-        margin: "3px 0",
-        whiteSpace: "nowrap",
-        overflow: "hidden",
-        textOverflow: "ellipsis",
-      }
+        margin: '3px 0',
+        whiteSpace: 'nowrap',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+      },
     },
-    votes:{
-      display: "flex",
-      flexDirection: "row",
-      justifyContent: "space-between",
-      alignItems: "center",
-      flexWrap: "wrap",
+    votes: {
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      flexWrap: 'wrap',
     },
-    voteCount:{
-      display: "flex",
-      flexDirection: "row",
-      alignItems: "center",
+    voteCount: {
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center',
       minWidth: 82,
-      "& svg":{
-        marginRight: 5
-      }
+      '& svg': {
+        marginRight: 5,
+      },
     },
     voteControls: {
-      display: "flex",
-      flexDirection: "row",
+      display: 'flex',
+      flexDirection: 'row',
       color: brandColors.default.main,
-      flexWrap: "wrap",
-      textTransform: "uppercase",
+      flexWrap: 'wrap',
+      textTransform: 'uppercase',
       fontWeight: 600,
       fontSize: 11,
-      "& > a":{
-        display: "flex",
-        flexDirection: "row",
-        alignItems: "center",
+      '& > a': {
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
         marginLeft: 7.5,
-        cursor: "pointer",
-        color: "inherit",
-        textDecoration: "none",
-        "& svg":{
-          marginRight: 2
-        }
+        cursor: 'pointer',
+        color: 'inherit',
+        textDecoration: 'none',
+        '& svg': {
+          marginRight: 2,
+        },
       },
-    }
+    },
   });
 
 interface OwnProps extends WithStyles<typeof styles> {
-  dapp: IDapp
+  dapp: IDapp;
 }
 
 const DappCard: React.SFC<OwnProps> = (props: OwnProps) => {
   const { classes, dapp } = props;
-  return <article className={classes.root}>
-    <div>
-      <div className={classNames(classes.icon, dapp.status  == DAPP_STATUS.APPROVED ? "approved" : "")}>
-        <img src={dapp.icon} alt={`${dapp.name}-icon`}/>
-        {
-          dapp.status  == DAPP_STATUS.APPROVED && <ReviewBadgeIcon />
-        }
-      </div>
-    </div>
-    <div className={classes.meta}>
-      <Typography variant="h3" component="h3">
-        {dapp.name}
-      </Typography>
-      <Typography  variant="body1" component="p">
-        {dapp.description}
-      </Typography>
-      <div className={classes.votes}>
-        <span className={classes.voteCount}>
-          <SNTIcon/>
-          {dapp.votes}
-        </span>
-        <div className={classes.voteControls}>
-          <Link to={ROUTE_LINKS.Vote(`${dapp.ipfsHash}`, "upvote")}>
-            <ArrowUpIcon/>
-            <span>
-              upvote
-            </span>
-          </Link>
-          <Link to={ROUTE_LINKS.Vote(`${dapp.ipfsHash}`, "downvote")}>
-            <ArrowDownIcon/>
-            <span>
-              downvote
-            </span>
-          </Link>
+  return (
+    <article className={classes.root}>
+      <div>
+        <div
+          className={classNames(
+            classes.icon,
+            dapp.status == DAPP_STATUS.APPROVED ? 'approved' : '',
+          )}
+        >
+          <img src={dapp.icon} alt={`${dapp.name}-icon`} />
+          {dapp.status == DAPP_STATUS.APPROVED && <ReviewBadgeIcon />}
         </div>
       </div>
-
-    </div>
-  </article>;
+      <div className={classes.meta}>
+        <Typography variant="h3" component="h3">
+          {dapp.name}
+        </Typography>
+        <Typography variant="body1" component="p">
+          {dapp.description}
+        </Typography>
+        <div className={classes.votes}>
+          <span className={classes.voteCount}>
+            <SNTIcon />
+            {dapp.votes}
+          </span>
+          <div className={classes.voteControls}>
+            <Link to={ROUTE_LINKS.Vote(`${dapp.ipfsHash}`, 'upvote')}>
+              <ArrowUpIcon />
+              <span>upvote</span>
+            </Link>
+            <Link to={ROUTE_LINKS.Vote(`${dapp.ipfsHash}`, 'downvote')}>
+              <ArrowDownIcon />
+              <span>downvote</span>
+            </Link>
+          </div>
+        </div>
+      </div>
+    </article>
+  );
 };
 
 export default withStyles(styles, { withTheme: true })(DappCard);

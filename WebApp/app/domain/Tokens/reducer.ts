@@ -9,8 +9,7 @@ import { getType } from 'typesafe-actions';
 import { getBalancesAction, getPricesAction } from './actions';
 
 export const initialState: DomainState = {
-  tokens: [
-  ],
+  tokens: [],
 };
 
 function tokensReducer(
@@ -22,21 +21,19 @@ function tokensReducer(
       return {
         ...state,
         tokens: [
-          ...(state.tokens.map(token => {
-            if(action.payload[token.symbol] != null){
-              token.price = action.payload[token.symbol]['SNT']
+          ...state.tokens.map((token) => {
+            if (action.payload[token.symbol] != null) {
+              token.price = action.payload[token.symbol]['SNT'];
             }
             return token;
-          }))
-        ]
-      }
+          }),
+        ],
+      };
     case getType(getBalancesAction.success):
-      return{
+      return {
         ...state,
-        tokens: [
-          ...action.payload
-        ]
-      }
+        tokens: [...action.payload],
+      };
     default:
       return state;
   }

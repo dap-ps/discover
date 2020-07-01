@@ -33,7 +33,9 @@ describe('injectReducer decorator', () => {
     injectors = {
       injectReducer: jest.fn(),
     };
-    ComponentWithReducer = injectReducer({ key: 'test', reducer: reducer })(Component);
+    ComponentWithReducer = injectReducer({ key: 'test', reducer: reducer })(
+      Component,
+    );
     jest.unmock('../reducerInjectors');
   });
 

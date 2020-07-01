@@ -4,5 +4,5 @@
 // import VoteModuleView from '../index';
 
 describe('<VoteModuleView />', () => {
-  test.todo('Expect to have unit tests specified')
+  test.todo('Expect to have unit tests specified');
 });

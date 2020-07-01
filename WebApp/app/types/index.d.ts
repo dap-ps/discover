@@ -7,7 +7,10 @@ import { DomainState as WalletState } from '../domain/Wallet/types';
 export interface LifeStore extends Store<{}> {
   injectedReducers: any;
   injectedSagas: any;
-  runSaga(saga: (() => IterableIterator<any>) | undefined, args: any | undefined): any;
+  runSaga(
+    saga: (() => IterableIterator<any>) | undefined,
+    args: any | undefined,
+  ): any;
   [Symbol.observable](): Observable<S>;
 }
 

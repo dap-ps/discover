@@ -4,5 +4,5 @@
 // import { UpvoteContainer } from '../index';
 
 describe('<UpvoteContainer />', () => {
-  test.todo('Expect to have unit tests specified')
+  test.todo('Expect to have unit tests specified');
 });

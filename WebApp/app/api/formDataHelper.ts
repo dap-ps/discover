@@ -16,15 +16,19 @@ const formDataHelper = (obj: any, formData?: FormData, namespace?: string) => {
 
       if (obj[property] instanceof Date) {
         fd.append(formKey, obj[property].toISOString());
-      } else if (Array.isArray(obj[property]) 
-          && obj[property].every(i => i instanceof File || i instanceof Blob)) {
-        const files = obj[property] as Array<File>
-        files.forEach(file => {
+      } else if (
+        Array.isArray(obj[property]) &&
+        obj[property].every((i) => i instanceof File || i instanceof Blob)
+      ) {
+        const files = obj[property] as Array<File>;
+        files.forEach((file) => {
           fd.append(formKey, file);
         });
-      } else if (typeof obj[property] === 'object'
-        && !(obj[property] instanceof File)
-        && !(obj[property] instanceof Blob)) {
+      } else if (
+        typeof obj[property] === 'object' &&
+        !(obj[property] instanceof File) &&
+        !(obj[property] instanceof Blob)
+      ) {
         formDataHelper(obj[property], fd, formKey);
       } else {
         // if it's a string or a File object
@@ -34,6 +38,6 @@ const formDataHelper = (obj: any, formData?: FormData, namespace?: string) => {
   }
 
   return fd;
-}
+};
 
 export default formDataHelper;

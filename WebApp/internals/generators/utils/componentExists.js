@@ -17,7 +17,7 @@ const domainContainers = fs.readdirSync(
   path.join(__dirname, '../../../app/domain'),
 );
 const components = domainContainers.concat(
-  pageComponents.concat(pageContainers)
+  pageComponents.concat(pageContainers),
 );
 
 function componentExists(comp) {

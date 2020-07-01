@@ -15,14 +15,12 @@ const styles = (theme: Theme) =>
   });
 
 interface OwnProps extends WithStyles<typeof styles> {
-  dapp: IDapp
+  dapp: IDapp;
 }
 
 const DownvoteView: React.SFC<OwnProps> = (props: OwnProps) => {
   const { classes } = props;
-  return <section className={classes.root}>
-    DownvoteView
-  </section>;
+  return <section className={classes.root}>DownvoteView</section>;
 };
 
 export default withStyles(styles, { withTheme: true })(DownvoteView);

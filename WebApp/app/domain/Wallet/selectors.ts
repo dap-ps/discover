@@ -19,22 +19,21 @@ const selectIsConnected = (state: ApplicationRootState) => {
   return state.wallet.walletAddress != constants.AddressZero;
 };
 
-export const makeSelectIsConnected =
-  createSelector(selectIsConnected, (substate: boolean) => {
+export const makeSelectIsConnected = createSelector(
+  selectIsConnected,
+  (substate: boolean) => {
     return substate;
-  });
+  },
+);
 
 /**
  * Default selector used by Wallet
  */
 
 const selectWallet = () =>
-  createSelector(
-    selectWalletDomain,
-    substate => {
-      return substate;
-    },
-  );
+  createSelector(selectWalletDomain, (substate) => {
+    return substate;
+  });
 
 export default selectWallet;
 export { selectWalletDomain };

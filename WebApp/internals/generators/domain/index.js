@@ -12,7 +12,7 @@ module.exports = {
       name: 'name',
       message: 'What should it be called?',
       default: 'Form',
-      validate: value => {
+      validate: (value) => {
         if (/.+/.test(value)) {
           return componentExists(value)
             ? 'A component or container with this name already exists'
@@ -42,7 +42,7 @@ module.exports = {
       message: 'Do you want to have types.d.ts file',
     },
   ],
-  actions: data => {
+  actions: (data) => {
     const actions = [];
 
     // If they want actions and a reducer, generate actions.js, constants.js,
@@ -79,8 +79,7 @@ module.exports = {
       });
       actions.push({
         type: 'add',
-        path:
-          '../../app/domain/{{properCase name}}/tests/selectors.test.ts',
+        path: '../../app/domain/{{properCase name}}/tests/selectors.test.ts',
         templateFile: './domain/selectors.test.js.hbs',
         abortOnFail: true,
       });

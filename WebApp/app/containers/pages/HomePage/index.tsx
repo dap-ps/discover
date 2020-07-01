@@ -9,16 +9,13 @@ import { connect } from 'react-redux';
 import { compose, Dispatch } from 'redux';
 import Landing from 'components/views/pages/Landing';
 
-interface OwnProps {
-}
+interface OwnProps {}
 
-interface DispatchProps {
-}
+interface DispatchProps {}
 
 type Props = DispatchProps & OwnProps;
 
-const HomePage: React.SFC<Props> = ({
-}: Props) => {
+const HomePage: React.SFC<Props> = ({}: Props) => {
   return <Landing />;
 };
 
@@ -26,14 +23,9 @@ const mapDispatchToProps = (
   dispatch: Dispatch,
   ownProps: OwnProps,
 ): DispatchProps => {
-  return {
-
-  };
+  return {};
 };
 
-const withConnect = connect(
-  mapDispatchToProps,
-  null,
-);
+const withConnect = connect(mapDispatchToProps, null);
 
 export default compose(withConnect)(HomePage);
