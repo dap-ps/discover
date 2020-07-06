@@ -4,7 +4,7 @@
  *
  */
 
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Theme,
   createStyles,
@@ -101,8 +101,9 @@ interface OwnProps extends WithStyles<typeof styles> {
 }
 
 const UpvoteForm: React.SFC<OwnProps> = ({ classes, dapp, upvote }: OwnProps) => {
-  const [token, setToken] = useState<TOKENS>(TOKENS.SNT);
+  // const [token, setToken] = useState<TOKENS>(TOKENS.SNT);
 
+  const token = TOKENS.SNT
   const UpvoteSchema = Yup.object().shape({
     amount: Yup.number()
       .min(1, 'Minimum amount is 1')
