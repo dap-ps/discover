@@ -20,7 +20,7 @@ interface OwnProps {
 }
 
 interface DispatchProps {
-  upvote: (dappId: string, amount: number, token: TOKENS) => void
+  upvote: (dappId: string, amount: number, token: TOKENS) => void;
 }
 
 interface StateProps {
@@ -45,8 +45,8 @@ const mapDispatchToProps = (
   return {
     upvote: (dappId: string, amount: number, token: TOKENS) => {
       // TODO Wire to saga
-      console.log(dappId, amount, token)
-    }
+      console.log(dappId, amount, token);
+    },
   };
 };
 

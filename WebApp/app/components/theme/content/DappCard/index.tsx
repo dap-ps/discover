@@ -33,6 +33,9 @@ const styles = (theme: Theme) =>
       margin: 5,
       justifyContent: 'flex-start',
       // alignItems: "center",
+      '&.clickable': {
+        cursor: 'pointer',
+      },
     },
     icon: {
       position: 'relative',
@@ -106,12 +109,19 @@ const styles = (theme: Theme) =>
 
 interface OwnProps extends WithStyles<typeof styles> {
   dapp: IDapp;
+  onClick?: () => void;
 }
 
-const DappCard: React.SFC<OwnProps> = (props: OwnProps) => {
-  const { classes, dapp } = props;
+const DappCard: React.SFC<OwnProps> = ({
+  classes,
+  dapp,
+  onClick,
+}: OwnProps) => {
   return (
-    <article className={classes.root}>
+    <article
+      onClick={() => (onClick ? onClick() : null)}
+      className={classNames(classes.root, onClick ? 'clickable' : '')}
+    >
       <div>
         <div
           className={classNames(

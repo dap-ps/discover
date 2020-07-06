@@ -8,16 +8,28 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { compose, Dispatch } from 'redux';
 import Landing from 'components/views/pages/Landing';
+import { makeSelectDapps } from 'domain/Dapps/selectors';
+import { RootState } from 'domain/App/types';
+import { createStructuredSelector } from 'reselect';
+import { IDapp } from 'domain/Dapps/types';
 
 interface OwnProps {}
 
 interface DispatchProps {}
 
-type Props = DispatchProps & OwnProps;
+interface StateProps {
+  dapps: IDapp[];
+}
 
-const HomePage: React.SFC<Props> = ({}: Props) => {
-  return <Landing />;
+type Props = DispatchProps & StateProps & OwnProps;
+
+const HomePage: React.SFC<Props> = ({ dapps }: Props) => {
+  return <Landing dapps={dapps} />;
 };
+
+const mapStateToProps = createStructuredSelector<RootState, StateProps>({
+  dapps: makeSelectDapps(),
+});
 
 const mapDispatchToProps = (
   dispatch: Dispatch,
@@ -26,6 +38,6 @@ const mapDispatchToProps = (
   return {};
 };
 
-const withConnect = connect(mapDispatchToProps, null);
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
 export default compose(withConnect)(HomePage);

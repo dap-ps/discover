@@ -20,14 +20,21 @@ const styles = (theme: Theme) =>
 
 interface OwnProps extends WithStyles<typeof styles> {
   dapp: IDapp;
-  downvote: (dappId: string) => void
+  downvote: (dappId: string) => void;
 }
 
-const DownvoteView: React.SFC<OwnProps> = ({ classes, downvote, dapp }: OwnProps) => {
+const DownvoteView: React.SFC<OwnProps> = ({
+  classes,
+  downvote,
+  dapp,
+}: OwnProps) => {
   return (
     <section className={classes.root}>
-      <DappInfoHeader dapp={dapp} changeIndicator={-(dapp.downvoteCost as number)}/>
-      <DownvoteForm downvote={downvote} dapp={dapp}/>
+      <DappInfoHeader
+        dapp={dapp}
+        changeIndicator={-(dapp.downvoteCost as number)}
+      />
+      <DownvoteForm downvote={downvote} dapp={dapp} />
     </section>
   );
 };

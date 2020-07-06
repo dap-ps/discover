@@ -19,7 +19,7 @@ interface OwnProps {
 }
 
 interface DispatchProps {
-  downvote: (dappId: string) => void
+  downvote: (dappId: string) => void;
 }
 
 interface StateProps {
@@ -44,8 +44,8 @@ const mapDispatchToProps = (
   return {
     downvote: (dappId: string) => {
       // TODO: wire to saga
-      console.log('downvote', dappId)
-    }
+      console.log('downvote', dappId);
+    },
   };
 };
 

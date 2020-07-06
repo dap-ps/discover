@@ -5,7 +5,14 @@
  */
 
 import React from 'react';
-import { Theme, createStyles, withStyles, WithStyles, Typography, Button } from '@material-ui/core';
+import {
+  Theme,
+  createStyles,
+  withStyles,
+  WithStyles,
+  Typography,
+  Button,
+} from '@material-ui/core';
 import { IDapp } from 'domain/Dapps/types';
 import { TOKENS } from 'utils/constants';
 import { Link } from 'react-router-dom';
@@ -36,7 +43,7 @@ const styles = (theme: Theme) =>
       },
       '& > span': {
         height: 51,
-      }
+      },
     },
     field: {
       width: '50%',
@@ -85,30 +92,40 @@ const styles = (theme: Theme) =>
   });
 
 interface OwnProps extends WithStyles<typeof styles> {
-  downvote: (dappId: string) => void
-  dapp: IDapp
+  downvote: (dappId: string) => void;
+  dapp: IDapp;
 }
 
-const DownvoteForm: React.SFC<OwnProps> = ({ classes, downvote, dapp }: OwnProps) => {
-  return  <article className={classes.root}>
-    <section className={classes.inputSection}>
-      <span>
-        {dapp.downvoteCost}
-      </span>
-      <span className={classes.tokenLabel}>{TOKENS.SNT}</span>
-    </section>
-    <section className={classes.information}>
-      <Typography>
-        SNT you spend to downvote goes directly back to {dapp.name}. Downvoting moves their DApp down by 1% of the current ranking. The cost is fixed by our unique bonded curve. {' '}
-        <Link to={ROUTE_LINKS.HowToVote}>Learn more↗</Link>
-      </Typography>
-    </section>
-    <section className={classes.ctas}>
-      <Button onClick={() => downvote(dapp.ipfsHash as string)} variant="outlined" type="button">
-        Downvote
-      </Button>
-    </section>
-  </article>
+const DownvoteForm: React.SFC<OwnProps> = ({
+  classes,
+  downvote,
+  dapp,
+}: OwnProps) => {
+  return (
+    <article className={classes.root}>
+      <section className={classes.inputSection}>
+        <span>{dapp.downvoteCost}</span>
+        <span className={classes.tokenLabel}>{TOKENS.SNT}</span>
+      </section>
+      <section className={classes.information}>
+        <Typography>
+          SNT you spend to downvote goes directly back to {dapp.name}.
+          Downvoting moves their DApp down by 1% of the current ranking. The
+          cost is fixed by our unique bonded curve.{' '}
+          <Link to={ROUTE_LINKS.HowToVote}>Learn more↗</Link>
+        </Typography>
+      </section>
+      <section className={classes.ctas}>
+        <Button
+          onClick={() => downvote(dapp.ipfsHash as string)}
+          variant="outlined"
+          type="button"
+        >
+          Downvote
+        </Button>
+      </section>
+    </article>
+  );
 };
 
 export default withStyles(styles, { withTheme: true })(DownvoteForm);

@@ -1,13 +1,8 @@
-import {
-  Theme,
-  WithStyles,
-  useMediaQuery,
-  Typography,
-} from '@material-ui/core';
-import { createStyles, withStyles } from '@material-ui/core/styles';
+import { WithStyles, useMediaQuery, Typography } from '@material-ui/core';
+import { createStyles, withStyles, Theme } from '@material-ui/core/styles';
 import React from 'react';
 import DappFeature from 'components/theme/content/DappFeature';
-import { DAPPS, FEATURED_DAPPS } from 'domain/Dapps/mocks';
+import { FEATURED_DAPPS } from 'domain/Dapps/mocks';
 import { uiConstants, brandColors, appColors } from 'theme';
 import Carousel from 'components/views/modules/Carousel';
 import { CarouselProviderProps } from 'pure-react-carousel';
@@ -18,6 +13,8 @@ import { DAPP_CATEGORY_STRINGS, DAPP_CATEGORY_ICONS } from 'utils/constants';
 import classNames from 'classnames';
 import DappCard from 'components/theme/content/DappCard';
 import GridCarousel from 'components/theme/elements/GridCarousel';
+import { IDapp } from 'domain/Dapps/types';
+import { forwardTo } from 'utils/history';
 
 let categoryColors = {};
 Object.keys(DAPP_CATEGORY_STRINGS).map((key) => {
@@ -118,10 +115,10 @@ const styles = ({ breakpoints }: Theme) =>
 
 interface OwnProps extends WithStyles<typeof styles> {
   theme: Theme;
+  dapps: IDapp[];
 }
 
-const Landing: React.SFC<OwnProps> = (props: OwnProps) => {
-  const { classes, theme } = props;
+const Landing: React.SFC<OwnProps> = ({ classes, dapps, theme }: OwnProps) => {
   const desktop = useMediaQuery(theme.breakpoints.up('md'));
   const tablet = useMediaQuery(theme.breakpoints.up('sm'));
 
@@ -151,7 +148,11 @@ const Landing: React.SFC<OwnProps> = (props: OwnProps) => {
           <DappFeature
             className={classes.bannerItem}
             key={`feature-${key}`}
-            dapp={DAPPS[key]}
+            dapp={
+              dapps.find(
+                (dapp: IDapp) => dapp.name.toLowerCase() == key.toLowerCase(),
+              ) as IDapp
+            }
           />
         ))}
       </Carousel>
@@ -184,12 +185,16 @@ const Landing: React.SFC<OwnProps> = (props: OwnProps) => {
           </Typography>
         </div>
         <GridCarousel className={classes.gridCarousel}>
-          {Object.keys(DAPPS)
-            .sort((key0, key1) =>
-              DAPPS[key0].votes > DAPPS[key1].votes ? -1 : +1,
-            )
-            .map((key) => (
-              <DappCard key={`dapp-${key}`} dapp={DAPPS[key]} />
+          {dapps
+            .sort((dapp0, dapp1) => (dapp0.votes > dapp1.votes ? -1 : +1))
+            .map((dapp) => (
+              <DappCard
+                onClick={() =>
+                  forwardTo(ROUTE_LINKS.Discover(dapp.ipfsHash as string))
+                }
+                key={`dapp-${dapp.ipfsHash}`}
+                dapp={dapp}
+              />
             ))}
         </GridCarousel>
       </section>
@@ -200,12 +205,18 @@ const Landing: React.SFC<OwnProps> = (props: OwnProps) => {
           </Typography>
         </div>
         <GridCarousel className={classes.gridCarousel}>
-          {Object.keys(DAPPS)
-            .sort((key0, key1) =>
-              DAPPS[key0].dateAdded > DAPPS[key1].dateAdded ? -1 : +1,
+          {dapps
+            .sort((dapp0, dapp1) =>
+              dapp0.dateAdded > dapp1.dateAdded ? -1 : +1,
             )
-            .map((key) => (
-              <DappCard key={`dapp-${key}`} dapp={DAPPS[key]} />
+            .map((dapp) => (
+              <DappCard
+                onClick={() =>
+                  forwardTo(ROUTE_LINKS.Discover(dapp.ipfsHash as string))
+                }
+                key={`dapp-${dapp.ipfsHash}`}
+                dapp={dapp}
+              />
             ))}
         </GridCarousel>
       </section>

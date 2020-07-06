@@ -23,10 +23,9 @@ export const makeSelectDapp = (dappID: string) =>
  * Default selector used by Dapps
  */
 
-const selectDapps = () =>
+export const makeSelectDapps = () =>
   createSelector(selectDappsDomain, (substate) => {
-    return substate;
+    return substate.dapps;
   });
 
-export default selectDapps;
 export { selectDappsDomain };

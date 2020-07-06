@@ -59,6 +59,6 @@ export const DAPPS: {
     category: DAPP_CATEGORY.EXCHANGES,
     banner: ZerionBanner,
     icon: ZerionLogo,
-    downvoteCost: 526
+    downvoteCost: 526,
   },
 };

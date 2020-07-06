@@ -6,15 +6,14 @@ import {
 
 export const ROUTE_LINKS = {
   Home: `/`,
-  CreateDApp: `/dapp/create`, // TODO: Implement single view
-  UpdateDApp: (dappID: string) => `/dapp/${dappID}`, // TODO: Implement single view
+  CreateDApp: `/discover/create`,
+  Discover: (dappID: string) => `/discover/${dappID}`,
+  UpdateDApp: (dappID: string) => `/discover/${dappID}/update`,
 
   Vote: (dappID: string, voteType: 'upvote' | 'downvote' | ':voteType') =>
-    `/vote/${dappID}/${voteType}`, // TODO: Implement single view
-
+    `/vote/${dappID}/${voteType}`,
   HowToVote: '/how-to-vote',
 
-  Discover: (dappID: string) => `/discover/${dappID}`, // TODO: Implement single view
   categories: {
     All: `/category/`,
     [DAPP_CATEGORY.EXCHANGES]: `/category/${

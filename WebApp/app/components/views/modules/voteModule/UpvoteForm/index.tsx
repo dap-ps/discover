@@ -96,14 +96,18 @@ const styles = (theme: Theme) =>
   });
 
 interface OwnProps extends WithStyles<typeof styles> {
-  upvote: (dappId: string, amount: number, token: TOKENS) => void
-  dapp: IDapp
+  upvote: (dappId: string, amount: number, token: TOKENS) => void;
+  dapp: IDapp;
 }
 
-const UpvoteForm: React.SFC<OwnProps> = ({ classes, dapp, upvote }: OwnProps) => {
+const UpvoteForm: React.SFC<OwnProps> = ({
+  classes,
+  dapp,
+  upvote,
+}: OwnProps) => {
   // const [token, setToken] = useState<TOKENS>(TOKENS.SNT);
 
-  const token = TOKENS.SNT
+  const token = TOKENS.SNT;
   const UpvoteSchema = Yup.object().shape({
     amount: Yup.number()
       .min(1, 'Minimum amount is 1')
@@ -118,7 +122,7 @@ const UpvoteForm: React.SFC<OwnProps> = ({ classes, dapp, upvote }: OwnProps) =>
       }}
       validationSchema={UpvoteSchema}
       onSubmit={(values, actions) => {
-        upvote(`${dapp.ipfsHash}`, values.amount, token)
+        upvote(`${dapp.ipfsHash}`, values.amount, token);
       }}
       render={({ submitForm }) => (
         <Form className={classes.root}>
