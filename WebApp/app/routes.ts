@@ -61,8 +61,8 @@ const routes: AppRoute[] = [
   },
 
   {
-    name: 'Vote on DApp',
-    path: ROUTE_LINKS.Vote(':dappID', ':voteType'),
+    name: 'How to vote',
+    path: ROUTE_LINKS.HowToVote,
     component: HomePage,
     isProtected: false, // This allows general access control
     isNavRequired: false, // This allows mapping into a navigation bar

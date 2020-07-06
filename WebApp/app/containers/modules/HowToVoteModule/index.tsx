@@ -7,7 +7,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { compose, Dispatch } from 'redux';
-import HowToVotePage from 'components/pages/HowToVotePage';
+import HowToVotePage from 'components/views/pages/HowToVotePage';
 
 interface OwnProps {}
 
