@@ -109,6 +109,9 @@ const styles = (theme: Theme) =>
       cursor: 'pointer',
       color: 'initial',
       textDecoration: 'none',
+      '& svg': {
+        width: '100%',
+      },
       '& span': {
         display: 'block',
         marginLeft: 20,
