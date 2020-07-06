@@ -11,6 +11,7 @@ import {
 import DAppManagementContainer from 'containers/modules/DAppManagementContainer';
 import VoteModule from 'containers/modules/VoteModule';
 import { FunctionComponent, ReactNode, ComponentType } from 'react';
+import HowToVoteModule from 'containers/modules/HowToVoteModule';
 
 export interface AppRoute {
   name: string;
@@ -57,6 +58,15 @@ const routes: AppRoute[] = [
     isProtected: false, // This allows general access control
     isNavRequired: false, // This allows mapping into a navigation bar
     modalComponent: VoteModule,
+  },
+
+  {
+    name: 'Vote on DApp',
+    path: ROUTE_LINKS.Vote(':dappID', ':voteType'),
+    component: HomePage,
+    isProtected: false, // This allows general access control
+    isNavRequired: false, // This allows mapping into a navigation bar
+    modalComponent: HowToVoteModule,
   },
 
   // Categories

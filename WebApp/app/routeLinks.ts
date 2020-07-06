@@ -12,6 +12,8 @@ export const ROUTE_LINKS = {
   Vote: (dappID: string, voteType: 'upvote' | 'downvote' | ':voteType') =>
     `/vote/${dappID}/${voteType}`, // TODO: Implement single view
 
+  HowToVote: '/how-to-vote',
+
   Discover: (dappID: string) => `/discover/${dappID}`, // TODO: Implement single view
   categories: {
     All: `/category/`,

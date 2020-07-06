@@ -95,5 +95,5 @@ export enum ROUTE_TYPE {
 
 export enum TOKENS {
   SNT = 'SNT',
-  DAI = 'DAI'
+  DAI = 'DAI',
 }

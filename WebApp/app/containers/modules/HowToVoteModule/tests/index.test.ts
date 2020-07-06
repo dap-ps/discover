@@ -1,8 +1,8 @@
 // import React from 'react';
 // import { mount } from 'enzyme';
 
-// import TokenInput from '../index';
+// import { HowToVoteModule } from '../index';
 
-describe('<TokenInput />', () => {
+describe('<HowToVoteModule />', () => {
   test.todo('Expect to have unit tests specified');
 });

@@ -207,6 +207,7 @@ const theme = createMuiTheme({
       outlined: {
         textTransform: 'unset',
         backgroundColor: brandColors.default.main,
+        borderRadius: 48,
         color: appColors.general.white.base,
         border: 'none',
         '&:hover': {
