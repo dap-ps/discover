@@ -20,6 +20,7 @@ import { TextField } from 'formik-material-ui';
 import { appColors } from 'theme';
 import { Link } from 'react-router-dom';
 import { ROUTE_LINKS } from 'routeLinks';
+import { IDapp } from 'domain/Dapps/types';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -83,7 +84,7 @@ const styles = (theme: Theme) =>
       '& a': {
         textDecoration: 'none',
         color: appColors.general.blue.base,
-      }
+      },
     },
     ctas: {
       display: 'flex',
@@ -91,17 +92,20 @@ const styles = (theme: Theme) =>
       alignItems: 'center',
       justifyContent: 'center',
       paddingTop: 20,
-    }
+    },
   });
 
-interface OwnProps extends WithStyles<typeof styles> {}
+interface OwnProps extends WithStyles<typeof styles> {
+  upvote: (dappId: string, amount: number, token: TOKENS) => void
+  dapp: IDapp
+}
 
-const UpvoteForm: React.SFC<OwnProps> = ({ classes }: OwnProps) => {
+const UpvoteForm: React.SFC<OwnProps> = ({ classes, dapp, upvote }: OwnProps) => {
   const [token, setToken] = useState<TOKENS>(TOKENS.SNT);
 
   const UpvoteSchema = Yup.object().shape({
     amount: Yup.number()
-      .min(0.001, 'Minimum amount is 0.001')
+      .min(1, 'Minimum amount is 1')
       // TODO Validate against balance
       .required('Please input a value'),
   });
@@ -110,11 +114,10 @@ const UpvoteForm: React.SFC<OwnProps> = ({ classes }: OwnProps) => {
     <Formik
       initialValues={{
         amount: 0,
-        token: token,
       }}
       validationSchema={UpvoteSchema}
       onSubmit={(values, actions) => {
-        console.log(values);
+        upvote(`${dapp.ipfsHash}`, values.amount, token)
       }}
       render={({ submitForm }) => (
         <Form className={classes.root}>
@@ -123,7 +126,7 @@ const UpvoteForm: React.SFC<OwnProps> = ({ classes }: OwnProps) => {
               className={classes.field}
               name="amount"
               type="number"
-              step="0.001"
+              step="1"
               component={TextField}
             />
             <span className={classes.tokenLabel}>{token}</span>
@@ -131,10 +134,8 @@ const UpvoteForm: React.SFC<OwnProps> = ({ classes }: OwnProps) => {
           <section className={classes.information}>
             <Typography>
               {token} you spend to upvote is locked in the contract and
-              contributes directly to 1inch.exchange's ranking.{' '}
-              <Link to={ROUTE_LINKS.HowToVote}>
-                Learn more↗
-              </Link>
+              contributes directly to {dapp.name}'s ranking.{' '}
+              <Link to={ROUTE_LINKS.HowToVote}>Learn more↗</Link>
             </Typography>
           </section>
           <section className={classes.ctas}>

@@ -18,7 +18,9 @@ interface OwnProps {
   dappID: string;
 }
 
-interface DispatchProps {}
+interface DispatchProps {
+  downvote: (dappId: string) => void
+}
 
 interface StateProps {
   dapp: IDapp | undefined;
@@ -26,8 +28,8 @@ interface StateProps {
 
 type Props = StateProps & DispatchProps & OwnProps;
 
-const DownvoteContainer: React.SFC<Props> = ({ dapp }: Props) => {
-  return dapp ? <DownvoteView dapp={dapp} /> : <></>;
+const DownvoteContainer: React.SFC<Props> = ({ dapp, downvote }: Props) => {
+  return dapp ? <DownvoteView downvote={downvote} dapp={dapp} /> : <></>;
 };
 
 const mapStateToProps = (state: ApplicationRootState, props: OwnProps) =>
@@ -40,7 +42,10 @@ const mapDispatchToProps = (
   ownProps: OwnProps,
 ): DispatchProps => {
   return {
-    dispatch: dispatch,
+    downvote: (dappId: string) => {
+      // TODO: wire to saga
+      console.log('downvote', dappId)
+    }
   };
 };
 

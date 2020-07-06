@@ -36,6 +36,7 @@ const styles = (theme: Theme) =>
     root: {
       '& > *': {
         margin: '10px 0',
+        position: 'relative',
       },
       '& span': {
         fontWeight: 500,

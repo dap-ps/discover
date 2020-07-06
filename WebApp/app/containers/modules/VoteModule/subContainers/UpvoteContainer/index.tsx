@@ -13,12 +13,15 @@ import { ApplicationRootState } from 'types';
 import { makeSelectDapp } from 'domain/Dapps/selectors';
 import { RootState } from 'domain/App/types';
 import { IDapp } from 'domain/Dapps/types';
+import { TOKENS } from 'utils/constants';
 
 interface OwnProps {
   dappID: string;
 }
 
-interface DispatchProps {}
+interface DispatchProps {
+  upvote: (dappId: string, amount: number, token: TOKENS) => void
+}
 
 interface StateProps {
   dapp: IDapp | undefined;
@@ -26,8 +29,8 @@ interface StateProps {
 
 type Props = StateProps & DispatchProps & OwnProps;
 
-const UpvoteContainer: React.SFC<Props> = ({ dapp, dappID }: Props) => {
-  return dapp ? <UpvoteView dapp={dapp} /> : <></>;
+const UpvoteContainer: React.SFC<Props> = ({ dapp, upvote }: Props) => {
+  return dapp ? <UpvoteView upvote={upvote} dapp={dapp} /> : <></>;
 };
 
 const mapStateToProps = (state: ApplicationRootState, props: OwnProps) =>
@@ -40,7 +43,10 @@ const mapDispatchToProps = (
   ownProps: OwnProps,
 ): DispatchProps => {
   return {
-    dispatch: dispatch,
+    upvote: (dappId: string, amount: number, token: TOKENS) => {
+      // TODO Wire to saga
+      console.log(dappId, amount, token)
+    }
   };
 };
 
