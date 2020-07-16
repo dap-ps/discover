@@ -24,6 +24,11 @@ export enum ERROR_CODES {
   Void = 'Void',
 }
 
+export enum DB_TABLES {
+  DB_NAME = 'status_discover',
+  DB_STORE_DAPPS = 'store_dapps',
+}
+
 export enum DAPP_STATUS {
   PENDING = 'PENDING',
   APPROVED = 'APPROVED',
