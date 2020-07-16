@@ -8,6 +8,12 @@ import { createAsyncAction } from 'typesafe-actions';
 import ActionTypes from './constants';
 import { IDapp, IDappVote } from './types';
 
+export const fetchDappsAction = createAsyncAction(
+  ActionTypes.FETCH_DAPPS_REQUEST,
+  ActionTypes.FETCH_DAPPS_SUCCESS,
+  ActionTypes.FETCH_DAPPS_FAILURE,
+)<void, IDapp[], string>();
+
 export const createDappAction = createAsyncAction(
   ActionTypes.CREATE_DAPP_REQUEST,
   ActionTypes.CREATE_DAPP_SUCCESS,

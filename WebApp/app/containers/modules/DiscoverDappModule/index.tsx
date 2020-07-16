@@ -4,36 +4,44 @@
  *
  */
 
-import React, { Fragment } from 'react';
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
+import React from 'react';
+import { connect, useSelector } from 'react-redux';
 import { compose, Dispatch } from 'redux';
+import { useRouteMatch, match } from 'react-router-dom';
+import { ROUTE_LINKS } from 'routeLinks';
+import { makeSelectDapp } from 'domain/Dapps/selectors';
+import DiscoverDappView from 'components/views/modules/DiscoverDappView';
 
-interface OwnProps {}
+interface OwnProps {
+}
 
 interface DispatchProps {}
 
-interface StateProps {}
+interface RouteParams {
+  dappID: string;
+}
 
-type Props = StateProps & DispatchProps & OwnProps;
+type Props = DispatchProps & OwnProps;
 
-const DiscoverDappModule: React.SFC<Props> = (props: Props) => {
-  // TODO Fetch dapp
-  return <Fragment>DiscoverDappModule</Fragment>;
+const DiscoverDappModule: React.SFC<Props> = ({}: Props) => {
+  const match: match<RouteParams> | null = useRouteMatch({
+    path: ROUTE_LINKS.Discover(':dappID'),
+    strict: true,
+    sensitive: true,
+  })
+  const dapp = useSelector(makeSelectDapp(match?.params.dappID as string))
+
+  return dapp ? <DiscoverDappView dapp={dapp} /> : <></>
 };
-
-const mapStateToProps = createStructuredSelector({
-});
 
 const mapDispatchToProps = (
   dispatch: Dispatch,
   ownProps: OwnProps,
 ): DispatchProps => {
   return {
-    dispatch: dispatch,
   };
 };
 
-const withConnect = connect(mapStateToProps, mapDispatchToProps);
+const withConnect = connect(mapDispatchToProps);
 
 export default compose(withConnect)(DiscoverDappModule);
