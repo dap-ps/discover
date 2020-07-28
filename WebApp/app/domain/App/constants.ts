@@ -13,6 +13,12 @@ enum ActionTypes {
 
   SET_CONNECTED = '@@dapps/global/SET_CONNECTED',
   SET_MODAL = '@@dapps/global/SET_MODAL',
+
+  CONNECT_ACCOUNT_REQUEST = '@@dapps/global/CONNECT_ACCOUNT_REQUEST',
+  CONNECT_ACCOUNT_SUCCESS = '@@dapps/global/CONNECT_ACCOUNT_SUCCESS',
+  CONNECT_ACCOUNT_FAILURE = '@@dapps/global/CONNECT_ACCOUNT_FAILURE',
+
+  SET_CURRENT_ACCOUNT = '@@dapps/global/SET_CURRENT_ACCOUNT',
 }
 
 export default ActionTypes;

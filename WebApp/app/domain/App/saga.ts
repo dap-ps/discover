@@ -7,6 +7,8 @@ import { errorMessageHandler } from './sagas/errorMessageHandler';
 import DappsSaga from 'domain/Dapps/saga';
 import TokensSaga from 'domain/Tokens/saga';
 import walletSaga from 'domain/Wallet/saga';
+import { BackgroundSaga } from './sagas/background.saga';
+import { AccountSaga } from './sagas/account.saga';
 
 export default function* rootDaemonSaga() {
   yield put(setApiSendingFlag(false));
@@ -22,4 +24,6 @@ export default function* rootDaemonSaga() {
   yield fork(walletSaga);
 
   // App domain internal saga's
+  yield fork(BackgroundSaga)
+  yield fork(AccountSaga)
 }

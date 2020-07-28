@@ -1,7 +1,7 @@
 import { ActionType } from 'typesafe-actions';
 import * as actions from './actions';
 import { ApplicationRootState } from 'types';
-import { DAPP_STATUS } from 'utils/constants';
+import { DAPP_STATUS } from '../App/sagas/node_modules/utils/constants';
 import { BigNumber } from 'ethers/utils';
 
 export interface IDappVote {
@@ -16,25 +16,21 @@ export interface IDappRank {
 }
 
 export interface IDapp {
-  id: string
-  name: string
-  category: DappCategories
-  desc: string
-  url: string
-  image: string
-  icon: string
-  status: DAPP_STATUS
-  ranking?: DappRank[]
-  votes: number
-  dateAdded: number
-  uploader?: string
-  ipfsHash?: string
-  hash?: string
-  compressedMetadata?: string
-  downvoteCost?: number
-  // metadata
-  email: string
-  sntValue: number
+  name: string;
+  category: DappCategories;
+  description: string;
+  url: string;
+  banner: string;
+  icon: string;
+  status: DAPP_STATUS;
+  ranking?: DappRank[];
+  votes: number;
+  dateAdded: number;
+  uploader?: string;
+  ipfsHash?: string;
+  hash?: string;
+  compressedMetadata?: string;
+  downvoteCost?: number;
 }
 
 /* --- STATE --- */

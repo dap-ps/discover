@@ -62,7 +62,7 @@ const DappFeature: React.SFC<OwnProps> = (props: OwnProps) => {
   return (
     <article className={classNames(classes.root, className)}>
       <section className={classes.banner}>
-        <img src={dapp.banner} alt={`${dapp.name}-banner`} />
+        <img src={dapp.image} alt={`${dapp.name}-banner`} />
       </section>
       <section className={classes.meta}>
         <div className={classes.icon}>
@@ -73,7 +73,7 @@ const DappFeature: React.SFC<OwnProps> = (props: OwnProps) => {
             {dapp.name}
           </Typography>
           <Typography variant="body1" component="p">
-            {dapp.description}
+            {dapp.desc}
           </Typography>
         </div>
       </section>

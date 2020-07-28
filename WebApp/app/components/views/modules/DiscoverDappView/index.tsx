@@ -111,7 +111,7 @@ const DiscoverDappView: React.SFC<OwnProps> = ({ classes, dapp }: OwnProps) => {
           Description
         </Typography>
         <Typography component="p">
-          {dapp.description}
+          {dapp.desc}
         </Typography>
       </section>
       <section className={classes.section}>

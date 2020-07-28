@@ -7,8 +7,8 @@ import { initialState } from './reducer';
  */
 
 const selectDappsDomain = (state: ApplicationRootState) => {
-  return state ? state.dapp : initialState;
-};
+  return state ? state.dapp : initialState
+}
 
 /**
  * Other specific selectors
@@ -16,8 +16,8 @@ const selectDappsDomain = (state: ApplicationRootState) => {
 
 export const makeSelectDapp = (dappID: string) =>
   createSelector(selectDappsDomain, (domain) => {
-    return domain.dapps.find((dapp) => dapp.ipfsHash == dappID);
-  });
+    return domain.dapps.find((dapp) => dapp.ipfsHash == dappID)
+  })
 
 /**
  * Default selector used by Dapps
@@ -25,7 +25,6 @@ export const makeSelectDapp = (dappID: string) =>
 
 export const makeSelectDapps = () =>
   createSelector(selectDappsDomain, (substate) => {
-    return substate.dapps;
-  });
+    return substate.dapps
+  })
 
-export { selectDappsDomain };

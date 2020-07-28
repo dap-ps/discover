@@ -138,7 +138,7 @@ const DappCard: React.SFC<OwnProps> = ({
           {dapp.name}
         </Typography>
         <Typography variant="body1" component="p">
-          {dapp.description}
+          {dapp.desc}
         </Typography>
         <div className={classes.votes}>
           <span className={classes.voteCount}>

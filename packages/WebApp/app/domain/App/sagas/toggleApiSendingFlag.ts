@@ -1,8 +1,10 @@
 import {
+  setActiveErrorCodeAction,
   addToRequestQueueAction,
   removeFromRequestQueueAction,
 } from '../actions'
-import { put, take, fork, takeLatest } from 'redux-saga/effects'
+import { put, take, fork, takeLatest } from '../../Dapps/sagas/node_modules/redux-saga/effects'
+import { ERROR_CODES } from 'utils/constants'
 
 // Redux dev tools not injecting in extension, this is a work around
 function* logger() {
@@ -12,6 +14,7 @@ function* logger() {
 function* parseAction(actionType: string) {
   if (actionType.endsWith('_REQUEST')) {
     yield put(addToRequestQueueAction(actionType))
+    yield put(setActiveErrorCodeAction(ERROR_CODES.Void))
   } else if (actionType.endsWith('_SUCCESS')) {
     yield put(
       removeFromRequestQueueAction(actionType.replace('_SUCCESS', '_REQUEST'))

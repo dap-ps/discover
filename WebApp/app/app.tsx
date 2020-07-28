@@ -34,17 +34,6 @@ import { Router } from 'react-router';
 import theme from 'theme';
 import { ErrorBoundry } from 'containers/componentContainers/ErrorBoundry';
 
-// import { Web3ReactProvider } from '@web3-react/core'
-// import { providers } from "ethers";
-
-// import * as connectors from "utils/connectors";
-
-// PROVIDER SET UP
-// function getLibrary(provider) {
-//   const library = new providers.Web3Provider(provider);
-//   library.pollingInterval = 8000;
-//   return library;
-// }
 const persistedState = loadState();
 const store = configureStore(persistedState);
 
@@ -52,14 +41,6 @@ store.subscribe(
   throttle(() => {
     //@ts-ignore
     saveState(store.getState());
-  }, 1000),
-);
-
-store.subscribe(
-  throttle(() => {
-    saveState({
-      //@ts-ignore
-    });
   }, 1000),
 );
 

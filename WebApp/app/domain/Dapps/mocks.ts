@@ -20,22 +20,28 @@ export const DAPPS: {
   [key: string]: IDapp;
 } = {
   sablier: {
+    email: '',
+    id: '10',
+    sntValue: 0,
     ipfsHash: 'asdasdasdasd',
     name: 'Sablier',
-    description: 'Stream money, just like you stream music or videos',
+    desc: 'Stream money, just like you stream music or videos',
     url: 'https://pay.sablier.finance',
     ranking: [],
     status: DAPP_STATUS.APPROVED,
     votes: 0,
     dateAdded: 1582043136071.0,
     category: DAPP_CATEGORY.EXCHANGES,
-    banner: SablierBanner,
+    image: SablierBanner,
     icon: SablierLogo,
   },
   oasis: {
+    email: '',
+    id: '11',
+    sntValue: 0,
     ipfsHash: 'asdasdas3456789dasd',
     name: 'Oasis',
-    description:
+    desc:
       'Trade tokens, borrow Dai, and earn savings — all in one place',
     url: 'https://oasis.app',
     ranking: [],
@@ -43,13 +49,16 @@ export const DAPPS: {
     votes: 10,
     dateAdded: 1582043136051.0,
     category: DAPP_CATEGORY.EXCHANGES,
-    banner: OasisBanner,
+    image: OasisBanner,
     icon: OasisLogo,
   },
   zerion: {
+    email: '',
+    id: '12',
+    sntValue: 0,
     ipfsHash: 'asdasd10101010101asdasd',
     name: 'Zerion',
-    description:
+    desc:
       'Zerion is the simplest way to invest in DeFi from anywhere in the world',
     url: 'https://app.zerion.io',
     ranking: [],
@@ -57,7 +66,7 @@ export const DAPPS: {
     votes: 20,
     dateAdded: 1582043136061.0,
     category: DAPP_CATEGORY.EXCHANGES,
-    banner: ZerionBanner,
+    image: ZerionBanner,
     icon: ZerionLogo,
     downvoteCost: 526,
   },
