@@ -41,8 +41,7 @@ export const DAPPS: {
     sntValue: 0,
     ipfsHash: 'asdasdas3456789dasd',
     name: 'Oasis',
-    desc:
-      'Trade tokens, borrow Dai, and earn savings — all in one place',
+    desc: 'Trade tokens, borrow Dai, and earn savings — all in one place',
     url: 'https://oasis.app',
     ranking: [],
     status: DAPP_STATUS.APPROVED,

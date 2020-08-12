@@ -1,26 +1,37 @@
-import { fetchDappsAction } from "../actions";
-import DiscoverContract from '../../../embarkArtifacts/contracts/Discover'
-import { take, put, call, fork, select } from "redux-saga/effects";
-import { connectContract } from "domain/App/blockchainContext";
-import { IDapp } from "../types";
-import { selectCurrentAccount } from "domain/App/selectors";
+import { fetchDappsAction } from '../actions';
+import DiscoverContract from '../../../embarkArtifacts/contracts/Discover';
+import { take, put, call, fork, select } from 'redux-saga/effects';
+import { connectContract } from 'domain/App/blockchainContext';
+import { IDapp } from '../types';
+import { selectCurrentAccount } from 'domain/App/selectors';
 
 export function* fetchDappsSaga() {
   try {
-    const account = yield select(selectCurrentAccount)
+    const account = yield select(selectCurrentAccount);
 
-    const DiscoverInstance = yield call(async () => await connectContract(DiscoverContract))
-    const contractDappsCount: number = yield call(async () => await DiscoverInstance.methods
-      .getDAppsCount()
-      .call({ from: account })
-    )
-    
+    const DiscoverInstance = yield call(
+      async () => await connectContract(DiscoverContract),
+    );
+    const contractDappsCount: number = parseInt(
+      yield call(
+        async () =>
+          await DiscoverInstance.methods
+            .getDAppsCount()
+            .call({ from: account }),
+      ),
+    );
+
     const dapps: IDapp = yield call(
       async () =>
-      await Promise.all([...(new Array(contractDappsCount)).fill('').map((id: number) => DiscoverInstance.methods.dapps(id).call({from: account}))])
-    )
-    console.log(dapps)
-    debugger
+        await Promise.all([
+          ...new Array(contractDappsCount)
+            .fill('')
+            .map((id: number) =>
+              DiscoverInstance.methods.dapps(id).call({ from: account }),
+            ),
+        ]),
+    );
+    console.log(dapps);
 
     // if (account == constants.AddressZero) {
     //   yield put(connectAccountAction.request())
@@ -40,7 +51,7 @@ export function* fetchDappsSaga() {
     //     .call({ from: account })
     //   )
     //   debugger
-      
+
     //   const dapps: IDapp = yield call(
     //     async () =>
     //     await Promise.all([...(new Array(contractDappsCount)).fill('').map((id: number) => DiscoverInstance.methods.dapps(id).call({from: account}))])
@@ -48,17 +59,16 @@ export function* fetchDappsSaga() {
     //   console.log(dapps)
     //   debugger
     // }
-  }
-  catch (error) {
-    debugger
+  } catch (error) {
+    debugger;
     // TODO  Network check
-    yield put(fetchDappsAction.failure(error))
+    yield put(fetchDappsAction.failure(error));
   }
 }
 
 export function* fetchDappsListener() {
   while (true) {
-    yield take(fetchDappsAction.request)
-    yield fork(fetchDappsSaga)
+    yield take(fetchDappsAction.request);
+    yield fork(fetchDappsSaga);
   }
 }

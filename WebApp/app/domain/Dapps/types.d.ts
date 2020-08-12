@@ -16,25 +16,25 @@ export interface IDappRank {
 }
 
 export interface IDapp {
-  id: string
-  name: string
-  category: DappCategories
-  desc: string
-  url: string
-  image: string
-  icon: string
-  status: DAPP_STATUS
-  ranking?: DappRank[]
-  votes: number
-  dateAdded: number
-  uploader?: string
-  ipfsHash?: string
-  hash?: string
-  compressedMetadata?: string
-  downvoteCost?: number
+  id: string;
+  name: string;
+  category: DappCategories;
+  desc: string;
+  url: string;
+  image: string;
+  icon: string;
+  status: DAPP_STATUS;
+  ranking?: DappRank[];
+  votes: number;
+  dateAdded: number;
+  uploader?: string;
+  ipfsHash?: string;
+  hash?: string;
+  compressedMetadata?: string;
+  downvoteCost?: number;
   // metadata
-  email: string
-  sntValue: number
+  email: string;
+  sntValue: number;
 }
 
 /* --- STATE --- */

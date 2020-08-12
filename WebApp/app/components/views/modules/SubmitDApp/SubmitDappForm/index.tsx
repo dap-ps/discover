@@ -127,7 +127,7 @@ const SubmitDappForm: React.SFC<OwnProps> = (props: OwnProps) => {
       </header>
       <section className={classes.content}>
         <FormControl className={classes.input}>
-          <Field component={UploadImageField} name="logo" />
+          <Field component={UploadImageField} name="icon" />
         </FormControl>
         <FormControl className={classes.input}>
           <Field
@@ -144,7 +144,7 @@ const SubmitDappForm: React.SFC<OwnProps> = (props: OwnProps) => {
           <Field
             fullWidth
             size="small"
-            name="description"
+            name="desc"
             label="Short Description"
             variant="outlined"
             max="140"

@@ -8,7 +8,7 @@ import React from 'react';
 import { Theme, createStyles, withStyles, WithStyles } from '@material-ui/core';
 import { IDapp } from 'domain/Dapps/types';
 import DappInfoHeader from 'components/theme/elements/DappInfoHeader';
-import DownvoteForm from 'components/DownvoteForm';
+import DownvoteForm from 'components/views/modules/voteModule/DownvoteForm';
 
 const styles = (theme: Theme) =>
   createStyles({

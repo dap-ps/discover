@@ -8,8 +8,8 @@ import { DomainState, IDapp } from './types';
  */
 
 const selectDappsDomain = (state: ApplicationRootState) => {
-  return state ? state.dapp : initialState
-}
+  return state ? state.dapp : initialState;
+};
 
 /**
  * Other specific selectors
@@ -17,13 +17,17 @@ const selectDappsDomain = (state: ApplicationRootState) => {
 
 export const makeSelectDapp = (dappID: string) =>
   createSelector(selectDappsDomain, (domain: DomainState) => {
-    return domain.dapps.find((dapp: IDapp) => dapp.ipfsHash == dappID)
-  })
+    return domain.dapps.find((dapp: IDapp) => dapp.ipfsHash == dappID);
+  });
 
-export const makeSelectFeaturedDapps =
-  createSelector(selectDappsDomain, (domain: DomainState) => {
-    return domain.dapps.filter((dapp: IDapp) => domain.featuredDapps.includes(dapp.name))
-  })
+export const makeSelectFeaturedDapps = createSelector(
+  selectDappsDomain,
+  (domain: DomainState) => {
+    return domain.dapps.filter((dapp: IDapp) =>
+      domain.featuredDapps.includes(dapp.name),
+    );
+  },
+);
 
 /**
  * Default selector used by Dapps
@@ -31,6 +35,5 @@ export const makeSelectFeaturedDapps =
 
 export const makeSelectDapps = () =>
   createSelector(selectDappsDomain, (substate: DomainState) => {
-    return substate.dapps
-  })
-
+    return substate.dapps;
+  });

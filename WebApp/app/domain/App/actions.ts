@@ -11,20 +11,20 @@ export const setErrorMessageAction = createStandardAction(
 )<string>();
 
 export const setActiveErrorCodeAction = createStandardAction(
-  ActionTypes.SET_ACTIVE_ERROR_CODE
-)<ERROR_CODES>()
+  ActionTypes.SET_ACTIVE_ERROR_CODE,
+)<ERROR_CODES>();
 
 export const addToRequestQueueAction = createStandardAction(
-  ActionTypes.ADD_TO_REQUEST_QUEUE
-)<string>()
+  ActionTypes.ADD_TO_REQUEST_QUEUE,
+)<string>();
 
 export const removeFromRequestQueueAction = createStandardAction(
-  ActionTypes.REMOVE_FROM_REQUEST_QUEUE
-)<string>()
+  ActionTypes.REMOVE_FROM_REQUEST_QUEUE,
+)<string>();
 
 export const clearRequestQueueAction = createStandardAction(
-  ActionTypes.CLEAR_REQUEST_QUEUE
-)<void>()
+  ActionTypes.CLEAR_REQUEST_QUEUE,
+)<void>();
 
 export const connectAccountAction = createAsyncAction(
   ActionTypes.CONNECT_ACCOUNT_REQUEST,

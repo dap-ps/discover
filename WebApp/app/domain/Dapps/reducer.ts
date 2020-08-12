@@ -8,7 +8,7 @@ import { DomainState, DomainActions } from './types';
 import { DAPPS } from './mocks';
 
 export const initialState: DomainState = {
-  featuredDapps:  ['sablier', 'oasis', 'zerion'],
+  featuredDapps: ['sablier', 'oasis', 'zerion'],
   dapps: Object.keys(DAPPS).map((key) => DAPPS[key]),
 };
 

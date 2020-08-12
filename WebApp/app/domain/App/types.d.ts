@@ -4,17 +4,17 @@ import { ApplicationRootState } from 'types';
 
 /* --- STATE --- */
 interface AppState {
-  currentlySending: boolean
-  errorMessage: string
-  currentAccount: string
+  currentlySending: boolean;
+  errorMessage: string;
+  currentAccount: string;
 }
 
 /* --- ACTIONS --- */
 type AppActions = ActionType<typeof actions>;
 
 /* --- EXPORTS --- */
-type RootState = ApplicationRootState
-type DomainState = AppState
-type DomainActions = AppActions
+type RootState = ApplicationRootState;
+type DomainState = AppState;
+type DomainActions = AppActions;
 
-export { RootState, DomainState, DomainActions }
+export { RootState, DomainState, DomainActions };

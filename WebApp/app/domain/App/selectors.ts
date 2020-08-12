@@ -10,23 +10,23 @@ import { ApplicationRootState } from 'types';
 // Notes: Its done like this for allowing complex selection actions to be memoized
 
 const selectCurrentlySending = (state: ApplicationRootState) => {
-  return state.global.currentlySending
-}
+  return state.global.currentlySending;
+};
 
 export const selectCurrentAccount = (state: ApplicationRootState) => {
-  return state.global.currentAccount
-}
+  return state.global.currentAccount;
+};
 
 export const makeSelectCurrentlySending = createSelector(
   selectCurrentlySending,
   (substate: boolean) => {
-    return substate
+    return substate;
   },
-)
+);
 
 export const makeSelectCurrentAccount = createSelector(
   selectCurrentAccount,
   (substate: string) => {
-    return substate
+    return substate;
   },
-)
+);

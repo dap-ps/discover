@@ -24,6 +24,6 @@ export default function* rootDaemonSaga() {
   yield fork(walletSaga);
 
   // App domain internal saga's
-  yield fork(BackgroundSaga)
-  yield fork(AccountSaga)
+  yield fork(BackgroundSaga);
+  yield fork(AccountSaga);
 }

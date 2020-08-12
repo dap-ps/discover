@@ -19,7 +19,10 @@ import { appColors, uiConstants, brandColors } from 'theme';
 import Carousel from 'components/views/modules/Carousel';
 import { useSelector } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { makeSelectDapps, makeSelectFeaturedDapps } from 'domain/Dapps/selectors';
+import {
+  makeSelectDapps,
+  makeSelectFeaturedDapps,
+} from 'domain/Dapps/selectors';
 import { IDapp } from 'domain/Dapps/types';
 
 let categoryColors = {};
@@ -128,15 +131,12 @@ const Landing: React.SFC<OwnProps> = (props: OwnProps) => {
   const desktop = useMediaQuery(theme.breakpoints.up('md'));
   const tablet = useMediaQuery(theme.breakpoints.up('sm'));
 
-  const {
-    dapps,
-    featuredDapps
-  } = useSelector(
+  const { dapps, featuredDapps } = useSelector(
     createStructuredSelector({
       dapps: makeSelectDapps(),
-      featuredDapps: makeSelectFeaturedDapps
-    })
-  )
+      featuredDapps: makeSelectFeaturedDapps,
+    }),
+  );
 
   const desktopCarouselSettings: Partial<CarouselProviderProps> = {
     visibleSlides: uiConstants.banner.itemsPerSlide.desktop,
@@ -147,7 +147,6 @@ const Landing: React.SFC<OwnProps> = (props: OwnProps) => {
   const mobileCarouselSettings: Partial<CarouselProviderProps> = {
     visibleSlides: uiConstants.banner.itemsPerSlide.mobile,
   };
-
 
   return (
     <article className={classes.root}>
@@ -199,9 +198,7 @@ const Landing: React.SFC<OwnProps> = (props: OwnProps) => {
         </div>
         <GridCarousel className={classes.gridCarousel}>
           {dapps
-            .sort((dapp0, dapp1) =>
-              dapp0.votes > dapp1.votes ? -1 : +1,
-            )
+            .sort((dapp0, dapp1) => (dapp0.votes > dapp1.votes ? -1 : +1))
             .map((dapp) => (
               <DappCard key={`dapp-${dapp.name}`} dapp={dapp} />
             ))}

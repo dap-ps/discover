@@ -12,8 +12,7 @@ import { ROUTE_LINKS } from 'routeLinks';
 import { makeSelectDapp } from 'domain/Dapps/selectors';
 import DiscoverDappView from 'components/views/modules/DiscoverDappView';
 
-interface OwnProps {
-}
+interface OwnProps {}
 
 interface DispatchProps {}
 
@@ -28,18 +27,17 @@ const DiscoverDappModule: React.SFC<Props> = ({}: Props) => {
     path: ROUTE_LINKS.Discover(':dappID'),
     strict: true,
     sensitive: true,
-  })
-  const dapp = useSelector(makeSelectDapp(match?.params.dappID as string))
+  });
+  const dapp = useSelector(makeSelectDapp(match?.params.dappID as string));
 
-  return dapp ? <DiscoverDappView dapp={dapp} /> : <></>
+  return dapp ? <DiscoverDappView dapp={dapp} /> : <></>;
 };
 
 const mapDispatchToProps = (
   dispatch: Dispatch,
   ownProps: OwnProps,
 ): DispatchProps => {
-  return {
-  };
+  return {};
 };
 
 const withConnect = connect(mapDispatchToProps);

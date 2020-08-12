@@ -120,22 +120,36 @@ const styles = (theme: Theme) =>
         backgroundColor: 'red',
       },
     },
+    tempIcon: {
+      position: 'relative',
+      width: 24,
+      height: 24,
+      backgroundSize: 'cover',
+      backgroundPosition: '50%',
+      borderRadius: '50%',
+    }
   });
 
 interface OwnProps extends WithStyles<typeof styles> {
   dapp: IDapp;
   changeIndicator?: number;
+  className?: string
 }
 
 const DappInfoHeader: React.SFC<OwnProps> = ({
   dapp,
   classes,
   changeIndicator,
+  className = ''
 }: OwnProps) => {
   return (
-    <section className={classes.root}>
+    <section className={classNames(classes.root, className)}>
       <div className={classes.title}>
-        <img src={dapp.icon} alt={`${dapp.name}-icon`} />
+        {
+          dapp.icon.includes('base64') ? 
+            <div className={classes.tempIcon} style={{ backgroundImage: `url(${dapp.icon})` }} /> : 
+            <img src={dapp.icon} alt={`${dapp.name}-icon`} />
+        }
         <Typography variant="body1" component="span">
           {dapp.name}
         </Typography>
