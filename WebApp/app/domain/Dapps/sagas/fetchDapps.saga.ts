@@ -10,17 +10,10 @@ export function* fetchDappsSaga() {
     const account = yield select(selectCurrentAccount)
 
     const DiscoverInstance = yield call(async () => await connectContract(DiscoverContract))
-    debugger
-    console.log((new Array(3)).fill('').length)
-    console.log((new Array(3)).fill('').map((item, index) => console.log(item, index)))
-    console.log((new Array(0)).fill('').length)
-    console.log((new Array(0)).fill('').map((item, index) => console.log(item, index)))
-    debugger
     const contractDappsCount: number = yield call(async () => await DiscoverInstance.methods
       .getDAppsCount()
       .call({ from: account })
     )
-    debugger
     
     const dapps: IDapp = yield call(
       async () =>

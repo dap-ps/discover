@@ -1,6 +1,7 @@
 import { createSelector } from 'reselect';
 import { ApplicationRootState } from 'types';
 import { initialState } from './reducer';
+import { DomainState, IDapp } from './types';
 
 /**
  * Direct selector to the dapps state domain
@@ -15,8 +16,13 @@ const selectDappsDomain = (state: ApplicationRootState) => {
  */
 
 export const makeSelectDapp = (dappID: string) =>
-  createSelector(selectDappsDomain, (domain) => {
-    return domain.dapps.find((dapp) => dapp.ipfsHash == dappID)
+  createSelector(selectDappsDomain, (domain: DomainState) => {
+    return domain.dapps.find((dapp: IDapp) => dapp.ipfsHash == dappID)
+  })
+
+export const makeSelectFeaturedDapps =
+  createSelector(selectDappsDomain, (domain: DomainState) => {
+    return domain.dapps.filter((dapp: IDapp) => domain.featuredDapps.includes(dapp.name))
   })
 
 /**
@@ -24,7 +30,7 @@ export const makeSelectDapp = (dappID: string) =>
  */
 
 export const makeSelectDapps = () =>
-  createSelector(selectDappsDomain, (substate) => {
+  createSelector(selectDappsDomain, (substate: DomainState) => {
     return substate.dapps
   })
 

@@ -7,7 +7,6 @@ import {
 import { createStyles, withStyles } from '@material-ui/core/styles';
 import React from 'react';
 import DappFeature from 'components/theme/content/DappFeature';
-import { DAPPS, FEATURED_DAPPS } from 'domain/Dapps/mocks';
 import { CarouselProviderProps } from 'pure-react-carousel';
 import { Link } from 'react-router-dom';
 import { ROUTE_LINKS } from 'routeLinks';
@@ -18,6 +17,10 @@ import DappCard from 'components/theme/content/DappCard';
 import GridCarousel from 'components/theme/elements/GridCarousel';
 import { appColors, uiConstants, brandColors } from 'theme';
 import Carousel from 'components/views/modules/Carousel';
+import { useSelector } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+import { makeSelectDapps, makeSelectFeaturedDapps } from 'domain/Dapps/selectors';
+import { IDapp } from 'domain/Dapps/types';
 
 let categoryColors = {};
 Object.keys(DAPP_CATEGORY_STRINGS).map((key) => {
@@ -125,6 +128,16 @@ const Landing: React.SFC<OwnProps> = (props: OwnProps) => {
   const desktop = useMediaQuery(theme.breakpoints.up('md'));
   const tablet = useMediaQuery(theme.breakpoints.up('sm'));
 
+  const {
+    dapps,
+    featuredDapps
+  } = useSelector(
+    createStructuredSelector({
+      dapps: makeSelectDapps(),
+      featuredDapps: makeSelectFeaturedDapps
+    })
+  )
+
   const desktopCarouselSettings: Partial<CarouselProviderProps> = {
     visibleSlides: uiConstants.banner.itemsPerSlide.desktop,
   };
@@ -134,6 +147,7 @@ const Landing: React.SFC<OwnProps> = (props: OwnProps) => {
   const mobileCarouselSettings: Partial<CarouselProviderProps> = {
     visibleSlides: uiConstants.banner.itemsPerSlide.mobile,
   };
+
 
   return (
     <article className={classes.root}>
@@ -147,11 +161,11 @@ const Landing: React.SFC<OwnProps> = (props: OwnProps) => {
             : mobileCarouselSettings
         }
       >
-        {FEATURED_DAPPS.map((key) => (
+        {featuredDapps.map((dapp: IDapp) => (
           <DappFeature
             className={classes.bannerItem}
-            key={`feature-${key}`}
-            dapp={DAPPS[key]}
+            key={`feature-${dapp.name}`}
+            dapp={dapp}
           />
         ))}
       </Carousel>
@@ -184,12 +198,12 @@ const Landing: React.SFC<OwnProps> = (props: OwnProps) => {
           </Typography>
         </div>
         <GridCarousel className={classes.gridCarousel}>
-          {Object.keys(DAPPS)
-            .sort((key0, key1) =>
-              DAPPS[key0].votes > DAPPS[key1].votes ? -1 : +1,
+          {dapps
+            .sort((dapp0, dapp1) =>
+              dapp0.votes > dapp1.votes ? -1 : +1,
             )
-            .map((key) => (
-              <DappCard key={`dapp-${key}`} dapp={DAPPS[key]} />
+            .map((dapp) => (
+              <DappCard key={`dapp-${dapp.name}`} dapp={dapp} />
             ))}
         </GridCarousel>
       </section>
@@ -200,12 +214,12 @@ const Landing: React.SFC<OwnProps> = (props: OwnProps) => {
           </Typography>
         </div>
         <GridCarousel className={classes.gridCarousel}>
-          {Object.keys(DAPPS)
-            .sort((key0, key1) =>
-              DAPPS[key0].dateAdded > DAPPS[key1].dateAdded ? -1 : +1,
+          {dapps
+            .sort((dapp1, dapp2) =>
+              dapp1.dateAdded > dapp2.dateAdded ? -1 : +1,
             )
-            .map((key) => (
-              <DappCard key={`dapp-${key}`} dapp={DAPPS[key]} />
+            .map((dapp) => (
+              <DappCard key={`dapp-${dapp.name}`} dapp={dapp} />
             ))}
         </GridCarousel>
       </section>

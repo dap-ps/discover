@@ -25,7 +25,7 @@ import 'file-loader?name=[name].[ext]!./.htaccess'; // eslint-disable-line impor
 import throttle from 'lodash/throttle';
 import configureStore from './configureStore';
 import history from './utils/history';
-import { loadState, saveState } from './utils/localStorage';
+import { loadState } from './utils/localStorage';
 
 // Import CSS reset and Global Styles
 import { ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles';
@@ -39,8 +39,9 @@ const store = configureStore(persistedState);
 
 store.subscribe(
   throttle(() => {
+    // TODO: reenable caching
     //@ts-ignore
-    saveState(store.getState());
+    // saveState(store.getState());
   }, 1000),
 );
 

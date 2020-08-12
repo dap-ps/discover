@@ -39,6 +39,7 @@ export interface IDapp {
 
 /* --- STATE --- */
 interface DappsState {
+  readonly featuredDapps: string[];
   readonly dapps: IDapp[];
 }
 
