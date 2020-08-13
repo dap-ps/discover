@@ -1,5 +1,27 @@
 import EmbarkJS from 'embarkArtifacts/embarkjs';
 import Web3 from 'web3';
+import { utils } from 'ethers';
+import { AddressZero } from 'ethers/constants';
+
+// TODO refactor to awaits & types
+export const broadcastContractFn = (contractMethod, account: string) => {
+  return new Promise((resolve, reject) => {
+    contractMethod
+      .estimateGas({ from: account })
+      .then(estimatedGas => {
+        contractMethod
+          .send({ from: account, gas: estimatedGas + 1000 })
+          .on('transactionHash', hash => {
+            resolve(hash)
+          })
+          .on('error', error => {
+            reject(error)
+          })
+      })
+      .catch(error => reject)
+  })
+}
+
 
 export const getNetworkName = (id: number) => {
   //  - "homestead" or 1 (or omit; this is the default network)
@@ -37,6 +59,8 @@ export interface IEmbark {
 
 export const checkNetwork = async () => {};
 
+export const defaultMultiplier = utils.bigNumberify('1000000000000000000')
+
 export const getNetworkId = () => {
   return parseInt(`${process.env['NETWORK']}`);
 };
@@ -47,7 +71,7 @@ export const getRpcUrl = () => {
   }`;
 };
 
-export const getAccount = async () => {
+export const getAccount = async (): Promise<string> => {
   try {
     // @ts-ignore
     if (web3 && EmbarkJS.Blockchain.Providers.web3) {
@@ -58,7 +82,7 @@ export const getAccount = async () => {
       );
     }
 
-    return '0x0000000000000000000000000000000000000000';
+    return AddressZero
   } catch (error) {
     throw new Error(
       'Could not unlock an account. Consider installing Status on your mobile or Metamask extension',

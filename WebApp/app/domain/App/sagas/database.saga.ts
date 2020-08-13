@@ -27,6 +27,7 @@ export const fetchAllDappsDB = async () => {
   }
   return result;
 };
+
 export const storeDappDB = async (dapp: IDapp) => {
   const db = await open();
   await db.put(DB_TABLES.DB_STORE_DAPPS, dapp);
