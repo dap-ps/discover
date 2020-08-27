@@ -10,7 +10,7 @@ const apiUrlBuilder = {
     generateUri(`attachment/${attachmentId}/b64`),
 
   updateDapp: (dappId: string) => generateUri(`metadata/update/${dappId}`),
-  uploadMetadata: generateUri(`upload`),
+  uploadMetadata: generateUri(`metadata/`),
   requestApproval: (ipfsHash: string) =>
     generateUri(`metadata/approve/email/${ipfsHash}`),
   metadata: (convertedHash: string) => generateUri(`metadata/${convertedHash}`),

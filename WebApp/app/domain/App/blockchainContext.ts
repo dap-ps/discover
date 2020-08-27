@@ -90,8 +90,21 @@ export const getAccount = async (): Promise<string> => {
   }
 };
 
-export const connectContract = async (Contract: any) => {
+export const getWeb3 = () => {
+  // @ts-ignore
+  return EmbarkJS.Blockchain.Providers.web3.web3;
+}
+
+export const web3Keccak = (input: string) => {
+  return getWeb3().utils.keccak256(input)
+}
+
+export const connectContract = async (Contract: any, address?: string) => {
   const clonedContract = Contract.clone();
+  if (address) {
+    clonedContract.address = address
+    clonedContract.options.address = address
+  }
   // @ts-ignore
   const provider = EmbarkJS.Blockchain.Providers.web3.getCurrentProvider();
   if (!provider.selectedAddress) {

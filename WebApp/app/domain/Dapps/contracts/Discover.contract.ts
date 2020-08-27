@@ -202,6 +202,7 @@ export const validateUpVoteEffect = async (id: string, amount: number) => {
 }
 
 export const validateDAppCreation = async (id: string, amount: BigNumber) => {
+  debugger
   const dappExists = await DiscoverDappExists(id)
   if (dappExists) {
     throw new Error('You must submit a unique ID')

@@ -7,7 +7,8 @@ import { BigNumber, bigNumberify } from 'ethers/utils';
 
 // View functions will just use address zero
 export const SNTallowance = async (from: string, to: string) => {
-  const SNTToken = await connectContract(SNTContract)
+  debugger
+  const SNTToken = await connectContract(SNTContract, process.env.SNT_ADDRESS)
   
   return await SNTToken.methods
     .allowance(from, to)
@@ -15,21 +16,24 @@ export const SNTallowance = async (from: string, to: string) => {
 }
 
 export const SNTbalanceOf = async (account: string) => {
-  const SNTToken = await connectContract(SNTContract)
+  debugger
+  const SNTToken = await connectContract(SNTContract, process.env.SNT_ADDRESS)
   return await SNTToken.methods
     .balanceOf(account)
     .call({ from: AddressZero })
 }
 
 export const SNTcontroller = async () => {
-  const SNTToken = await connectContract(SNTContract)
+  debugger
+  const SNTToken = await connectContract(SNTContract, process.env.SNT_ADDRESS)
   return await SNTToken.methods
     .controller()
     .call({ from: AddressZero })
 }
 
 export const SNTtransferable = async () => {
-  const SNTToken = await connectContract(SNTContract)
+  debugger
+  const SNTToken = await connectContract(SNTContract, process.env.SNT_ADDRESS)
   return await SNTToken.methods
     .transfersEnabled()
     .call({ from: AddressZero })
@@ -62,7 +66,7 @@ export const SNTapproveAndCall = async (spender: string, amount: BigNumber, call
   if (account == AddressZero) {
     throw 'Account not connected'
   }
-  const SNTToken = await connectContract(SNTContract)
+  const SNTToken = await connectContract(SNTContract, process.env.SNT_ADDRESS)
   if (await validateApproveAndCall(amount)) {
     return await broadcastContractFn(
       SNTToken.methods.approveAndCall(
@@ -84,7 +88,7 @@ export const SNTgenerateTokens = async () => {
   if (account == AddressZero) {
     throw 'Account not connected'
   }
-  const SNTToken = await connectContract(SNTContract)
+  const SNTToken = await connectContract(SNTContract, process.env.SNT_ADDRESS)
 
   await SNTToken.methods
     .generateTokens(account, 10000)

@@ -20,7 +20,7 @@ export function* fetchDappsSaga() {
             .call({ from: account }),
       ),
     );
-
+      
     const dapps: IDapp = yield call(
       async () =>
         await Promise.all([

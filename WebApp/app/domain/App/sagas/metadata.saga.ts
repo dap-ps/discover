@@ -9,7 +9,7 @@ import {
   retrieveAllDappsMetadataApi,
 } from 'api/api';
 
-export const base64ToBlob = (base64Text) => {
+export const base64ToBlob = (base64Text: string) => {
   const byteString = atob(base64Text.split(',')[1]);
 
   const arrayBuffer = new ArrayBuffer(byteString.length);
@@ -21,12 +21,12 @@ export const base64ToBlob = (base64Text) => {
   return new Blob([arrayBuffer]);
 };
 
-export const getBytes32FromIpfsHash = (ipfsListing) => {
+export const getBytes32FromIpfsHash = (ipfsListing: string) => {
   const decodedHash = bs58.decode(ipfsListing).slice(2).toString('hex');
   return `0x${decodedHash}`;
 };
 
-export const getIpfsHashFromBytes32 = (bytes32Hex) => {
+export const getIpfsHashFromBytes32 = (bytes32Hex: string) => {
   const hashHex = `1220${bytes32Hex.slice(2)}`;
   const hashBytes = Buffer.from(hashHex, 'hex');
   const hashStr = bs58.encode(hashBytes);

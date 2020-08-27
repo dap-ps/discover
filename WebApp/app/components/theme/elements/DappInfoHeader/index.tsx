@@ -157,7 +157,7 @@ const DappInfoHeader: React.SFC<OwnProps> = ({
       <div className={classes.staked}>
         <SNTIcon />
         <Typography variant="body1" component="span">
-          {dapp.votes}
+          {dapp.votes ? dapp.votes : dapp.sntValue}
         </Typography>
         {changeIndicator && (
           <span
