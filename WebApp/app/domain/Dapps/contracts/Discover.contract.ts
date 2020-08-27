@@ -78,9 +78,8 @@ export const DiscoverCreateDApp = async (dappId: string, tokenAmount: BigNumber,
   const callData = DiscoverContract.methods
       .createDApp(dappId, tokenAmount.toString(), uploadedMetadata)
       .encodeABI()
-
   return await SNTapproveAndCall(
-      'DiscoverContract.',
+      DiscoverContract.options.address,
       tokenAmount,
       callData,
     )
@@ -97,7 +96,7 @@ export const DiscoverUpVote = async (id: string, amount: number) => {
     .upvote(id, tokenAmount.toString())
     .encodeABI()
   return await SNTapproveAndCall(
-    'this.contract',
+    DiscoverContract.options.address,
     tokenAmount,
     callData,
   )
@@ -115,7 +114,7 @@ export const DiscoverDownVote = async (id: string) => {
     .encodeABI()
   debugger
   return SNTapproveAndCall(
-    'this.contract',
+    DiscoverContract.options.address,
     tokenAmount,
     callData,
   )

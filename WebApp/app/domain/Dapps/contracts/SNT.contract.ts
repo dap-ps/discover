@@ -66,6 +66,7 @@ export const SNTapproveAndCall = async (spender: string, amount: BigNumber, call
   if (account == AddressZero) {
     throw 'Account not connected'
   }
+  debugger
   const SNTToken = await connectContract(SNTContract, process.env.SNT_ADDRESS)
   if (await validateApproveAndCall(amount)) {
     return await broadcastContractFn(
