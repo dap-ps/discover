@@ -4,21 +4,69 @@
  *
  */
 
-import React from 'react'
-import { Theme, createStyles, withStyles, WithStyles, Typography, Button } from '@material-ui/core'
-import { IDapp } from 'domain/Dapps/types'
-import DappInfoHeader from 'components/theme/elements/DappInfoHeader'
-import { Formik, Field, Form } from 'formik'
+import React from 'react';
+import {
+  Theme,
+  createStyles,
+  withStyles,
+  WithStyles,
+  Typography,
+  Button,
+} from '@material-ui/core';
+import { IDapp } from 'domain/Dapps/types';
+import DappInfoHeader from 'components/theme/elements/DappInfoHeader';
+import { Formik, Field, Form } from 'formik';
 import * as Yup from 'yup';
-import { TOKENS } from 'utils/constants'
-import { appColors } from 'theme'
-import { TextField } from 'formik-material-ui'
+import { TOKENS } from 'utils/constants';
+import { appColors, uiConstants } from 'theme';
+import { TextField } from 'formik-material-ui';
+import classNames from 'classnames';
+import LoadingSpinnerSVG from '../../../../../images/loading-spinner.svg';
+import { useSelector } from 'react-redux';
+import { makeSelectDappsLoading } from 'domain/Dapps/selectors';
 
 const styles = (theme: Theme) =>
   createStyles({
     // JSS in CSS goes here
     root: {
       padding: `15px 0px 10px`,
+      position: "relative",
+     
+    },
+    loading: {
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
+      position: "absolute",
+      top: 0,
+      left: 0,
+      height: "100%",
+      width: "100%",
+      zIndex: 10,
+      opacity: 0,
+      visibility: "hidden",
+      transitionDuration: `${uiConstants.global.animation.speeds.mutation}ms`,
+      "& svg": {
+        height: 80,
+        width: 80,
+      },
+      "&.active": {
+        opacity: 1,
+        visibility: "visible",
+      },
+      "&:before": {
+        content: "''",
+        display: "block",
+        position: "absolute",
+        top: 0,
+        left: 0,
+        height: "100%",
+        width: "100%",
+        borderRadius: "20px",
+        opacity: 0.4,
+        backgroundColor: appColors.general.backgroundColor,
+      },
     },
     header: {
       padding: `0 15px`,
@@ -90,14 +138,18 @@ const styles = (theme: Theme) =>
       justifyContent: 'center',
       paddingTop: 20,
     },
-  })
+  });
 
 interface OwnProps extends WithStyles<typeof styles> {
-  dapp: Partial<IDapp>
-  submit: (stake: number) => void
+  dapp: Partial<IDapp>;
+  submit: (stake: number) => void;
 }
 
-const StakeAndPublishView: React.SFC<OwnProps> = ({ classes, dapp, submit }: OwnProps) => {
+const StakeAndPublishView: React.SFC<OwnProps> = ({
+  classes,
+  dapp,
+  submit,
+}: OwnProps) => {
   const CreateSchema = Yup.object().shape({
     stake: Yup.number()
       .min(0, 'Please supply a positive value')
@@ -106,26 +158,40 @@ const StakeAndPublishView: React.SFC<OwnProps> = ({ classes, dapp, submit }: Own
   });
   // const [token, setToken] = useState<TOKENS>(TOKENS.SNT);
   const token = TOKENS.SNT;
-  return (<Formik
+  const loading = useSelector(makeSelectDappsLoading)
+
+  return (
+    <Formik
       initialValues={{
         stake: 0,
       }}
       validationSchema={CreateSchema}
       onSubmit={(values, actions) => {
-        submit(values.stake)
+        submit(values.stake);
       }}
       render={({ submitForm, values, setValues }) => {
         if (values.stake < 0) {
           setValues({
-            stake: 0
-          })
+            stake: 0,
+          });
         }
         return (
           <Form className={classes.root}>
-            <DappInfoHeader className={classes.header} changeIndicator={values.stake} dapp={{
-              ...dapp,
-              sntValue: values.stake
-            } as IDapp} />
+            <section className={classNames(classes.loading, {
+              ["active"]: loading
+            })}>
+              <LoadingSpinnerSVG />
+            </section>
+            <DappInfoHeader
+              className={classes.header}
+              changeIndicator={values.stake}
+              dapp={
+                {
+                  ...dapp,
+                  sntValue: values.stake,
+                } as IDapp
+              }
+            />
             <section className={classes.inputSection}>
               <Field
                 className={classes.field}
@@ -139,20 +205,25 @@ const StakeAndPublishView: React.SFC<OwnProps> = ({ classes, dapp, submit }: Own
             </section>
             <section className={classes.information}>
               <Typography>
-                {token} you spend to rank your DApp is locked in the store. You can earn back through votes, or withdraw, the majority of this {token} at any time.
+                {token} you spend to rank your DApp is locked in the store. You
+                can earn back through votes, or withdraw, the majority of this{' '}
+                {token} at any time.
               </Typography>
             </section>
             <section className={classes.ctas}>
-              <Button disabled={values.stake < 0} variant="outlined" type="submit">
-                {
-                  values.stake < 1 ? 'Publish' : 'Stake & Publish'
-                }
+              <Button
+                disabled={values.stake < 0}
+                variant="outlined"
+                type="submit"
+              >
+                {values.stake < 1 ? 'Publish' : 'Stake & Publish'}
               </Button>
             </section>
           </Form>
-        )
+        );
       }}
-    />)
-}
+    />
+  );
+};
 
-export default withStyles(styles, { withTheme: true })(StakeAndPublishView)
+export default withStyles(styles, { withTheme: true })(StakeAndPublishView);

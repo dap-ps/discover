@@ -11,6 +11,10 @@ const selectDappsDomain = (state: ApplicationRootState) => {
   return state ? state.dapp : initialState;
 };
 
+const selectDappsLoading =  (state: ApplicationRootState) => {
+  return selectDappsDomain(state).loading;
+};
+
 /**
  * Other specific selectors
  */
@@ -28,6 +32,13 @@ export const makeSelectFeaturedDapps = createSelector(
     );
   },
 );
+
+export const makeSelectDappsLoading = createSelector(
+  selectDappsLoading,
+  (loading: boolean) => {
+    return loading
+  }
+)
 
 /**
  * Default selector used by Dapps

@@ -2,25 +2,26 @@ import EmbarkJS from 'embarkArtifacts/embarkjs';
 import Web3 from 'web3';
 import { utils } from 'ethers';
 import { AddressZero } from 'ethers/constants';
+import { TRANSACTION_STATUS } from 'utils/constants';
 
 // TODO refactor to awaits & types
 export const broadcastContractFn = (contractMethod, account: string) => {
   return new Promise((resolve, reject) => {
     contractMethod
       .estimateGas({ from: account })
-      .then(estimatedGas => {
+      .then((estimatedGas) => {
         contractMethod
           .send({ from: account, gas: estimatedGas + 1000 })
-          .on('transactionHash', hash => {
-            resolve(hash)
+          .on('transactionHash', (hash) => {
+            resolve(hash);
           })
-          .on('error', error => {
-            reject(error)
-          })
+          .on('error', (error) => {
+            reject(error);
+          });
       })
-      .catch(error => reject)
-  })
-}
+      .catch((error) => reject);
+  });
+};
 
 export const ContractAddresses = {
   1: {
@@ -31,7 +32,7 @@ export const ContractAddresses = {
     SNT: process.env.ROPSTEN_SNT,
     DISCOVER: process.env.ROPSTEN_DISCOVER,
   },
-}
+};
 
 export const getNetworkName = (id: number): string => {
   //  - "homestead" or 1 (or omit; this is the default network)
@@ -69,12 +70,11 @@ export interface IEmbark {
 
 export const checkNetwork = async () => {};
 
-export const defaultMultiplier = utils.bigNumberify('1000000000000000000')
-
+export const defaultMultiplier = utils.bigNumberify('1000000000000000000');
 
 export const getNetworkId = async (): Promise<number> => {
   // TODO: memoize
-  return await getWeb3().eth.net.getId()
+  return await getWeb3().eth.net.getId();
 };
 
 export const getRpcUrl = async () => {
@@ -94,7 +94,7 @@ export const getAccount = async (): Promise<string> => {
       );
     }
 
-    return AddressZero
+    return AddressZero;
   } catch (error) {
     throw new Error(
       'Could not unlock an account. Consider installing Status on your mobile or Metamask extension',
@@ -105,17 +105,17 @@ export const getAccount = async (): Promise<string> => {
 export const getWeb3 = () => {
   // @ts-ignore
   return EmbarkJS.Blockchain.Providers.web3.web3;
-}
+};
 
 export const web3Keccak = (input: string) => {
-  return getWeb3().utils.keccak256(input)
-}
+  return getWeb3().utils.keccak256(input);
+};
 
 export const connectContract = async (Contract: any, address?: string) => {
   const clonedContract = Contract.clone();
   if (address) {
-    clonedContract.address = address
-    clonedContract.options.address = address
+    clonedContract.address = address;
+    clonedContract.options.address = address;
   }
   // @ts-ignore
   const provider = EmbarkJS.Blockchain.Providers.web3.getCurrentProvider();
@@ -130,3 +130,29 @@ export const connectContract = async (Contract: any, address?: string) => {
 
   return clonedContract;
 };
+
+export const waitOneMoreBlock = async (prevBlockNumber: number) => {
+  return new Promise(resolve => {
+    setTimeout(async () => {
+      const blockNumber = await (await getWeb3()).eth.getBlockNumber()
+      if (prevBlockNumber === blockNumber) {
+        return waitOneMoreBlock(prevBlockNumber)
+      }
+      resolve()
+    }, 3000)
+  })
+}
+
+export const getTxStatus = async (txHash: string): Promise<TRANSACTION_STATUS> => {
+  const txReceipt = await (await getWeb3()).eth.getTransactionReceipt(txHash)
+  if (txReceipt) {
+    await waitOneMoreBlock(txReceipt.blockNumber)
+    return txReceipt.status
+      ? TRANSACTION_STATUS.SUCCESS
+      : TRANSACTION_STATUS.FAILURE
+  } else {
+    await waitOneMoreBlock(txReceipt.blockNumber)
+  }
+
+  return TRANSACTION_STATUS.PENDING
+}

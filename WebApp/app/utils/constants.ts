@@ -20,6 +20,12 @@ import OtherIcon from '../images/icons/categories/other.svg';
 // While this is quite monolythic, enums for types seem to only compile properly from here for an unknown reason
 // TODO: Resolve monolythic structure
 
+export enum TRANSACTION_STATUS {
+  SUCCESS = "success",
+  FAILURE = "failure",
+  PENDING = "pending",
+}
+
 export enum ERROR_CODES {
   Void = 'Void',
 }

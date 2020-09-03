@@ -3,11 +3,11 @@ import DiscoverContract from '../../../embarkArtifacts/contracts/Discover';
 import { take, put, call, fork, select } from 'redux-saga/effects';
 import { connectContract } from 'domain/App/blockchainContext';
 import { IDapp } from '../types';
-import { selectCurrentAccount } from 'domain/App/selectors';
+import { selectWalletAddress } from 'domain/Wallet/selectors';
 
 export function* fetchDappsSaga() {
   try {
-    const account = yield select(selectCurrentAccount);
+    const account = yield select(selectWalletAddress);
 
     const DiscoverInstance = yield call(
       async () => await connectContract(DiscoverContract),
@@ -20,7 +20,7 @@ export function* fetchDappsSaga() {
             .call({ from: account }),
       ),
     );
-      
+
     const dapps: IDapp = yield call(
       async () =>
         await Promise.all([

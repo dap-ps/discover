@@ -41,6 +41,7 @@ export interface IDapp {
 interface DappsState {
   readonly featuredDapps: string[];
   readonly dapps: IDapp[];
+  readonly loading: boolean;
 }
 
 /* --- ACTIONS --- */

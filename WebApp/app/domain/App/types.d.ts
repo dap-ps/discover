@@ -4,10 +4,9 @@ import { ApplicationRootState } from 'types';
 
 /* --- STATE --- */
 interface AppState {
-  currentlySending: boolean;
-  errorMessage: string;
-  currentAccount: string;
-  network: number;
+  readonly loading: boolean;
+  readonly errorMessage: string;
+  readonly network: number;
 }
 
 /* --- ACTIONS --- */

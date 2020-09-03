@@ -26,7 +26,7 @@ import { RootState } from 'domain/App/types';
 import appReducer from 'domain/App/reducer';
 import rootDaemonSaga from 'domain/App/saga';
 import { RouteComponentProps } from 'react-router';
-import { makeSelectCurrentlySending } from 'domain/App/selectors';
+import { makeSelectLoading } from 'domain/App/selectors';
 import { makeSelectIsConnected } from 'domain/Wallet/selectors';
 
 function PrivateRoute({ component: Component, isConnected, ...rest }) {
@@ -64,7 +64,7 @@ function PublicRoute({ component: Component, isConnected, ...rest }) {
 
 interface StateProps {
   isConnected: boolean;
-  currentlySending: boolean;
+  loading: boolean;
 }
 
 interface DispatchProps {}
@@ -77,14 +77,14 @@ interface OwnProps
 
 type Props = StateProps & DispatchProps & OwnProps;
 
-function App({ isConnected, currentlySending, location }: Props) {
+function App({ isConnected, loading, location }: Props) {
   // The PublicRoute and PrivateRoute components below should only be used for top level components
   // that will be connected to the store, as no props can be passed down to the child components from here.
 
   return (
     <AppWrapper
       isConnected={isConnected}
-      currentlySending={currentlySending}
+      currentlySending={loading}
       navLinks={routes.filter((r) => r.isNavRequired)}
     >
       <Switch>
@@ -116,7 +116,7 @@ function App({ isConnected, currentlySending, location }: Props) {
 }
 
 const mapStateToProps = createStructuredSelector<RootState, StateProps>({
-  currentlySending: makeSelectCurrentlySending,
+  loading: makeSelectLoading,
   isConnected: makeSelectIsConnected,
 });
 

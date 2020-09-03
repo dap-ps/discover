@@ -59,7 +59,6 @@ interface OwnProps extends WithStyles<typeof styles> {
 
 const DappFeature: React.SFC<OwnProps> = (props: OwnProps) => {
   const { classes, className, dapp } = props;
-  console.log(dapp);
   return (
     <article className={classNames(classes.root, className)}>
       <section className={classes.banner}>

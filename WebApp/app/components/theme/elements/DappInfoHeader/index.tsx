@@ -13,7 +13,6 @@ import {
   Typography,
 } from '@material-ui/core';
 import { IDapp } from 'domain/Dapps/types';
-
 import SNTIcon from '../../../../images/icons/SNT.svg';
 import { uiConstants, appColors } from 'theme';
 import { DAPP_CATEGORY_STRINGS, DAPP_CATEGORY_ICONS } from 'utils/constants';
@@ -124,32 +123,36 @@ const styles = (theme: Theme) =>
       position: 'relative',
       width: 24,
       height: 24,
+      marginRight: 15,
       backgroundSize: 'cover',
       backgroundPosition: '50%',
       borderRadius: '50%',
-    }
+    },
   });
 
 interface OwnProps extends WithStyles<typeof styles> {
   dapp: IDapp;
   changeIndicator?: number;
-  className?: string
+  className?: string;
 }
 
 const DappInfoHeader: React.SFC<OwnProps> = ({
   dapp,
   classes,
   changeIndicator,
-  className = ''
+  className = '',
 }: OwnProps) => {
   return (
     <section className={classNames(classes.root, className)}>
       <div className={classes.title}>
-        {
-          dapp.icon.includes('base64') ? 
-            <div className={classes.tempIcon} style={{ backgroundImage: `url(${dapp.icon})` }} /> : 
-            <img src={dapp.icon} alt={`${dapp.name}-icon`} />
-        }
+        {dapp.icon.includes('base64') ? (
+          <div
+            className={classes.tempIcon}
+            style={{ backgroundImage: `url(${dapp.icon})` }}
+          />
+        ) : (
+          <img src={dapp.icon} alt={`${dapp.name}-icon`} />
+        )}
         <Typography variant="body1" component="span">
           {dapp.name}
         </Typography>

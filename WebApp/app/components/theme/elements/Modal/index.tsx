@@ -117,10 +117,11 @@ const Modal: React.SFC<OwnProps> = ({ children, classes }: OwnProps) => {
   });
   return (
     <article
-      ref={ref}
       className={classNames(classes.root, active ? 'active' : 'closed')}
     >
-      <section className={classNames(classes.inner, active ? 'active' : '')}>
+      <section 
+        ref={ref}
+        className={classNames(classes.inner, active ? 'active' : '')}>
         <Link to={ROUTE_LINKS.Home} className={classes.close}></Link>
         {children}
       </section>

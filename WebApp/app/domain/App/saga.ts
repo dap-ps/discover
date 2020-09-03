@@ -1,6 +1,6 @@
 import { fork, put } from 'redux-saga/effects';
 
-import { setApiSendingFlag } from './actions';
+import { setLoadingAction } from './actions';
 
 import { apiRequestListener } from './sagas/toggleApiSendingFlag';
 import { errorMessageHandler } from './sagas/errorMessageHandler';
@@ -8,10 +8,9 @@ import DappsSaga from 'domain/Dapps/saga';
 import TokensSaga from 'domain/Tokens/saga';
 import walletSaga from 'domain/Wallet/saga';
 import { BackgroundSaga } from './sagas/background.saga';
-import { AccountSaga } from './sagas/account.saga';
 
 export default function* rootDaemonSaga() {
-  yield put(setApiSendingFlag(false));
+  yield put(setLoadingAction(false));
   yield fork(apiRequestListener);
 
   // Add other global DAEMON sagas here.
@@ -25,5 +24,4 @@ export default function* rootDaemonSaga() {
 
   // App domain internal saga's
   yield fork(BackgroundSaga);
-  yield fork(AccountSaga);
 }

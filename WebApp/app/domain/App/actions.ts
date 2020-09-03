@@ -1,9 +1,9 @@
-import { createStandardAction, createAsyncAction } from 'typesafe-actions';
+import { createStandardAction } from 'typesafe-actions';
 import ActionTypes from './constants';
 import { ERROR_CODES } from 'utils/constants';
 
-export const setApiSendingFlag = createStandardAction(
-  ActionTypes.SET_API_SENDING_FLAG,
+export const setLoadingAction = createStandardAction(
+  ActionTypes.SET_LOADING,
 )<boolean>();
 
 export const setErrorMessageAction = createStandardAction(
@@ -26,12 +26,7 @@ export const clearRequestQueueAction = createStandardAction(
   ActionTypes.CLEAR_REQUEST_QUEUE,
 )<void>();
 
-export const connectAccountAction = createAsyncAction(
-  ActionTypes.CONNECT_ACCOUNT_REQUEST,
-  ActionTypes.CONNECT_ACCOUNT_SUCCESS,
-  ActionTypes.CONNECT_ACCOUNT_FAILURE,
-)<void, string, string>();
+export const setNetworkAction = createStandardAction(ActionTypes.SET_NETWORK)<
+  number
+>();
 
-export const setNetworkAction = createStandardAction(
-  ActionTypes.SET_NETWORK,
-)<number>();

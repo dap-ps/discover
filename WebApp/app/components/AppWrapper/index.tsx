@@ -17,6 +17,7 @@ import LoadingComponent from 'components/views/modules/LoadingComponent';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Modal from 'components/theme/elements/Modal';
+import TransactionStatus from 'components/views/modules/TransactionStatus';
 
 const iconSize = 40;
 const styles = (theme) =>
@@ -91,6 +92,7 @@ const AppWrapper: React.SFC<Props> = ({
   return (
     <div className={classes.root}>
       <CssBaseline />
+      <TransactionStatus />
       <NavMenu navLinks={navLinks} />
       <header className={classes.header}>
         <Typography variant="h1" component="h2">

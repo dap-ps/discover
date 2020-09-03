@@ -24,11 +24,10 @@ interface OwnProps {
   dappId?: string;
 }
 
-interface StateProps {
-}
+interface StateProps {}
 
 interface DispatchProps {
-  createDapp: (dapp: IDapp, stake: number) => void
+  createDapp: (dapp: IDapp, stake: number) => void;
 }
 
 type Props = DispatchProps & StateProps & OwnProps;
@@ -37,10 +36,13 @@ enum SLIDES {
   HOW_TO = 'howTo',
   TERMS = 'terms',
   FORM = 'form',
-  COMPLETE = 'complete'
+  COMPLETE = 'complete',
 }
 
-const DAppManagementContainer: React.SFC<Props> = ({ dappId, createDapp }: Props) => {
+const DAppManagementContainer: React.SFC<Props> = ({
+  dappId,
+  createDapp,
+}: Props) => {
   if (!dappId) {
     // Create DApp
     const [slide, setSlide] = useState<SLIDES>(SLIDES.HOW_TO);
@@ -53,7 +55,7 @@ const DAppManagementContainer: React.SFC<Props> = ({ dappId, createDapp }: Props
       category: '',
       email: '',
       sntValue: 0,
-    })
+    });
 
     const SubmitDappSchema = Yup.object().shape({
       name: Yup.string().required('Please provide a name for your Ðapp'),
@@ -72,12 +74,12 @@ const DAppManagementContainer: React.SFC<Props> = ({ dappId, createDapp }: Props
         .required('Please provide a valid email'),
     });
 
-    switch(slide) {
-      case (SLIDES.HOW_TO): 
-        return <HowToSubmitDAppView nextPage={() => setSlide(SLIDES.TERMS)} />
-      case (SLIDES.TERMS):
-        return <SubmitDAppTermsView nextPage={() => setSlide(SLIDES.FORM)} />
-      case (SLIDES.FORM):
+    switch (slide) {
+      case SLIDES.HOW_TO:
+        return <HowToSubmitDAppView nextPage={() => setSlide(SLIDES.TERMS)} />;
+      case SLIDES.TERMS:
+        return <SubmitDAppTermsView nextPage={() => setSlide(SLIDES.FORM)} />;
+      case SLIDES.FORM:
         return (
           <Formik
             initialValues={{
@@ -91,9 +93,9 @@ const DAppManagementContainer: React.SFC<Props> = ({ dappId, createDapp }: Props
             validationSchema={SubmitDappSchema}
             onSubmit={(values, actions) => {
               setNewDapp({
-                ...values
-              })
-              setSlide(SLIDES.COMPLETE)
+                ...values,
+              });
+              setSlide(SLIDES.COMPLETE);
             }}
             render={({ submitForm }) => (
               <SubmitDappForm
@@ -102,17 +104,19 @@ const DAppManagementContainer: React.SFC<Props> = ({ dappId, createDapp }: Props
               />
             )}
           />
-        )
-        case (SLIDES.COMPLETE):
-          return <StakeAndPublishView 
-            submit={(stake => {
-              createDapp(newDapp as IDapp, stake)
-            })}  
-            dapp={newDapp} 
+        );
+      case SLIDES.COMPLETE:
+        return (
+          <StakeAndPublishView
+            submit={(stake) => {
+              createDapp(newDapp as IDapp, stake);
+            }}
+            dapp={newDapp}
           />
+        );
     }
   } else {
-    const dapp = useSelector(makeSelectDapp(dappId))
+    const dapp = useSelector(makeSelectDapp(dappId));
 
     const UpdateSchema = Yup.object().shape({
       name: Yup.string().required('Please provide a name for your Ðapp'),
@@ -157,14 +161,15 @@ const mapDispatchToProps = (
 ): DispatchProps => {
   return {
     createDapp: (dapp: IDapp, stake: number) => {
-      dispatch(createDappAction.request({
-        ...dapp,
-        sntValue: stake
-      }))
-    }
+      dispatch(
+        createDappAction.request({
+          ...dapp,
+          sntValue: stake,
+        }),
+      );
+    },
   };
 };
-
 
 const withConnect = connect(null, mapDispatchToProps);
 

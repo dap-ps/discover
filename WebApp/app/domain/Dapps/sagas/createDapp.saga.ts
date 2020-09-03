@@ -1,17 +1,21 @@
 import { take, call, put, select, race } from 'redux-saga/effects';
-import { createDappAction } from '../actions';
+import { createDappAction, setDappsLoadingAction } from '../actions';
 import { IDapp } from '../types';
-import { selectCurrentAccount } from 'domain/App/selectors';
 import { defaultMultiplier, web3Keccak } from 'domain/App/blockchainContext';
 import { uploadMetadataApi, requestApprovalApi } from 'api/api';
 import { validateDAppCreation, DiscoverCreateDApp } from '../contracts/Discover.contract';
 import { AddressZero } from 'ethers/constants';
-import { connectAccountAction } from 'domain/App/actions';
 import { getBytes32FromIpfsHash } from 'domain/App/sagas/metadata.saga';
+import { ROUTE_LINKS } from 'routeLinks';
+import { forwardTo } from 'utils/history';
+import { TRANSACTION_STATUS } from 'utils/constants';
+import { connectAccountAction, awaitTxAction, clearAwaitTxAction } from 'domain/Wallet/actions';
+import { selectWalletAddress } from 'domain/Wallet/selectors';
 
 function* createDappSaga(dapp: IDapp) {
   try {
-    let account = yield select(selectCurrentAccount)
+    yield put(setDappsLoadingAction(true))
+    let account = yield select(selectWalletAddress)
     if(dapp.sntValue > 0) {
       if (account == AddressZero) {
         yield put(connectAccountAction.request())
@@ -24,7 +28,7 @@ function* createDappSaga(dapp: IDapp) {
         if(failure){
           throw 'Account required'
         }
-        account = yield select(selectCurrentAccount)
+        account = yield select(selectWalletAddress)
       }
     }
     
@@ -49,24 +53,42 @@ function* createDappSaga(dapp: IDapp) {
     // Check if publishing should happen
     // This value was set in the last step of the creation form
     if (dapp.sntValue > 0) {
-      debugger
       const createdTx = yield call(async () => await DiscoverCreateDApp(dapp.id, tokenAmount, getBytes32FromIpfsHash(uploadedMetadata.data.hash)))
-      debugger
       yield call(async () => await requestApprovalApi(uploadedMetadata.data.hash))
+      forwardTo(ROUTE_LINKS.Home)
+      yield put(awaitTxAction.request({
+        iconSrc: dapp.icon,
+        hash: createdTx,
+        state: TRANSACTION_STATUS.PENDING,
+        heading: dapp.name,
+        caption: dapp.desc,
+      }))
+      // TODO: reroute to vote module after wait is completed
       yield put(createDappAction.success(dapp));
-      console.log(createdTx)
-      // Check status or change page based on TX & ID
+      const {
+        success,
+      } = yield race({
+        success: take(awaitTxAction.success),
+        failure: take(awaitTxAction.failure),
+      })
+      if (success) { 
+        forwardTo(ROUTE_LINKS.Vote(dapp.id, "upvote"))
+      }
+      yield put(setDappsLoadingAction(false))
+      
     } else {
       yield call(async () => await requestApprovalApi(uploadedMetadata.data.hash))
       yield put(createDappAction.success(dapp));
-
-      // Check status or change page based on TX & ID
+      // TODO Does this work?
+      forwardTo(ROUTE_LINKS.Vote(dapp.id, "upvote"))
+      yield put(setDappsLoadingAction(false))
     }
-
    
   } catch (error) {
     console.error(error);
+    yield put(clearAwaitTxAction())
     yield put(createDappAction.failure(error));
+    yield put(setDappsLoadingAction(false))
   }
 }
 

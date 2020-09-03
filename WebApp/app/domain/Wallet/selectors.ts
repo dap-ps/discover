@@ -2,6 +2,7 @@ import { createSelector } from 'reselect';
 import { ApplicationRootState } from 'types';
 import { initialState } from './reducer';
 import { constants } from 'ethers';
+import { ITransaction } from './types';
 
 /**
  * Direct selector to the wallet state domain
@@ -11,6 +12,13 @@ const selectWalletDomain = (state: ApplicationRootState) => {
   return state ? state.wallet : initialState;
 };
 
+const selectTransaction = (state: ApplicationRootState) => {
+  return state.wallet.transaction;
+};
+
+export const selectWalletAddress = (state: ApplicationRootState) => {
+  return state.wallet.walletAddress;
+};
 /**
  * Other specific selectors
  */
@@ -25,6 +33,21 @@ export const makeSelectIsConnected = createSelector(
     return substate;
   },
 );
+
+export const makeSelectWalletAddress = createSelector(
+  selectWalletAddress,
+  (substate: string) => {
+    return substate;
+  },
+);
+
+export const makeSelectTransaction = createSelector(
+  selectTransaction,
+  (transaction: ITransaction | undefined) => {
+    return transaction;
+  },
+);
+
 
 /**
  * Default selector used by Wallet

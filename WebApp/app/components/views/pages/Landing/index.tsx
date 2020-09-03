@@ -16,6 +16,7 @@ import GridCarousel from 'components/theme/elements/GridCarousel';
 import { IDapp } from 'domain/Dapps/types';
 import { forwardTo } from 'utils/history';
 
+
 let categoryColors = {};
 Object.keys(DAPP_CATEGORY_STRINGS).map((key) => {
   categoryColors = {

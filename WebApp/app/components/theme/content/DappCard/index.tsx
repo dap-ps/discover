@@ -118,13 +118,8 @@ const DappCard: React.SFC<OwnProps> = ({
   onClick,
 }: OwnProps) => {
   return (
-    <article
-      
-      className={classNames(classes.root, onClick ? 'clickable' : '')}
-    >
-      <div
-        onClick={() => (onClick ? onClick() : null)}
-      >
+    <article className={classNames(classes.root, onClick ? 'clickable' : '')}>
+      <div onClick={() => (onClick ? onClick() : null)}>
         <div
           className={classNames(
             classes.icon,
@@ -138,20 +133,20 @@ const DappCard: React.SFC<OwnProps> = ({
       <div className={classes.meta}>
         <Typography
           onClick={() => (onClick ? onClick() : null)}
-          variant="h3" 
+          variant="h3"
           component="h3"
         >
           {dapp.name}
         </Typography>
-        <Typography 
+        <Typography
           onClick={() => (onClick ? onClick() : null)}
-          variant="body1" 
+          variant="body1"
           component="p"
         >
           {dapp.desc}
         </Typography>
         <div className={classes.votes}>
-          <span 
+          <span
             onClick={() => (onClick ? onClick() : null)}
             className={classes.voteCount}
           >

@@ -4,7 +4,7 @@
  *
  */
 
-import { createAsyncAction } from 'typesafe-actions';
+import { createAsyncAction, createStandardAction } from 'typesafe-actions';
 import ActionTypes from './constants';
 import { IDapp, IDappVote } from './types';
 
@@ -37,3 +37,8 @@ export const downvoteDappAction = createAsyncAction(
   ActionTypes.DOWNVOTE_DAPP_SUCCESS,
   ActionTypes.DOWNVOTE_DAPP_FAILURE,
 )<string, Partial<IDapp>, string>();
+
+
+export const setDappsLoadingAction = createStandardAction(
+  ActionTypes.SET_LOADING,
+)<boolean>();

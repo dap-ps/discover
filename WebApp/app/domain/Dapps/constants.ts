@@ -24,6 +24,8 @@ enum ActionTypes {
   DOWNVOTE_DAPP_REQUEST = '@@dapps/Dapps/DOWNVOTE_DAPP_REQUEST',
   DOWNVOTE_DAPP_SUCCESS = '@@dapps/Dapps/DOWNVOTE_DAPP_SUCCESS',
   DOWNVOTE_DAPP_FAILURE = '@@dapps/Dapps/DOWNVOTE_DAPP_FAILURE',
+
+  SET_LOADING = '@@dapps/Dapps/SET_LOADING',
 }
 
 export default ActionTypes;

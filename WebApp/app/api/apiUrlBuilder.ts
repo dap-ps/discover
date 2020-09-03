@@ -4,11 +4,6 @@ const apiSchema = process.env.API_SCHEMA || 'https';
 const generateUri = (path: string) => `${apiSchema}://${apiHost}/${path}`;
 
 const apiUrlBuilder = {
-  attachmentStream: (attachmentId: string) =>
-    generateUri(`attachment/${attachmentId}/stream`),
-  attachmentBase64: (attachmentId: string) =>
-    generateUri(`attachment/${attachmentId}/b64`),
-
   updateDapp: (dappId: string) => generateUri(`metadata/update/${dappId}`),
   uploadMetadata: generateUri(`metadata/`),
   requestApproval: (ipfsHash: string) =>
@@ -16,5 +11,7 @@ const apiUrlBuilder = {
   metadata: (convertedHash: string) => generateUri(`metadata/${convertedHash}`),
   metadataAll: generateUri(`metadata/all`),
 };
+
+console.log(apiUrlBuilder.uploadMetadata)
 
 export default apiUrlBuilder;
