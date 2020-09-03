@@ -1,14 +1,11 @@
 import SNTContract from '../../../embarkArtifacts/contracts/MiniMeToken';
-import { connectContract, getAccount, broadcastContractFn } from 'domain/App/blockchainContext';
+import { connectContract, getAccount, broadcastContractFn, getNetworkId, ContractAddresses } from 'domain/App/blockchainContext';
 import { AddressZero } from 'ethers/constants';
 import { BigNumber, bigNumberify } from 'ethers/utils';
 
-
-
 // View functions will just use address zero
 export const SNTallowance = async (from: string, to: string) => {
-  debugger
-  const SNTToken = await connectContract(SNTContract, process.env.SNT_ADDRESS)
+  const SNTToken = await connectContract(SNTContract, ContractAddresses[await getNetworkId()].SNT)
   
   return await SNTToken.methods
     .allowance(from, to)
@@ -16,24 +13,21 @@ export const SNTallowance = async (from: string, to: string) => {
 }
 
 export const SNTbalanceOf = async (account: string) => {
-  debugger
-  const SNTToken = await connectContract(SNTContract, process.env.SNT_ADDRESS)
+  const SNTToken = await connectContract(SNTContract, ContractAddresses[await getNetworkId()].SNT)
   return await SNTToken.methods
     .balanceOf(account)
     .call({ from: AddressZero })
 }
 
 export const SNTcontroller = async () => {
-  debugger
-  const SNTToken = await connectContract(SNTContract, process.env.SNT_ADDRESS)
+  const SNTToken = await connectContract(SNTContract, ContractAddresses[await getNetworkId()].SNT)
   return await SNTToken.methods
     .controller()
     .call({ from: AddressZero })
 }
 
 export const SNTtransferable = async () => {
-  debugger
-  const SNTToken = await connectContract(SNTContract, process.env.SNT_ADDRESS)
+  const SNTToken = await connectContract(SNTContract, ContractAddresses[await getNetworkId()].SNT)
   return await SNTToken.methods
     .transfersEnabled()
     .call({ from: AddressZero })
@@ -66,8 +60,7 @@ export const SNTapproveAndCall = async (spender: string, amount: BigNumber, call
   if (account == AddressZero) {
     throw 'Account not connected'
   }
-  debugger
-  const SNTToken = await connectContract(SNTContract, process.env.SNT_ADDRESS)
+  const SNTToken = await connectContract(SNTContract, ContractAddresses[await getNetworkId()].SNT)
   if (await validateApproveAndCall(amount)) {
     return await broadcastContractFn(
       SNTToken.methods.approveAndCall(
@@ -80,7 +73,6 @@ export const SNTapproveAndCall = async (spender: string, amount: BigNumber, call
   } else {
     throw 'Balance insufficent'
   }
-  
 }
 
 // This is for testing purpose only
@@ -89,7 +81,7 @@ export const SNTgenerateTokens = async () => {
   if (account == AddressZero) {
     throw 'Account not connected'
   }
-  const SNTToken = await connectContract(SNTContract, process.env.SNT_ADDRESS)
+  const SNTToken = await connectContract(SNTContract, ContractAddresses[await getNetworkId()].SNT)
 
   await SNTToken.methods
     .generateTokens(account, 10000)

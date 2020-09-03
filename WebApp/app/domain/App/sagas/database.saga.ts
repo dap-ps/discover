@@ -20,8 +20,7 @@ export const fetchAllDappsDB = async () => {
     .store.openCursor();
 
   while (cursor) {
-    const temp = cursor.value;
-    debugger;
+    // TODO: investigate this
     // result.push(Object.assign(new DappModel(), cursor.value))
     cursor = await cursor.continue();
   }

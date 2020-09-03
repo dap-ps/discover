@@ -13,7 +13,6 @@ function* createDappSaga(dapp: IDapp) {
   try {
     let account = yield select(selectCurrentAccount)
     if(dapp.sntValue > 0) {
-      debugger
       if (account == AddressZero) {
         yield put(connectAccountAction.request())
         const {
@@ -28,7 +27,7 @@ function* createDappSaga(dapp: IDapp) {
         account = yield select(selectCurrentAccount)
       }
     }
-    debugger
+    
     const dappMetadata = {
       name: dapp.name,
       url: dapp.url,
@@ -43,22 +42,22 @@ function* createDappSaga(dapp: IDapp) {
     const tokenAmount = defaultMultiplier.mul(dapp.sntValue)
 
     yield call(async () => await validateDAppCreation(dapp.id, tokenAmount))
-    debugger
+    
     // Store in DB
     const uploadedMetadata = yield call(async () => await uploadMetadataApi(dappMetadata, dapp.email))
-    debugger
+    
     // Check if publishing should happen
     // This value was set in the last step of the creation form
     if (dapp.sntValue > 0) {
       debugger
       const createdTx = yield call(async () => await DiscoverCreateDApp(dapp.id, tokenAmount, getBytes32FromIpfsHash(uploadedMetadata.data.hash)))
       debugger
-      yield call(async () => await requestApprovalApi(uploadedMetadata))
+      yield call(async () => await requestApprovalApi(uploadedMetadata.data.hash))
       yield put(createDappAction.success(dapp));
       console.log(createdTx)
       // Check status or change page based on TX & ID
     } else {
-      yield call(async () => await requestApprovalApi(uploadedMetadata))
+      yield call(async () => await requestApprovalApi(uploadedMetadata.data.hash))
       yield put(createDappAction.success(dapp));
 
       // Check status or change page based on TX & ID

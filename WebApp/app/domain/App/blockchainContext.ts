@@ -22,8 +22,18 @@ export const broadcastContractFn = (contractMethod, account: string) => {
   })
 }
 
+export const ContractAddresses = {
+  1: {
+    SNT: process.env.MAINNET_SNT,
+    DISCOVER: process.env.MAINNET_DISCOVER,
+  },
+  3: {
+    SNT: process.env.ROPSTEN_SNT,
+    DISCOVER: process.env.ROPSTEN_DISCOVER,
+  },
+}
 
-export const getNetworkName = (id: number) => {
+export const getNetworkName = (id: number): string => {
   //  - "homestead" or 1 (or omit; this is the default network)
   //  - "ropsten"   or 3
   //  - "rinkeby"   or 4
@@ -61,12 +71,14 @@ export const checkNetwork = async () => {};
 
 export const defaultMultiplier = utils.bigNumberify('1000000000000000000')
 
-export const getNetworkId = () => {
-  return parseInt(`${process.env['NETWORK']}`);
+
+export const getNetworkId = async (): Promise<number> => {
+  // TODO: memoize
+  return await getWeb3().eth.net.getId()
 };
 
-export const getRpcUrl = () => {
-  return `wss://${getNetworkName(getNetworkId())}.infura.io/ws/v3/${
+export const getRpcUrl = async () => {
+  return `wss://${getNetworkName(await getNetworkId())}.infura.io/ws/v3/${
     process.env['INFRUA_KEY']
   }`;
 };
@@ -110,7 +122,7 @@ export const connectContract = async (Contract: any, address?: string) => {
   if (!provider.selectedAddress) {
     // @ts-ignore
     EmbarkJS.Blockchain.Providers.web3.setProvider(
-      new Web3.providers.WebsocketProvider(getRpcUrl()),
+      new Web3.providers.WebsocketProvider(await getRpcUrl()),
     );
     // @ts-ignore
     clonedContract.currentProvider = EmbarkJS.Blockchain.Providers.web3.getCurrentProvider();

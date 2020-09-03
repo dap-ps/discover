@@ -1,5 +1,5 @@
 import { bigNumberify, BigNumber } from "ethers/utils"
-import { connectContract, getAccount, defaultMultiplier, broadcastContractFn } from "domain/App/blockchainContext"
+import { connectContract, getAccount, defaultMultiplier, broadcastContractFn, getWeb3, ContractAddresses, getNetworkId } from "domain/App/blockchainContext"
 import DiscoverAbi from '../../../embarkArtifacts/contracts/Discover';
 import { AddressZero } from "ethers/constants";
 import { SNTapproveAndCall } from "./SNT.contract";
@@ -8,7 +8,7 @@ import { uploadMetadataApi, updateDappApi } from "api/api";
 // View methods
 export const DiscoverUpVoteEffect = async (id: string, amount: number) => {
   const tokenAmount = bigNumberify(amount)
-  const DiscoverContract = await connectContract(DiscoverAbi)
+  const DiscoverContract = await connectContract(DiscoverAbi, ContractAddresses[await getNetworkId()].DISCOVER)
   await validateUpVoteEffect(id, amount)
 
   return await DiscoverContract.methods
@@ -18,7 +18,7 @@ export const DiscoverUpVoteEffect = async (id: string, amount: number) => {
 
 export const DiscoverDownVoteCost = async (id: string) => {
   const dapp = await DiscoverGetDAppById(id)
-  const DiscoverContract = await connectContract(DiscoverAbi)
+  const DiscoverContract = await connectContract(DiscoverAbi, ContractAddresses[await getNetworkId()].DISCOVER)
   return await DiscoverContract.methods
     .downvoteCost(dapp.id)
     .call({ from: AddressZero})
@@ -26,7 +26,7 @@ export const DiscoverDownVoteCost = async (id: string) => {
 
 
 export const DiscoverGetDAppById = async (id: string) => {
-  const DiscoverContract = await connectContract(DiscoverAbi)
+  const DiscoverContract = await connectContract(DiscoverAbi, ContractAddresses[await getNetworkId()].DISCOVER)
   const dappExists = await DiscoverDappExists(id)
 
   if (dappExists) {
@@ -54,17 +54,17 @@ export const DiscoverGetDAppById = async (id: string) => {
 }
 
 export const DiscoverSafeMax = async () => {
-  const DiscoverContract = await connectContract(DiscoverAbi)
+  const DiscoverContract = await connectContract(DiscoverAbi, ContractAddresses[await getNetworkId()].DISCOVER)
   return DiscoverContract.methods
     .safeMax()
     .call({ from: AddressZero })
 }
 
 export const DiscoverDappExists = async (id: string) => {
-  const DiscoverContract = await connectContract(DiscoverAbi)
+  const DiscoverContract = await connectContract(DiscoverAbi, ContractAddresses[await getNetworkId()].DISCOVER)
   return DiscoverContract.methods
     .existingIDs(id)
-    .call({ from: AddressZero })
+    .call({ from: AddressZero })  
 }
 
 // Transaction methods
@@ -73,11 +73,11 @@ export const DiscoverCreateDApp = async (dappId: string, tokenAmount: BigNumber,
   if (account == AddressZero) {
     throw 'Account not connected'
   }
-  const DiscoverContract = await connectContract(DiscoverAbi)
-  debugger
+  const DiscoverContract = await connectContract(DiscoverAbi, ContractAddresses[await getNetworkId()].DISCOVER)
   const callData = DiscoverContract.methods
       .createDApp(dappId, tokenAmount.toString(), uploadedMetadata)
       .encodeABI()
+
   return await SNTapproveAndCall(
       DiscoverContract.options.address,
       tokenAmount,
@@ -87,9 +87,8 @@ export const DiscoverCreateDApp = async (dappId: string, tokenAmount: BigNumber,
 }
 
 export const DiscoverUpVote = async (id: string, amount: number) => {
-  const DiscoverContract = await connectContract(DiscoverAbi)
+  const DiscoverContract = await connectContract(DiscoverAbi, ContractAddresses[await getNetworkId()].DISCOVER)
   const tokenAmount = defaultMultiplier.mul(bigNumberify(amount))
-  debugger
   await validateUpVoting(id, tokenAmount.toNumber())
 
   const callData = DiscoverContract.methods
@@ -103,7 +102,7 @@ export const DiscoverUpVote = async (id: string, amount: number) => {
 }
 
 export const DiscoverDownVote = async (id: string) => {
-  const DiscoverContract = await connectContract(DiscoverAbi)
+  const DiscoverContract = await connectContract(DiscoverAbi, ContractAddresses[await getNetworkId()].DISCOVER)
   const dapp = await DiscoverGetDAppById(id)
   const amount = (await DiscoverDownVoteCost(dapp.id)).c
 
@@ -112,7 +111,6 @@ export const DiscoverDownVote = async (id: string) => {
   const callData = DiscoverContract.methods
     .downvote(dapp.id, tokenAmount.toString())
     .encodeABI()
-  debugger
   return SNTapproveAndCall(
     DiscoverContract.options.address,
     tokenAmount,
@@ -126,7 +124,7 @@ export const DiscoverWithdraw = async (id: string, amount: number) => {
     throw 'Account not connected'
   }
 
-  const DiscoverContract = await connectContract(DiscoverAbi)
+  const DiscoverContract = await connectContract(DiscoverAbi, ContractAddresses[await getNetworkId()].DISCOVER)
   const tokenAmount = defaultMultiplier.mul(bigNumberify(amount))
   await validateWithdrawing(id, tokenAmount)
 
@@ -145,7 +143,7 @@ export const DiscoverSetMetadata = async (id: string, metadata: any, email: stri
   if (account == AddressZero) {
     throw 'Account not connected'
   }
-  const DiscoverContract = await connectContract(DiscoverAbi)
+  const DiscoverContract = await connectContract(DiscoverAbi, ContractAddresses[await getNetworkId()].DISCOVER)
   await validateMetadataSet(id)
 
   const dappMetadata = JSON.parse(JSON.stringify(metadata))
@@ -173,7 +171,7 @@ export const DiscoverWithdrawMax = async (dappId: string) => {
   if (account == AddressZero) {
     throw 'Account not connected'
   }
-  const DiscoverContract = await connectContract(DiscoverAbi)
+  const DiscoverContract = await connectContract(DiscoverAbi, ContractAddresses[await getNetworkId()].DISCOVER)
   const decimals = 1000000
   const draw = await DiscoverContract.methods.withdrawMax(dappId).call({
     from: account,
@@ -201,7 +199,6 @@ export const validateUpVoteEffect = async (id: string, amount: number) => {
 }
 
 export const validateDAppCreation = async (id: string, amount: BigNumber) => {
-  debugger
   const dappExists = await DiscoverDappExists(id)
   if (dappExists) {
     throw new Error('You must submit a unique ID')
@@ -231,7 +228,6 @@ export const validateWithdrawing = async (id: string, amount: BigNumber) => {
   if (dapp.developer.toLowerCase() !== account) {
     throw new Error('Only the developer can withdraw SNT staked on this data')
   }
-  debugger
   if (dapp.available.lt(amount)) {
     throw new Error(
       'You can only withdraw a percentage of the SNT staked, less what you have already received',

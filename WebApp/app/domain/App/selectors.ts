@@ -13,6 +13,10 @@ const selectCurrentlySending = (state: ApplicationRootState) => {
   return state.global.currentlySending;
 };
 
+const selectNetwork = (state: ApplicationRootState) => {
+  return state.global.network;
+};
+
 export const selectCurrentAccount = (state: ApplicationRootState) => {
   return state.global.currentAccount;
 };
@@ -28,5 +32,12 @@ export const makeSelectCurrentAccount = createSelector(
   selectCurrentAccount,
   (substate: string) => {
     return substate;
+  },
+);
+
+export const makeSelectNetwork = createSelector(
+  selectNetwork,
+  (network: number) => {
+    return network;
   },
 );

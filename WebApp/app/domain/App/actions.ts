@@ -31,3 +31,7 @@ export const connectAccountAction = createAsyncAction(
   ActionTypes.CONNECT_ACCOUNT_SUCCESS,
   ActionTypes.CONNECT_ACCOUNT_FAILURE,
 )<void, string, string>();
+
+export const setNetworkAction = createStandardAction(
+  ActionTypes.SET_NETWORK,
+)<number>();

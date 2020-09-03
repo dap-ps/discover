@@ -13,6 +13,8 @@ enum ActionTypes {
 
   SET_CONNECTED = '@@dapps/global/SET_CONNECTED',
   SET_MODAL = '@@dapps/global/SET_MODAL',
+  
+  SET_NETWORK = '@@dapps/global/SET_NETWORK',
 
   CONNECT_ACCOUNT_REQUEST = '@@dapps/global/CONNECT_ACCOUNT_REQUEST',
   CONNECT_ACCOUNT_SUCCESS = '@@dapps/global/CONNECT_ACCOUNT_SUCCESS',

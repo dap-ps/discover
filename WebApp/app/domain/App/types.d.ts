@@ -7,6 +7,7 @@ interface AppState {
   currentlySending: boolean;
   errorMessage: string;
   currentAccount: string;
+  network: number;
 }
 
 /* --- ACTIONS --- */

@@ -1,10 +1,12 @@
-import { connectAccountAction } from '../actions';
+import { connectAccountAction, setNetworkAction } from '../actions';
 import { take, put, call, fork } from 'redux-saga/effects';
-import { getAccount } from '../blockchainContext';
+import { getAccount, getNetworkId } from '../blockchainContext';
 
 function* ConnectAccountSaga() {
   try {
     const account: string = yield call(async () => await getAccount());
+    const network: number = yield call(async () => await getNetworkId())
+    yield put(setNetworkAction(network))
     yield put(connectAccountAction.success(account));
   } catch (error) {
     yield put(connectAccountAction.failure(error));

@@ -4,6 +4,7 @@ import {
   setApiSendingFlag,
   setErrorMessageAction,
   connectAccountAction,
+  setNetworkAction,
 } from './actions';
 
 /*
@@ -16,10 +17,16 @@ export const initialState: DomainState = {
   currentlySending: true,
   errorMessage: '',
   currentAccount: '0x0000000000000000000000000000000000000000',
+  network: 3
 };
 
 function appReducer(state = initialState, action: DomainActions) {
   switch (action.type) {
+    case getType(setNetworkAction): 
+      return {
+        ...state,
+        network: action.payload
+      }
     case getType(setApiSendingFlag):
       return {
         ...state,
