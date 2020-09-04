@@ -47,6 +47,7 @@ export interface IDapp {
   hash?: string;
   dateAdded: number;
   downvoteCost?: number;
+  uploader: string
   // metadata
   compressedMetadata?: string;
   email: string;
