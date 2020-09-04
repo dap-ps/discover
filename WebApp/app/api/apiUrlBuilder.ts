@@ -12,6 +12,5 @@ const apiUrlBuilder = {
   metadataAll: generateUri(`metadata/all`),
 };
 
-console.log(apiUrlBuilder.uploadMetadata)
 
 export default apiUrlBuilder;

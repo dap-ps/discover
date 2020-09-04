@@ -1,66 +1,43 @@
 import { fetchDappsAction } from '../actions';
-import DiscoverContract from '../../../embarkArtifacts/contracts/Discover';
-import { take, put, call, fork, select } from 'redux-saga/effects';
-import { connectContract } from 'domain/App/blockchainContext';
-import { IDapp } from '../types';
-import { selectWalletAddress } from 'domain/Wallet/selectors';
+import { take, put, call, fork } from 'redux-saga/effects';
+import { IRawDappMeta, IDapp } from '../types';
+import { DiscoverGetDAppsCount, DiscoverGetDAppsMeta, DiscoverHelperGetMeta } from '../contracts/Discover.contract';
 
 export function* fetchDappsSaga() {
   try {
-    const account = yield select(selectWalletAddress);
-
-    const DiscoverInstance = yield call(
-      async () => await connectContract(DiscoverContract),
-    );
-    const contractDappsCount: number = parseInt(
-      yield call(
-        async () =>
-          await DiscoverInstance.methods
-            .getDAppsCount()
-            .call({ from: account }),
-      ),
-    );
-
-    const dapps: IDapp = yield call(
+    const contractDappsCount: number = yield call(async () => await DiscoverGetDAppsCount())
+    const rawDapps: IRawDappMeta[] = yield call(
       async () =>
         await Promise.all([
           ...new Array(contractDappsCount)
             .fill('')
-            .map((id: number) =>
-              DiscoverInstance.methods.dapps(id).call({ from: account }),
+            .map((value, id: number) =>
+              DiscoverGetDAppsMeta(id)
             ),
         ]),
     );
-    console.log(dapps);
-
-    // if (account == constants.AddressZero) {
-    //   yield put(connectAccountAction.request())
-    //   const dapps = yield call(async () => await fetchAllDappsDB())
-    //   console.log(dapps)
-    //   debugger
-    // } else {
-    //   const DiscoverInstance = yield call(async () => await connectContract(DiscoverContract))
-    //   debugger
-    //   console.log((new Array(3)).fill('').length)
-    //   console.log((new Array(3)).fill('').map((item, index) => console.log(item, index)))
-    //   console.log((new Array(0)).fill('').length)
-    //   console.log((new Array(0)).fill('').map((item, index) => console.log(item, index)))
-    //   debugger
-    //   const contractDappsCount: number = yield call(async () => await DiscoverInstance.methods
-    //     .getDAppsCount()
-    //     .call({ from: account })
-    //   )
-    //   debugger
-
-    //   const dapps: IDapp = yield call(
-    //     async () =>
-    //     await Promise.all([...(new Array(contractDappsCount)).fill('').map((id: number) => DiscoverInstance.methods.dapps(id).call({from: account}))])
-    //   )
-    //   console.log(dapps)
-    //   debugger
-    // }
+    const partialDapps: Partial<IDapp>[] = rawDapps.map((rawDapp: IRawDappMeta) => ({
+      id: rawDapp.id,
+      available: parseInt(rawDapp.available),
+      uploader: rawDapp.developer,
+      votes: parseInt(rawDapp.effectiveBalance),
+      compressedMetadata: rawDapp.metadata,
+    }))
+   
+    yield put(fetchDappsAction.success([
+      ...(
+        yield call(
+          async () =>
+            await Promise.all([
+              ...partialDapps
+                .map((dapp: Partial<IDapp>) => DiscoverHelperGetMeta(dapp)),
+            ]),
+        )
+      )
+    ]))
   } catch (error) {
     debugger;
+    // TODO if error contains connection issue, its Infura related
     // TODO  Network check
     yield put(fetchDappsAction.failure(error));
   }

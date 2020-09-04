@@ -21,7 +21,7 @@ const config = {
   IPFS_PORT                    : env.IPFS_PORT                    || "443",
   IPFS_PROTOCOL                : env.IPFS_PROTOCOL                || "https",
   /* Blockchain */
-  DISCOVER_CONTRACT            : env.DISCOVER_CONTRACT            || "0x02d990A1C66e4Cf00bCdD98a0196149F7DdA2065",
+  DISCOVER_CONTRACT            : env.DISCOVER_CONTRACT            || "0x7B064fc5FDc4BACf2147A262881374d22d0fF23B",
   BLOCKCHAIN_CONNECTION_POINT  : env.BLOCKCHAIN_CONNECTION_POINT  || "wss://ropsten.infura.io/ws/v3/8675214b97b44e96b70d05326c61fd6a",
   /* EMail */
   EMAIL_USER                   : env.EMAIL_USER                   || null,

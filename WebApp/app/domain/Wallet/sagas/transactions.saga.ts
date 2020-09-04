@@ -18,7 +18,6 @@ function* WaitForTxSaga(transaction: ITransaction) {
         attemptsLeft = 0
       }
     }
-    debugger
     if (status == TRANSACTION_STATUS.FAILURE) {
       yield put(awaitTxAction.failure({
         ...transaction,

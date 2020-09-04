@@ -79,7 +79,7 @@ export const getNetworkId = async (): Promise<number> => {
 
 export const getRpcUrl = async () => {
   return `wss://${getNetworkName(await getNetworkId())}.infura.io/ws/v3/${
-    process.env['INFRUA_KEY']
+    process.env['INFURA_KEY']
   }`;
 };
 

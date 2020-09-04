@@ -4,6 +4,18 @@ import { ApplicationRootState } from 'types';
 import { DAPP_STATUS } from 'utils/constants';
 import { BigNumber } from 'ethers/utils';
 
+export interface IRawDappMeta {
+  available: string
+  balance: string
+  developer: string
+  effectiveBalance: string
+  id: string
+  metadata: string
+  rate: string
+  votesCast: string
+  votesMinted: string
+}
+
 export interface IDappVote {
   identifier: string;
   token: string;
@@ -16,7 +28,6 @@ export interface IDappRank {
 }
 
 export interface IDapp {
-  id: string;
   name: string;
   category: DappCategories;
   desc: string;
@@ -25,16 +36,20 @@ export interface IDapp {
   icon: string;
   status: DAPP_STATUS;
   ranking?: DappRank[];
+  // On chain data
+  id: string;
   votes: number;
-  dateAdded: number;
-  uploader?: string;
+  available: number;
+
+  // Potentially on chain values
+  sntValue: number;
   ipfsHash?: string;
   hash?: string;
-  compressedMetadata?: string;
+  dateAdded: number;
   downvoteCost?: number;
   // metadata
+  compressedMetadata?: string;
   email: string;
-  sntValue: number;
 }
 
 /* --- STATE --- */

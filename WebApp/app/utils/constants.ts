@@ -36,6 +36,7 @@ export enum DB_TABLES {
 }
 
 export enum DAPP_STATUS {
+  NEW = "NEW",
   PENDING = 'PENDING',
   APPROVED = 'APPROVED',
 }
