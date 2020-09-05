@@ -21,9 +21,9 @@ import OtherIcon from '../images/icons/categories/other.svg';
 // TODO: Resolve monolythic structure
 
 export enum TRANSACTION_STATUS {
-  SUCCESS = "success",
-  FAILURE = "failure",
-  PENDING = "pending",
+  SUCCESS = 'success',
+  FAILURE = 'failure',
+  PENDING = 'pending',
 }
 
 export enum ERROR_CODES {
@@ -36,7 +36,7 @@ export enum DB_TABLES {
 }
 
 export enum DAPP_STATUS {
-  NEW = "NEW",
+  NEW = 'NEW',
   PENDING = 'PENDING',
   APPROVED = 'APPROVED',
 }

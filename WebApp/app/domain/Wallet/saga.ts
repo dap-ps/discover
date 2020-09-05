@@ -8,6 +8,6 @@ import { AccountSaga } from './sagas/account.saga';
 
 export default function* walletSaga() {
   yield fork(connectWalletListener);
-  yield fork(TransactionSaga)
+  yield fork(TransactionSaga);
   yield fork(AccountSaga);
 }

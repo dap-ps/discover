@@ -48,7 +48,6 @@ export const makeSelectTransaction = createSelector(
   },
 );
 
-
 /**
  * Default selector used by Wallet
  */

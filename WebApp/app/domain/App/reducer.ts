@@ -36,7 +36,6 @@ function appReducer(state = initialState, action: DomainActions) {
         errorMessage: action.payload,
       };
 
-  
     default:
       return state;
   }

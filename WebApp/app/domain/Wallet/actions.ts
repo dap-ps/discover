@@ -20,7 +20,6 @@ export const setWalletAction = createStandardAction(ActionTypes.SET_WALLET)<
   string
 >();
 
-
 export const connectAccountAction = createAsyncAction(
   ActionTypes.CONNECT_ACCOUNT_REQUEST,
   ActionTypes.CONNECT_ACCOUNT_SUCCESS,
@@ -33,6 +32,6 @@ export const awaitTxAction = createAsyncAction(
   ActionTypes.AWAIT_TX_FAILURE,
 )<ITransaction, ITransaction, ITransaction>();
 
-export const clearAwaitTxAction = createStandardAction(ActionTypes.CLEAR_AWAIT_TX)<
-  void
->();
+export const clearAwaitTxAction = createStandardAction(
+  ActionTypes.CLEAR_AWAIT_TX,
+)<void>();

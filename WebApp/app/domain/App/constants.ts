@@ -14,7 +14,7 @@ enum ActionTypes {
   SET_CONNECTED = '@@dapps/global/SET_CONNECTED',
   SET_MODAL = '@@dapps/global/SET_MODAL',
 
-  SET_NETWORK = '@@dapps/global/SET_NETWORK',  
+  SET_NETWORK = '@@dapps/global/SET_NETWORK',
 }
 
 export default ActionTypes;

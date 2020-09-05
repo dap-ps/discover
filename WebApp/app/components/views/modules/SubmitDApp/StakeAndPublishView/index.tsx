@@ -22,48 +22,45 @@ import { appColors, uiConstants } from 'theme';
 import { TextField } from 'formik-material-ui';
 import classNames from 'classnames';
 import LoadingSpinnerSVG from '../../../../../images/loading-spinner.svg';
-import { useSelector } from 'react-redux';
-import { makeSelectDappsLoading } from 'domain/Dapps/selectors';
 
 const styles = (theme: Theme) =>
   createStyles({
     // JSS in CSS goes here
     root: {
       padding: `15px 0px 10px`,
-      position: "relative",
-     
+      position: 'relative',
     },
     loading: {
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      justifyContent: "center",
-      position: "absolute",
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      position: 'absolute',
       top: 0,
       left: 0,
-      height: "100%",
-      width: "100%",
+      height: '100%',
+      width: '100%',
       zIndex: 10,
       opacity: 0,
-      visibility: "hidden",
+      visibility: 'hidden',
       transitionDuration: `${uiConstants.global.animation.speeds.mutation}ms`,
-      "& svg": {
+      '& svg': {
         height: 80,
         width: 80,
       },
-      "&.active": {
+      '&.active': {
         opacity: 1,
-        visibility: "visible",
+        visibility: 'visible',
       },
-      "&:before": {
+      '&:before': {
         content: "''",
-        display: "block",
-        position: "absolute",
+        display: 'block',
+        position: 'absolute',
         top: 0,
         left: 0,
-        height: "100%",
-        width: "100%",
-        borderRadius: "20px",
+        height: '100%',
+        width: '100%',
+        borderRadius: '20px',
         opacity: 0.4,
         backgroundColor: appColors.general.backgroundColor,
       },
@@ -143,12 +140,14 @@ const styles = (theme: Theme) =>
 interface OwnProps extends WithStyles<typeof styles> {
   dapp: Partial<IDapp>;
   submit: (stake: number) => void;
+  loading: boolean
 }
 
 const StakeAndPublishView: React.SFC<OwnProps> = ({
   classes,
   dapp,
   submit,
+  loading
 }: OwnProps) => {
   const CreateSchema = Yup.object().shape({
     stake: Yup.number()
@@ -158,7 +157,6 @@ const StakeAndPublishView: React.SFC<OwnProps> = ({
   });
   // const [token, setToken] = useState<TOKENS>(TOKENS.SNT);
   const token = TOKENS.SNT;
-  const loading = useSelector(makeSelectDappsLoading)
 
   return (
     <Formik
@@ -177,9 +175,11 @@ const StakeAndPublishView: React.SFC<OwnProps> = ({
         }
         return (
           <Form className={classes.root}>
-            <section className={classNames(classes.loading, {
-              ["active"]: loading
-            })}>
+            <section
+              className={classNames(classes.loading, {
+                ['active']: loading,
+              })}
+            >
               <LoadingSpinnerSVG />
             </section>
             <DappInfoHeader

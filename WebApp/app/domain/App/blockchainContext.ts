@@ -121,38 +121,21 @@ export const connectContract = async (Contract: any, address?: string) => {
   const provider = EmbarkJS.Blockchain.Providers.web3.getCurrentProvider();
   if (!provider.selectedAddress) {
     // @ts-ignore
-    EmbarkJS.Blockchain.Providers.web3.setProvider(
-      new Web3.providers.WebsocketProvider(await getRpcUrl()),
-    );
-    // @ts-ignore
-    clonedContract.currentProvider = EmbarkJS.Blockchain.Providers.web3.getCurrentProvider();
+    clonedContract.currentProvider = new Web3.providers.WebsocketProvider(await getRpcUrl())
   }
 
   return clonedContract;
 };
 
-export const waitOneMoreBlock = async (prevBlockNumber: number) => {
-  return new Promise(resolve => {
-    setTimeout(async () => {
-      const blockNumber = await (await getWeb3()).eth.getBlockNumber()
-      if (prevBlockNumber === blockNumber) {
-        return waitOneMoreBlock(prevBlockNumber)
-      }
-      resolve()
-    }, 3000)
-  })
-}
-
-export const getTxStatus = async (txHash: string): Promise<TRANSACTION_STATUS> => {
-  const txReceipt = await (await getWeb3()).eth.getTransactionReceipt(txHash)
+export const getTxStatus = async (
+  txHash: string,
+): Promise<TRANSACTION_STATUS> => {
+  const txReceipt = await (await getWeb3()).eth.getTransactionReceipt(txHash);
   if (txReceipt) {
-    await waitOneMoreBlock(txReceipt.blockNumber)
     return txReceipt.status
       ? TRANSACTION_STATUS.SUCCESS
-      : TRANSACTION_STATUS.FAILURE
+      : TRANSACTION_STATUS.FAILURE;
   } else {
-    await waitOneMoreBlock(txReceipt.blockNumber)
-  }
-
-  return TRANSACTION_STATUS.PENDING
-}
+    return TRANSACTION_STATUS.PENDING;
+  } 
+};

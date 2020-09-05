@@ -13,6 +13,7 @@ import ZerionBanner from '../../images/featured/zerion_banner.png';
 import ZerionLogo from '../../images/featured/zerion_logo.png';
 import { DAPP_CATEGORY, DAPP_STATUS } from 'utils/constants';
 import { IDapp } from './types';
+import { AddressZero } from 'ethers/constants';
 
 export const FEATURED_DAPPS = ['sablier', 'oasis', 'zerion'];
 
@@ -22,6 +23,7 @@ export const DAPPS: {
   sablier: {
     email: '',
     id: '10',
+    uploader: AddressZero,
     sntValue: 0,
     ipfsHash: 'asdasdasdasd',
     name: 'Sablier',
@@ -38,8 +40,8 @@ export const DAPPS: {
   },
   oasis: {
     email: '',
+    uploader: AddressZero,
     id: '11',
-    sntValue: 0,
     ipfsHash: 'asdasdas3456789dasd',
     name: 'Oasis',
     desc: 'Trade tokens, borrow Dai, and earn savings — all in one place',
@@ -55,8 +57,8 @@ export const DAPPS: {
   },
   zerion: {
     email: '',
+    uploader: AddressZero,
     id: '12',
-    sntValue: 0,
     ipfsHash: 'asdasd10101010101asdasd',
     name: 'Zerion',
     desc:

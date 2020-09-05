@@ -21,8 +21,8 @@ export const appColors = {
       base: '#4360df',
     },
     red: {
-      base: '#fa6565'
-    }
+      base: '#fa6565',
+    },
   },
   sections: {
     EXCHANGES: {

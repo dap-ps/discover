@@ -5,7 +5,13 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { Theme, createStyles, withStyles, WithStyles, Typography } from '@material-ui/core';
+import {
+  Theme,
+  createStyles,
+  withStyles,
+  WithStyles,
+  Typography,
+} from '@material-ui/core';
 import { uiConstants, appColors } from 'theme';
 import classNames from 'classnames';
 import { useSelector, useDispatch } from 'react-redux';
@@ -16,27 +22,27 @@ import { getNetworkName } from 'domain/App/blockchainContext';
 import { makeSelectTransaction } from 'domain/Wallet/selectors';
 import { clearAwaitTxAction } from 'domain/Wallet/actions';
 
-
 // TODO see if this should be configurable from theme object
 const styles = (theme: Theme) =>
   createStyles({
     // JSS in CSS goes here
     root: {
-      position: "fixed",
-      display: "flex",
-      flexDirection: "row",
-      flexWrap: "wrap",
+      position: 'fixed',
+      display: 'flex',
+      flexDirection: 'row',
+      flexWrap: 'wrap',
       opacity: 0,
       top: uiConstants.global.pageMargin,
-      left: "50%",
+      left: '50%',
       transitionDuration: `${uiConstants.global.animation.speeds.mutation}ms`,
       transform: `translate(-50%, calc(-100% - ${uiConstants.global.pageMargin}px))`,
       borderRadius: 16,
       backgroundColor: appColors.general.backgroundColor,
-      boxShadow: "0px 4px 12px rgba(0, 34, 51, 0.08), 0px 2px 4px rgba(0, 34, 51, 0.16)",
+      boxShadow:
+        '0px 4px 12px rgba(0, 34, 51, 0.08), 0px 2px 4px rgba(0, 34, 51, 0.16)',
       ...uiConstants.modal.padding,
       zIndex: 1000,
-      "&.active": {
+      '&.active': {
         opacity: 1,
         transform: `translate(-50%, 0)`,
       },
@@ -44,12 +50,12 @@ const styles = (theme: Theme) =>
     },
     icon: {
       width: 60,
-      "& img":{
+      '& img': {
         width: 40,
         height: 40,
-        borderRadius: "50%",
+        borderRadius: '50%',
         marginRight: 16,
-      }
+      },
     },
     close: {
       position: 'absolute',
@@ -87,106 +93,106 @@ const styles = (theme: Theme) =>
     },
     meta: {
       fontSize: 15,
-
     },
     state: {
       marginTop: uiConstants.modal.padding.paddingTop,
-      width: "100%",
+      width: '100%',
       color: appColors.general.blue.base,
-      display: "flex",
-      flexDirection: "row",
-      alignItems: "center",
-      justifyContent: "center ",
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center ',
       lineHeight: 15,
       fontSize: 12,
-      "& svg": {
+      '& svg': {
         height: 16,
         width: 16,
       },
-      "&.failure": {
-        color: appColors.general.red.base
-      }
-    }
+      '&.failure': {
+        color: appColors.general.red.base,
+      },
+    },
   });
 
-interface OwnProps extends WithStyles<typeof styles> {
-}
+interface OwnProps extends WithStyles<typeof styles> {}
 
 const TransactionStatus: React.SFC<OwnProps> = ({ classes }: OwnProps) => {
   const [active, setActive] = useState(false);
-  const transaction = useSelector(makeSelectTransaction)
-  const networkId = useSelector(makeSelectNetwork)
+  const transaction = useSelector(makeSelectTransaction);
+  const networkId = useSelector(makeSelectNetwork);
   const dispatch = useDispatch();
 
   useEffect(() => {
-      if (!transaction && active) { 
-        setActive(false)  
-      }
-      if (transaction  && !active) {
-        setActive(true)
-      }
-    },
-    [transaction]
-  )
+    if (!transaction && active) {
+      setActive(false);
+    }
+    if (transaction && !active) {
+      setActive(true);
+    }
+  }, [transaction]);
 
   const handleDismiss = () => {
-    setActive(false)  
-    dispatch(clearAwaitTxAction())
-  }
-  console.log(transaction)
+    setActive(false);
+    dispatch(clearAwaitTxAction());
+  };
+  console.log(transaction);
 
-  return (<div className={classNames(classes.root, {
-    ['active']: active
-  })}>
-    <section className={classes.icon}>
-      {
-        transaction?.iconSrc &&(<img src={transaction.iconSrc} alt={transaction.heading} />) 
-      }
-    </section>
-    <section className={classes.meta}>
-      <Typography>
-        {
-          transaction?.heading
-        }
-      </Typography>
-      <Typography>
-        {
-          transaction?.caption
-        }
-      </Typography>
-    </section>
-    {
-      transaction?.state == TRANSACTION_STATUS.PENDING && (
+  return (
+    <div
+      className={classNames(classes.root, {
+        ['active']: active,
+      })}
+    >
+      <section className={classes.icon}>
+        {transaction?.iconSrc && (
+          <img src={transaction.iconSrc} alt={transaction.heading} />
+        )}
+      </section>
+      <section className={classes.meta}>
+        <Typography>{transaction?.heading}</Typography>
+        <Typography>{transaction?.caption}</Typography>
+      </section>
+      {transaction?.state == TRANSACTION_STATUS.PENDING && (
         <div className={classes.state}>
-            <LoadingSpinnerSVG />
-            <Typography>
-              Waiting for confirmation from Ethereum...
-            </Typography>
+          <LoadingSpinnerSVG />
+          <Typography>Waiting for confirmation from Ethereum...</Typography>
         </div>
-      )
-    }
-    {
-      transaction?.state == TRANSACTION_STATUS.SUCCESS && (
+      )}
+      {transaction?.state == TRANSACTION_STATUS.SUCCESS && (
         <div className={classes.state}>
           <Typography>
-            ✓ Thank you for submitting. Your dapp will be reviewed soon.
+            ✓ Transaction Successfull <a
+              target="_blank"
+              href={`https://${
+                networkId != 1 ? `${getNetworkName(networkId)}.` : ''
+              }etherscan.io/tx/${transaction?.hash}`}
+            >
+              View on Etherscan
+            </a>
           </Typography>
-      </div>
-      )
-    }
-    {
-      transaction?.state == TRANSACTION_STATUS.FAILURE && (
-        <div className={classNames(classes.state, "failure")}>
+        </div>
+      )}
+      {transaction?.state == TRANSACTION_STATUS.FAILURE && (
+        <div className={classNames(classes.state, 'failure')}>
           <Typography>
-            Transaction failed. Please check EtherScan for tx: <a target="_blank" href={`https://${networkId != 1 ? `${getNetworkName(networkId)}.` : ''}etherscan.io/tx/${transaction?.hash}`}>{transaction?.hash}</a>
+            Transaction failed. Please check EtherScan for tx:{' '}
+            <a
+              target="_blank"
+              href={`https://${
+                networkId != 1 ? `${getNetworkName(networkId)}.` : ''
+              }etherscan.io/tx/${transaction?.hash}`}
+            >
+              {transaction?.hash}
+            </a>
           </Typography>
-      </div>
-      )
-    }
-    <section onClick={() => handleDismiss()} className={classes.close}>
-
-    </section>
-  </div>)
+        </div>
+      )}
+      <section
+        onClick={() => handleDismiss()}
+        className={classes.close}
+      ></section>
+    </div>
+  );
 };
 
 export default withStyles(styles, { withTheme: true })(TransactionStatus);

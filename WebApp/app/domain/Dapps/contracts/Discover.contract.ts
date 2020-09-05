@@ -74,9 +74,9 @@ export const DiscoverGetDAppsCount = async () => {
     DiscoverAbi,
     ContractAddresses[await getNetworkId()].DISCOVER,
   );
-  return parseInt(await DiscoverContract.methods
-    .getDAppsCount()
-    .call({ from: AddressZero }),)
+  return parseInt(
+    await DiscoverContract.methods.getDAppsCount().call({ from: AddressZero }),
+  );
 };
 
 export const DiscoverGetDAppsMeta = async (id: number) => {
@@ -84,45 +84,40 @@ export const DiscoverGetDAppsMeta = async (id: number) => {
     DiscoverAbi,
     ContractAddresses[await getNetworkId()].DISCOVER,
   );
-  return await DiscoverContract.methods
-    .dapps(id)
-    .call({ from: AddressZero })
+  return await DiscoverContract.methods.dapps(id).call({ from: AddressZero });
 };
 
-export const DiscoverHelperGetMeta = async (dapp: Partial<IDapp>): Promise<IDapp> => {
+export const DiscoverHelperGetMeta = async (
+  dapp: Partial<IDapp>,
+): Promise<IDapp> => {
   try {
     const {
       hash,
       ipfsHash,
       status,
-      details: {
-        category,
-        dateAdded,
-        description,
-        image,
-        name,
-        uploader,
-        url
-      }
+      details: { category, dateAdded, description, image, name, uploader, url },
     }: {
-      compressedMetadata: string,
+      compressedMetadata: string;
       details: {
-        category: string
-        dateAdded: 1599137970891
-        description: string
-        image: string
-        name: string
-        uploader: string
-        url: string
-      }
-      email: string
-      hash: string
-      ipfsHash: string
-      status: DAPP_STATUS
-
-    } = (await retrieveMetadataApi(getIpfsHashFromBytes32(dapp.compressedMetadata as string))).data
+        category: string;
+        dateAdded: 1599137970891;
+        description: string;
+        image: string;
+        name: string;
+        uploader: string;
+        url: string;
+      };
+      email: string;
+      hash: string;
+      ipfsHash: string;
+      status: DAPP_STATUS;
+    } = (
+      await retrieveMetadataApi(
+        getIpfsHashFromBytes32(dapp.compressedMetadata as string),
+      )
+    ).data;
     return {
-      ...dapp as IDapp,
+      ...(dapp as IDapp),
       hash: hash,
       ipfsHash: ipfsHash,
       status: status,
@@ -133,13 +128,17 @@ export const DiscoverHelperGetMeta = async (dapp: Partial<IDapp>): Promise<IDapp
       image: image,
       name: name,
       uploader: uploader,
-      url: url
-    }
-  } catch(error) {
-    console.error(`404: Cached metadata not found for ${getIpfsHashFromBytes32(dapp.compressedMetadata as string)} `)
-    return dapp as IDapp
+      url: url,
+    };
+  } catch (error) {
+    console.error(
+      `404: Cached metadata not found for ${getIpfsHashFromBytes32(
+        dapp.compressedMetadata as string,
+      )} `,
+    );
+    return dapp as IDapp;
   }
-}
+};
 
 export const DiscoverSafeMax = async () => {
   const DiscoverContract = await connectContract(

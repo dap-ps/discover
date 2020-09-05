@@ -87,7 +87,6 @@ const AppWrapper: React.SFC<Props> = ({
   children,
   currentlySending,
   navLinks,
-  modalComponent,
 }: Props) => {
   return (
     <div className={classes.root}>

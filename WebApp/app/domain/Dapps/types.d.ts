@@ -5,15 +5,15 @@ import { DAPP_STATUS } from 'utils/constants';
 import { BigNumber } from 'ethers/utils';
 
 export interface IRawDappMeta {
-  available: string
-  balance: string
-  developer: string
-  effectiveBalance: string
-  id: string
-  metadata: string
-  rate: string
-  votesCast: string
-  votesMinted: string
+  available: string;
+  balance: string;
+  developer: string;
+  effectiveBalance: string;
+  id: string;
+  metadata: string;
+  rate: string;
+  votesCast: string;
+  votesMinted: string;
 }
 
 export interface IDappVote {
@@ -42,12 +42,12 @@ export interface IDapp {
   available: number;
 
   // Potentially on chain values
-  sntValue: number;
+  sntValue?: number;
   ipfsHash?: string;
   hash?: string;
   dateAdded: number;
   downvoteCost?: number;
-  uploader: string
+  uploader: string;
   // metadata
   compressedMetadata?: string;
   email: string;

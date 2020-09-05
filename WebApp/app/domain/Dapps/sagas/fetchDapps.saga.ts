@@ -1,40 +1,47 @@
 import { fetchDappsAction } from '../actions';
 import { take, put, call, fork } from 'redux-saga/effects';
 import { IRawDappMeta, IDapp } from '../types';
-import { DiscoverGetDAppsCount, DiscoverGetDAppsMeta, DiscoverHelperGetMeta } from '../contracts/Discover.contract';
+import {
+  DiscoverGetDAppsCount,
+  DiscoverGetDAppsMeta,
+  DiscoverHelperGetMeta,
+} from '../contracts/Discover.contract';
 
 export function* fetchDappsSaga() {
   try {
-    const contractDappsCount: number = yield call(async () => await DiscoverGetDAppsCount())
+    const contractDappsCount: number = yield call(
+      async () => await DiscoverGetDAppsCount(),
+    );
     const rawDapps: IRawDappMeta[] = yield call(
       async () =>
         await Promise.all([
           ...new Array(contractDappsCount)
             .fill('')
-            .map((value, id: number) =>
-              DiscoverGetDAppsMeta(id)
-            ),
+            .map((value, id: number) => DiscoverGetDAppsMeta(id)),
         ]),
     );
-    const partialDapps: Partial<IDapp>[] = rawDapps.map((rawDapp: IRawDappMeta) => ({
-      id: rawDapp.id,
-      available: parseInt(rawDapp.available),
-      uploader: rawDapp.developer,
-      votes: parseInt(rawDapp.effectiveBalance),
-      compressedMetadata: rawDapp.metadata,
-    }))
-   
-    yield put(fetchDappsAction.success([
-      ...(
-        yield call(
+    const partialDapps: Partial<IDapp>[] = rawDapps.map(
+      (rawDapp: IRawDappMeta) => ({
+        id: rawDapp.id,
+        available: parseInt(rawDapp.available),
+        uploader: rawDapp.developer,
+        votes: parseInt(rawDapp.effectiveBalance),
+        compressedMetadata: rawDapp.metadata,
+      }),
+    );
+
+    yield put(
+      fetchDappsAction.success([
+        ...(yield call(
           async () =>
             await Promise.all([
-              ...partialDapps
-                .map((dapp: Partial<IDapp>) => DiscoverHelperGetMeta(dapp)),
+              ...partialDapps.map((dapp: Partial<IDapp>) =>
+                DiscoverHelperGetMeta(dapp),
+              ),
             ]),
-        )
-      )
-    ]))
+        )),
+      ]),
+    );
   } catch (error) {
     debugger;
     // TODO if error contains connection issue, its Infura related

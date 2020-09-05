@@ -16,7 +16,6 @@ import GridCarousel from 'components/theme/elements/GridCarousel';
 import { IDapp } from 'domain/Dapps/types';
 import { forwardTo } from 'utils/history';
 
-
 let categoryColors = {};
 Object.keys(DAPP_CATEGORY_STRINGS).map((key) => {
   categoryColors = {
@@ -132,7 +131,6 @@ const Landing: React.SFC<OwnProps> = ({ classes, dapps, theme }: OwnProps) => {
   const mobileCarouselSettings: Partial<CarouselProviderProps> = {
     visibleSlides: uiConstants.banner.itemsPerSlide.mobile,
   };
-
   return (
     <article className={classes.root}>
       <Carousel

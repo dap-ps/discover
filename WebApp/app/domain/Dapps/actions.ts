@@ -14,6 +14,12 @@ export const fetchDappsAction = createAsyncAction(
   ActionTypes.FETCH_DAPPS_FAILURE,
 )<void, IDapp[], string>();
 
+export const updateDappDataAction = createAsyncAction(
+  ActionTypes.UPDATE_DAPP_DATA_REQUEST,
+  ActionTypes.UPDATE_DAPP_DATA_SUCCESS,
+  ActionTypes.UPDATE_DAPP_DATA_FAILURE,
+)<string, IDapp, string>();
+
 export const createDappAction = createAsyncAction(
   ActionTypes.CREATE_DAPP_REQUEST,
   ActionTypes.CREATE_DAPP_SUCCESS,
@@ -37,7 +43,6 @@ export const downvoteDappAction = createAsyncAction(
   ActionTypes.DOWNVOTE_DAPP_SUCCESS,
   ActionTypes.DOWNVOTE_DAPP_FAILURE,
 )<string, Partial<IDapp>, string>();
-
 
 export const setDappsLoadingAction = createStandardAction(
   ActionTypes.SET_LOADING,

@@ -17,14 +17,12 @@ const selectNetwork = (state: ApplicationRootState) => {
   return state.global.network;
 };
 
-
 export const makeSelectLoading = createSelector(
   selectLoading,
   (substate: boolean) => {
     return substate;
   },
 );
-
 
 export const makeSelectNetwork = createSelector(
   selectNetwork,

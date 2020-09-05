@@ -2,9 +2,9 @@ import { createStandardAction } from 'typesafe-actions';
 import ActionTypes from './constants';
 import { ERROR_CODES } from 'utils/constants';
 
-export const setLoadingAction = createStandardAction(
-  ActionTypes.SET_LOADING,
-)<boolean>();
+export const setLoadingAction = createStandardAction(ActionTypes.SET_LOADING)<
+  boolean
+>();
 
 export const setErrorMessageAction = createStandardAction(
   ActionTypes.SET_ERROR_MESSAGE,
@@ -29,4 +29,3 @@ export const clearRequestQueueAction = createStandardAction(
 export const setNetworkAction = createStandardAction(ActionTypes.SET_NETWORK)<
   number
 >();
-

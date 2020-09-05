@@ -11,7 +11,11 @@ const selectDappsDomain = (state: ApplicationRootState) => {
   return state ? state.dapp : initialState;
 };
 
-const selectDappsLoading =  (state: ApplicationRootState) => {
+const selectDapps = (state: ApplicationRootState) => {
+  return selectDappsDomain(state).dapps
+};
+
+const selectDappsLoading = (state: ApplicationRootState) => {
   return selectDappsDomain(state).loading;
 };
 
@@ -36,15 +40,26 @@ export const makeSelectFeaturedDapps = createSelector(
 export const makeSelectDappsLoading = createSelector(
   selectDappsLoading,
   (loading: boolean) => {
-    return loading
-  }
+    return loading;
+  },
+);
+
+export const makeSelectDapps = () =>
+  createSelector(selectDappsDomain, (substate: DomainState) => {
+    return substate.dapps;
+  });
+
+/**
+ * Meta selectors
+ */
+
+export const makeSelectNumberOfDapps = createSelector(
+  selectDapps,
+  (dapps: IDapp[]) =>  dapps.length
 )
 
 /**
  * Default selector used by Dapps
  */
 
-export const makeSelectDapps = () =>
-  createSelector(selectDappsDomain, (substate: DomainState) => {
-    return substate.dapps;
-  });
+

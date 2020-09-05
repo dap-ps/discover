@@ -16,8 +16,8 @@ enum ActionTypes {
   CONNECT_ACCOUNT_REQUEST = '@@dapps/wallet/CONNECT_ACCOUNT_REQUEST',
   CONNECT_ACCOUNT_SUCCESS = '@@dapps/wallet/CONNECT_ACCOUNT_SUCCESS',
   CONNECT_ACCOUNT_FAILURE = '@@dapps/wallet/CONNECT_ACCOUNT_FAILURE',
- 
-  CLEAR_AWAIT_TX = '@@dapps/wallet/CLEAR_AWAIT_TX'
+
+  CLEAR_AWAIT_TX = '@@dapps/wallet/CLEAR_AWAIT_TX',
 }
 
 export default ActionTypes;
