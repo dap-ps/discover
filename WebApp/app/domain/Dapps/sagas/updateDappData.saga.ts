@@ -24,7 +24,7 @@ export function* updateDappDataSaga(id: string) {
     );
     yield put(updateDappDataAction.success(dapp));
   } catch (error) {
-    debugger;
+    console.error(error)
     // TODO if error contains connection issue, its Infura related
     // TODO  Network check
     toast(error.message, {

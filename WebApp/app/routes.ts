@@ -1,4 +1,3 @@
-import HomePage from 'containers/pages/HomePage';
 import { ROUTE_LINKS } from 'routeLinks';
 
 import StarIcon from './images/icons/star.svg';
@@ -13,6 +12,7 @@ import VoteModule from 'containers/modules/VoteModule';
 import { FunctionComponent, ReactNode, ComponentType } from 'react';
 import HowToVoteModule from 'containers/modules/HowToVoteModule';
 import DiscoverDappModule from 'containers/modules/DiscoverDappModule';
+import Landing from 'components/views/pages/Landing';
 
 export interface AppRoute {
   name: string;
@@ -29,7 +29,7 @@ const routes: AppRoute[] = [
   {
     name: 'Home',
     path: ROUTE_LINKS.Home,
-    component: HomePage,
+    component: Landing,
     isProtected: false, // This allows general access control
     isNavRequired: false, // This allows mapping into a navigation bar
   },
@@ -37,7 +37,7 @@ const routes: AppRoute[] = [
   {
     name: 'Create DApp',
     path: ROUTE_LINKS.CreateDApp,
-    component: HomePage,
+    component: Landing,
     isProtected: false, // This allows general access control
     isNavRequired: false, // This allows mapping into a navigation bar
     modalComponent: DAppManagementContainer,
@@ -46,7 +46,7 @@ const routes: AppRoute[] = [
   {
     name: 'Discover DApp',
     path: ROUTE_LINKS.Discover(':dappID'),
-    component: HomePage,
+    component: Landing,
     isProtected: false, // This allows general access control
     isNavRequired: false, // This allows mapping into a navigation bar
     modalComponent: DiscoverDappModule,
@@ -55,7 +55,7 @@ const routes: AppRoute[] = [
   {
     name: 'Update DApp',
     path: ROUTE_LINKS.UpdateDApp(':dappID'),
-    component: HomePage,
+    component: Landing,
     isProtected: false, // This allows general access control
     isNavRequired: false, // This allows mapping into a navigation bar
     modalComponent: DAppManagementContainer,
@@ -64,7 +64,7 @@ const routes: AppRoute[] = [
   {
     name: 'Vote on DApp',
     path: ROUTE_LINKS.Vote(':dappID', ':voteType'),
-    component: HomePage,
+    component: Landing,
     isProtected: false, // This allows general access control
     isNavRequired: false, // This allows mapping into a navigation bar
     modalComponent: VoteModule,
@@ -73,7 +73,7 @@ const routes: AppRoute[] = [
   {
     name: 'How to vote',
     path: ROUTE_LINKS.HowToVote,
-    component: HomePage,
+    component: Landing,
     isProtected: false, // This allows general access control
     isNavRequired: false, // This allows mapping into a navigation bar
     modalComponent: HowToVoteModule,
@@ -83,14 +83,14 @@ const routes: AppRoute[] = [
   {
     name: 'All ÐApps',
     path: ROUTE_LINKS.categories.All,
-    component: HomePage,
+    component: Landing,
     isProtected: false, // This allows general access control
     isNavRequired: true, // This allows mapping into a navigation bar
   },
   {
     name: 'Exchanges',
     path: ROUTE_LINKS.categories.EXCHANGES,
-    component: HomePage,
+    component: Landing,
     isProtected: false, // This allows general access control
     isNavRequired: true, // This allows mapping into a navigation bar
     routeType: ROUTE_TYPE.CATEGORY,
@@ -99,7 +99,7 @@ const routes: AppRoute[] = [
   {
     name: 'Marketplaces',
     path: ROUTE_LINKS.categories.MARKETPLACES,
-    component: HomePage,
+    component: Landing,
     isProtected: false, // This allows general access control
     isNavRequired: true, // This allows mapping into a navigation bar
     routeType: ROUTE_TYPE.CATEGORY,
@@ -108,7 +108,7 @@ const routes: AppRoute[] = [
   {
     name: 'Collectibles',
     path: ROUTE_LINKS.categories.COLLECTIBLES,
-    component: HomePage,
+    component: Landing,
     isProtected: false, // This allows general access control
     isNavRequired: true, // This allows mapping into a navigation bar
     routeType: ROUTE_TYPE.CATEGORY,
@@ -117,7 +117,7 @@ const routes: AppRoute[] = [
   {
     name: 'Games',
     path: ROUTE_LINKS.categories.GAMES,
-    component: HomePage,
+    component: Landing,
     isProtected: false, // This allows general access control
     isNavRequired: false, // This allows mapping into a navigation bar
     routeType: ROUTE_TYPE.CATEGORY,
@@ -126,7 +126,7 @@ const routes: AppRoute[] = [
   {
     name: 'Social Networks',
     path: ROUTE_LINKS.categories.SOCIAL_NETWORKS,
-    component: HomePage,
+    component: Landing,
     isProtected: false, // This allows general access control
     isNavRequired: true, // This allows mapping into a navigation bar
     routeType: ROUTE_TYPE.CATEGORY,
@@ -136,7 +136,7 @@ const routes: AppRoute[] = [
   {
     name: 'Utilities',
     path: ROUTE_LINKS.categories.UTILITIES,
-    component: HomePage,
+    component: Landing,
     isProtected: false, // This allows general access control
     isNavRequired: true, // This allows mapping into a navigation bar
     routeType: ROUTE_TYPE.CATEGORY,
@@ -145,7 +145,7 @@ const routes: AppRoute[] = [
   {
     name: 'Other',
     path: ROUTE_LINKS.categories.OTHER,
-    component: HomePage,
+    component: Landing,
     isProtected: false, // This allows general access control
     isNavRequired: true, // This allows mapping into a navigation bar
     routeType: ROUTE_TYPE.CATEGORY,
@@ -155,7 +155,7 @@ const routes: AppRoute[] = [
   {
     name: 'Highest rated',
     path: ROUTE_LINKS.lists.highestRated,
-    component: HomePage,
+    component: Landing,
     isProtected: false, // This allows general access control
     isNavRequired: true, // This allows mapping into a navigation bar
     routeType: ROUTE_TYPE.LIST,
@@ -164,7 +164,7 @@ const routes: AppRoute[] = [
   {
     name: 'Recently added',
     path: ROUTE_LINKS.lists.recentlyAdded,
-    component: HomePage,
+    component: Landing,
     isProtected: false, // This allows general access control
     isNavRequired: true, // This allows mapping into a navigation bar
     routeType: ROUTE_TYPE.LIST,

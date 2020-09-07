@@ -1,10 +1,12 @@
-import { WithStyles, useMediaQuery, Typography } from '@material-ui/core';
-import { createStyles, withStyles, Theme } from '@material-ui/core/styles';
+import {
+  Theme,
+  WithStyles,
+  useMediaQuery,
+  Typography,
+} from '@material-ui/core';
+import { createStyles, withStyles } from '@material-ui/core/styles';
 import React from 'react';
 import DappFeature from 'components/theme/content/DappFeature';
-import { FEATURED_DAPPS } from 'domain/Dapps/mocks';
-import { uiConstants, brandColors, appColors } from 'theme';
-import Carousel from 'components/views/modules/Carousel';
 import { CarouselProviderProps } from 'pure-react-carousel';
 import { Link } from 'react-router-dom';
 import { ROUTE_LINKS } from 'routeLinks';
@@ -13,8 +15,15 @@ import { DAPP_CATEGORY_STRINGS, DAPP_CATEGORY_ICONS } from 'utils/constants';
 import classNames from 'classnames';
 import DappCard from 'components/theme/content/DappCard';
 import GridCarousel from 'components/theme/elements/GridCarousel';
+import { appColors, uiConstants, brandColors } from 'theme';
+import Carousel from 'components/views/modules/Carousel';
+import { useSelector } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+import {
+  makeSelectDapps,
+  makeSelectFeaturedDapps,
+} from 'domain/Dapps/selectors';
 import { IDapp } from 'domain/Dapps/types';
-import { forwardTo } from 'utils/history';
 
 let categoryColors = {};
 Object.keys(DAPP_CATEGORY_STRINGS).map((key) => {
@@ -84,6 +93,9 @@ const styles = ({ breakpoints }: Theme) =>
       cursor: 'pointer',
       color: appColors.general.black.base,
       textDecoration: 'none',
+      '& svg': {
+        height: 52,
+      },
       '&:before': {
         content: "''",
         display: 'block',
@@ -102,9 +114,6 @@ const styles = ({ breakpoints }: Theme) =>
         fontSize: uiConstants.global.fonts.item.bodySize,
         fontWeight: 500,
       },
-      '& svg': {
-        height: 52,
-      },
     },
     heading: {},
     subheading: {},
@@ -115,12 +124,24 @@ const styles = ({ breakpoints }: Theme) =>
 
 interface OwnProps extends WithStyles<typeof styles> {
   theme: Theme;
-  dapps: IDapp[];
 }
 
-const Landing: React.SFC<OwnProps> = ({ classes, dapps, theme }: OwnProps) => {
+const Landing: React.SFC<OwnProps> = (props: OwnProps) => {
+  const { classes, theme } = props;
+  const large = useMediaQuery(theme.breakpoints.up('lg'));
   const desktop = useMediaQuery(theme.breakpoints.up('md'));
   const tablet = useMediaQuery(theme.breakpoints.up('sm'));
+
+  const { dapps, featuredDapps } = useSelector(
+    createStructuredSelector({
+      dapps: makeSelectDapps(),
+      featuredDapps: makeSelectFeaturedDapps,
+    }),
+  );
+
+  const largeCarouselSettings: Partial<CarouselProviderProps> = {
+    visibleSlides: uiConstants.banner.itemsPerSlide.large,
+  };
 
   const desktopCarouselSettings: Partial<CarouselProviderProps> = {
     visibleSlides: uiConstants.banner.itemsPerSlide.desktop,
@@ -131,27 +152,26 @@ const Landing: React.SFC<OwnProps> = ({ classes, dapps, theme }: OwnProps) => {
   const mobileCarouselSettings: Partial<CarouselProviderProps> = {
     visibleSlides: uiConstants.banner.itemsPerSlide.mobile,
   };
+
   return (
     <article className={classes.root}>
       <Carousel
         arrows={true}
         providerProps={
-          desktop
+          large 
+            ? largeCarouselSettings
+            : desktop
             ? desktopCarouselSettings
             : tablet
             ? tabletCarouselSettings
             : mobileCarouselSettings
         }
       >
-        {FEATURED_DAPPS.map((key) => (
+        {featuredDapps.map((dapp: IDapp) => (
           <DappFeature
             className={classes.bannerItem}
-            key={`feature-${key}`}
-            dapp={
-              dapps.find(
-                (dapp: IDapp) => dapp.name.toLowerCase() == key.toLowerCase(),
-              ) as IDapp
-            }
+            key={`feature-${dapp.name}`}
+            dapp={dapp}
           />
         ))}
       </Carousel>
@@ -165,10 +185,10 @@ const Landing: React.SFC<OwnProps> = ({ classes, dapps, theme }: OwnProps) => {
           </Link>
         </div>
         <div className={classes.categories}>
-          {Object.keys(DAPP_CATEGORY_STRINGS).map((key) => (
+          {Object.keys(DAPP_CATEGORY_STRINGS).map((key: string, index: number) => (
             <Link
               to={ROUTE_LINKS.categories[key]}
-              key={`${key}`}
+              key={`${index}-${key}`}
               className={classNames(classes.category, `${key}`)}
             >
               {DAPP_CATEGORY_ICONS[key].base({})}
@@ -186,14 +206,8 @@ const Landing: React.SFC<OwnProps> = ({ classes, dapps, theme }: OwnProps) => {
         <GridCarousel className={classes.gridCarousel}>
           {dapps
             .sort((dapp0, dapp1) => (dapp0.votes > dapp1.votes ? -1 : +1))
-            .map((dapp) => (
-              <DappCard
-                onClick={() =>
-                  forwardTo(ROUTE_LINKS.Discover(dapp.ipfsHash as string))
-                }
-                key={`dapp-${dapp.ipfsHash}`}
-                dapp={dapp}
-              />
+            .map((dapp: IDapp, index: number) => (
+              <DappCard key={`dapp-${index}-${dapp.name}`} dapp={dapp} />
             ))}
         </GridCarousel>
       </section>
@@ -205,17 +219,11 @@ const Landing: React.SFC<OwnProps> = ({ classes, dapps, theme }: OwnProps) => {
         </div>
         <GridCarousel className={classes.gridCarousel}>
           {dapps
-            .sort((dapp0, dapp1) =>
-              dapp0.dateAdded > dapp1.dateAdded ? -1 : +1,
+            .sort((dapp1, dapp2) =>
+              dapp1.dateAdded > dapp2.dateAdded ? -1 : +1,
             )
-            .map((dapp) => (
-              <DappCard
-                onClick={() =>
-                  forwardTo(ROUTE_LINKS.Discover(dapp.ipfsHash as string))
-                }
-                key={`dapp-${dapp.ipfsHash}`}
-                dapp={dapp}
-              />
+            .map((dapp: IDapp, index: number) => (
+              <DappCard key={`dapp-${index}-${dapp.name}`} dapp={dapp} />
             ))}
         </GridCarousel>
       </section>

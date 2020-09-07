@@ -44,7 +44,7 @@ export function* fetchDappsSaga() {
       ]),
     );
   } catch (error) {
-    debugger;
+    console.error(error)
     toast(error.message, {
       type: "error",
       autoClose: 10000,

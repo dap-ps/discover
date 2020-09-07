@@ -23,6 +23,7 @@ import { uiConstants, appColors, brandColors } from 'theme';
 import { DAPP_STATUS } from 'utils/constants';
 import { Link } from 'react-router-dom';
 import { ROUTE_LINKS } from 'routeLinks';
+import { generateUri } from 'api/apiUrlBuilder';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -43,6 +44,8 @@ const styles = (theme: Theme) =>
       '& img': {
         width: uiConstants.dapps.card.iconSize,
         height: uiConstants.dapps.card.iconSize,
+        display: "block",
+        overflow: "hidden"
       },
       '& svg': {
         width: uiConstants.dapps.card.reviewedSize,
@@ -119,6 +122,8 @@ const DappCard: React.SFC<OwnProps> = ({
   dapp,
   onClick,
 }: OwnProps) => {
+
+  const dappIconUrl = dapp.icon?.includes("base64") ? dapp.icon : generateUri(dapp.icon)
   return (
     <article className={classNames(classes.root, onClick ? 'clickable' : '')}>
       <div onClick={() => (onClick ? onClick() : null)}>
@@ -128,7 +133,7 @@ const DappCard: React.SFC<OwnProps> = ({
             dapp.status == DAPP_STATUS.APPROVED ? 'approved' : '',
           )}
         >
-          <img src={dapp.icon} alt={`${dapp.name}-icon`} />
+          <img src={dappIconUrl} alt={`${dapp.name}-icon`} />
           {dapp.status == DAPP_STATUS.APPROVED && <ReviewBadgeIcon />}
         </div>
       </div>

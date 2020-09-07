@@ -102,6 +102,7 @@ export const uiConstants = {
   },
   banner: {
     itemsPerSlide: {
+      large: 5,
       desktop: 3,
       tablet: 2,
       mobile: 1,

@@ -38,7 +38,6 @@ function* WaitForTxSaga(transaction: ITransaction) {
     }
   } catch (error) {
     console.error(error)
-    debugger
     toast(error.message, {
       type: "error",
       autoClose: 10000,
