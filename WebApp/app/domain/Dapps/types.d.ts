@@ -34,9 +34,21 @@ export interface ICachedDapp {
 }
 
 export interface IDappVote {
-  identifier: string;
+  id: string;
   token: string;
-  amount: BigNumber;
+  amount: number;
+  icon: string
+  name: string
+  desc: string
+}
+
+export interface IWithdrawRequest {
+  id: string;
+  amount: number;
+  max: boolean;
+  icon: string
+  name: string
+  desc: string
 }
 
 export interface IDappRank {

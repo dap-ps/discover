@@ -4,6 +4,7 @@ import { updateDappListener } from './sagas/updateDapp.saga';
 import { upvoteListener } from './sagas/upvote.saga';
 import { downvoteListener } from './sagas/downvote.saga';
 import { fetchDappsListener } from './sagas/fetchDapps.saga';
+import { withdrawListener } from './sagas/withdraw.saga';
 
 export default function* DappsSaga() {
   yield fork(createDappListener);
@@ -11,4 +12,5 @@ export default function* DappsSaga() {
   yield fork(upvoteListener);
   yield fork(downvoteListener);
   yield fork(fetchDappsListener);
+  yield fork(withdrawListener)
 }

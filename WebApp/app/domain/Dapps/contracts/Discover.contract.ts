@@ -10,10 +10,9 @@ import {
 import DiscoverAbi from '../../../embarkArtifacts/contracts/Discover';
 import { AddressZero } from 'ethers/constants';
 import { SNTapproveAndCall } from './SNT.contract';
-import { uploadMetadataApi, updateDappApi, retrieveMetadataApi } from 'api/api';
+import { updateDappApi, retrieveMetadataApi } from 'api/api';
 import { IDapp, ICachedDapp, IRawDappMeta } from '../types';
 import { getIpfsHashFromBytes32 } from 'domain/App/sagas/metadata.saga';
-import { DAPP_STATUS } from 'utils/constants';
 
 // View methods
 export const DiscoverUpVoteEffect = async (id: string, amount: number) => {

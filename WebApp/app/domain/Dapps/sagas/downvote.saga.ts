@@ -1,16 +1,37 @@
-import { take, call, put } from 'redux-saga/effects';
-import { downvoteDappAction } from '../actions';
-import { IDapp } from '../types';
+import { take, call, put, race } from 'redux-saga/effects';
+import { downvoteDappAction, setDappsLoadingAction, updateDappDataAction } from '../actions';
+import { IDappVote } from '../types';
 import { toast } from 'react-toastify';
+import { DiscoverDownVote } from '../contracts/Discover.contract';
+import { awaitTxAction } from 'domain/Wallet/actions';
+import { TRANSACTION_STATUS } from 'utils/constants';
 
-function* downvoteSaga(dappIdentifier: string) {
+function* downvoteSaga(voteData: IDappVote) {
   try {
-    console.log(dappIdentifier);
-    // TODO: Wire up actions
-    const updatedDappData: Partial<IDapp> = {}; // MOCK
-
-    yield put(downvoteDappAction.success(updatedDappData));
+    yield put(setDappsLoadingAction(true));
+    const downVoteTx = yield call(async () => await DiscoverDownVote(voteData.id))
+    yield put(
+      awaitTxAction.request({
+        iconSrc: voteData.icon,
+        hash: downVoteTx,
+        state: TRANSACTION_STATUS.PENDING,
+        heading: voteData.name,
+        caption: voteData.desc,
+      }),
+    );
+    const { success, failure } = yield race({
+      success: take(awaitTxAction.success),
+      failure: take(awaitTxAction.failure),
+    });
+    if (success) {
+      yield put(downvoteDappAction.success());
+      yield put(setDappsLoadingAction(false));
+      yield put(updateDappDataAction.request(voteData.id));
+    } else {
+      throw failure;
+    }
   } catch (error) {
+    yield put(setDappsLoadingAction(false));
     toast(error.message, {
       type: 'error',
       autoClose: 10000,
@@ -22,8 +43,8 @@ function* downvoteSaga(dappIdentifier: string) {
 
 export function* downvoteListener() {
   while (true) {
-    const dappIdentifier: string = (yield take(downvoteDappAction.request))
+    const voteData: IDappVote = (yield take(downvoteDappAction.request))
       .payload;
-    yield call(downvoteSaga, dappIdentifier);
+    yield call(downvoteSaga, voteData);
   }
 }

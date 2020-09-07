@@ -83,7 +83,6 @@ function* createDappSaga(dapp: IDapp) {
           caption: dapp.desc,
         }),
       );
-      // TODO: reroute to vote module after wait is completed
       const { success, failure } = yield race({
         success: take(awaitTxAction.success),
         failure: take(awaitTxAction.failure),

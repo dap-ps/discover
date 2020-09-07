@@ -66,12 +66,14 @@ function* updateDappSaga(dapp: IDapp) {
       async () => await updateDappApi(dapp.id, dapp.email),
     )
     yield put(updateDappAction.success(dapp));
+    yield put(setDappsLoadingAction(false));
   } catch (error) {
     toast(error.message, {
       type: 'error',
       autoClose: 10000,
       pauseOnHover: true,
     });
+    yield put(setDappsLoadingAction(false));
     yield put(updateDappAction.failure(error));
   }
 }
