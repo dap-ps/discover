@@ -5,7 +5,6 @@
  */
 
 enum ActionTypes {
-  CONNECT_WALLET = '@@dapps/wallet/CONNECT_WALLET',
   DISCONNECT_WALLET = '@@dapps/wallet/DISCONNECT_WALLET',
   SET_WALLET = '@@dapps/wallet/SET_WALLET',
 

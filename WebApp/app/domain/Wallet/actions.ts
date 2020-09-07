@@ -8,10 +8,6 @@ import { createStandardAction, createAsyncAction } from 'typesafe-actions';
 import ActionTypes from './constants';
 import { ITransaction } from './types';
 
-export const connectWalletAction = createStandardAction(
-  ActionTypes.CONNECT_WALLET,
-)<void>();
-
 export const disconnectWalletAction = createStandardAction(
   ActionTypes.DISCONNECT_WALLET,
 )<void>();
