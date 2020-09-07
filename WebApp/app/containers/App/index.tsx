@@ -28,6 +28,7 @@ import rootDaemonSaga from 'domain/App/saga';
 import { RouteComponentProps } from 'react-router';
 import { makeSelectLoading } from 'domain/App/selectors';
 import { makeSelectIsConnected } from 'domain/Wallet/selectors';
+import ToastWrapper from 'containers/modules/ToastWrapper';
 
 function PrivateRoute({ component: Component, isConnected, ...rest }) {
   return (
@@ -87,6 +88,7 @@ function App({ isConnected, loading, location }: Props) {
       currentlySending={loading}
       navLinks={routes.filter((r) => r.isNavRequired)}
     >
+      <ToastWrapper />
       <Switch>
         {routes.map((r) => {
           const route = r.isProtected ? (

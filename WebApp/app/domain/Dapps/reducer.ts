@@ -7,7 +7,11 @@
 import { DomainState, DomainActions, IDapp } from './types';
 import { DAPPS } from './mocks';
 import { getType } from 'typesafe-actions';
-import { setDappsLoadingAction, fetchDappsAction, createDappAction, updateDappDataAction } from './actions';
+import {
+  setDappsLoadingAction,
+  createDappAction,
+  updateDappDataAction,
+} from './actions';
 
 export const initialState: DomainState = {
   featuredDapps: ['sablier', 'oasis', 'zerion'],
@@ -24,18 +28,17 @@ function dappsReducer(
       return {
         ...state,
         dapps: [
-          ...state.dapps.map((dapp: IDapp) => dapp.id == action.payload.id ? action.payload : dapp),
-        ]
-      }
+          ...state.dapps.map((dapp: IDapp) =>
+            dapp.id == action.payload.id ? action.payload : dapp,
+          ),
+        ],
+      };
     case getType(createDappAction.success):
       return {
         ...state,
-        dapps: [
-          ...state.dapps,
-          action.payload
-        ]
-      }
-    // case getType(fetchDappsAction.success): 
+        dapps: [...state.dapps, action.payload],
+      };
+    // case getType(fetchDappsAction.success):
     //   return  {
     //     ...state,
     //     dapps: action.payload

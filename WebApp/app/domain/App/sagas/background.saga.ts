@@ -1,4 +1,4 @@
-import { delay, put } from 'redux-saga/effects';
+import { put } from 'redux-saga/effects';
 import { fetchDappsAction } from 'domain/Dapps/actions';
 
 // function* DataRefresh() {
@@ -14,6 +14,5 @@ import { fetchDappsAction } from 'domain/Dapps/actions';
 export function* BackgroundSaga() {
   console.log('starting');
   yield put(fetchDappsAction.request());
-
   // yield fork(DataRefresh)
 }

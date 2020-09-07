@@ -140,14 +140,14 @@ const styles = (theme: Theme) =>
 interface OwnProps extends WithStyles<typeof styles> {
   dapp: Partial<IDapp>;
   submit: (stake: number) => void;
-  loading: boolean
+  loading: boolean;
 }
 
 const StakeAndPublishView: React.SFC<OwnProps> = ({
   classes,
   dapp,
   submit,
-  loading
+  loading,
 }: OwnProps) => {
   const CreateSchema = Yup.object().shape({
     stake: Yup.number()

@@ -6,6 +6,7 @@ import {
   DiscoverGetDAppsMeta,
   DiscoverHelperGetMeta,
 } from '../contracts/Discover.contract';
+import { toast } from 'react-toastify';
 
 export function* fetchDappsSaga() {
   try {
@@ -44,6 +45,11 @@ export function* fetchDappsSaga() {
     );
   } catch (error) {
     debugger;
+    toast(error.message, {
+      type: "error",
+      autoClose: 10000,
+      pauseOnHover: true
+    })
     // TODO if error contains connection issue, its Infura related
     // TODO  Network check
     yield put(fetchDappsAction.failure(error));

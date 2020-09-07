@@ -161,7 +161,8 @@ const TransactionStatus: React.SFC<OwnProps> = ({ classes }: OwnProps) => {
       {transaction?.state == TRANSACTION_STATUS.SUCCESS && (
         <div className={classes.state}>
           <Typography>
-            ✓ Transaction Successfull <a
+            ✓ Transaction Successfull{' '}
+            <a
               target="_blank"
               href={`https://${
                 networkId != 1 ? `${getNetworkName(networkId)}.` : ''

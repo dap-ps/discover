@@ -1,13 +1,18 @@
 import { take, call, put } from 'redux-saga/effects';
 import { updateDappAction } from '../actions';
 import { IDapp } from '../types';
+import { toast } from 'react-toastify';
 
 function* updateDappSaga(dapp: IDapp) {
   try {
     // TODO: Wire up actions
     yield put(updateDappAction.success(dapp));
   } catch (error) {
-    console.error(error);
+    toast(error.message, {
+      type: "error",
+      autoClose: 10000,
+      pauseOnHover: true
+    })
     yield put(updateDappAction.failure(error));
   }
 }

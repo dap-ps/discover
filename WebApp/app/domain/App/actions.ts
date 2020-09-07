@@ -6,10 +6,6 @@ export const setLoadingAction = createStandardAction(ActionTypes.SET_LOADING)<
   boolean
 >();
 
-export const setErrorMessageAction = createStandardAction(
-  ActionTypes.SET_ERROR_MESSAGE,
-)<string>();
-
 export const setActiveErrorCodeAction = createStandardAction(
   ActionTypes.SET_ACTIVE_ERROR_CODE,
 )<ERROR_CODES>();

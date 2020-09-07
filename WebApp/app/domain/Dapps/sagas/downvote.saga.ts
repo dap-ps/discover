@@ -1,6 +1,7 @@
 import { take, call, put } from 'redux-saga/effects';
 import { downvoteDappAction } from '../actions';
 import { IDapp } from '../types';
+import { toast } from 'react-toastify';
 
 function* downvoteSaga(dappIdentifier: string) {
   try {
@@ -10,7 +11,11 @@ function* downvoteSaga(dappIdentifier: string) {
 
     yield put(downvoteDappAction.success(updatedDappData));
   } catch (error) {
-    console.error(error);
+    toast(error.message, {
+      type: "error",
+      autoClose: 10000,
+      pauseOnHover: true
+    })
     yield put(downvoteDappAction.failure(error));
   }
 }

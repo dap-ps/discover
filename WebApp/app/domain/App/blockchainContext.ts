@@ -121,7 +121,9 @@ export const connectContract = async (Contract: any, address?: string) => {
   const provider = EmbarkJS.Blockchain.Providers.web3.getCurrentProvider();
   if (!provider.selectedAddress) {
     // @ts-ignore
-    clonedContract.currentProvider = new Web3.providers.WebsocketProvider(await getRpcUrl())
+    clonedContract.currentProvider = new Web3.providers.WebsocketProvider(
+      await getRpcUrl(),
+    );
   }
 
   return clonedContract;
@@ -137,5 +139,5 @@ export const getTxStatus = async (
       : TRANSACTION_STATUS.FAILURE;
   } else {
     return TRANSACTION_STATUS.PENDING;
-  } 
+  }
 };

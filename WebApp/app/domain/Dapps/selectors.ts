@@ -12,7 +12,7 @@ const selectDappsDomain = (state: ApplicationRootState) => {
 };
 
 const selectDapps = (state: ApplicationRootState) => {
-  return selectDappsDomain(state).dapps
+  return selectDappsDomain(state).dapps;
 };
 
 const selectDappsLoading = (state: ApplicationRootState) => {
@@ -55,11 +55,9 @@ export const makeSelectDapps = () =>
 
 export const makeSelectNumberOfDapps = createSelector(
   selectDapps,
-  (dapps: IDapp[]) =>  dapps.length
-)
+  (dapps: IDapp[]) => dapps.length,
+);
 
 /**
  * Default selector used by Dapps
  */
-
-

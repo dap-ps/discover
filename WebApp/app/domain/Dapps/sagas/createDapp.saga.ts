@@ -1,5 +1,9 @@
 import { take, call, put, select, race } from 'redux-saga/effects';
-import { createDappAction, setDappsLoadingAction, updateDappDataAction } from '../actions';
+import {
+  createDappAction,
+  setDappsLoadingAction,
+  updateDappDataAction,
+} from '../actions';
 import { IDapp } from '../types';
 import { defaultMultiplier, web3Keccak } from 'domain/App/blockchainContext';
 import { uploadMetadataApi, requestApprovalApi } from 'api/api';
@@ -16,12 +20,13 @@ import {
   clearAwaitTxAction,
 } from 'domain/Wallet/actions';
 import { selectWalletAddress } from 'domain/Wallet/selectors';
+import { toast } from 'react-toastify';
 
 function* createDappSaga(dapp: IDapp) {
   try {
     yield put(setDappsLoadingAction(true));
     let account = yield select(selectWalletAddress);
-    if (dapp.sntValue as number > 0) {
+    if ((dapp.sntValue as number) > 0) {
       if (account == AddressZero) {
         yield put(connectAccountAction.request());
         const { success, failure } = yield race({
@@ -31,7 +36,7 @@ function* createDappSaga(dapp: IDapp) {
         if (failure) {
           throw 'Account required';
         }
-        account = success.payload
+        account = success.payload;
       }
     }
 
@@ -57,7 +62,7 @@ function* createDappSaga(dapp: IDapp) {
 
     // Check if publishing should happen
     // This value was set in the last step of the creation form
-    if (dapp.sntValue as number > 0) {
+    if ((dapp.sntValue as number) > 0) {
       const createdTx = yield call(
         async () =>
           await DiscoverCreateDApp(
@@ -86,7 +91,7 @@ function* createDappSaga(dapp: IDapp) {
       if (success) {
         yield put(createDappAction.success(dapp));
         yield put(setDappsLoadingAction(false));
-        yield put(updateDappDataAction.request(dapp.id))
+        yield put(updateDappDataAction.request(dapp.id));
       } else {
         throw failure;
       }
@@ -100,10 +105,14 @@ function* createDappSaga(dapp: IDapp) {
     }
   } catch (error) {
     // TODO Fire toaster error
-    console.error(error);
     yield put(clearAwaitTxAction());
     yield put(createDappAction.failure(error));
     yield put(setDappsLoadingAction(false));
+    toast(error.message, {
+      type: "error",
+      autoClose: 10000,
+      pauseOnHover: true
+    })
   }
 }
 

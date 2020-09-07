@@ -15,7 +15,11 @@ import * as Yup from 'yup';
 // import { fileSizeValidation, MAX_FILE_SIZE, SUPPORTED_IMAGE_FORMATS, fileTypeValidation } from 'fileManagement';
 import { Formik } from 'formik';
 import UpdateDAppForm from 'components/views/modules/SubmitDApp/UpdateDAppForm';
-import { makeSelectDapp, makeSelectDappsLoading, makeSelectNumberOfDapps } from 'domain/Dapps/selectors';
+import {
+  makeSelectDapp,
+  makeSelectDappsLoading,
+  makeSelectNumberOfDapps,
+} from 'domain/Dapps/selectors';
 import StakeAndPublishView from 'components/views/modules/SubmitDApp/StakeAndPublishView';
 import { IDapp } from 'domain/Dapps/types';
 import { createDappAction } from 'domain/Dapps/actions';
@@ -45,13 +49,12 @@ const DAppManagementContainer: React.SFC<Props> = ({
   dappId,
   createDapp,
 }: Props) => {
-
   if (!dappId) {
     // Create DApp
-    const loading = useSelector(makeSelectDappsLoading)
-    const numberOfDapps = useSelector(makeSelectNumberOfDapps)
-    const [initialCountDapps] = useState(numberOfDapps)
-    const [sentToChain, setSentToChain] = useState(false)
+    const loading = useSelector(makeSelectDappsLoading);
+    const numberOfDapps = useSelector(makeSelectNumberOfDapps);
+    const [initialCountDapps] = useState(numberOfDapps);
+    const [sentToChain, setSentToChain] = useState(false);
 
     const [slide, setSlide] = useState<SLIDES>(SLIDES.HOW_TO);
     const [newDapp, setNewDapp] = useState<Partial<IDapp>>({
@@ -64,12 +67,12 @@ const DAppManagementContainer: React.SFC<Props> = ({
       sntValue: 0,
     });
     useEffect(() => {
-      if (slide == SLIDES.SUBMIT) { 
+      if (slide == SLIDES.SUBMIT) {
         if (numberOfDapps > initialCountDapps) {
-          setSlide(SLIDES.COMPLETE)
+          setSlide(SLIDES.COMPLETE);
         }
       }
-    }, [loading, newDapp, slide])
+    }, [loading, newDapp, slide]);
 
     const SubmitDappSchema = Yup.object().shape({
       name: Yup.string().required('Please provide a name for your Ðapp'),
@@ -126,11 +129,11 @@ const DAppManagementContainer: React.SFC<Props> = ({
             submit={(stake) => {
               setNewDapp({
                 ...newDapp,
-                sntValue: stake
-              })
+                sntValue: stake,
+              });
               createDapp(newDapp as IDapp, stake);
               if (stake > 0) {
-                setSentToChain(true)
+                setSentToChain(true);
               }
             }}
             dapp={newDapp}
@@ -138,10 +141,10 @@ const DAppManagementContainer: React.SFC<Props> = ({
         );
       case SLIDES.COMPLETE:
         return (
-          <DAppSubmittedView 
-            variant={sentToChain ? "completed" : "pending-review"}
+          <DAppSubmittedView
+            variant={sentToChain ? 'completed' : 'pending-review'}
           />
-        )
+        );
     }
   } else {
     const dapp = useSelector(makeSelectDapp(dappId));

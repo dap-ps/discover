@@ -2,7 +2,6 @@ import { getType } from 'typesafe-actions';
 import { DomainState, DomainActions } from './types';
 import {
   setLoadingAction,
-  setErrorMessageAction,
   setNetworkAction,
 } from './actions';
 
@@ -30,12 +29,6 @@ function appReducer(state = initialState, action: DomainActions) {
         ...state,
         loading: action.payload,
       };
-    case getType(setErrorMessageAction):
-      return {
-        ...state,
-        errorMessage: action.payload,
-      };
-
     default:
       return state;
   }

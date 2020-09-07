@@ -3,6 +3,7 @@ import { ITransaction } from '../types';
 import { awaitTxAction, clearAwaitTxAction } from '../actions';
 import { TRANSACTION_STATUS } from 'utils/constants';
 import { getTxStatus } from 'domain/App/blockchainContext';
+import { toast } from 'react-toastify';
 
 function* WaitForTxSaga(transaction: ITransaction) {
   try {
@@ -11,7 +12,7 @@ function* WaitForTxSaga(transaction: ITransaction) {
     while (attemptsLeft != 0) {
       status = yield call(async () => await getTxStatus(transaction.hash));
       if (status == TRANSACTION_STATUS.PENDING) {
-        yield delay(3000)
+        yield delay(3000);
         attemptsLeft--;
       } else {
         attemptsLeft = 0;
@@ -36,9 +37,12 @@ function* WaitForTxSaga(transaction: ITransaction) {
       yield put(clearAwaitTxAction());
     }
   } catch (error) {
-    yield put(
-      awaitTxAction.failure(error),
-    );
+    toast(error.message, {
+      type: "error",
+      autoClose: 10000,
+      pauseOnHover: true
+    })
+    yield put(awaitTxAction.failure(error));
   }
 }
 
