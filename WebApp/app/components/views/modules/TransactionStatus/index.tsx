@@ -18,7 +18,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { makeSelectNetwork } from 'domain/App/selectors';
 import LoadingSpinnerSVG from '../../../../images/loading-spinner.svg';
 import { TRANSACTION_STATUS } from 'utils/constants';
-import { getNetworkName } from 'domain/App/blockchainContext';
+import { getNetworkName } from 'domain/App/blockchainUtils';
 import { makeSelectTransaction } from 'domain/Wallet/selectors';
 import { clearAwaitTxAction } from 'domain/Wallet/actions';
 
@@ -93,6 +93,9 @@ const styles = (theme: Theme) =>
     },
     meta: {
       fontSize: 15,
+      "& > *:first-child": {
+        fontWeight: 600 
+      }
     },
     state: {
       marginTop: uiConstants.modal.padding.paddingTop,

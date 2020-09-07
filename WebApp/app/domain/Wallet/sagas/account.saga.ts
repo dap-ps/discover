@@ -1,6 +1,6 @@
 import { take, put, call, fork } from 'redux-saga/effects';
 import { connectAccountAction } from '../actions';
-import { getAccount, getNetworkId } from 'domain/App/blockchainContext';
+import { getAccount, getNetworkId } from 'domain/App/blockchainUtils';
 import { setNetworkAction } from 'domain/App/actions';
 import { toast } from 'react-toastify';
 

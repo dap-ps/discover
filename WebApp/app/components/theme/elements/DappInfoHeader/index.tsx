@@ -160,16 +160,16 @@ const DappInfoHeader: React.SFC<OwnProps> = ({
       <div className={classes.staked}>
         <SNTIcon />
         <Typography variant="body1" component="span">
-          {dapp.votes ? dapp.votes : dapp.sntValue}
+          {dapp.votes ? `${dapp.votes}` : `${dapp.sntValue}`}
         </Typography>
-        {changeIndicator && (
+        {!!changeIndicator && changeIndicator != 0 && (
           <span
             className={classNames(
               classes.changeIndicator,
               changeIndicator > 0 ? 'positive' : 'negative',
             )}
           >
-            {changeIndicator}
+            {`${changeIndicator}`}
           </span>
         )}
       </div>

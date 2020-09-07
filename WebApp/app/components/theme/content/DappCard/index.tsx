@@ -82,6 +82,8 @@ const styles = (theme: Theme) =>
       minWidth: 82,
       '& svg': {
         marginRight: 5,
+        height: 15,
+        width: 15,
       },
     },
     voteControls: {

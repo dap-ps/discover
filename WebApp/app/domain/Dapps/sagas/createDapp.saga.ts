@@ -5,7 +5,7 @@ import {
   updateDappDataAction,
 } from '../actions';
 import { IDapp } from '../types';
-import { defaultMultiplier, web3Keccak } from 'domain/App/blockchainContext';
+import { defaultMultiplier, web3Keccak } from 'domain/App/blockchainUtils';
 import { uploadMetadataApi, requestApprovalApi } from 'api/api';
 import {
   validateDAppCreation,
@@ -93,6 +93,7 @@ function* createDappSaga(dapp: IDapp) {
         yield put(setDappsLoadingAction(false));
         yield put(updateDappDataAction.request(dapp.id));
       } else {
+        debugger
         throw failure;
       }
     } else {
@@ -105,6 +106,7 @@ function* createDappSaga(dapp: IDapp) {
     }
   } catch (error) {
     // TODO Fire toaster error
+    console.error(error)
     yield put(clearAwaitTxAction());
     yield put(createDappAction.failure(error));
     yield put(setDappsLoadingAction(false));

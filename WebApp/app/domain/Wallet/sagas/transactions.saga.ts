@@ -2,7 +2,7 @@ import { fork, take, call, put, delay } from 'redux-saga/effects';
 import { ITransaction } from '../types';
 import { awaitTxAction, clearAwaitTxAction } from '../actions';
 import { TRANSACTION_STATUS } from 'utils/constants';
-import { getTxStatus } from 'domain/App/blockchainContext';
+import { getTxStatus } from 'domain/App/blockchainUtils';
 import { toast } from 'react-toastify';
 
 function* WaitForTxSaga(transaction: ITransaction) {
@@ -37,6 +37,8 @@ function* WaitForTxSaga(transaction: ITransaction) {
       yield put(clearAwaitTxAction());
     }
   } catch (error) {
+    console.error(error)
+    debugger
     toast(error.message, {
       type: "error",
       autoClose: 10000,

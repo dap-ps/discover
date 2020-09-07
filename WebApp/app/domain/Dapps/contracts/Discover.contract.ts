@@ -6,7 +6,7 @@ import {
   broadcastContractFn,
   ContractAddresses,
   getNetworkId,
-} from 'domain/App/blockchainContext';
+} from 'domain/App/blockchainUtils';
 import DiscoverAbi from '../../../embarkArtifacts/contracts/Discover';
 import { AddressZero } from 'ethers/constants';
 import { SNTapproveAndCall } from './SNT.contract';

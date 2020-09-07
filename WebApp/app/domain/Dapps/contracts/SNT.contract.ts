@@ -5,7 +5,7 @@ import {
   broadcastContractFn,
   getNetworkId,
   ContractAddresses,
-} from 'domain/App/blockchainContext';
+} from 'domain/App/blockchainUtils';
 import { AddressZero } from 'ethers/constants';
 import { BigNumber, bigNumberify } from 'ethers/utils';
 
