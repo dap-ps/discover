@@ -6,23 +6,17 @@ import {
   DiscoverGetDAppById,
 } from '../contracts/Discover.contract';
 import { toast } from 'react-toastify';
+import { retrieveMetadataApi } from 'api/api';
+import { getIpfsHashFromBytes32 } from 'domain/App/sagas/metadata.saga';
 
 export function* updateDappDataSaga(id: string) {
   try {
-    const rawDapp: IRawDappMeta = yield call(
-      async () => await DiscoverGetDAppById(id),
-    );
-    const dapp: IDapp = yield call(
-      async () =>
-        await DiscoverHelperGetMeta({
-          id: rawDapp.id,
-          available: parseInt(rawDapp.available),
-          uploader: rawDapp.developer,
-          votes: parseInt(rawDapp.effectiveBalance),
-          compressedMetadata: rawDapp.metadata,
-        }),
-    );
-    yield put(updateDappDataAction.success(dapp));
+    const onChainData: IRawDappMeta = yield call(async () => await DiscoverGetDAppById(id))
+    let freshDapp = {
+      ...(yield call(async () => await DiscoverGetDAppById(id))),
+      ...(yield call(async () => await retrieveMetadataApi(getIpfsHashFromBytes32(onChainData.metadata as string))))
+    }
+    yield put(updateDappDataAction.success(freshDapp));
   } catch (error) {
     console.error(error);
     // TODO if error contains connection issue, its Infura related
