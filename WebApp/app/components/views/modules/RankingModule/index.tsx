@@ -37,18 +37,26 @@ const styles = (theme: Theme) =>
     // JSS in CSS goes here
     root: {},
     rank: {
+      display: "flex",
+      flexDirection: "row",
+      justifyContent: "flex-start",
+      alignItems: "center",
+      margin: `8px 0`
+    },
+    rankIndex: {
       fontSize: 16,
       color: appColors.general.white.base,
       height: 40,
       width: 40,
+      marginRight: 16,
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
       justifyContent: 'center',
+      borderRadius: "50%",
       backgroundColor: appColors.general.red.base,
       ...categoryColors,
     },
-    rankIndex: {},
   });
 
 interface OwnProps extends WithStyles<typeof styles> {
@@ -60,7 +68,7 @@ const RankingModule: React.SFC<OwnProps> = ({ classes, dapp }: OwnProps) => {
   const categoryRanking = useSelector(makeSelectCategoryRanking(dapp));
   return (
     <article className={classes.root}>
-      <section>
+      <section className={classes.rank}>
         <div className={classNames(classes.rankIndex, dapp.category)}>
           {categoryRanking}
         </div>
@@ -68,7 +76,7 @@ const RankingModule: React.SFC<OwnProps> = ({ classes, dapp }: OwnProps) => {
           №{categoryRanking} in {DAPP_CATEGORY_STRINGS[dapp.category]}
         </Typography>
       </section>
-      <section>
+      <section className={classes.rank}>
         <div className={classes.rankIndex}>{ranking}</div>
         <Typography>№{ranking} in highest ranked DApps</Typography>
       </section>

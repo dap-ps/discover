@@ -70,21 +70,21 @@ export const makeSelectNumberOfDapps = createSelector(
 
 export const makeSelectOverallRanking = (targetDapp: IDapp) =>
   createSelector(selectDapps, (dapps: IDapp[]) => {
-    return dapps
+    return (dapps
       .sort((dapp0: IDapp, dapp1: IDapp) =>
         dapp0.votes > dapp1.votes ? -1 : +1,
       )
-      .findIndex((dapp: IDapp) => dapp.id == targetDapp.id);
+      .findIndex((dapp: IDapp) => dapp.id == targetDapp.id)) + 1;
   });
 
 export const makeSelectCategoryRanking = (targetDapp: IDapp) =>
   createSelector(selectDapps, (dapps: IDapp[]) => {
-    return dapps
+    return (dapps
       .filter((dapp: IDapp) => dapp.category == targetDapp.category)
       .sort((dapp0: IDapp, dapp1: IDapp) =>
         dapp0.votes > dapp1.votes ? -1 : +1,
       )
-      .findIndex((dapp: IDapp) => dapp.id == targetDapp.id);
+      .findIndex((dapp: IDapp) => dapp.id == targetDapp.id)) + 1;
   });
 
 /**
