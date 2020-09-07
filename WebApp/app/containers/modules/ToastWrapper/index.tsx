@@ -16,16 +16,18 @@ const styles = (theme: Theme) =>
 
 interface OwnProps extends WithStyles<typeof styles> {}
 
-const ToastWrapper: React.SFC<OwnProps> = ({  }: OwnProps) => {
-  return <ToastContainer 
-    autoClose={5000}
-    hideProgressBar={false}
-    newestOnTop={false}
-    closeOnClick
-    rtl={false}
-    draggable
-    pauseOnHover 
-  />
+const ToastWrapper: React.SFC<OwnProps> = ({}: OwnProps) => {
+  return (
+    <ToastContainer
+      autoClose={5000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      draggable
+      pauseOnHover
+    />
+  );
 };
 
 export default withStyles(styles, { withTheme: true })(ToastWrapper);

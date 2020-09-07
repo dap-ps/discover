@@ -1,9 +1,6 @@
 import { getType } from 'typesafe-actions';
 import { DomainState, DomainActions } from './types';
-import {
-  setLoadingAction,
-  setNetworkAction,
-} from './actions';
+import { setLoadingAction, setNetworkAction } from './actions';
 
 /*
  *

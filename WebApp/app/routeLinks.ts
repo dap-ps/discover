@@ -4,7 +4,8 @@ import {
   DAPP_LIST,
 } from 'utils/constants';
 
-export const urlify = (input: string) => !!input ? input.replace(' ','-').toLowerCase() : input
+export const urlify = (input: string) =>
+  !!input ? input.replace(' ', '-').toLowerCase() : input;
 
 export const ROUTE_LINKS = {
   Home: `/`,
@@ -12,8 +13,10 @@ export const ROUTE_LINKS = {
   Discover: (dappname: string | ':dappname') => `/discover/${urlify(dappname)}`,
   UpdateDApp: (dappname: string) => `/discover/${urlify(dappname)}/update`,
 
-  Vote: (dappname: string | ':dappname', voteType: 'upvote' | 'downvote' | ':voteType') =>
-    `/vote/${urlify(dappname)}/${voteType}`,
+  Vote: (
+    dappname: string | ':dappname',
+    voteType: 'upvote' | 'downvote' | ':voteType',
+  ) => `/vote/${urlify(dappname)}/${voteType}`,
   HowToVote: '/how-to-vote',
 
   categories: {

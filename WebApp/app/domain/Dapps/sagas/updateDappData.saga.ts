@@ -24,14 +24,14 @@ export function* updateDappDataSaga(id: string) {
     );
     yield put(updateDappDataAction.success(dapp));
   } catch (error) {
-    console.error(error)
+    console.error(error);
     // TODO if error contains connection issue, its Infura related
     // TODO  Network check
     toast(error.message, {
-      type: "error",
+      type: 'error',
       autoClose: 10000,
-      pauseOnHover: true
-    })
+      pauseOnHover: true,
+    });
     yield put(updateDappDataAction.failure(error));
   }
 }

@@ -44,8 +44,8 @@ const styles = (theme: Theme) =>
       '& img': {
         width: uiConstants.dapps.card.iconSize,
         height: uiConstants.dapps.card.iconSize,
-        display: "block",
-        overflow: "hidden"
+        display: 'block',
+        overflow: 'hidden',
       },
       '& svg': {
         width: uiConstants.dapps.card.reviewedSize,
@@ -122,7 +122,9 @@ const DappCard: React.SFC<OwnProps> = ({
   dapp,
   onClick,
 }: OwnProps) => {
-  const dappIconUrl = dapp.icon?.includes("base64") ? dapp.icon : generateUri(dapp.icon)
+  const dappIconUrl = dapp.icon?.includes('base64')
+    ? dapp.icon
+    : generateUri(dapp.icon);
   return (
     <article className={classNames(classes.root, onClick ? 'clickable' : '')}>
       <div onClick={() => (onClick ? onClick() : null)}>

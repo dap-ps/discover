@@ -12,10 +12,10 @@ function* downvoteSaga(dappIdentifier: string) {
     yield put(downvoteDappAction.success(updatedDappData));
   } catch (error) {
     toast(error.message, {
-      type: "error",
+      type: 'error',
       autoClose: 10000,
-      pauseOnHover: true
-    })
+      pauseOnHover: true,
+    });
     yield put(downvoteDappAction.failure(error));
   }
 }

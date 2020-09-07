@@ -159,7 +159,7 @@ const Landing: React.SFC<OwnProps> = (props: OwnProps) => {
       <Carousel
         arrows={true}
         providerProps={
-          large 
+          large
             ? largeCarouselSettings
             : desktop
             ? desktopCarouselSettings
@@ -186,16 +186,18 @@ const Landing: React.SFC<OwnProps> = (props: OwnProps) => {
           </Link>
         </div>
         <div className={classes.categories}>
-          {Object.keys(DAPP_CATEGORY_STRINGS).map((key: string, index: number) => (
-            <Link
-              to={ROUTE_LINKS.categories[key]}
-              key={`${index}-${key}`}
-              className={classNames(classes.category, `${key}`)}
-            >
-              {DAPP_CATEGORY_ICONS[key].base({})}
-              <span>{DAPP_CATEGORY_STRINGS[key]}</span>
-            </Link>
-          ))}
+          {Object.keys(DAPP_CATEGORY_STRINGS).map(
+            (key: string, index: number) => (
+              <Link
+                to={ROUTE_LINKS.categories[key]}
+                key={`${index}-${key}`}
+                className={classNames(classes.category, `${key}`)}
+              >
+                {DAPP_CATEGORY_ICONS[key].base({})}
+                <span>{DAPP_CATEGORY_STRINGS[key]}</span>
+              </Link>
+            ),
+          )}
         </div>
       </section>
       <section className={classes.content}>
@@ -208,7 +210,11 @@ const Landing: React.SFC<OwnProps> = (props: OwnProps) => {
           {dapps
             .sort((dapp0, dapp1) => (dapp0.votes > dapp1.votes ? -1 : +1))
             .map((dapp: IDapp, index: number) => (
-              <DappCard onClick={() => forwardTo(ROUTE_LINKS.Discover(dapp.name))} key={`dapp-${index}-${dapp.name}`} dapp={dapp} />
+              <DappCard
+                onClick={() => forwardTo(ROUTE_LINKS.Discover(dapp.name))}
+                key={`dapp-${index}-${dapp.name}`}
+                dapp={dapp}
+              />
             ))}
         </GridCarousel>
       </section>
@@ -224,7 +230,11 @@ const Landing: React.SFC<OwnProps> = (props: OwnProps) => {
               dapp1.dateAdded > dapp2.dateAdded ? -1 : +1,
             )
             .map((dapp: IDapp, index: number) => (
-              <DappCard onClick={() => forwardTo(ROUTE_LINKS.Discover(dapp.name))} key={`dapp-${index}-${dapp.name}`} dapp={dapp} />
+              <DappCard
+                onClick={() => forwardTo(ROUTE_LINKS.Discover(dapp.name))}
+                key={`dapp-${index}-${dapp.name}`}
+                dapp={dapp}
+              />
             ))}
         </GridCarousel>
       </section>

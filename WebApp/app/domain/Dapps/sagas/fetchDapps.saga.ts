@@ -44,12 +44,12 @@ export function* fetchDappsSaga() {
       ]),
     );
   } catch (error) {
-    console.error(error)
+    console.error(error);
     toast(error.message, {
-      type: "error",
+      type: 'error',
       autoClose: 10000,
-      pauseOnHover: true
-    })
+      pauseOnHover: true,
+    });
     // TODO if error contains connection issue, its Infura related
     // TODO  Network check
     yield put(fetchDappsAction.failure(error));

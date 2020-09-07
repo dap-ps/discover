@@ -18,11 +18,17 @@ import { DAPP_STATUS } from 'utils/constants';
 import { appColors, brandColors } from 'theme';
 import ReviewBadgeIcon from '../../../../images/icons/reviewBadge.svg';
 import { generateUri } from 'api/apiUrlBuilder';
+import RankingModule from '../RankingModule';
+import LoadingIcon from 'components/theme/elements/LoadingIcon';
 
 const styles = (theme: Theme) =>
   createStyles({
     // JSS in CSS goes here
-    root: {},
+    root: {
+      [theme.breakpoints.up('sm')]: {
+        minWidth: 400,
+      },
+    },
     header: {
       display: 'flex',
       flexDirection: 'column',
@@ -54,8 +60,8 @@ const styles = (theme: Theme) =>
         objectFit: 'contain',
         height: '100%',
         width: '100%',
-        overflow: "hidden",
-        borderRadius: "50%"
+        overflow: 'hidden',
+        borderRadius: '50%',
       },
     },
     button: {
@@ -86,61 +92,79 @@ const styles = (theme: Theme) =>
         marginRight: 5,
       },
     },
+    loading: {
+      padding: 40,
+      "& svg": {
+        height: 40,
+        width: 40
+      }
+    }
   });
 
 interface OwnProps extends WithStyles<typeof styles> {
-  dapp: IDapp;
+  dapp?: IDapp;
 }
 
 const DiscoverDappView: React.SFC<OwnProps> = ({ classes, dapp }: OwnProps) => {
-  const dappIconUrl = dapp.icon?.includes("base64") ? dapp.icon : generateUri(dapp.icon)
-  return (
-    <article className={classes.root}>
-      <header className={classes.header}>
-        <div className={classes.logo}>
-          <img src={dappIconUrl} alt={`${dapp.name}-banner`} />
-        </div>
-        <Typography variant="h1" component="h1">
-          {dapp.name}
-        </Typography>
-        <Typography variant="h4" component="h2">
-          {dapp.category.toLowerCase()}
-        </Typography>
-        <a href={dapp.url} rel="ugc" target="_blank">
-          <Button size="large" className={classes.button} variant="outlined">
-            Open
-          </Button>
-        </a>
-      </header>
-      <section>
-        <section className={classes.section}>
-          <Typography component="h4">Description</Typography>
-          <Typography component="p">{dapp.desc}</Typography>
-        </section>
-        <section className={classes.section}>
-          <Typography component="h4">URL</Typography>
-          <a href={dapp.url} rel="ugc" target="_blank">
-            {dapp.url}
-            {' →'}
-          </a>
-        </section>
-        {dapp.status == DAPP_STATUS.APPROVED && (
-          <Fragment>
-            <section className={classes.section}>
-              <div className={classes.reviewBadge}>
-                <ReviewBadgeIcon />
-                <Typography component="span">Reviewed</Typography>
-              </div>
-            </section>
-            <section className={classes.section}>
-              <Typography component="h4">Rankings</Typography>
-              <Typography component="p">Ranking checker module</Typography>
-            </section>
-          </Fragment>
-        )}
+  if (!dapp) {
+    return (
+      <section className={classes.loading}>
+        <LoadingIcon />
       </section>
-    </article>
-  );
+    )
+  } else {
+    const dappIconUrl = dapp.icon?.includes('base64')
+      ? dapp.icon
+      : generateUri(dapp.icon);
+    return (
+      <article className={classes.root}>
+        <header className={classes.header}>
+          <div className={classes.logo}>
+            <img src={dappIconUrl} alt={`${dapp.name}-banner`} />
+          </div>
+          <Typography variant="h1" component="h1">
+            {dapp.name}
+          </Typography>
+          <Typography variant="h4" component="h2">
+            {dapp.category.toLowerCase()}
+          </Typography>
+          <a href={dapp.url} rel="ugc" target="_blank">
+            <Button size="large" className={classes.button} variant="outlined">
+              Open
+            </Button>
+          </a>
+        </header>
+        <section>
+          <section className={classes.section}>
+            <Typography component="h4">Description</Typography>
+            <Typography component="p">{dapp.desc}</Typography>
+          </section>
+          <section className={classes.section}>
+            <Typography component="h4">URL</Typography>
+            <a href={dapp.url} rel="ugc" target="_blank">
+              {dapp.url}
+              {' →'}
+            </a>
+          </section>
+          {dapp.status == DAPP_STATUS.APPROVED && (
+            <Fragment>
+              <section className={classes.section}>
+                <div className={classes.reviewBadge}>
+                  <ReviewBadgeIcon />
+                  <Typography component="span">Reviewed</Typography>
+                </div>
+              </section>
+              <section className={classes.section}>
+                <Typography component="h4">Rankings</Typography>
+                <RankingModule dapp={dapp} />
+              </section>
+            </Fragment>
+          )}
+        </section>
+      </article>
+    );
+  }
+ 
 };
 
 export default withStyles(styles, { withTheme: true })(DiscoverDappView);

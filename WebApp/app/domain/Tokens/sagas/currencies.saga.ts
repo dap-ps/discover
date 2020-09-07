@@ -54,10 +54,10 @@ function* getBalancesSaga() {
       yield put(getPricesAction.request());
     } catch (error) {
       toast(error.message, {
-        type: "error",
+        type: 'error',
         autoClose: 10000,
-        pauseOnHover: true
-      })
+        pauseOnHover: true,
+      });
       yield put(getBalancesAction.failure(error));
     }
   }

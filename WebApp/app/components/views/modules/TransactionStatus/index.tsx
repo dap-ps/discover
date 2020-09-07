@@ -93,9 +93,9 @@ const styles = (theme: Theme) =>
     },
     meta: {
       fontSize: 15,
-      "& > *:first-child": {
-        fontWeight: 600 
-      }
+      '& > *:first-child': {
+        fontWeight: 600,
+      },
     },
     state: {
       marginTop: uiConstants.modal.padding.paddingTop,

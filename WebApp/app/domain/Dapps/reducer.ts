@@ -39,10 +39,10 @@ function dappsReducer(
         dapps: [...state.dapps, action.payload],
       };
     case getType(fetchDappsAction.success):
-      return  {
+      return {
         ...state,
-        dapps: action.payload
-      }
+        dapps: action.payload,
+      };
     case getType(setDappsLoadingAction):
       return {
         ...state,

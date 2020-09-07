@@ -93,7 +93,7 @@ function* createDappSaga(dapp: IDapp) {
         yield put(setDappsLoadingAction(false));
         yield put(updateDappDataAction.request(dapp.id));
       } else {
-        debugger
+        debugger;
         throw failure;
       }
     } else {
@@ -106,15 +106,15 @@ function* createDappSaga(dapp: IDapp) {
     }
   } catch (error) {
     // TODO Fire toaster error
-    console.error(error)
+    console.error(error);
     yield put(clearAwaitTxAction());
     yield put(createDappAction.failure(error));
     yield put(setDappsLoadingAction(false));
     toast(error.message, {
-      type: "error",
+      type: 'error',
       autoClose: 10000,
-      pauseOnHover: true
-    })
+      pauseOnHover: true,
+    });
   }
 }
 

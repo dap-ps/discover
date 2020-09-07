@@ -16,7 +16,7 @@ import { fetchDappsAction } from 'domain/Dapps/actions';
 interface OwnProps {}
 
 interface DispatchProps {
-  fetchDapps: () => void
+  fetchDapps: () => void;
 }
 
 interface RouteParams {
@@ -31,8 +31,10 @@ const DiscoverDappModule: React.SFC<Props> = ({}: Props) => {
     strict: true,
     sensitive: true,
   });
-  const dapp = useSelector(makeSelectDappByName(match?.params.dappname as string));
-  return dapp ? <DiscoverDappView dapp={dapp} /> : <></>;
+  const dapp = useSelector(
+    makeSelectDappByName(match?.params.dappname as string),
+  );
+  return (<DiscoverDappView dapp={dapp} />)
 };
 
 const mapDispatchToProps = (
@@ -41,8 +43,8 @@ const mapDispatchToProps = (
 ): DispatchProps => {
   return {
     fetchDapps: () => {
-      dispatch(fetchDappsAction.request())
-    }
+      dispatch(fetchDappsAction.request());
+    },
   };
 };
 

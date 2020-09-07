@@ -12,10 +12,10 @@ function* upvoteSaga(voteData: IDappVote) {
     yield put(updateDappAction.success(updatedDappData));
   } catch (error) {
     toast(error.message, {
-      type: "error",
+      type: 'error',
       autoClose: 10000,
-      pauseOnHover: true
-    })
+      pauseOnHover: true,
+    });
     yield put(updateDappAction.failure(error));
   }
 }

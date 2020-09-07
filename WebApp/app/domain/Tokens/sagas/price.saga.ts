@@ -36,10 +36,10 @@ function* resolvePricesSaga() {
       );
     } catch (error) {
       toast(error.message, {
-        type: "error",
+        type: 'error',
         autoClose: 10000,
-        pauseOnHover: true
-      })
+        pauseOnHover: true,
+      });
       yield put(getPricesAction.failure(error));
     }
   }

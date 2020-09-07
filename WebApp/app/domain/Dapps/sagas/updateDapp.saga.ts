@@ -9,10 +9,10 @@ function* updateDappSaga(dapp: IDapp) {
     yield put(updateDappAction.success(dapp));
   } catch (error) {
     toast(error.message, {
-      type: "error",
+      type: 'error',
       autoClose: 10000,
-      pauseOnHover: true
-    })
+      pauseOnHover: true,
+    });
     yield put(updateDappAction.failure(error));
   }
 }
