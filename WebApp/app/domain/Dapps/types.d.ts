@@ -16,6 +16,23 @@ export interface IRawDappMeta {
   votesMinted: string;
 }
 
+export interface ICachedDapp {
+  compressedMetadata: string;
+  details: {
+    category: string;
+    dateAdded: number;
+    description: string;
+    image: string;
+    name: string;
+    uploader: string;
+    url: string;
+  };
+  email: string;
+  hash: string;
+  ipfsHash: string;
+  status: DAPP_STATUS;
+}
+
 export interface IDappVote {
   identifier: string;
   token: string;

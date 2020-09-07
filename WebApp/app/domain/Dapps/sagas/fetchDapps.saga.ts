@@ -1,18 +1,26 @@
 import { fetchDappsAction } from '../actions';
 import { take, put, call, fork } from 'redux-saga/effects';
-import { IRawDappMeta, IDapp } from '../types';
+import { IRawDappMeta, IDapp, ICachedDapp } from '../types';
 import {
   DiscoverGetDAppsCount,
   DiscoverGetDAppsMeta,
-  DiscoverHelperGetMeta,
+  DiscoverICachedDappToIDapp,
+  DiscoverIRawDappMetaToIDapp,
 } from '../contracts/Discover.contract';
 import { toast } from 'react-toastify';
+import { retrieveAllDappsMetadataApi } from 'api/api';
+import { getIpfsHashFromBytes32 } from 'domain/App/sagas/metadata.saga';
 
 export function* fetchDappsSaga() {
   try {
     const contractDappsCount: number = yield call(
       async () => await DiscoverGetDAppsCount(),
     );
+
+    const fetchedMeta: {
+      [hash: string]: ICachedDapp
+    } = yield call(async () => (await retrieveAllDappsMetadataApi()).data)
+
     const rawDapps: IRawDappMeta[] = yield call(
       async () =>
         await Promise.all([
@@ -21,27 +29,17 @@ export function* fetchDappsSaga() {
             .map((value, id: number) => DiscoverGetDAppsMeta(id)),
         ]),
     );
-    const partialDapps: Partial<IDapp>[] = rawDapps.map(
-      (rawDapp: IRawDappMeta) => ({
-        id: rawDapp.id,
-        available: parseInt(rawDapp.available),
-        uploader: rawDapp.developer,
-        votes: parseInt(rawDapp.effectiveBalance),
-        compressedMetadata: rawDapp.metadata,
-      }),
-    );
+    
+    const dapps: Partial<IDapp>[] = rawDapps.map((rawDapp: IRawDappMeta) => {
+      const onChainData: ICachedDapp | undefined = fetchedMeta[getIpfsHashFromBytes32(rawDapp.metadata)]
+      return { 
+        ...DiscoverIRawDappMetaToIDapp(rawDapp),
+        ...(onChainData && DiscoverICachedDappToIDapp(onChainData))
+      }
+    })
 
     yield put(
-      fetchDappsAction.success([
-        ...(yield call(
-          async () =>
-            await Promise.all([
-              ...partialDapps.map((dapp: Partial<IDapp>) =>
-                DiscoverHelperGetMeta(dapp),
-              ),
-            ]),
-        )),
-      ]),
+      fetchDappsAction.success(dapps as IDapp[]),
     );
   } catch (error) {
     console.error(error);

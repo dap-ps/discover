@@ -19,7 +19,6 @@ import React, { useState, useCallback } from 'react';
 import classNames from 'classnames';
 import Cropper from 'react-easy-crop';
 import { appColors, uiConstants, brandColors } from 'theme';
-import { hashMessage } from 'ethers/utils';
 
 const styles = ({ breakpoints, palette }: Theme) =>
   createStyles({
