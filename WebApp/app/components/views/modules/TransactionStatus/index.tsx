@@ -138,7 +138,6 @@ const TransactionStatus: React.SFC<OwnProps> = ({ classes }: OwnProps) => {
     setActive(false);
     dispatch(clearAwaitTxAction());
   };
-  console.log(transaction);
 
   return (
     <div

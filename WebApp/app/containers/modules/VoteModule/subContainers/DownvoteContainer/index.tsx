@@ -9,32 +9,30 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose, Dispatch } from 'redux';
 import DownvoteView from 'components/views/modules/voteModule/DownvoteView';
-import { makeSelectDapp } from 'domain/Dapps/selectors';
 import { ApplicationRootState } from 'types';
 import { RootState } from 'domain/App/types';
 import { IDapp } from 'domain/Dapps/types';
+import { downvoteDappAction } from 'domain/Dapps/actions';
 
 interface OwnProps {
-  dappID: string;
+  dapp: IDapp
 }
 
 interface DispatchProps {
-  downvote: (dappId: string) => void;
+  downvote: (dapp: IDapp) => void;
 }
 
 interface StateProps {
-  dapp: IDapp | undefined;
 }
 
 type Props = StateProps & DispatchProps & OwnProps;
 
 const DownvoteContainer: React.SFC<Props> = ({ dapp, downvote }: Props) => {
-  return dapp ? <DownvoteView downvote={downvote} dapp={dapp} /> : <></>;
+  return <DownvoteView downvote={downvote} dapp={dapp} />
 };
 
 const mapStateToProps = (state: ApplicationRootState, props: OwnProps) =>
   createStructuredSelector<RootState, StateProps>({
-    dapp: makeSelectDapp(props.dappID),
   });
 
 const mapDispatchToProps = (
@@ -42,9 +40,14 @@ const mapDispatchToProps = (
   ownProps: OwnProps,
 ): DispatchProps => {
   return {
-    downvote: (dappId: string) => {
+    downvote: (dapp: IDapp) => {
       // TODO: wire to saga
-      console.log('downvote', dappId);
+      dispatch(downvoteDappAction.request({
+        desc: dapp.desc,
+        icon: dapp.icon,
+        id: dapp.id,
+        name: dapp.name
+      }));
     },
   };
 };

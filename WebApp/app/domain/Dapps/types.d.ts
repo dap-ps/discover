@@ -35,8 +35,8 @@ export interface ICachedDapp {
 
 export interface IDappVote {
   id: string;
-  token: string;
-  amount: number;
+  token?: string;
+  amount?: number;
   icon: string
   name: string
   desc: string

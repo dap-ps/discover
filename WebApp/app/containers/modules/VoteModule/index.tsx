@@ -22,7 +22,7 @@ interface DispatchProps {}
 interface StateProps {}
 
 interface RouteParams {
-  dappID: string;
+  dappname: string;
   voteType: string;
 }
 
@@ -30,15 +30,15 @@ type Props = StateProps & DispatchProps & OwnProps;
 
 const VoteModule: React.SFC<Props> = ({}: Props) => {
   const match: match<RouteParams> | null = useRouteMatch({
-    path: ROUTE_LINKS.Vote(':dappID', ':voteType'),
+    path: ROUTE_LINKS.Vote(':dappname', ':voteType'),
     strict: true,
     sensitive: true,
   });
 
-  return match?.params.dappID && match.params.voteType ? (
+  return match?.params.dappname && match.params.voteType ? (
     <VoteModuleView
       upvote={match?.params.voteType == 'upvote' ? true : false}
-      dappID={match?.params.dappID}
+      dappname={match?.params.dappname}
     />
   ) : (
     <Fragment />

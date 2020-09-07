@@ -5,10 +5,10 @@ import { toast } from 'react-toastify';
 import { awaitTxAction } from 'domain/Wallet/actions';
 import { TRANSACTION_STATUS } from 'utils/constants';
 import { DiscoverWithdraw, DiscoverWithdrawMax } from '../contracts/Discover.contract';
+import { generateUri } from 'api/apiUrlBuilder';
 
 function* withdrawSaga(withdrawRequest: IWithdrawRequest) {
   try {
-    // TODO: Wire up actions
     yield put(setDappsLoadingAction(true));
 
     const withdrawTx = yield call(
@@ -22,7 +22,9 @@ function* withdrawSaga(withdrawRequest: IWithdrawRequest) {
         )
     yield put(
       awaitTxAction.request({
-        iconSrc: withdrawRequest.icon,
+        iconSrc: withdrawRequest.icon.includes('base64')
+          ? withdrawRequest.icon
+          : generateUri(withdrawRequest.icon),
         hash: withdrawTx,
         state: TRANSACTION_STATUS.PENDING,
         heading: withdrawRequest.name,

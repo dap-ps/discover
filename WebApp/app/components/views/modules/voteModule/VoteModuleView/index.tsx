@@ -14,6 +14,9 @@ import { Link, useLocation } from 'react-router-dom';
 import { appColors } from 'theme';
 import UpvoteArrow from '../../../../../images/icons/upvote-arrow.svg';
 import DownvoteArrow from '../../../../../images/icons/downvote-arrow.svg';
+import { useSelector } from 'react-redux';
+import { makeSelectDappByName } from 'domain/Dapps/selectors';
+import { IDapp } from 'domain/Dapps/types';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -95,36 +98,37 @@ const styles = (theme: Theme) =>
 
 interface OwnProps extends WithStyles<typeof styles> {
   upvote: boolean;
-  dappID: string;
+  dappname: string;
 }
 
 const VoteModuleView: React.SFC<OwnProps> = ({
   classes,
   upvote,
-  dappID,
+  dappname,
 }: OwnProps) => {
   const location = useLocation();
+  const dapp: IDapp | undefined = useSelector(makeSelectDappByName(dappname))
   return (
     <article className={classes.root}>
       <header className={classes.header}>
         <Link
           className={
-            location.pathname == ROUTE_LINKS.Vote(dappID, 'upvote')
+            location.pathname == ROUTE_LINKS.Vote(dappname, 'upvote')
               ? 'active'
               : ''
           }
-          to={ROUTE_LINKS.Vote(dappID, 'upvote')}
+          to={ROUTE_LINKS.Vote(dappname, 'upvote')}
         >
           <UpvoteArrow />
           Upvote
         </Link>
         <Link
           className={
-            location.pathname == ROUTE_LINKS.Vote(dappID, 'downvote')
+            location.pathname == ROUTE_LINKS.Vote(dappname, 'downvote')
               ? 'active'
               : ''
           }
-          to={ROUTE_LINKS.Vote(dappID, 'downvote')}
+          to={ROUTE_LINKS.Vote(dappname, 'downvote')}
         >
           <DownvoteArrow />
           Downvote
@@ -134,10 +138,14 @@ const VoteModuleView: React.SFC<OwnProps> = ({
         className={classNames(classes.viewArea, upvote ? 'upvote' : 'downvote')}
       >
         <div>
-          <UpvoteContainer dappID={dappID} />
+          {
+            dapp && <UpvoteContainer dapp={dapp} />
+          }
         </div>
         <div>
-          <DownvoteContainer dappID={dappID} />
+          {
+            dapp && <DownvoteContainer dapp={dapp} />
+          }
         </div>
       </div>
     </article>

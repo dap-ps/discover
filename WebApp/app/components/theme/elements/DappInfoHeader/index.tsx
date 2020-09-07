@@ -17,6 +17,7 @@ import SNTIcon from '../../../../images/icons/SNT.svg';
 import { uiConstants, appColors } from 'theme';
 import { DAPP_CATEGORY_STRINGS, DAPP_CATEGORY_ICONS } from 'utils/constants';
 import classNames from 'classnames';
+import { generateUri } from 'api/apiUrlBuilder';
 
 let categoryColors = {};
 Object.keys(DAPP_CATEGORY_STRINGS).map((key) => {
@@ -49,6 +50,9 @@ const styles = (theme: Theme) =>
       alignItems: 'center',
       '& img': {
         width: 24,
+        height: 24,
+        borderRadius: "50%",
+        overflow: "hidden",
         marginRight: 15,
       },
       '& span': {
@@ -142,16 +146,19 @@ const DappInfoHeader: React.SFC<OwnProps> = ({
   changeIndicator,
   className = '',
 }: OwnProps) => {
+  const dappIconUrl = dapp.icon?.includes('base64')
+    ? dapp.icon
+    : generateUri(dapp.icon);
   return (
     <section className={classNames(classes.root, className)}>
       <div className={classes.title}>
-        {dapp.icon.includes('base64') ? (
+        {dappIconUrl.includes('base64') ? (
           <div
             className={classes.tempIcon}
-            style={{ backgroundImage: `url(${dapp.icon})` }}
+            style={{ backgroundImage: `url(${dappIconUrl})` }}
           />
         ) : (
-          <img src={dapp.icon} alt={`${dapp.name}-icon`} />
+          <img src={dappIconUrl} alt={`${dapp.name}-icon`} />
         )}
         <Typography variant="body1" component="span">
           {dapp.name}

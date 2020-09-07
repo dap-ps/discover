@@ -92,19 +92,21 @@ const styles = (theme: Theme) =>
   });
 
 interface OwnProps extends WithStyles<typeof styles> {
-  downvote: (dappId: string) => void;
+  downvote: (dapp: IDapp) => void;
   dapp: IDapp;
+  cost: number
 }
 
 const DownvoteForm: React.SFC<OwnProps> = ({
   classes,
   downvote,
   dapp,
+  cost
 }: OwnProps) => {
   return (
     <article className={classes.root}>
       <section className={classes.inputSection}>
-        <span>{dapp.downvoteCost}</span>
+        <span>{cost}</span>
         <span className={classes.tokenLabel}>{TOKENS.SNT}</span>
       </section>
       <section className={classes.information}>
@@ -117,7 +119,7 @@ const DownvoteForm: React.SFC<OwnProps> = ({
       </section>
       <section className={classes.ctas}>
         <Button
-          onClick={() => downvote(dapp.ipfsHash as string)}
+          onClick={() => downvote(dapp)}
           variant="outlined"
           type="button"
         >

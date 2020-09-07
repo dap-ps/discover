@@ -96,7 +96,7 @@ const styles = (theme: Theme) =>
   });
 
 interface OwnProps extends WithStyles<typeof styles> {
-  upvote: (dappId: string, amount: number, token: TOKENS) => void;
+  upvote: (dapp: IDapp, amount: number, token: TOKENS) => void;
   dapp: IDapp;
 }
 
@@ -122,7 +122,7 @@ const UpvoteForm: React.SFC<OwnProps> = ({
       }}
       validationSchema={UpvoteSchema}
       onSubmit={(values, actions) => {
-        upvote(`${dapp.ipfsHash}`, values.amount, token);
+        upvote(dapp, values.amount, token);
       }}
       render={({ submitForm }) => (
         <Form className={classes.root}>
@@ -144,7 +144,7 @@ const UpvoteForm: React.SFC<OwnProps> = ({
             </Typography>
           </section>
           <section className={classes.ctas}>
-            <Button variant="outlined" type="submit">
+            <Button variant="outlined" onClick={() => submitForm()}>
               Upvote
             </Button>
           </section>

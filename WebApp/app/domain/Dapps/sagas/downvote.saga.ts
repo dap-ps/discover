@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import { DiscoverDownVote } from '../contracts/Discover.contract';
 import { awaitTxAction } from 'domain/Wallet/actions';
 import { TRANSACTION_STATUS } from 'utils/constants';
+import { generateUri } from 'api/apiUrlBuilder';
 
 function* downvoteSaga(voteData: IDappVote) {
   try {
@@ -12,7 +13,9 @@ function* downvoteSaga(voteData: IDappVote) {
     const downVoteTx = yield call(async () => await DiscoverDownVote(voteData.id))
     yield put(
       awaitTxAction.request({
-        iconSrc: voteData.icon,
+        iconSrc: voteData.icon.includes('base64')
+          ? voteData.icon
+          : generateUri(voteData.icon),
         hash: downVoteTx,
         state: TRANSACTION_STATUS.PENDING,
         heading: voteData.name,

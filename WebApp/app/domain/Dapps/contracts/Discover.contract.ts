@@ -21,8 +21,9 @@ export const DiscoverUpVoteEffect = async (id: string, amount: number) => {
     DiscoverAbi,
     ContractAddresses[await getNetworkId()].DISCOVER,
   );
+  debugger
   await validateUpVoteEffect(id, amount);
-
+  debugger
   return await DiscoverContract.methods
     .upvoteEffect(id, tokenAmount.toString())
     .call({ from: AddressZero });
@@ -182,7 +183,6 @@ export const DiscoverUpVote = async (id: string, amount: number) => {
     ContractAddresses[await getNetworkId()].DISCOVER,
   );
   const tokenAmount = defaultMultiplier.mul(bigNumberify(amount));
-  await validateUpVoting(id, tokenAmount.toNumber());
 
   const callData = DiscoverContract.methods
     .upvote(id, tokenAmount.toString())
@@ -283,13 +283,10 @@ export const DiscoverWithdrawMax = async (dappId: string) => {
 
 export const validateUpVoteEffect = async (id: string, amount: number) => {
   const dapp = await DiscoverGetDAppById(id);
-
   const safeMax = await DiscoverSafeMax();
   // Potential overflow issue from existing code
   if (
-    Number(dapp.balance) +
-      bigNumberify(amount).div(defaultMultiplier).toNumber() >
-    safeMax
+    Number(dapp.balance) + amount > Number(safeMax)
   ) {
     throw new Error(
       `You cannot upvote by this much, try with a lower amount. Maximum upvote amount: 

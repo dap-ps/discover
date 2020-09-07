@@ -5,17 +5,18 @@ import { toast } from 'react-toastify';
 import { validateUpVoting, DiscoverUpVote } from '../contracts/Discover.contract';
 import { awaitTxAction } from 'domain/Wallet/actions';
 import { TRANSACTION_STATUS } from 'utils/constants';
+import { generateUri } from 'api/apiUrlBuilder';
 
 function* upvoteSaga(voteData: IDappVote) {
   try {
-    // TODO: Wire up actions
     yield put(setDappsLoadingAction(true));
-    yield call(async () => await validateUpVoting(voteData.id, voteData.amount))
-
-    const upvoteTx = yield call(async () => await DiscoverUpVote(voteData.id, voteData.amount))
+    yield call(async () => await validateUpVoting(voteData.id, voteData.amount as number))
+    const upvoteTx = yield call(async () => await DiscoverUpVote(voteData.id, voteData.amount as number))
     yield put(
       awaitTxAction.request({
-        iconSrc: voteData.icon,
+        iconSrc: voteData.icon.includes('base64')
+          ? voteData.icon
+          : generateUri(voteData.icon),
         hash: upvoteTx,
         state: TRANSACTION_STATUS.PENDING,
         heading: voteData.name,
@@ -35,6 +36,7 @@ function* upvoteSaga(voteData: IDappVote) {
       throw failure;
     }
   } catch (error) {
+    console.error(error)
     toast(error.message, {
       type: 'error',
       autoClose: 10000,

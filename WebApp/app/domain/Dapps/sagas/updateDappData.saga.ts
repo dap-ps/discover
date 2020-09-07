@@ -1,8 +1,7 @@
 import { updateDappDataAction } from '../actions';
 import { take, put, call, fork } from 'redux-saga/effects';
-import { IRawDappMeta, IDapp } from '../types';
+import { IRawDappMeta } from '../types';
 import {
-  DiscoverHelperGetMeta,
   DiscoverGetDAppById,
 } from '../contracts/Discover.contract';
 import { toast } from 'react-toastify';
