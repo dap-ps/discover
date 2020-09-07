@@ -109,6 +109,7 @@ const DAppManagementContainer: React.SFC<Props> = ({
             }}
             validationSchema={SubmitDappSchema}
             onSubmit={(values, actions) => {
+              console.log(values)
               setNewDapp({
                 ...values,
               });

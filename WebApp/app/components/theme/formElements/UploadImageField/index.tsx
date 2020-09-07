@@ -19,6 +19,7 @@ import React, { useState, useCallback } from 'react';
 import classNames from 'classnames';
 import Cropper from 'react-easy-crop';
 import { appColors, uiConstants, brandColors } from 'theme';
+import { hashMessage } from 'ethers/utils';
 
 const styles = ({ breakpoints, palette }: Theme) =>
   createStyles({
@@ -259,9 +260,6 @@ const UploadImageField: React.SFC<OwnProps> = (props: OwnProps) => {
 
   const onConfirm = () => {
     exportCrop();
-    setFieldValue(field.name, imageSrc);
-    setBackupValue(imageSrc);
-    setCropOpen(false);
   };
 
   const exportCrop = () => {
@@ -292,7 +290,10 @@ const UploadImageField: React.SFC<OwnProps> = (props: OwnProps) => {
       if (blob) {
         reader.readAsDataURL(blob);
         reader.onloadend = () => {
+          setBackupValue(imageSrc);
+          setFieldValue(field.name, `${reader.result}`);
           setImageSrc(`${reader.result}`);
+          setCropOpen(false);
         };
       }
     });
