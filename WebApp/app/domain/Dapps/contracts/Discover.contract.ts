@@ -239,8 +239,7 @@ export const DiscoverWithdraw = async (id: string, amount: number) => {
 
 export const DiscoverSetMetadata = async (
   id: string,
-  metadata: any,
-  email: string,
+  metadataHash: string,
 ) => {
   const account: string = await getAccount();
   if (account == AddressZero) {
@@ -250,16 +249,10 @@ export const DiscoverSetMetadata = async (
     DiscoverAbi,
     ContractAddresses[await getNetworkId()].DISCOVER,
   );
-  await validateMetadataSet(id);
-
-  const dappMetadata = JSON.parse(JSON.stringify(metadata));
-  dappMetadata.uploader = account;
-
-  const uploadedMetadata = await uploadMetadataApi(dappMetadata, email);
 
   try {
     const tx = await broadcastContractFn(
-      DiscoverContract.methods.setMetadata(id, uploadedMetadata),
+      DiscoverContract.methods.setMetadata(id, metadataHash),
       account,
     );
 

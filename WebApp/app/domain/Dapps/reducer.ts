@@ -11,6 +11,7 @@ import {
   createDappAction,
   updateDappDataAction,
   fetchDappsAction,
+  updateDappAction,
 } from './actions';
 
 export const initialState: DomainState = {
@@ -24,6 +25,15 @@ function dappsReducer(
   action: DomainActions,
 ) {
   switch (action.type) {
+    case getType(updateDappAction.success):
+      return {
+        ...state,
+        dapps: [
+          ...state.dapps.map((dapp: IDapp) =>
+            dapp.id == action.payload.id ? action.payload : dapp,
+          ),
+        ],
+      };
     case getType(updateDappDataAction.success):
       return {
         ...state,
