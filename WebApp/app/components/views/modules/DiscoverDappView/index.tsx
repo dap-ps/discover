@@ -17,6 +17,7 @@ import { IDapp } from 'domain/Dapps/types';
 import { DAPP_STATUS } from 'utils/constants';
 import { appColors, brandColors } from 'theme';
 import ReviewBadgeIcon from '../../../../images/icons/reviewBadge.svg';
+import { generateUri } from 'api/apiUrlBuilder';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -53,6 +54,8 @@ const styles = (theme: Theme) =>
         objectFit: 'contain',
         height: '100%',
         width: '100%',
+        overflow: "hidden",
+        borderRadius: "50%"
       },
     },
     button: {
@@ -90,11 +93,12 @@ interface OwnProps extends WithStyles<typeof styles> {
 }
 
 const DiscoverDappView: React.SFC<OwnProps> = ({ classes, dapp }: OwnProps) => {
+  const dappIconUrl = dapp.icon?.includes("base64") ? dapp.icon : generateUri(dapp.icon)
   return (
     <article className={classes.root}>
       <header className={classes.header}>
         <div className={classes.logo}>
-          <img src={dapp.icon} alt={`${dapp.name}-banner`} />
+          <img src={dappIconUrl} alt={`${dapp.name}-banner`} />
         </div>
         <Typography variant="h1" component="h1">
           {dapp.name}

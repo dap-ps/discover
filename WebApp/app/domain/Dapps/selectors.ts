@@ -2,6 +2,7 @@ import { createSelector } from 'reselect';
 import { ApplicationRootState } from 'types';
 import { initialState } from './reducer';
 import { DomainState, IDapp } from './types';
+import { urlify } from 'routeLinks';
 
 /**
  * Direct selector to the dapps state domain
@@ -27,6 +28,9 @@ export const makeSelectDapp = (dappID: string) =>
   createSelector(selectDappsDomain, (domain: DomainState) => {
     return domain.dapps.find((dapp: IDapp) => dapp.ipfsHash == dappID);
   });
+
+export const makeSelectDappByName = (dappUrlName: string) =>
+  createSelector(selectDappsDomain, (domain: DomainState) => domain.dapps.find((dapp: IDapp) => urlify(dapp.name) == dappUrlName));
 
 export const makeSelectFeaturedDapps = createSelector(
   selectDappsDomain,

@@ -24,6 +24,7 @@ import {
   makeSelectFeaturedDapps,
 } from 'domain/Dapps/selectors';
 import { IDapp } from 'domain/Dapps/types';
+import { forwardTo } from 'utils/history';
 
 let categoryColors = {};
 Object.keys(DAPP_CATEGORY_STRINGS).map((key) => {
@@ -207,7 +208,7 @@ const Landing: React.SFC<OwnProps> = (props: OwnProps) => {
           {dapps
             .sort((dapp0, dapp1) => (dapp0.votes > dapp1.votes ? -1 : +1))
             .map((dapp: IDapp, index: number) => (
-              <DappCard key={`dapp-${index}-${dapp.name}`} dapp={dapp} />
+              <DappCard onClick={() => forwardTo(ROUTE_LINKS.Discover(dapp.name))} key={`dapp-${index}-${dapp.name}`} dapp={dapp} />
             ))}
         </GridCarousel>
       </section>
@@ -223,7 +224,7 @@ const Landing: React.SFC<OwnProps> = (props: OwnProps) => {
               dapp1.dateAdded > dapp2.dateAdded ? -1 : +1,
             )
             .map((dapp: IDapp, index: number) => (
-              <DappCard key={`dapp-${index}-${dapp.name}`} dapp={dapp} />
+              <DappCard onClick={() => forwardTo(ROUTE_LINKS.Discover(dapp.name))} key={`dapp-${index}-${dapp.name}`} dapp={dapp} />
             ))}
         </GridCarousel>
       </section>

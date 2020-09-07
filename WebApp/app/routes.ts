@@ -45,7 +45,7 @@ const routes: AppRoute[] = [
 
   {
     name: 'Discover DApp',
-    path: ROUTE_LINKS.Discover(':dappID'),
+    path: ROUTE_LINKS.Discover(':dappname'),
     component: Landing,
     isProtected: false, // This allows general access control
     isNavRequired: false, // This allows mapping into a navigation bar
@@ -54,7 +54,7 @@ const routes: AppRoute[] = [
 
   {
     name: 'Update DApp',
-    path: ROUTE_LINKS.UpdateDApp(':dappID'),
+    path: ROUTE_LINKS.UpdateDApp(':dappname'),
     component: Landing,
     isProtected: false, // This allows general access control
     isNavRequired: false, // This allows mapping into a navigation bar
@@ -63,7 +63,7 @@ const routes: AppRoute[] = [
 
   {
     name: 'Vote on DApp',
-    path: ROUTE_LINKS.Vote(':dappID', ':voteType'),
+    path: ROUTE_LINKS.Vote(':dappname', ':voteType'),
     component: Landing,
     isProtected: false, // This allows general access control
     isNavRequired: false, // This allows mapping into a navigation bar

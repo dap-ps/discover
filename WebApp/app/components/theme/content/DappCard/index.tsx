@@ -122,7 +122,6 @@ const DappCard: React.SFC<OwnProps> = ({
   dapp,
   onClick,
 }: OwnProps) => {
-
   const dappIconUrl = dapp.icon?.includes("base64") ? dapp.icon : generateUri(dapp.icon)
   return (
     <article className={classNames(classes.root, onClick ? 'clickable' : '')}>
@@ -161,11 +160,11 @@ const DappCard: React.SFC<OwnProps> = ({
             {dapp.votes}
           </span>
           <div className={classes.voteControls}>
-            <Link to={ROUTE_LINKS.Vote(`${dapp.ipfsHash}`, 'upvote')}>
+            <Link to={ROUTE_LINKS.Vote(`${dapp.name}`, 'upvote')}>
               <ArrowUpIcon />
               <span>upvote</span>
             </Link>
-            <Link to={ROUTE_LINKS.Vote(`${dapp.ipfsHash}`, 'downvote')}>
+            <Link to={ROUTE_LINKS.Vote(`${dapp.name}`, 'downvote')}>
               <ArrowDownIcon />
               <span>downvote</span>
             </Link>

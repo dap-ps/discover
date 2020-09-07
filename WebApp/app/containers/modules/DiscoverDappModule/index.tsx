@@ -9,27 +9,29 @@ import { connect, useSelector } from 'react-redux';
 import { compose, Dispatch } from 'redux';
 import { useRouteMatch, match } from 'react-router-dom';
 import { ROUTE_LINKS } from 'routeLinks';
-import { makeSelectDapp } from 'domain/Dapps/selectors';
+import { makeSelectDappByName } from 'domain/Dapps/selectors';
 import DiscoverDappView from 'components/views/modules/DiscoverDappView';
+import { fetchDappsAction } from 'domain/Dapps/actions';
 
 interface OwnProps {}
 
-interface DispatchProps {}
+interface DispatchProps {
+  fetchDapps: () => void
+}
 
 interface RouteParams {
-  dappID: string;
+  dappname: string;
 }
 
 type Props = DispatchProps & OwnProps;
 
 const DiscoverDappModule: React.SFC<Props> = ({}: Props) => {
   const match: match<RouteParams> | null = useRouteMatch({
-    path: ROUTE_LINKS.Discover(':dappID'),
+    path: ROUTE_LINKS.Discover(':dappname'),
     strict: true,
     sensitive: true,
   });
-  const dapp = useSelector(makeSelectDapp(match?.params.dappID as string));
-
+  const dapp = useSelector(makeSelectDappByName(match?.params.dappname as string));
   return dapp ? <DiscoverDappView dapp={dapp} /> : <></>;
 };
 
@@ -37,7 +39,11 @@ const mapDispatchToProps = (
   dispatch: Dispatch,
   ownProps: OwnProps,
 ): DispatchProps => {
-  return {};
+  return {
+    fetchDapps: () => {
+      dispatch(fetchDappsAction.request())
+    }
+  };
 };
 
 const withConnect = connect(mapDispatchToProps);
