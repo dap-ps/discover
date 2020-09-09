@@ -141,7 +141,7 @@ const WithdrawForm: React.SFC<OwnProps> = ({ classes, dapp }: OwnProps) => {
           name: dapp.name
         }))
       }}
-      render={({ submitForm, values }) => (
+      render={({ submitForm, values, setFieldValue }) => (
         <Form className={classes.root}>
           <section className={classes.inputSection}>
             <Field
@@ -152,6 +152,9 @@ const WithdrawForm: React.SFC<OwnProps> = ({ classes, dapp }: OwnProps) => {
               component={TextField}
             />
             <span className={classes.tokenLabel}>{token}</span>
+            <Typography onClick={() => setFieldValue("amount", max)}>
+              Set Max
+            </Typography>
           </section>
           <section className={classes.information}>
             <Typography>
