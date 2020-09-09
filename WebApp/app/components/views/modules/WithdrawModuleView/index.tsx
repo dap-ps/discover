@@ -1,25 +1,21 @@
 /**
  *
- * DiscoverDappView
+ * WithdrawModuleView
  *
  */
 
 import React, { Fragment } from 'react';
-import {
-  Theme,
-  createStyles,
-  withStyles,
-  WithStyles,
-  Typography,
-  Button,
-} from '@material-ui/core';
-import { IDapp } from 'domain/Dapps/types';
-import { DAPP_STATUS } from 'utils/constants';
-import { appColors, brandColors } from 'theme';
+import { Theme, createStyles, withStyles, WithStyles, Typography } from '@material-ui/core';
+import { makeSelectDappByName, makeSelectDappsLoading } from 'domain/Dapps/selectors';
+import { useSelector } from 'react-redux';
+import { brandColors, appColors } from 'theme';
 import ReviewBadgeIcon from '../../../../images/icons/reviewBadge.svg';
-import { generateUri } from 'api/apiUrlBuilder';
-import RankingModule from '../RankingModule';
+import classNames from 'classnames';
 import LoadingIcon from 'components/theme/elements/LoadingIcon';
+import { generateUri } from 'api/apiUrlBuilder';
+import { DAPP_STATUS } from 'utils/constants';
+import RankingModule from '../RankingModule';
+import WithdrawForm from './WithdrawForm';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -109,20 +105,16 @@ const styles = (theme: Theme) =>
   });
 
 interface OwnProps extends WithStyles<typeof styles> {
-  dapp?: IDapp;
+  dappname: string
 }
 
-const DiscoverDappView: React.SFC<OwnProps> = ({ classes, dapp }: OwnProps) => {
-  if (!dapp) {
-    return (
-      <section className={classes.loading}>
-        <LoadingIcon />
-      </section>
-    );
-  } else {
+const WithdrawModuleView: React.SFC<OwnProps> = ({ classes, dappname }: OwnProps) => {
+  const dapp = useSelector(makeSelectDappByName(dappname))
+
+  if (dapp) {
     const dappIconUrl = dapp.icon?.includes('base64')
-      ? dapp.icon
-      : generateUri(dapp.icon);
+    ? dapp.icon
+    : generateUri(dapp.icon);
     return (
       <article className={classes.root}>
         <header className={classes.header}>
@@ -135,11 +127,6 @@ const DiscoverDappView: React.SFC<OwnProps> = ({ classes, dapp }: OwnProps) => {
           <Typography variant="h4" component="h2">
             {dapp.category.toLowerCase()}
           </Typography>
-          <a href={dapp.url} rel="ugc" target="_blank">
-            <Button size="large" className={classes.button} variant="outlined">
-              Open
-            </Button>
-          </a>
         </header>
         <section>
           <section className={classes.section}>
@@ -167,28 +154,21 @@ const DiscoverDappView: React.SFC<OwnProps> = ({ classes, dapp }: OwnProps) => {
               </section>
             </Fragment>
           )}
-          <section className={classes.section}>
-            <div className={classes.adminControls}>
-              <Button
-                size="large"
-                className={classes.button}
-                variant="outlined"
-              >
-                Edit
-              </Button>
-              <Button
-                size="large"
-                className={classes.button}
-                variant="outlined"
-              >
-                Withdraw
-              </Button>
-            </div>
+           <section className={classes.section}>
+            <WithdrawForm dapp={dapp} />
           </section>
         </section>
-      </article>
-    );
+       
+      </article>  
+    )
+  } else{
+    return (
+      <section className={classes.loading}>
+        <LoadingIcon />
+      </section>
+    )
   }
+ 
 };
 
-export default withStyles(styles, { withTheme: true })(DiscoverDappView);
+export default withStyles(styles, { withTheme: true })(WithdrawModuleView);

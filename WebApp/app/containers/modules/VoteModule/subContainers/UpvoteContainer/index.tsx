@@ -16,25 +16,23 @@ import { TOKENS } from 'utils/constants';
 import { upvoteDappAction } from 'domain/Dapps/actions';
 
 interface OwnProps {
-  dapp: IDapp
+  dapp: IDapp;
 }
 
 interface DispatchProps {
   upvote: (dapp: IDapp, amount: number, token: TOKENS) => void;
 }
 
-interface StateProps {
-}
+interface StateProps {}
 
 type Props = StateProps & DispatchProps & OwnProps;
 
 const UpvoteContainer: React.SFC<Props> = ({ dapp, upvote }: Props) => {
-  return <UpvoteView upvote={upvote} dapp={dapp} />
+  return <UpvoteView upvote={upvote} dapp={dapp} />;
 };
 
 const mapStateToProps = (state: ApplicationRootState, props: OwnProps) =>
-  createStructuredSelector<RootState, StateProps>({
-  });
+  createStructuredSelector<RootState, StateProps>({});
 
 const mapDispatchToProps = (
   dispatch: Dispatch,
@@ -42,14 +40,16 @@ const mapDispatchToProps = (
 ): DispatchProps => {
   return {
     upvote: (dapp: IDapp, amount: number, token: TOKENS) => {
-      dispatch(upvoteDappAction.request({
-        desc: dapp.desc,
-        amount: amount,
-        token: token,
-        icon: dapp.icon,
-        id: dapp.id,
-        name: dapp.name
-      }));
+      dispatch(
+        upvoteDappAction.request({
+          desc: dapp.desc,
+          amount: amount,
+          token: token,
+          icon: dapp.icon,
+          id: dapp.id,
+          name: dapp.name,
+        }),
+      );
     },
   };
 };

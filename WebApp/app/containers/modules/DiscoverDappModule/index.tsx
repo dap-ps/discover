@@ -34,7 +34,7 @@ const DiscoverDappModule: React.SFC<Props> = ({}: Props) => {
   const dapp = useSelector(
     makeSelectDappByName(match?.params.dappname as string),
   );
-  return (<DiscoverDappView dapp={dapp} />)
+  return <DiscoverDappView dapp={dapp} />;
 };
 
 const mapDispatchToProps = (

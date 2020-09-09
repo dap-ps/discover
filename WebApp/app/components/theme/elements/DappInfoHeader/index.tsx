@@ -51,8 +51,8 @@ const styles = (theme: Theme) =>
       '& img': {
         width: 24,
         height: 24,
-        borderRadius: "50%",
-        overflow: "hidden",
+        borderRadius: '50%',
+        overflow: 'hidden',
         marginRight: 15,
       },
       '& span': {

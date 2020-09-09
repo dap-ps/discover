@@ -1,10 +1,18 @@
 import { take, call, put, race } from 'redux-saga/effects';
-import { updateDappAction, setDappsLoadingAction, withdrawAction, updateDappDataAction } from '../actions';
+import {
+  updateDappAction,
+  setDappsLoadingAction,
+  withdrawAction,
+  updateDappDataAction,
+} from '../actions';
 import { IWithdrawRequest } from '../types';
 import { toast } from 'react-toastify';
 import { awaitTxAction } from 'domain/Wallet/actions';
 import { TRANSACTION_STATUS } from 'utils/constants';
-import { DiscoverWithdraw, DiscoverWithdrawMax } from '../contracts/Discover.contract';
+import {
+  DiscoverWithdraw,
+  DiscoverWithdrawMax,
+} from '../contracts/Discover.contract';
 import { generateUri } from 'api/apiUrlBuilder';
 
 function* withdrawSaga(withdrawRequest: IWithdrawRequest) {
@@ -12,14 +20,14 @@ function* withdrawSaga(withdrawRequest: IWithdrawRequest) {
     yield put(setDappsLoadingAction(true));
 
     const withdrawTx = yield call(
-      async () => 
+      async () =>
         await DiscoverWithdraw(
-          withdrawRequest.id, 
-          withdrawRequest.max 
-            ? await DiscoverWithdrawMax(withdrawRequest.id) 
-            : withdrawRequest.amount
-          )
-        )
+          withdrawRequest.id,
+          withdrawRequest.max
+            ? await DiscoverWithdrawMax(withdrawRequest.id)
+            : withdrawRequest.amount,
+        ),
+    );
     yield put(
       awaitTxAction.request({
         iconSrc: withdrawRequest.icon.includes('base64')
@@ -56,7 +64,9 @@ function* withdrawSaga(withdrawRequest: IWithdrawRequest) {
 
 export function* withdrawListener() {
   while (true) {
-    const withdrawRequest: IWithdrawRequest = (yield take(withdrawAction.request)).payload;
+    const withdrawRequest: IWithdrawRequest = (yield take(
+      withdrawAction.request,
+    )).payload;
     yield call(withdrawSaga, withdrawRequest);
   }
 }

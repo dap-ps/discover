@@ -15,25 +15,23 @@ import { IDapp } from 'domain/Dapps/types';
 import { downvoteDappAction } from 'domain/Dapps/actions';
 
 interface OwnProps {
-  dapp: IDapp
+  dapp: IDapp;
 }
 
 interface DispatchProps {
   downvote: (dapp: IDapp) => void;
 }
 
-interface StateProps {
-}
+interface StateProps {}
 
 type Props = StateProps & DispatchProps & OwnProps;
 
 const DownvoteContainer: React.SFC<Props> = ({ dapp, downvote }: Props) => {
-  return <DownvoteView downvote={downvote} dapp={dapp} />
+  return <DownvoteView downvote={downvote} dapp={dapp} />;
 };
 
 const mapStateToProps = (state: ApplicationRootState, props: OwnProps) =>
-  createStructuredSelector<RootState, StateProps>({
-  });
+  createStructuredSelector<RootState, StateProps>({});
 
 const mapDispatchToProps = (
   dispatch: Dispatch,
@@ -42,12 +40,14 @@ const mapDispatchToProps = (
   return {
     downvote: (dapp: IDapp) => {
       // TODO: wire to saga
-      dispatch(downvoteDappAction.request({
-        desc: dapp.desc,
-        icon: dapp.icon,
-        id: dapp.id,
-        name: dapp.name
-      }));
+      dispatch(
+        downvoteDappAction.request({
+          desc: dapp.desc,
+          icon: dapp.icon,
+          id: dapp.id,
+          name: dapp.name,
+        }),
+      );
     },
   };
 };

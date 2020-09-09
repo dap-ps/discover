@@ -14,5 +14,5 @@ export default function* DappsSaga() {
   yield fork(downvoteListener);
   yield fork(updateDappDataListener);
   yield fork(fetchDappsListener);
-  yield fork(withdrawListener)
+  yield fork(withdrawListener);
 }

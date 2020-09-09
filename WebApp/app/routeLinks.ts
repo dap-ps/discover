@@ -18,6 +18,8 @@ export const ROUTE_LINKS = {
     voteType: 'upvote' | 'downvote' | ':voteType',
   ) => `/vote/${urlify(dappname)}/${voteType}`,
   HowToVote: '/how-to-vote',
+  Withdraw: (dappname: string | ':dappname') =>
+    `/discover/${urlify(dappname)}/withdraw`,
 
   categories: {
     All: `/category/`,

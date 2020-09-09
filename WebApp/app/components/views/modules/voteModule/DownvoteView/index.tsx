@@ -69,14 +69,14 @@ const DownvoteView: React.SFC<OwnProps> = ({
   downvote,
   dapp,
 }: OwnProps) => {
-  const [cost, setCost] = useState(0)
+  const [cost, setCost] = useState(0);
   useEffect(() => {
     const check = async () => {
-      const cost = (await DiscoverDownVoteCost(dapp.id)).c
-      setCost(cost)
-    }
-    check()
-  }, [dapp])
+      const cost = (await DiscoverDownVoteCost(dapp.id)).c;
+      setCost(parseInt(cost));
+    };
+    check();
+  }, [dapp]);
   const loading = useSelector(makeSelectDappsLoading);
   return (
     <section className={classes.root}>
@@ -87,10 +87,7 @@ const DownvoteView: React.SFC<OwnProps> = ({
       >
         <LoadingIcon />
       </section>
-      <DappInfoHeader
-        dapp={dapp}
-        changeIndicator={-(cost as number)}
-      />
+      <DappInfoHeader dapp={dapp} changeIndicator={-(cost as number)} />
       <DownvoteForm downvote={downvote} cost={cost} dapp={dapp} />
     </section>
   );

@@ -1,26 +1,20 @@
 /**
  *
- * UpvoteForm
+ * WithdrawForm
  *
  */
 
-import React from 'react';
-import {
-  Theme,
-  createStyles,
-  withStyles,
-  WithStyles,
-  Typography,
-  Button,
-} from '@material-ui/core';
-import { Formik, Form, Field } from 'formik';
-import * as Yup from 'yup';
-import { TOKENS } from 'utils/constants';
-import { TextField } from 'formik-material-ui';
-import { appColors } from 'theme';
-import { Link } from 'react-router-dom';
-import { ROUTE_LINKS } from 'routeLinks';
+import React, { useEffect, useState } from 'react';
+import { Theme, createStyles, withStyles, WithStyles, TextField, Typography, Button } from '@material-ui/core';
 import { IDapp } from 'domain/Dapps/types';
+import { makeSelectDappsLoading } from 'domain/Dapps/selectors';
+import * as Yup from 'yup';
+import { useSelector, useDispatch } from 'react-redux';
+import { Form, Field, Formik } from 'formik';
+import { appColors } from 'theme';
+import { TOKENS } from 'utils/constants';
+import { DiscoverWithdrawMax } from 'domain/Dapps/contracts/Discover.contract';
+import { withdrawAction } from 'domain/Dapps/actions';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -96,39 +90,56 @@ const styles = (theme: Theme) =>
   });
 
 interface OwnProps extends WithStyles<typeof styles> {
-  upvote: (dapp: IDapp, amount: number, token: TOKENS) => void;
-  dapp: IDapp;
-  setIndicator: (value: number) => void;
+  dapp: IDapp
 }
 
-const UpvoteForm: React.SFC<OwnProps> = ({
-  classes,
-  dapp,
-  setIndicator,
-  upvote,
-}: OwnProps) => {
-  // const [token, setToken] = useState<TOKENS>(TOKENS.SNT);
+const WithdrawForm: React.SFC<OwnProps> = ({ classes, dapp }: OwnProps) => {
+  const loading = useSelector(makeSelectDappsLoading);
+
+
+  const [max, setMax] = useState(0)
+
+  useEffect(() => {
+    const fetch = async () => {
+      const temp = await DiscoverWithdrawMax(dapp.id)
+      setMax(temp)
+    }
+    fetch()
+  }, [])
 
   const token = TOKENS.SNT;
-  const UpvoteSchema = Yup.object().shape({
+
+  const WithdrawSchema = Yup.object().shape({
     amount: Yup.number()
       .min(1, 'Minimum amount is 1')
+      .max(max, "Maximum amount exceeded")
       // TODO Validate against balance
       .test('updatingChange', '', (value: number) => {
-        setIndicator(value);
+        // setIndicator(value);
         return true;
       })
       .required('Please input a value'),
   });
+
+  const dispatch = useDispatch()
+
 
   return (
     <Formik
       initialValues={{
         amount: 0,
       }}
-      validationSchema={UpvoteSchema}
+      validationSchema={WithdrawSchema}
       onSubmit={(values, actions) => {
-        upvote(dapp, values.amount, token);
+        // upvote(dapp, values.amount, token);
+        dispatch(withdrawAction.request({
+          amount: values.amount,
+          desc: dapp.desc,
+          icon: dapp.icon,
+          id: dapp.id,
+          max: values.amount == max,
+          name: dapp.name
+        }))
       }}
       render={({ submitForm, values }) => (
         <Form className={classes.root}>
@@ -144,20 +155,20 @@ const UpvoteForm: React.SFC<OwnProps> = ({
           </section>
           <section className={classes.information}>
             <Typography>
-              {token} you spend to upvote is locked in the contract and
-              contributes directly to {dapp.name}'s ranking.{' '}
-              <Link to={ROUTE_LINKS.HowToVote}>Learn more↗</Link>
+              {token} you spend to rank your DApp is locked in the store. You
+              can earn back through votes, or withdraw, the majority of this{' '}
+              {token} at any time.
             </Typography>
           </section>
           <section className={classes.ctas}>
             <Button variant="outlined" onClick={() => submitForm()}>
-              Upvote
+              Withdraw
             </Button>
           </section>
         </Form>
       )}
     />
-  );
+  )
 };
 
-export default withStyles(styles, { withTheme: true })(UpvoteForm);
+export default withStyles(styles, { withTheme: true })(WithdrawForm);

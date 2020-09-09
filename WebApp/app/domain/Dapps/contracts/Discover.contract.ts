@@ -102,15 +102,18 @@ export const DiscoverICachedDappToIDapp = ({
   name: name,
   uploader: uploader,
   url: url,
-})
+});
 
-export const DiscoverIRawDappMetaToIDapp = (rawDapp: IRawDappMeta): Partial<IDapp> => !!rawDapp && ({
-  id: rawDapp.id,
-  available: parseInt(rawDapp.available),
-  uploader: rawDapp.developer,
-  votes: parseInt(rawDapp.effectiveBalance),
-  compressedMetadata: rawDapp.metadata,
-})
+export const DiscoverIRawDappMetaToIDapp = (
+  rawDapp: IRawDappMeta,
+): Partial<IDapp> =>
+  !!rawDapp && {
+    id: rawDapp.id,
+    available: parseInt(rawDapp.available),
+    uploader: rawDapp.developer,
+    votes: parseInt(rawDapp.effectiveBalance),
+    compressedMetadata: rawDapp.metadata,
+  };
 
 export const DiscoverHelperGetMeta = async (
   dapp: Partial<IDapp>,
@@ -118,11 +121,13 @@ export const DiscoverHelperGetMeta = async (
   try {
     return {
       ...(dapp as IDapp),
-      ...DiscoverICachedDappToIDapp((
-        await retrieveMetadataApi(
-          getIpfsHashFromBytes32(dapp.compressedMetadata as string),
-        )
-      ).data)
+      ...DiscoverICachedDappToIDapp(
+        (
+          await retrieveMetadataApi(
+            getIpfsHashFromBytes32(dapp.compressedMetadata as string),
+          )
+        ).data,
+      ),
     };
   } catch (error) {
     console.error(
@@ -234,10 +239,7 @@ export const DiscoverWithdraw = async (id: string, amount: number) => {
   }
 };
 
-export const DiscoverSetMetadata = async (
-  id: string,
-  metadataHash: string,
-) => {
+export const DiscoverSetMetadata = async (id: string, metadataHash: string) => {
   const account: string = await getAccount();
   if (account == AddressZero) {
     throw 'Account not connected';
@@ -283,9 +285,7 @@ export const validateUpVoteEffect = async (id: string, amount: number) => {
   const dapp = await DiscoverGetDAppById(id);
   const safeMax = await DiscoverSafeMax();
   // Potential overflow issue from existing code
-  if (
-    Number(dapp.balance) + amount > Number(safeMax)
-  ) {
+  if (Number(dapp.balance) + amount > Number(safeMax)) {
     throw new Error(
       `You cannot upvote by this much, try with a lower amount. Maximum upvote amount: 
       ${Number(safeMax) - Number(dapp.balance)}`,

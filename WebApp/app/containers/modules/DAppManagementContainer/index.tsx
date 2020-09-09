@@ -22,8 +22,10 @@ import {
 } from 'domain/Dapps/selectors';
 import StakeAndPublishView from 'components/views/modules/SubmitDApp/StakeAndPublishView';
 import { IDapp } from 'domain/Dapps/types';
-import { createDappAction } from 'domain/Dapps/actions';
+import { createDappAction, updateDappAction } from 'domain/Dapps/actions';
 import DAppSubmittedView from 'components/views/modules/SubmitDApp/DAppSubmittedView';
+import { Redirect } from 'react-router-dom';
+import { ROUTE_LINKS } from 'routeLinks';
 
 interface OwnProps {
   dappId?: string;
@@ -32,7 +34,8 @@ interface OwnProps {
 interface StateProps {}
 
 interface DispatchProps {
-  createDapp: (dapp: IDapp, stake: number) => void;
+  createDapp: (dapp: IDapp, stake: number) => void
+  updateDapp: (dapp: IDapp) => void
 }
 
 type Props = DispatchProps & StateProps & OwnProps;
@@ -48,6 +51,7 @@ enum SLIDES {
 const DAppManagementContainer: React.SFC<Props> = ({
   dappId,
   createDapp,
+  updateDapp,
 }: Props) => {
   if (!dappId) {
     // Create DApp
@@ -109,7 +113,6 @@ const DAppManagementContainer: React.SFC<Props> = ({
             }}
             validationSchema={SubmitDappSchema}
             onSubmit={(values, actions) => {
-              console.log(values)
               setNewDapp({
                 ...values,
               });
@@ -166,24 +169,30 @@ const DAppManagementContainer: React.SFC<Props> = ({
         .email('Please provide a valid email')
         .required('Please provide a valid email'),
     });
-
-    return (
-      <Formik
-        initialValues={{
-          name: dapp?.name,
-          icon: dapp?.icon,
-          desc: dapp?.desc,
-          url: dapp?.url,
-          category: dapp?.category,
-          email: dapp?.email,
-        }}
-        validationSchema={UpdateSchema}
-        onSubmit={(values, actions) => {
-          console.log(values);
-        }}
-        render={({ submitForm }) => <UpdateDAppForm submitForm={submitForm} />}
-      />
-    );
+    if (dapp) {
+      return (
+        <Formik
+          initialValues={{
+            name: dapp?.name,
+            icon: dapp?.icon,
+            desc: dapp?.desc,
+            url: dapp?.url,
+            category: dapp?.category,
+            email: dapp?.email,
+          }}
+          validationSchema={UpdateSchema}
+          onSubmit={(values, actions) => {
+            updateDapp({
+              ...dapp,
+              ...values
+            })
+          }}
+          render={({ submitForm }) => <UpdateDAppForm submitForm={submitForm} />}
+        />
+      );
+    } else {
+      return <Redirect to={ROUTE_LINKS.Home} />
+    }
   }
 };
 
@@ -198,8 +207,13 @@ const mapDispatchToProps = (
           ...dapp,
           sntValue: stake,
         }),
-      );
+      )
     },
+    updateDapp: (dapp: IDapp) => {
+      dispatch(
+        updateDappAction.request(dapp)
+      )
+    }
   };
 };
 

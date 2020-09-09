@@ -111,22 +111,32 @@ export const web3Keccak = (input: string) => {
   return getWeb3().utils.keccak256(input);
 };
 
-export const connectContract = async (Contract: any, address?: string) => {
-  const clonedContract = Contract.clone();
-  if (address) {
-    clonedContract.address = address;
-    clonedContract.options.address = address;
+// TODO break out into context
+let contracts = {};
+
+// TODO investigate listeners
+export const connectContract = async (Contract: any, address: string) => {
+  if (!contracts[address]) {
+    console.log('Setting', contracts);
+    const clonedContract = Contract.clone();
+    if (address) {
+      clonedContract.address = address;
+      clonedContract.options.address = address;
+    }
+
+    contracts[address] = clonedContract;
   }
+
   // @ts-ignore
   const provider = EmbarkJS.Blockchain.Providers.web3.getCurrentProvider();
   if (!provider.selectedAddress) {
     // @ts-ignore
-    clonedContract.currentProvider = new Web3.providers.WebsocketProvider(
+    contracts[address].currentProvider = new Web3.providers.WebsocketProvider(
       await getRpcUrl(),
     );
   }
 
-  return clonedContract;
+  return contracts[address];
 };
 
 export const getTxStatus = async (

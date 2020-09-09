@@ -22,7 +22,7 @@ const styles = (theme: Theme) =>
     // JSS in CSS goes here
     root: {
       padding: `20px 15px`,
-      position: "relative"
+      position: 'relative',
     },
     loading: {
       display: 'flex',
@@ -72,23 +72,23 @@ const UpvoteView: React.SFC<OwnProps> = ({
   upvote,
 }: OwnProps) => {
   const loading = useSelector(makeSelectDappsLoading);
-  const [value, setValue] = useState(0)
+  const [value, setValue] = useState(0);
   const [valuationMemo, setValidationMemo] = useState<Record<number, number>>({
-    0: 0
-  })
-  // TODO: improve memoize 
+    0: 0,
+  });
+  // TODO: improve memoize
   useEffect(() => {
     const fetchRating = async (input: number) => {
-      const rating = await DiscoverUpVoteEffect(dapp.id, input)
+      const rating = await DiscoverUpVoteEffect(dapp.id, input);
       setValidationMemo({
         ...valuationMemo,
-        [input]: parseInt(rating)
-      })
-    }
+        [input]: parseInt(rating),
+      });
+    };
     if (!valuationMemo[value]) {
-      fetchRating(value)
+      fetchRating(value);
     }
-  }, [value])
+  }, [value]);
   return (
     <section className={classes.root}>
       <section
@@ -98,7 +98,10 @@ const UpvoteView: React.SFC<OwnProps> = ({
       >
         <LoadingIcon />
       </section>
-      <DappInfoHeader dapp={dapp} changeIndicator={valuationMemo[value] ? valuationMemo[value] : 0} />
+      <DappInfoHeader
+        dapp={dapp}
+        changeIndicator={valuationMemo[value] ? valuationMemo[value] : 0}
+      />
       <UpvoteForm dapp={dapp} upvote={upvote} setIndicator={setValue} />
     </section>
   );

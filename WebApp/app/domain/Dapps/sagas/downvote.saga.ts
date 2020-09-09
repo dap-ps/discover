@@ -1,5 +1,9 @@
 import { take, call, put, race } from 'redux-saga/effects';
-import { downvoteDappAction, setDappsLoadingAction, updateDappDataAction } from '../actions';
+import {
+  downvoteDappAction,
+  setDappsLoadingAction,
+  updateDappDataAction,
+} from '../actions';
 import { IDappVote } from '../types';
 import { toast } from 'react-toastify';
 import { DiscoverDownVote } from '../contracts/Discover.contract';
@@ -10,7 +14,9 @@ import { generateUri } from 'api/apiUrlBuilder';
 function* downvoteSaga(voteData: IDappVote) {
   try {
     yield put(setDappsLoadingAction(true));
-    const downVoteTx = yield call(async () => await DiscoverDownVote(voteData.id))
+    const downVoteTx = yield call(
+      async () => await DiscoverDownVote(voteData.id),
+    );
     yield put(
       awaitTxAction.request({
         iconSrc: voteData.icon.includes('base64')

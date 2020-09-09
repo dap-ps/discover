@@ -37,11 +37,11 @@ const styles = (theme: Theme) =>
     // JSS in CSS goes here
     root: {},
     rank: {
-      display: "flex",
-      flexDirection: "row",
-      justifyContent: "flex-start",
-      alignItems: "center",
-      margin: `8px 0`
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'flex-start',
+      alignItems: 'center',
+      margin: `8px 0`,
     },
     rankIndex: {
       fontSize: 16,
@@ -53,7 +53,7 @@ const styles = (theme: Theme) =>
       flexDirection: 'column',
       alignItems: 'center',
       justifyContent: 'center',
-      borderRadius: "50%",
+      borderRadius: '50%',
       backgroundColor: appColors.general.red.base,
       ...categoryColors,
     },

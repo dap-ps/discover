@@ -18,8 +18,8 @@ export function* fetchDappsSaga() {
     );
 
     const fetchedMeta: {
-      [hash: string]: ICachedDapp
-    } = yield call(async () => (await retrieveAllDappsMetadataApi()).data)
+      [hash: string]: ICachedDapp;
+    } = yield call(async () => (await retrieveAllDappsMetadataApi()).data);
 
     const rawDapps: IRawDappMeta[] = yield call(
       async () =>
@@ -29,18 +29,17 @@ export function* fetchDappsSaga() {
             .map((value, id: number) => DiscoverGetDAppsMeta(id)),
         ]),
     );
-    
-    const dapps: Partial<IDapp>[] = rawDapps.map((rawDapp: IRawDappMeta) => {
-      const onChainData: ICachedDapp | undefined = fetchedMeta[getIpfsHashFromBytes32(rawDapp.metadata)]
-      return { 
-        ...DiscoverIRawDappMetaToIDapp(rawDapp),
-        ...(onChainData && DiscoverICachedDappToIDapp(onChainData))
-      }
-    })
 
-    yield put(
-      fetchDappsAction.success(dapps as IDapp[]),
-    );
+    const dapps: Partial<IDapp>[] = rawDapps.map((rawDapp: IRawDappMeta) => {
+      const onChainData: ICachedDapp | undefined =
+        fetchedMeta[getIpfsHashFromBytes32(rawDapp.metadata)];
+      return {
+        ...DiscoverIRawDappMetaToIDapp(rawDapp),
+        ...(onChainData && DiscoverICachedDappToIDapp(onChainData)),
+      };
+    });
+
+    yield put(fetchDappsAction.success(dapps as IDapp[]));
   } catch (error) {
     console.error(error);
     toast(error.message, {

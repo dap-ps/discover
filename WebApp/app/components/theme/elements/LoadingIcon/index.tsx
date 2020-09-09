@@ -14,8 +14,7 @@ const styles = (theme: Theme) =>
     root: {},
   });
 
-interface OwnProps extends WithStyles<typeof styles> {
-}
+interface OwnProps extends WithStyles<typeof styles> {}
 
 const LoadingIcon: React.SFC<OwnProps> = ({ classes }: OwnProps) => {
   return <LoadingSpinnerSVG />;

@@ -17,6 +17,7 @@ import DownvoteArrow from '../../../../../images/icons/downvote-arrow.svg';
 import { useSelector } from 'react-redux';
 import { makeSelectDappByName } from 'domain/Dapps/selectors';
 import { IDapp } from 'domain/Dapps/types';
+import LoadingIcon from 'components/theme/elements/LoadingIcon';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -82,6 +83,12 @@ const styles = (theme: Theme) =>
         visibility: 'hidden',
         overflow: 'hidden',
         height: 0,
+        '& > svg': {
+          height: 40,
+          width: 40,
+          margin: '10px auto',
+          display: 'block',
+        },
       },
       '&.upvote > *:first-child': {
         opacity: 1,
@@ -107,7 +114,7 @@ const VoteModuleView: React.SFC<OwnProps> = ({
   dappname,
 }: OwnProps) => {
   const location = useLocation();
-  const dapp: IDapp | undefined = useSelector(makeSelectDappByName(dappname))
+  const dapp: IDapp | undefined = useSelector(makeSelectDappByName(dappname));
   return (
     <article className={classes.root}>
       <header className={classes.header}>
@@ -137,16 +144,8 @@ const VoteModuleView: React.SFC<OwnProps> = ({
       <div
         className={classNames(classes.viewArea, upvote ? 'upvote' : 'downvote')}
       >
-        <div>
-          {
-            dapp && <UpvoteContainer dapp={dapp} />
-          }
-        </div>
-        <div>
-          {
-            dapp && <DownvoteContainer dapp={dapp} />
-          }
-        </div>
+        <div>{dapp ? <UpvoteContainer dapp={dapp} /> : <LoadingIcon />}</div>
+        <div>{dapp ? <DownvoteContainer dapp={dapp} /> : <LoadingIcon />}</div>
       </div>
     </article>
   );

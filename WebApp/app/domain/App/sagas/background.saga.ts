@@ -15,9 +15,7 @@ function* handleUpdateDapps() {
 
 function* DataRefresh() {
   while (true) {
-    console.log('delay');
     yield delay(10 * 1000);
-    console.log('post delay');
     yield fork(handleUpdateDapps);
   }
 }

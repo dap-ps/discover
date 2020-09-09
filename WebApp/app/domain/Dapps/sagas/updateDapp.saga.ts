@@ -5,7 +5,10 @@ import { toast } from 'react-toastify';
 import { connectAccountAction, awaitTxAction } from 'domain/Wallet/actions';
 import { AddressZero } from 'ethers/constants';
 import { selectWalletAddress } from 'domain/Wallet/selectors';
-import { validateMetadataSet, DiscoverSetMetadata } from '../contracts/Discover.contract';
+import {
+  validateMetadataSet,
+  DiscoverSetMetadata,
+} from '../contracts/Discover.contract';
 import { uploadMetadataApi, updateDappApi } from 'api/api';
 import { getBytes32FromIpfsHash } from 'domain/App/sagas/metadata.saga';
 import { TRANSACTION_STATUS } from 'utils/constants';
@@ -39,18 +42,18 @@ function* updateDappSaga(dapp: IDapp) {
       uploader: account,
     };
     yield call(async () => await validateMetadataSet(dapp.id));
-    
+
     const uploadedMetadata = yield call(
       async () => await uploadMetadataApi(dappMetadata, dapp.email),
-    )
+    );
 
     const updateMetaTx = yield call(
       async () =>
         await DiscoverSetMetadata(
           dapp.id,
-          getBytes32FromIpfsHash(uploadedMetadata.data.hash)
+          getBytes32FromIpfsHash(uploadedMetadata.data.hash),
         ),
-    )
+    );
 
     yield put(
       awaitTxAction.request({
@@ -60,11 +63,9 @@ function* updateDappSaga(dapp: IDapp) {
         heading: dapp.name,
         caption: dapp.desc,
       }),
-    )
+    );
 
-    yield call(
-      async () => await updateDappApi(dapp.id, dapp.email),
-    )
+    yield call(async () => await updateDappApi(dapp.id, dapp.email));
     yield put(updateDappAction.success(dapp));
     yield put(setDappsLoadingAction(false));
   } catch (error) {

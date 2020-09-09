@@ -37,18 +37,18 @@ export interface IDappVote {
   id: string;
   token?: string;
   amount?: number;
-  icon: string
-  name: string
-  desc: string
+  icon: string;
+  name: string;
+  desc: string;
 }
 
 export interface IWithdrawRequest {
   id: string;
   amount: number;
   max: boolean;
-  icon: string
-  name: string
-  desc: string
+  icon: string;
+  name: string;
+  desc: string;
 }
 
 export interface IDappRank {
