@@ -21,9 +21,7 @@ export const DiscoverUpVoteEffect = async (id: string, amount: number) => {
     DiscoverAbi,
     ContractAddresses[await getNetworkId()].DISCOVER,
   );
-  debugger
   await validateUpVoteEffect(id, amount);
-  debugger
   return await DiscoverContract.methods
     .upvoteEffect(id, tokenAmount.toString())
     .call({ from: AddressZero });

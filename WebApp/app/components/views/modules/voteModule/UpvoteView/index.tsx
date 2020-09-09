@@ -4,7 +4,7 @@
  *
  */
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Theme, createStyles, withStyles, WithStyles } from '@material-ui/core';
 import { IDapp } from 'domain/Dapps/types';
 import DappInfoHeader from 'components/theme/elements/DappInfoHeader';
@@ -15,6 +15,7 @@ import LoadingIcon from 'components/theme/elements/LoadingIcon';
 import { uiConstants, appColors } from 'theme';
 import { useSelector } from 'react-redux';
 import { makeSelectDappsLoading } from 'domain/Dapps/selectors';
+import { DiscoverUpVoteEffect } from 'domain/Dapps/contracts/Discover.contract';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -71,6 +72,23 @@ const UpvoteView: React.SFC<OwnProps> = ({
   upvote,
 }: OwnProps) => {
   const loading = useSelector(makeSelectDappsLoading);
+  const [value, setValue] = useState(0)
+  const [valuationMemo, setValidationMemo] = useState<Record<number, number>>({
+    0: 0
+  })
+  // TODO: improve memoize 
+  useEffect(() => {
+    const fetchRating = async (input: number) => {
+      const rating = await DiscoverUpVoteEffect(dapp.id, input)
+      setValidationMemo({
+        ...valuationMemo,
+        [input]: parseInt(rating)
+      })
+    }
+    if (!valuationMemo[value]) {
+      fetchRating(value)
+    }
+  }, [value])
   return (
     <section className={classes.root}>
       <section
@@ -80,8 +98,8 @@ const UpvoteView: React.SFC<OwnProps> = ({
       >
         <LoadingIcon />
       </section>
-      <DappInfoHeader dapp={dapp} />
-      <UpvoteForm dapp={dapp} upvote={upvote} />
+      <DappInfoHeader dapp={dapp} changeIndicator={valuationMemo[value] ? valuationMemo[value] : 0} />
+      <UpvoteForm dapp={dapp} upvote={upvote} setIndicator={setValue} />
     </section>
   );
 };

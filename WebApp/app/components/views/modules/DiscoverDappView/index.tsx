@@ -98,6 +98,13 @@ const styles = (theme: Theme) =>
         height: 40,
         width: 40
       }
+    },
+    adminControls: {
+      display: "flex",
+      justifyContent: "center",
+      "& > *":{
+        margin: `0 4px`,
+      }
     }
   });
 
@@ -160,7 +167,18 @@ const DiscoverDappView: React.SFC<OwnProps> = ({ classes, dapp }: OwnProps) => {
               </section>
             </Fragment>
           )}
+          <section className={classes.section}>
+            <div className={classes.adminControls}>
+              <Button size="large" className={classes.button} variant="outlined">
+                Edit
+              </Button>
+              <Button size="large" className={classes.button} variant="outlined">
+                Withdraw
+              </Button>
+            </div>
+          </section>
         </section>
+       
       </article>
     );
   }

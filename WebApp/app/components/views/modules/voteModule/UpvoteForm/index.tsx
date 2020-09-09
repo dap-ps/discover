@@ -98,11 +98,13 @@ const styles = (theme: Theme) =>
 interface OwnProps extends WithStyles<typeof styles> {
   upvote: (dapp: IDapp, amount: number, token: TOKENS) => void;
   dapp: IDapp;
+  setIndicator: (value: number) => void
 }
 
 const UpvoteForm: React.SFC<OwnProps> = ({
   classes,
   dapp,
+  setIndicator,
   upvote,
 }: OwnProps) => {
   // const [token, setToken] = useState<TOKENS>(TOKENS.SNT);
@@ -112,6 +114,10 @@ const UpvoteForm: React.SFC<OwnProps> = ({
     amount: Yup.number()
       .min(1, 'Minimum amount is 1')
       // TODO Validate against balance
+      .test('updatingChange', '', (value: number) => {
+        setIndicator(value)
+        return true
+      })
       .required('Please input a value'),
   });
 
@@ -124,32 +130,33 @@ const UpvoteForm: React.SFC<OwnProps> = ({
       onSubmit={(values, actions) => {
         upvote(dapp, values.amount, token);
       }}
-      render={({ submitForm }) => (
-        <Form className={classes.root}>
-          <section className={classes.inputSection}>
-            <Field
-              className={classes.field}
-              name="amount"
-              type="number"
-              step="1"
-              component={TextField}
-            />
-            <span className={classes.tokenLabel}>{token}</span>
-          </section>
-          <section className={classes.information}>
-            <Typography>
-              {token} you spend to upvote is locked in the contract and
-              contributes directly to {dapp.name}'s ranking.{' '}
-              <Link to={ROUTE_LINKS.HowToVote}>Learn more↗</Link>
-            </Typography>
-          </section>
-          <section className={classes.ctas}>
-            <Button variant="outlined" onClick={() => submitForm()}>
-              Upvote
-            </Button>
-          </section>
-        </Form>
-      )}
+      render={({ submitForm,values }) =>  (
+          <Form className={classes.root}>
+            <section className={classes.inputSection}>
+              <Field
+                className={classes.field}
+                name="amount"
+                type="number"
+                step="1"
+                component={TextField}
+              />
+              <span className={classes.tokenLabel}>{token}</span>
+            </section>
+            <section className={classes.information}>
+              <Typography>
+                {token} you spend to upvote is locked in the contract and
+                contributes directly to {dapp.name}'s ranking.{' '}
+                <Link to={ROUTE_LINKS.HowToVote}>Learn more↗</Link>
+              </Typography>
+            </section>
+            <section className={classes.ctas}>
+              <Button variant="outlined" onClick={() => submitForm()}>
+                Upvote
+              </Button>
+            </section>
+          </Form>
+        )
+      }
     />
   );
 };
