@@ -10,7 +10,12 @@ function* WaitForTxSaga(transaction: ITransaction) {
     let attemptsLeft = 20; // TODO Potentially overkill
     let status = TRANSACTION_STATUS.PENDING;
     while (attemptsLeft != 0) {
-      status = yield call(async () => await getTxStatus(transaction.hash));
+      try {
+        status = yield call(async () => await getTxStatus(transaction.hash));
+        
+      } catch(error){
+
+      }
       if (status == TRANSACTION_STATUS.PENDING) {
         yield delay(3000);
         attemptsLeft--;
@@ -38,11 +43,14 @@ function* WaitForTxSaga(transaction: ITransaction) {
     }
   } catch (error) {
     console.error(error);
+    console.error(error.message);
+    debugger
     toast(error.message, {
       type: 'error',
       autoClose: 10000,
       pauseOnHover: true,
     });
+    yield put(clearAwaitTxAction());
     yield put(awaitTxAction.failure(error));
   }
 }

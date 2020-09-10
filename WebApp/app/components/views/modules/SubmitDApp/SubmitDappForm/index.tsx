@@ -19,6 +19,11 @@ import { TextField } from 'formik-material-ui';
 import UploadImageField from '../../../../theme/formElements/UploadImageField';
 import { uiConstants, appColors, brandColors } from 'theme';
 import CategorySelector from 'components/theme/formElements/CategorySelector';
+import { makeSelectWalletAddress } from 'domain/Wallet/selectors';
+import { useSelector, useDispatch } from 'react-redux';
+import { AddressZero } from 'ethers/constants';
+import { connectAccountAction } from 'domain/Wallet/actions';
+import classNames from 'classnames';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -26,6 +31,45 @@ const styles = (theme: Theme) =>
     root: {
       ...uiConstants.modal.padding,
       height: '100%',
+      position: "relative"
+    },
+    connectStep: {
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+      alignItems: "center",
+      top: 0,
+      left: 0,
+      ...uiConstants.modal.padding,
+      height: "100%",
+      width: "100%",
+      transitionDuration: `${uiConstants.global.animation.speeds.mutation}ms`,
+      opacity: 0,
+      visibility: "hidden",
+      position: "absolute",
+      zIndex: 8,
+      "& > span": {
+        textAlign: "center",
+        zIndex: 2,
+        marginBottom: 8
+      },
+      "&:before": {
+        content: "''",
+        display: "block",
+        top: 0,
+        left: 0,
+        borderRadius: 20,
+        height: "100%",
+        width: "100%",
+        zIndex: 0,
+        opacity: 0.8,
+        backgroundColor: appColors.general.white.base,
+        position: "absolute"
+      },
+      "&.active": {
+        opacity: 1,
+        visibility: "visible"
+      }
     },
     header: {
       position: 'relative',
@@ -118,8 +162,19 @@ interface OwnProps extends WithStyles<typeof styles> {
 
 const SubmitDappForm: React.SFC<OwnProps> = (props: OwnProps) => {
   const { classes, submitForm, back } = props;
+  const address = useSelector(makeSelectWalletAddress)
+  const dispatch = useDispatch()
+  
   return (
     <Form className={classes.root}>
+      <section className={classNames(classes.connectStep, address == AddressZero && "active")}>
+        <Typography variant="body1" component="span">
+          A wallet address is required in order authenticate admins when editing the ÐApp.
+        </Typography>
+        <Button variant="outlined" onClick={() => dispatch(connectAccountAction.request())}>
+          Please connect wallet to continue
+        </Button> 
+      </section>
       <header className={classes.header}>
         <Typography component="h1" variant="h1">
           Submit a ÐApp
@@ -187,9 +242,17 @@ const SubmitDappForm: React.SFC<OwnProps> = (props: OwnProps) => {
             Terms and Conditions.
           </span>
         </Typography>
-        <Button variant="outlined" onClick={submitForm}>
-          Continue
-        </Button>
+        {
+          address != AddressZero ? (
+            <Button variant="outlined" onClick={() => dispatch(connectAccountAction.request())}>
+              Please connect wallet to continue
+            </Button> 
+          ) : (
+            <Button variant="outlined" onClick={submitForm}>
+              Continue
+            </Button>
+          )
+        }
       </footer>
     </Form>
   );

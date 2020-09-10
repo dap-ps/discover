@@ -1,4 +1,4 @@
-import { take, call, put, race } from 'redux-saga/effects';
+import { take, call, put, race, delay } from 'redux-saga/effects';
 import {
   downvoteDappAction,
   setDappsLoadingAction,
@@ -14,9 +14,27 @@ import { generateUri } from 'api/apiUrlBuilder';
 function* downvoteSaga(voteData: IDappVote) {
   try {
     yield put(setDappsLoadingAction(true));
-    const downVoteTx = yield call(
-      async () => await DiscoverDownVote(voteData.id),
-    );
+
+    let attempts = 10
+    let downVoteTx
+    let error
+    while (attempts > 0) {
+      try{
+        downVoteTx = yield call(
+          async () => await DiscoverDownVote(voteData.id),
+        );
+      attempts = 0
+      }catch (caughtError) {
+        error = caughtError
+      }
+      yield delay(250)
+      attempts--
+    }
+
+    if (!downVoteTx) {
+      throw error
+    }
+
     yield put(
       awaitTxAction.request({
         iconSrc: voteData.icon.includes('base64')

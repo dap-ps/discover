@@ -246,7 +246,7 @@ const DiscoverDappView: React.SFC<OwnProps> = ({ classes, dapp }: OwnProps) => {
                 size="large"
                 className={classes.button}
                 variant="outlined"
-                onClick={() => forwardTo(ROUTE_LINKS.Withdrawloading(dapp.name))}
+                onClick={() => forwardTo(ROUTE_LINKS.Withdraw(dapp.name))}
               >
                 Withdraw
               </Button>

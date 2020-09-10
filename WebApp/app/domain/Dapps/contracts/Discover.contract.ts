@@ -339,7 +339,7 @@ export const validateMetadataSet = async (id: string) => {
   }
   const dapp = await DiscoverGetDAppById(id);
 
-  if (dapp.developer.toLowerCase() !== account) {
+  if (dapp.developer.toLowerCase() !== account.toLowerCase()) {
     throw new Error('Only the developer can update the metadata');
   }
 };

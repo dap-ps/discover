@@ -5,22 +5,17 @@
  */
 
 import React from 'react';
-import { connect } from 'react-redux';
-import { compose, Dispatch } from 'redux';
+import { compose } from 'redux';
 import { useRouteMatch, match, Redirect } from 'react-router-dom';
 import { ROUTE_LINKS } from 'routeLinks';
 import WithdrawModuleView from 'components/views/modules/WithdrawModuleView';
-
-interface OwnProps {}
-
-interface DispatchProps {}
 
 interface RouteParams {
   dappname: string;
   voteType: string;
 }
 
-type Props = DispatchProps & RouteParams & OwnProps;
+type Props = RouteParams;
 
 const WithdrawModule: React.SFC<Props> = (props: Props) => {
   const match: match<RouteParams> | null = useRouteMatch({
@@ -36,15 +31,5 @@ const WithdrawModule: React.SFC<Props> = (props: Props) => {
   );
 };
 
-const mapDispatchToProps = (
-  dispatch: Dispatch,
-  ownProps: OwnProps,
-): DispatchProps => {
-  return {
-    dispatch: dispatch,
-  };
-};
-
-const withConnect = connect(mapDispatchToProps);
 
 export default compose()(WithdrawModule);

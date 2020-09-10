@@ -16,7 +16,6 @@ import * as Yup from 'yup';
 import { Formik } from 'formik';
 import UpdateDAppForm from 'components/views/modules/SubmitDApp/UpdateDAppForm';
 import {
-  makeSelectDapp,
   makeSelectDappsLoading,
   makeSelectNumberOfDapps,
   makeSelectDappByName,
@@ -25,7 +24,7 @@ import StakeAndPublishView from 'components/views/modules/SubmitDApp/StakeAndPub
 import { IDapp } from 'domain/Dapps/types';
 import { createDappAction, updateDappAction } from 'domain/Dapps/actions';
 import DAppSubmittedView from 'components/views/modules/SubmitDApp/DAppSubmittedView';
-import { Redirect, useRouteMatch, match } from 'react-router-dom';
+import { useRouteMatch, match } from 'react-router-dom';
 import { ROUTE_LINKS } from 'routeLinks';
 import LoadingIcon from 'components/theme/elements/LoadingIcon';
 import { generateUri } from 'api/apiUrlBuilder';

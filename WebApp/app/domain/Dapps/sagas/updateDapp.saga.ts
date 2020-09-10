@@ -1,4 +1,4 @@
-import { take, call, put, select, race } from 'redux-saga/effects';
+import { take, call, put, select, race, delay } from 'redux-saga/effects';
 import { updateDappAction, setDappsLoadingAction } from '../actions';
 import { IDapp } from '../types';
 import { toast } from 'react-toastify';
@@ -8,62 +8,97 @@ import { selectWalletAddress } from 'domain/Wallet/selectors';
 import {
   validateMetadataSet,
   DiscoverSetMetadata,
+  DiscoverDappExists,
 } from '../contracts/Discover.contract';
 import { uploadMetadataApi, updateDappApi } from 'api/api';
 import { getBytes32FromIpfsHash } from 'domain/App/sagas/metadata.saga';
 import { TRANSACTION_STATUS } from 'utils/constants';
+import { getBase64Image } from 'utils/helpers';
 
 function* updateDappSaga(dapp: IDapp) {
   try {
-    // TODO: Wire up actions
     yield put(setDappsLoadingAction(true));
     let account = yield select(selectWalletAddress);
-    if ((dapp.sntValue as number) > 0) {
-      if (account == AddressZero) {
-        yield put(connectAccountAction.request());
-        const { success, failure } = yield race({
-          success: take(connectAccountAction.success),
-          failure: take(connectAccountAction.failure),
-        });
-        if (failure) {
-          throw 'Account required';
-        }
-        account = success.payload;
+    if (account == AddressZero) {
+      yield put(connectAccountAction.request());
+      const { success, failure } = yield race({
+        success: take(connectAccountAction.success),
+        failure: take(connectAccountAction.failure),
+      });
+      if (failure) {
+        throw 'Account required';
       }
+      account = success.payload;
     }
 
+    const iconUrl = dapp.icon.indexOf("base64") < 0 ? yield call(async () => await getBase64Image(dapp.icon)) : dapp.icon
     const dappMetadata = {
       name: dapp.name,
       url: dapp.url,
       description: dapp.desc,
       category: dapp.category,
-      image: dapp.icon,
+      image: iconUrl,
       dateAdded: Date.now(),
       uploader: account,
-    };
-    yield call(async () => await validateMetadataSet(dapp.id));
+    }
 
-    const uploadedMetadata = yield call(
-      async () => await uploadMetadataApi(dappMetadata, dapp.email),
-    );
+    const existsOnChain = yield call(async () => await DiscoverDappExists(dapp.id))
 
-    const updateMetaTx = yield call(
-      async () =>
-        await DiscoverSetMetadata(
-          dapp.id,
-          getBytes32FromIpfsHash(uploadedMetadata.data.hash),
-        ),
-    );
+    if (existsOnChain) {
+      yield call(async () => await validateMetadataSet(dapp.id));
+      let attempts = 10
+      let error
+      let uploadedMetadata
+      while (attempts > 0) {
+        try {
+          uploadedMetadata = yield call(
+            async () => await uploadMetadataApi(dappMetadata, dapp.email),
+          )
+          attempts = 0
+        } catch (caughtError) {
+          error = caughtError
+        }
+        yield delay(250)
+        attempts --
+      }
 
-    yield put(
-      awaitTxAction.request({
-        iconSrc: dapp.icon,
-        hash: updateMetaTx,
-        state: TRANSACTION_STATUS.PENDING,
-        heading: dapp.name,
-        caption: dapp.desc,
-      }),
-    );
+      if (!uploadedMetadata) {
+        throw "Upload error"
+      }
+
+      attempts = 10
+      let updateMetaTx
+      while (attempts > 0) {
+        try {
+          updateMetaTx = yield call(
+            async () =>
+            await DiscoverSetMetadata(
+              dapp.id,
+              getBytes32FromIpfsHash(uploadedMetadata.data.hash),
+            ),
+          );
+          attempts = 0
+        } catch(caughtError) {
+          error = caughtError
+        }
+        yield delay(250)
+        attempts --
+      }
+
+      if (!uploadedMetadata) {
+        throw error
+      }
+
+      yield put(
+        awaitTxAction.request({
+          iconSrc: dapp.icon,
+          hash: updateMetaTx,
+          state: TRANSACTION_STATUS.PENDING,
+          heading: dapp.name,
+          caption: dapp.desc,
+        }),
+      );
+    }
 
     yield call(async () => await updateDappApi(dapp.id, dapp.email));
     yield put(updateDappAction.success(dapp));

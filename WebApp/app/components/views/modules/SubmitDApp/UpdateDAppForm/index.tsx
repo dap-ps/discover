@@ -19,6 +19,10 @@ import { TextField } from 'formik-material-ui';
 import UploadImageField from '../../../../theme/formElements/UploadImageField';
 import { uiConstants, appColors, brandColors } from 'theme';
 import CategorySelector from 'components/theme/formElements/CategorySelector';
+import classNames from 'classnames';
+import { makeSelectDappsLoading } from 'domain/Dapps/selectors';
+import { useSelector } from 'react-redux';
+import LoadingIcon from 'components/theme/elements/LoadingIcon';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -109,18 +113,62 @@ const styles = (theme: Theme) =>
       color: brandColors.default.main,
       cursor: 'pointer',
     },
+    loading: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      height: '100%',
+      width: '100%',
+      zIndex: 10,
+      opacity: 0,
+      visibility: 'hidden',
+      transitionDuration: `${uiConstants.global.animation.speeds.mutation}ms`,
+      '& svg': {
+        height: 80,
+        width: 80,
+      },
+      '&.active': {
+        opacity: 1,
+        visibility: 'visible',
+      },
+      '&:before': {
+        content: "''",
+        display: 'block',
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        height: '100%',
+        width: '100%',
+        borderRadius: '20px',
+        opacity: 0.4,
+        backgroundColor: appColors.general.backgroundColor,
+      },
+    },
   });
 
 interface OwnProps extends WithStyles<typeof styles> {
-  submitForm(data): void;
+  submitForm(): void;
 }
 
 const UpdateDAppForm: React.SFC<OwnProps> = ({
   classes,
   submitForm,
 }: OwnProps) => {
+  const loading = useSelector(makeSelectDappsLoading)
+  
   return (
     <Form className={classes.root}>
+      <section
+        className={classNames(classes.loading, {
+          ['active']: loading,
+        })}
+      >
+        <LoadingIcon />
+      </section>
       <header className={classes.header}>
         <Typography component="h1" variant="h1">
           Update ÐApp
@@ -182,7 +230,7 @@ const UpdateDAppForm: React.SFC<OwnProps> = ({
         </FormControl>
       </section>
       <footer className={classes.footer}>
-        <Button variant="outlined" onClick={submitForm}>
+        <Button variant="outlined" onClick={() => submitForm()}>
           Submit changes
         </Button>
       </footer>

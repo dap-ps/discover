@@ -118,9 +118,18 @@ const DownvoteForm: React.SFC<OwnProps> = ({
         </Typography>
       </section>
       <section className={classes.ctas}>
-        <Button onClick={() => downvote(dapp)} variant="outlined" type="button">
-          Downvote
-        </Button>
+        {
+          cost > 0 ? (
+            <Button onClick={() => downvote(dapp)} variant="outlined" type="button">
+              Downvote
+            </Button>
+          ) : (
+            <Typography>
+              Down votes permitted once cost is above 0
+            </Typography>
+          )
+        }
+       
       </section>
     </article>
   );
