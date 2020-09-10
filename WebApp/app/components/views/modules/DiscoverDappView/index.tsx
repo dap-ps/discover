@@ -25,6 +25,8 @@ import { makeSelectWalletAddress } from 'domain/Wallet/selectors';
 import { AddressZero } from 'ethers/constants';
 import classNames from 'classnames';
 import { connectAccountAction } from 'domain/Wallet/actions';
+import { ROUTE_LINKS } from 'routeLinks';
+import { forwardTo } from 'utils/history';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -120,11 +122,16 @@ const styles = (theme: Theme) =>
         left: 0,
         height: "100%",
         width: "100%",
+        zIndex: 1,
         opacity: 0,
-        visibilty: "hidden",
+        visibility: "hidden",
         transitionDuration: `${uiConstants.global.animation.speeds.mutation}ms`
       },
       "&.blocked": {
+        "& > *": {
+          visibility: "hidden",
+          opacity: 0,
+        },
         "& > .blocker": {
           visibility: "visible",
           opacity: 1,
@@ -215,7 +222,7 @@ const DiscoverDappView: React.SFC<OwnProps> = ({ classes, dapp }: OwnProps) => {
             }>
               <div className={"blocker"}>
                 {
-                  address == AddressZero && <Button onClick={() => dispatch(connectAccountAction.request())}>
+                  address == AddressZero && <Button variant="outlined" onClick={() => dispatch(connectAccountAction.request())}>
                     Connect Wallet to access controls
                   </Button> 
                 }
@@ -231,6 +238,7 @@ const DiscoverDappView: React.SFC<OwnProps> = ({ classes, dapp }: OwnProps) => {
                 size="large"
                 className={classes.button}
                 variant="outlined"
+                onClick={() => forwardTo(ROUTE_LINKS.UpdateDApp(dapp.name))}
               >
                 Edit
               </Button>
@@ -238,6 +246,7 @@ const DiscoverDappView: React.SFC<OwnProps> = ({ classes, dapp }: OwnProps) => {
                 size="large"
                 className={classes.button}
                 variant="outlined"
+                onClick={() => forwardTo(ROUTE_LINKS.Withdrawloading(dapp.name))}
               >
                 Withdraw
               </Button>

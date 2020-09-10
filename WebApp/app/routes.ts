@@ -13,6 +13,7 @@ import { FunctionComponent, ReactNode, ComponentType } from 'react';
 import HowToVoteModule from 'containers/modules/HowToVoteModule';
 import DiscoverDappModule from 'containers/modules/DiscoverDappModule';
 import Landing from 'components/views/pages/Landing';
+import WithdrawModule from 'containers/modules/WithdrawModule';
 
 export interface AppRoute {
   name: string;
@@ -59,6 +60,15 @@ const routes: AppRoute[] = [
     isProtected: false, // This allows general access control
     isNavRequired: false, // This allows mapping into a navigation bar
     modalComponent: DAppManagementContainer,
+  },
+
+  {
+    name: 'Withdraw',
+    path: ROUTE_LINKS.Withdraw(':dappname'),
+    component: Landing,
+    isProtected: false, // This allows general access control
+    isNavRequired: false, // This allows mapping into a navigation bar
+    modalComponent: WithdrawModule,
   },
 
   {

@@ -6,11 +6,10 @@
 
 import React, { Fragment } from 'react';
 import { Theme, createStyles, withStyles, WithStyles, Typography } from '@material-ui/core';
-import { makeSelectDappByName, makeSelectDappsLoading } from 'domain/Dapps/selectors';
+import { makeSelectDappByName } from 'domain/Dapps/selectors';
 import { useSelector } from 'react-redux';
 import { brandColors, appColors } from 'theme';
 import ReviewBadgeIcon from '../../../../images/icons/reviewBadge.svg';
-import classNames from 'classnames';
 import LoadingIcon from 'components/theme/elements/LoadingIcon';
 import { generateUri } from 'api/apiUrlBuilder';
 import { DAPP_STATUS } from 'utils/constants';

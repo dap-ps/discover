@@ -89,6 +89,7 @@ export const DiscoverICachedDappToIDapp = ({
   hash,
   ipfsHash,
   status,
+  email,
   details: { category, dateAdded, description, image, name, uploader, url },
 }: ICachedDapp): Partial<IDapp> => ({
   hash: hash,
@@ -102,6 +103,7 @@ export const DiscoverICachedDappToIDapp = ({
   name: name,
   uploader: uploader,
   url: url,
+  email: email
 });
 
 export const DiscoverIRawDappMetaToIDapp = (

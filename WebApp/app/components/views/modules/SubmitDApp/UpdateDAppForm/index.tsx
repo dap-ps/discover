@@ -123,12 +123,12 @@ const UpdateDAppForm: React.SFC<OwnProps> = ({
     <Form className={classes.root}>
       <header className={classes.header}>
         <Typography component="h1" variant="h1">
-          Submit a ÐApp
+          Update ÐApp
         </Typography>
       </header>
       <section className={classes.content}>
         <FormControl className={classes.input}>
-          <Field component={UploadImageField} name="logo" />
+          <Field component={UploadImageField} name="icon" />
         </FormControl>
         <FormControl className={classes.input}>
           <Field
@@ -145,7 +145,7 @@ const UpdateDAppForm: React.SFC<OwnProps> = ({
           <Field
             fullWidth
             size="small"
-            name="description"
+            name="desc"
             label="Short Description"
             variant="outlined"
             max="140"
@@ -183,7 +183,7 @@ const UpdateDAppForm: React.SFC<OwnProps> = ({
       </section>
       <footer className={classes.footer}>
         <Button variant="outlined" onClick={submitForm}>
-          Update
+          Submit changes
         </Button>
       </footer>
     </Form>

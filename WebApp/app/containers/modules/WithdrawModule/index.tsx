@@ -4,7 +4,7 @@
  *
  */
 
-import React, { Fragment } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { compose, Dispatch } from 'redux';
 import { useRouteMatch, match, Redirect } from 'react-router-dom';

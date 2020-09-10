@@ -70,14 +70,17 @@ const DownvoteView: React.SFC<OwnProps> = ({
   dapp,
 }: OwnProps) => {
   const [cost, setCost] = useState(0);
+  
   useEffect(() => {
     const check = async () => {
       const cost = (await DiscoverDownVoteCost(dapp.id)).c;
       setCost(parseInt(cost));
     };
     check();
-  }, [dapp]);
-  const loading = useSelector(makeSelectDappsLoading);
+  }, [dapp])
+
+  const loading = useSelector(makeSelectDappsLoading)
+
   return (
     <section className={classes.root}>
       <section

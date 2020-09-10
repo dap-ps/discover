@@ -19,16 +19,18 @@ import {
   makeSelectDapp,
   makeSelectDappsLoading,
   makeSelectNumberOfDapps,
+  makeSelectDappByName,
 } from 'domain/Dapps/selectors';
 import StakeAndPublishView from 'components/views/modules/SubmitDApp/StakeAndPublishView';
 import { IDapp } from 'domain/Dapps/types';
 import { createDappAction, updateDappAction } from 'domain/Dapps/actions';
 import DAppSubmittedView from 'components/views/modules/SubmitDApp/DAppSubmittedView';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useRouteMatch, match } from 'react-router-dom';
 import { ROUTE_LINKS } from 'routeLinks';
+import LoadingIcon from 'components/theme/elements/LoadingIcon';
+import { generateUri } from 'api/apiUrlBuilder';
 
 interface OwnProps {
-  dappId?: string;
 }
 
 interface StateProps {}
@@ -36,6 +38,11 @@ interface StateProps {}
 interface DispatchProps {
   createDapp: (dapp: IDapp, stake: number) => void
   updateDapp: (dapp: IDapp) => void
+}
+
+interface RouteParams {
+  dappname: string;
+  voteType: string;
 }
 
 type Props = DispatchProps & StateProps & OwnProps;
@@ -49,11 +56,16 @@ enum SLIDES {
 }
 
 const DAppManagementContainer: React.SFC<Props> = ({
-  dappId,
   createDapp,
   updateDapp,
 }: Props) => {
-  if (!dappId) {
+  const match: match<RouteParams> | null = useRouteMatch({
+    path: ROUTE_LINKS.UpdateDApp(':dappname'),
+    strict: true,
+    sensitive: true,
+  });
+
+  if (!match?.params.dappname) {
     // Create DApp
     const loading = useSelector(makeSelectDappsLoading);
     const numberOfDapps = useSelector(makeSelectNumberOfDapps);
@@ -151,7 +163,7 @@ const DAppManagementContainer: React.SFC<Props> = ({
         );
     }
   } else {
-    const dapp = useSelector(makeSelectDapp(dappId));
+    const dapp = useSelector(makeSelectDappByName(match.params.dappname));
 
     const UpdateSchema = Yup.object().shape({
       name: Yup.string().required('Please provide a name for your Ðapp'),
@@ -169,16 +181,19 @@ const DAppManagementContainer: React.SFC<Props> = ({
         .email('Please provide a valid email')
         .required('Please provide a valid email'),
     });
+
     if (dapp) {
       return (
         <Formik
           initialValues={{
-            name: dapp?.name,
-            icon: dapp?.icon,
-            desc: dapp?.desc,
-            url: dapp?.url,
-            category: dapp?.category,
-            email: dapp?.email,
+            name: dapp.name,
+            icon: dapp.icon?.includes('base64')
+              ? dapp.icon
+              : generateUri(dapp.icon),
+            desc: dapp.desc,
+            url: dapp.url,
+            category: dapp.category,
+            email: dapp.email,
           }}
           validationSchema={UpdateSchema}
           onSubmit={(values, actions) => {
@@ -191,7 +206,11 @@ const DAppManagementContainer: React.SFC<Props> = ({
         />
       );
     } else {
-      return <Redirect to={ROUTE_LINKS.Home} />
+      return (
+        <section>
+          <LoadingIcon />
+        </section>
+      )
     }
   }
 };

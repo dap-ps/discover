@@ -39,7 +39,6 @@ const mapDispatchToProps = (
 ): DispatchProps => {
   return {
     downvote: (dapp: IDapp) => {
-      // TODO: wire to saga
       dispatch(
         downvoteDappAction.request({
           desc: dapp.desc,
