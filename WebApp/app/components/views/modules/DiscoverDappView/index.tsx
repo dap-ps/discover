@@ -15,11 +15,16 @@ import {
 } from '@material-ui/core';
 import { IDapp } from 'domain/Dapps/types';
 import { DAPP_STATUS } from 'utils/constants';
-import { appColors, brandColors } from 'theme';
+import { appColors, brandColors, uiConstants } from 'theme';
 import ReviewBadgeIcon from '../../../../images/icons/reviewBadge.svg';
 import { generateUri } from 'api/apiUrlBuilder';
 import RankingModule from '../RankingModule';
 import LoadingIcon from 'components/theme/elements/LoadingIcon';
+import { useSelector, useDispatch } from 'react-redux';
+import { makeSelectWalletAddress } from 'domain/Wallet/selectors';
+import { AddressZero } from 'ethers/constants';
+import classNames from 'classnames';
+import { connectAccountAction } from 'domain/Wallet/actions';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -102,9 +107,41 @@ const styles = (theme: Theme) =>
     adminControls: {
       display: 'flex',
       justifyContent: 'center',
+      position: "relative",
       '& > *': {
         margin: `0 4px`,
       },
+      "& .blocker":{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        position: "absolute",
+        top: 0,
+        left: 0,
+        height: "100%",
+        width: "100%",
+        opacity: 0,
+        visibilty: "hidden",
+        transitionDuration: `${uiConstants.global.animation.speeds.mutation}ms`
+      },
+      "&.blocked": {
+        "& > .blocker": {
+          visibility: "visible",
+          opacity: 1,
+          "&:before": {
+            content: "''",
+            display: "block",
+            position: "absolute",
+            top: 0,
+            left: 0,
+            height: "100%",
+            width: "100%",
+            backgroundColor: appColors.general.backgroundColor,
+            opacity: 0.4,
+            zIndex: 0,
+          }
+        }
+      }
     },
   });
 
@@ -113,6 +150,8 @@ interface OwnProps extends WithStyles<typeof styles> {
 }
 
 const DiscoverDappView: React.SFC<OwnProps> = ({ classes, dapp }: OwnProps) => {
+  const address = useSelector(makeSelectWalletAddress)
+  const dispatch = useDispatch()
   if (!dapp) {
     return (
       <section className={classes.loading}>
@@ -168,7 +207,26 @@ const DiscoverDappView: React.SFC<OwnProps> = ({ classes, dapp }: OwnProps) => {
             </Fragment>
           )}
           <section className={classes.section}>
-            <div className={classes.adminControls}>
+            <div className={classNames(
+              classes.adminControls, 
+              {
+                ["blocked"]:  address == AddressZero || address != dapp.uploader
+              })
+            }>
+              <div className={"blocker"}>
+                {
+                  address == AddressZero && <Button onClick={() => dispatch(connectAccountAction.request())}>
+                    Connect Wallet to access controls
+                  </Button> 
+                }
+                {
+                  address != AddressZero && address != dapp.uploader && (
+                    <Typography>
+                      {`${address.substr(0,6)}...`} is not admin
+                    </Typography>
+                  )
+                }
+              </div>
               <Button
                 size="large"
                 className={classes.button}

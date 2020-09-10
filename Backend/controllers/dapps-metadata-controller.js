@@ -102,7 +102,6 @@ class DAppsMetadataController {
   static async getDAppImage(req, res) {
     try {
       const dappImage = await DAppImageService.retrieveImage(req.params.hash)
-      console.log("Fetching ")
       if (!dappImage) {
         res.status(404).send()
       }
