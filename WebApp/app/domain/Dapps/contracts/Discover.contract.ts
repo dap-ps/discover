@@ -322,10 +322,12 @@ export const validateWithdrawing = async (id: string, amount: BigNumber) => {
   }
   const dapp = await DiscoverGetDAppById(id);
 
-  if (dapp.developer.toLowerCase() !== account) {
+  if (dapp.developer.toLowerCase() !== account.toLowerCase()) {
     throw new Error('Only the developer can withdraw SNT staked on this data');
   }
-  if (dapp.available.lt(amount)) {
+  const available = defaultMultiplier.mul(bigNumberify(dapp.available));
+
+  if (available.lt(amount)) {
     throw new Error(
       'You can only withdraw a percentage of the SNT staked, less what you have already received',
     );

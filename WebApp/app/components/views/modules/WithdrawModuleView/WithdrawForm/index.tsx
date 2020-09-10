@@ -5,16 +5,19 @@
  */
 
 import React, { useEffect, useState } from 'react';
-import { Theme, createStyles, withStyles, WithStyles, TextField, Typography, Button } from '@material-ui/core';
+import { Theme, createStyles, withStyles, WithStyles, Typography, Button } from '@material-ui/core';
 import { IDapp } from 'domain/Dapps/types';
 import { makeSelectDappsLoading } from 'domain/Dapps/selectors';
 import * as Yup from 'yup';
 import { useSelector, useDispatch } from 'react-redux';
 import { Form, Field, Formik } from 'formik';
-import { appColors } from 'theme';
+import { appColors, uiConstants } from 'theme';
 import { TOKENS } from 'utils/constants';
 import { DiscoverWithdrawMax } from 'domain/Dapps/contracts/Discover.contract';
 import { withdrawAction } from 'domain/Dapps/actions';
+import { TextField } from 'formik-material-ui';
+import classNames from 'classnames';
+import LoadingIcon from 'components/theme/elements/LoadingIcon';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -87,6 +90,48 @@ const styles = (theme: Theme) =>
       justifyContent: 'center',
       paddingTop: 20,
     },
+    setMax: {
+      cursor: "pointer",
+      position: "absolute",
+      right: 0,
+      top: "50%",
+      transform: "translate(0, -50%)"
+    },
+    loading: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      height: '100%',
+      width: '100%',
+      zIndex: 10,
+      opacity: 0,
+      visibility: 'hidden',
+      transitionDuration: `${uiConstants.global.animation.speeds.mutation}ms`,
+      '& svg': {
+        height: 80,
+        width: 80,
+      },
+      '&.active': {
+        opacity: 1,
+        visibility: 'visible',
+      },
+      '&:before': {
+        content: "''",
+        display: 'block',
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        height: '100%',
+        width: '100%',
+        borderRadius: '20px',
+        opacity: 0.4,
+        backgroundColor: appColors.general.backgroundColor,
+      },
+    },
   });
 
 interface OwnProps extends WithStyles<typeof styles> {
@@ -95,7 +140,6 @@ interface OwnProps extends WithStyles<typeof styles> {
 
 const WithdrawForm: React.SFC<OwnProps> = ({ classes, dapp }: OwnProps) => {
   const loading = useSelector(makeSelectDappsLoading);
-
 
   const [max, setMax] = useState(0)
 
@@ -113,16 +157,10 @@ const WithdrawForm: React.SFC<OwnProps> = ({ classes, dapp }: OwnProps) => {
     amount: Yup.number()
       .min(1, 'Minimum amount is 1')
       .max(max, "Maximum amount exceeded")
-      // TODO Validate against balance
-      .test('updatingChange', '', (value: number) => {
-        // setIndicator(value);
-        return true;
-      })
       .required('Please input a value'),
   });
 
   const dispatch = useDispatch()
-
 
   return (
     <Formik
@@ -131,7 +169,6 @@ const WithdrawForm: React.SFC<OwnProps> = ({ classes, dapp }: OwnProps) => {
       }}
       validationSchema={WithdrawSchema}
       onSubmit={(values, actions) => {
-        // upvote(dapp, values.amount, token);
         dispatch(withdrawAction.request({
           amount: values.amount,
           desc: dapp.desc,
@@ -143,16 +180,24 @@ const WithdrawForm: React.SFC<OwnProps> = ({ classes, dapp }: OwnProps) => {
       }}
       render={({ submitForm, values, setFieldValue }) => (
         <Form className={classes.root}>
+           <section
+            className={classNames(classes.loading, {
+              ['active']: loading,
+            })}
+          >
+            <LoadingIcon />
+          </section>
           <section className={classes.inputSection}>
             <Field
               className={classes.field}
               name="amount"
               type="number"
               step="1"
+              min="0"
               component={TextField}
             />
             <span className={classes.tokenLabel}>{token}</span>
-            <Typography onClick={() => setFieldValue("amount", max)}>
+            <Typography className={classes.setMax} onClick={() => setFieldValue("amount", max)}>
               Set Max
             </Typography>
           </section>
@@ -164,7 +209,7 @@ const WithdrawForm: React.SFC<OwnProps> = ({ classes, dapp }: OwnProps) => {
             </Typography>
           </section>
           <section className={classes.ctas}>
-            <Button variant="outlined" onClick={() => submitForm()}>
+            <Button disabled={values.amount == 0  || values.amount > max } variant="outlined" onClick={() => submitForm()}>
               Withdraw
             </Button>
           </section>

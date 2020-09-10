@@ -133,6 +133,10 @@ const WithdrawModuleView: React.SFC<OwnProps> = ({ classes, dappname }: OwnProps
             <Typography component="p">{dapp.desc}</Typography>
           </section>
           <section className={classes.section}>
+            <Typography component="h4">Available</Typography>
+            <Typography component="p">{parseInt(`${dapp.available / 10e5}`)}</Typography>
+          </section>
+          <section className={classes.section}>
             <Typography component="h4">URL</Typography>
             <a href={dapp.url} rel="ugc" target="_blank">
               {dapp.url}

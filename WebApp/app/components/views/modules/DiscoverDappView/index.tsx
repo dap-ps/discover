@@ -166,6 +166,7 @@ const DiscoverDappView: React.SFC<OwnProps> = ({ classes, dapp }: OwnProps) => {
       </section>
     );
   } else {
+    console.log(dapp)
     const dappIconUrl = dapp.icon?.includes('base64')
       ? dapp.icon
       : generateUri(dapp.icon);
@@ -227,9 +228,9 @@ const DiscoverDappView: React.SFC<OwnProps> = ({ classes, dapp }: OwnProps) => {
                   </Button> 
                 }
                 {
-                  address != AddressZero && address != dapp.uploader && (
+                  address != AddressZero && address.toLowerCase() != dapp.uploader.toLowerCase() && (
                     <Typography>
-                      {`${address.substr(0,6)}...`} is not admin
+                      {`${address.substr(0,7)}...`} is not admin
                     </Typography>
                   )
                 }

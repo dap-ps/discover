@@ -19,8 +19,8 @@ export function* updateDappDataSaga(id: string) {
         ),
     )).data
     let freshDapp: Partial<IDapp> = {
-      ...onChainData,
       ...DiscoverICachedDappToIDapp(metaData),
+      ...onChainData,
     };
     debugger
     yield put(updateDappDataAction.success(freshDapp as IDapp));

@@ -28,9 +28,7 @@ function* withdrawSaga(withdrawRequest: IWithdrawRequest) {
           async () =>
             await DiscoverWithdraw(
               withdrawRequest.id,
-              withdrawRequest.max
-                ? await DiscoverWithdrawMax(withdrawRequest.id)
-                : withdrawRequest.amount,
+              withdrawRequest.amount,
             ),
         );
         attempts = 0
@@ -55,15 +53,30 @@ function* withdrawSaga(withdrawRequest: IWithdrawRequest) {
         heading: withdrawRequest.name,
         caption: withdrawRequest.desc,
       }),
-    );
+    )
+
     const { success, failure } = yield race({
       success: take(awaitTxAction.success),
       failure: take(awaitTxAction.failure),
-    });
+    })
+
     if (success) {
-      yield put(withdrawAction.success());
-      yield put(setDappsLoadingAction(false));
-      yield put(updateDappDataAction.request(withdrawRequest.id));
+      yield put(updateDappDataAction.request(withdrawRequest.id))
+
+      const {
+        updateSuccess,
+        updateFailure
+      } = yield race({
+        updateSuccess: take(updateDappDataAction.success),
+        failure: take(updateDappDataAction.failure),
+      })
+      if (updateSuccess){ 
+        yield put(withdrawAction.success());
+        yield put(setDappsLoadingAction(false));
+      } else {
+        throw updateFailure
+      }
+     
     } else {
       debugger;
       throw failure;

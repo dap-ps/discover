@@ -34,8 +34,8 @@ export function* fetchDappsSaga() {
       const onChainData: ICachedDapp | undefined =
         fetchedMeta[getIpfsHashFromBytes32(rawDapp.metadata)];
       return {
-        ...DiscoverIRawDappMetaToIDapp(rawDapp),
         ...(onChainData && DiscoverICachedDappToIDapp(onChainData)),
+        ...DiscoverIRawDappMetaToIDapp(rawDapp),
       };
     });
 

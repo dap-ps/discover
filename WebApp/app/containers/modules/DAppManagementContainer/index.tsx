@@ -19,6 +19,7 @@ import {
   makeSelectDappsLoading,
   makeSelectNumberOfDapps,
   makeSelectDappByName,
+  makeSelectDappNames,
 } from 'domain/Dapps/selectors';
 import StakeAndPublishView from 'components/views/modules/SubmitDApp/StakeAndPublishView';
 import { IDapp } from 'domain/Dapps/types';
@@ -62,7 +63,8 @@ const DAppManagementContainer: React.SFC<Props> = ({
     path: ROUTE_LINKS.UpdateDApp(':dappname'),
     strict: true,
     sensitive: true,
-  });
+  })
+  const dappNames = useSelector(makeSelectDappNames)
 
   if (!match?.params.dappname) {
     // Create DApp
@@ -90,7 +92,9 @@ const DAppManagementContainer: React.SFC<Props> = ({
     }, [loading, newDapp, slide]);
 
     const SubmitDappSchema = Yup.object().shape({
-      name: Yup.string().required('Please provide a name for your Ðapp'),
+      name: Yup.string()
+        .test("Name duplicate", "Dapp by name already exists", (input: string) => dappNames.indexOf(input) >= 0)
+        .required('Please provide a name for your Ðapp'),
       icon: Yup.mixed().required('Please provide a logo'),
       // .test('fileSize', 'Maximum file size of 10MB exceeded', file => fileSizeValidation(file, MAX_FILE_SIZE))
       // .test('fileType', 'Please supply an image file', file => fileTypeValidation(file, SUPPORTED_IMAGE_FORMATS)),
@@ -165,7 +169,9 @@ const DAppManagementContainer: React.SFC<Props> = ({
     const dapp = useSelector(makeSelectDappByName(match.params.dappname));
 
     const UpdateSchema = Yup.object().shape({
-      name: Yup.string().required('Please provide a name for your Ðapp'),
+      name: Yup.string()
+        .test("Name duplicate", "Dapp by name already exists", (input: string) => dappNames.indexOf(input) >= 0)
+        .required('Please provide a name for your Ðapp'),
       icon: Yup.mixed().required('Please provide a logo'),
       // .test('fileSize', 'Maximum file size of 10MB exceeded', file => fileSizeValidation(file, MAX_FILE_SIZE))
       // .test('fileType', 'Please supply an image file', file => fileTypeValidation(file, SUPPORTED_IMAGE_FORMATS)),

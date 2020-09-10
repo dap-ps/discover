@@ -50,6 +50,13 @@ export const makeSelectDappsLoading = createSelector(
   },
 );
 
+export const makeSelectDappNames = createSelector(
+  selectDapps,
+  (dapps: IDapp[]) => {
+    return dapps.map((dapp: IDapp) => dapp.name);
+  },
+);
+
 export const makeSelectDapps = () =>
   createSelector(selectDappsDomain, (substate: DomainState) => {
     return substate.dapps;
