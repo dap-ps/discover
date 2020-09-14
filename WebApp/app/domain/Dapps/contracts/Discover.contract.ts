@@ -5,7 +5,6 @@ import {
   defaultMultiplier,
   broadcastContractFn,
   ContractAddresses,
-  getNetworkId,
 } from 'domain/App/blockchainUtils';
 import DiscoverAbi from '../../../embarkArtifacts/contracts/Discover';
 import { AddressZero } from 'ethers/constants';

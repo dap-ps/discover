@@ -11,7 +11,7 @@ import { setLoadingAction, setNetworkAction } from './actions';
 export const initialState: DomainState = {
   loading: true,
   errorMessage: '',
-  network: 3,
+  network: parseInt(process.env["TARGET_NETWORK"] as string),
 };
 
 function appReducer(state = initialState, action: DomainActions) {

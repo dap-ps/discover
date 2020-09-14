@@ -14,6 +14,10 @@ enum ActionTypes {
   SET_MODAL = '@@dapps/global/SET_MODAL',
 
   SET_NETWORK = '@@dapps/global/SET_NETWORK',
+
+  // TODO: Remove when cache server has namespacing
+  SET_NETWORK_VALID = '@@dapps/global/SET_NETWORK_VALID',
+
 }
 
 export default ActionTypes;

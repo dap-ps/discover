@@ -3,7 +3,6 @@ import {
   connectContract,
   getAccount,
   broadcastContractFn,
-  getNetworkId,
   ContractAddresses,
 } from 'domain/App/blockchainUtils';
 import { AddressZero } from 'ethers/constants';
