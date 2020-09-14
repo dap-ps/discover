@@ -1,6 +1,6 @@
 import { fork, put } from 'redux-saga/effects';
 
-import { setLoadingAction } from './actions';
+import { setLoadingAction, clearRequestQueueAction } from './actions';
 
 import { apiRequestListener } from './sagas/toggleApiSendingFlag';
 import DappsSaga from 'domain/Dapps/saga';
@@ -10,6 +10,7 @@ import { BackgroundSaga } from './sagas/background.saga';
 
 export default function* rootDaemonSaga() {
   yield put(setLoadingAction(false));
+  yield put(clearRequestQueueAction())
   yield fork(apiRequestListener);
 
   // Add other global DAEMON sagas here.

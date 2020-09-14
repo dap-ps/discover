@@ -158,8 +158,8 @@ const UpdateDAppForm: React.SFC<OwnProps> = ({
   classes,
   submitForm,
 }: OwnProps) => {
-  const loading = useSelector(makeSelectDappsLoading)
-  
+  const loading = useSelector(makeSelectDappsLoading);
+
   return (
     <Form className={classes.root}>
       <section
@@ -230,11 +230,7 @@ const UpdateDAppForm: React.SFC<OwnProps> = ({
         </FormControl>
       </section>
       <footer className={classes.footer}>
-        <Button 
-          size="large" 
-          variant="outlined" 
-          onClick={() => submitForm()}
-        >
+        <Button size="large" variant="outlined" onClick={() => submitForm()}>
           Submit changes
         </Button>
       </footer>

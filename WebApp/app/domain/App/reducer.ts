@@ -1,6 +1,6 @@
 import { getType } from 'typesafe-actions';
 import { DomainState, DomainActions } from './types';
-import { setLoadingAction, setNetworkAction } from './actions';
+import { setLoadingAction, setNetworkAction, addToRequestQueueAction, removeFromRequestQueueAction, clearRequestQueueAction } from './actions';
 
 /*
  *
@@ -11,11 +11,29 @@ import { setLoadingAction, setNetworkAction } from './actions';
 export const initialState: DomainState = {
   loading: true,
   errorMessage: '',
-  network: parseInt(process.env["TARGET_NETWORK"] as string),
+  network: parseInt(process.env['TARGET_NETWORK'] as string),
+  requestQueue: [],
 };
 
 function appReducer(state = initialState, action: DomainActions) {
   switch (action.type) {
+    case getType(clearRequestQueueAction):
+      return {
+        ...state,
+        requestQueue: [],
+      }
+    case getType(addToRequestQueueAction):
+      return {
+        ...state,
+        requestQueue: [...state.requestQueue, action.payload],
+      }
+    case getType(removeFromRequestQueueAction):
+      return {
+        ...state,
+        requestQueue: state.requestQueue.filter(
+          (item) => item != action.payload
+        ),
+      }
     case getType(setNetworkAction):
       return {
         ...state,

@@ -114,16 +114,19 @@ const UpvoteForm: React.SFC<OwnProps> = ({
   upvote,
 }: OwnProps) => {
   // const [token, setToken] = useState<TOKENS>(TOKENS.SNT);
-  const token = TOKENS.SNT
-  const currentToken = useSelector(makeSelectToken(token))
+  const token = TOKENS.SNT;
+  const currentToken = useSelector(makeSelectToken(token));
 
-  const address = useSelector(makeSelectWalletAddress)
-  const dispatch = useDispatch()
-  
+  const address = useSelector(makeSelectWalletAddress);
+  const dispatch = useDispatch();
+
   const UpvoteSchema = Yup.object().shape({
     amount: Yup.number()
       .min(1, 'Minimum amount is 1')
-      .max(currentToken ? parseFloat(formatUnits(currentToken.balance, 18)): 0, "Insufficient funds")
+      .max(
+        currentToken ? parseFloat(formatUnits(currentToken.balance, 18)) : 0,
+        'Insufficient funds',
+      )
       .test('updatingChange', '', (value: number) => {
         setIndicator(value);
         return true;
@@ -160,28 +163,24 @@ const UpvoteForm: React.SFC<OwnProps> = ({
             </Typography>
           </section>
           <section className={classes.ctas}>
-          {
-            address == AddressZero && (
-              <Button 
+            {address == AddressZero && (
+              <Button
                 size="large"
-                variant="outlined" 
+                variant="outlined"
                 onClick={() => dispatch(connectAccountAction.request())}
               >
                 Connect Wallet to continue
               </Button>
-            )
-          }
-          {
-            address != AddressZero && (
-              <Button 
+            )}
+            {address != AddressZero && (
+              <Button
                 size="large"
-                variant="outlined" 
+                variant="outlined"
                 onClick={() => submitForm()}
               >
                 Upvote
               </Button>
-            )
-          }
+            )}
           </section>
         </Form>
       )}

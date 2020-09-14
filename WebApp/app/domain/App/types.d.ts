@@ -7,6 +7,7 @@ interface AppState {
   readonly loading: boolean;
   readonly errorMessage: string;
   readonly network: number;
+  readonly requestQueue: string[]
 }
 
 /* --- ACTIONS --- */

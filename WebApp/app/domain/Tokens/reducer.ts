@@ -29,13 +29,13 @@ function tokensReducer(
             return token;
           }),
         ],
-        lastUpdate: Date.now()
+        lastUpdate: Date.now(),
       };
     case getType(getBalancesAction.success):
       return {
         ...state,
         tokens: [...action.payload],
-        lastUpdate: Date.now()
+        lastUpdate: Date.now(),
       };
     default:
       return state;

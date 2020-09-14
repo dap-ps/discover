@@ -18,7 +18,8 @@ export const DiscoverUpVoteEffect = async (id: string, amount: number) => {
   const tokenAmount = bigNumberify(amount);
   const DiscoverContract = await connectContract(
     DiscoverAbi,
-    ContractAddresses[parseInt(process.env["TARGET_NETWORK"] as string)].DISCOVER,
+    ContractAddresses[parseInt(process.env['TARGET_NETWORK'] as string)]
+      .DISCOVER,
     // ContractAddresses[await getNetworkId()].DISCOVER,
   );
   await validateUpVoteEffect(id, amount);
@@ -32,7 +33,8 @@ export const DiscoverDownVoteCost = async (id: string) => {
 
   const DiscoverContract = await connectContract(
     DiscoverAbi,
-    ContractAddresses[parseInt(process.env["TARGET_NETWORK"] as string)].DISCOVER,
+    ContractAddresses[parseInt(process.env['TARGET_NETWORK'] as string)]
+      .DISCOVER,
     // ContractAddresses[await getNetworkId()].DISCOVER,
   );
   return await DiscoverContract.methods
@@ -43,7 +45,8 @@ export const DiscoverDownVoteCost = async (id: string) => {
 export const DiscoverGetDAppById = async (id: string) => {
   const DiscoverContract = await connectContract(
     DiscoverAbi,
-    ContractAddresses[parseInt(process.env["TARGET_NETWORK"] as string)].DISCOVER,
+    ContractAddresses[parseInt(process.env['TARGET_NETWORK'] as string)]
+      .DISCOVER,
     // ContractAddresses[await getNetworkId()].DISCOVER,
   );
   const dappExists = await DiscoverDappExists(id);
@@ -72,7 +75,8 @@ export const DiscoverGetDAppById = async (id: string) => {
 export const DiscoverGetDAppsCount = async () => {
   const DiscoverContract = await connectContract(
     DiscoverAbi,
-    ContractAddresses[parseInt(process.env["TARGET_NETWORK"] as string)].DISCOVER,
+    ContractAddresses[parseInt(process.env['TARGET_NETWORK'] as string)]
+      .DISCOVER,
     // ContractAddresses[await getNetworkId()].DISCOVER,
   );
   return parseInt(
@@ -83,7 +87,8 @@ export const DiscoverGetDAppsCount = async () => {
 export const DiscoverGetDAppsMeta = async (id: number) => {
   const DiscoverContract = await connectContract(
     DiscoverAbi,
-    ContractAddresses[parseInt(process.env["TARGET_NETWORK"] as string)].DISCOVER,
+    ContractAddresses[parseInt(process.env['TARGET_NETWORK'] as string)]
+      .DISCOVER,
     // ContractAddresses[await getNetworkId()].DISCOVER,
   );
   return await DiscoverContract.methods.dapps(id).call({ from: AddressZero });
@@ -107,7 +112,7 @@ export const DiscoverICachedDappToIDapp = ({
   name: name,
   uploader: uploader,
   url: url,
-  email: email
+  email: email,
 });
 
 export const DiscoverIRawDappMetaToIDapp = (
@@ -148,7 +153,8 @@ export const DiscoverHelperGetMeta = async (
 export const DiscoverSafeMax = async () => {
   const DiscoverContract = await connectContract(
     DiscoverAbi,
-    ContractAddresses[parseInt(process.env["TARGET_NETWORK"] as string)].DISCOVER,
+    ContractAddresses[parseInt(process.env['TARGET_NETWORK'] as string)]
+      .DISCOVER,
     // ContractAddresses[await getNetworkId()].DISCOVER,
   );
   return DiscoverContract.methods.safeMax().call({ from: AddressZero });
@@ -157,7 +163,8 @@ export const DiscoverSafeMax = async () => {
 export const DiscoverDappExists = async (id: string) => {
   const DiscoverContract = await connectContract(
     DiscoverAbi,
-    ContractAddresses[parseInt(process.env["TARGET_NETWORK"] as string)].DISCOVER,
+    ContractAddresses[parseInt(process.env['TARGET_NETWORK'] as string)]
+      .DISCOVER,
     // ContractAddresses[await getNetworkId()].DISCOVER,
   );
   return DiscoverContract.methods.existingIDs(id).call({ from: AddressZero });
@@ -175,7 +182,8 @@ export const DiscoverCreateDApp = async (
   }
   const DiscoverContract = await connectContract(
     DiscoverAbi,
-    ContractAddresses[parseInt(process.env["TARGET_NETWORK"] as string)].DISCOVER,
+    ContractAddresses[parseInt(process.env['TARGET_NETWORK'] as string)]
+      .DISCOVER,
     // ContractAddresses[await getNetworkId()].DISCOVER,
   );
   const callData = DiscoverContract.methods
@@ -192,7 +200,8 @@ export const DiscoverCreateDApp = async (
 export const DiscoverUpVote = async (id: string, amount: number) => {
   const DiscoverContract = await connectContract(
     DiscoverAbi,
-    ContractAddresses[parseInt(process.env["TARGET_NETWORK"] as string)].DISCOVER,
+    ContractAddresses[parseInt(process.env['TARGET_NETWORK'] as string)]
+      .DISCOVER,
     // ContractAddresses[await getNetworkId()].DISCOVER,
   );
   const tokenAmount = defaultMultiplier.mul(bigNumberify(amount));
@@ -210,7 +219,8 @@ export const DiscoverUpVote = async (id: string, amount: number) => {
 export const DiscoverDownVote = async (id: string) => {
   const DiscoverContract = await connectContract(
     DiscoverAbi,
-    ContractAddresses[parseInt(process.env["TARGET_NETWORK"] as string)].DISCOVER,
+    ContractAddresses[parseInt(process.env['TARGET_NETWORK'] as string)]
+      .DISCOVER,
     // ContractAddresses[await getNetworkId()].DISCOVER,
   );
   const dapp = await DiscoverGetDAppById(id);
@@ -235,7 +245,8 @@ export const DiscoverWithdraw = async (id: string, amount: number) => {
   }
   const DiscoverContract = await connectContract(
     DiscoverAbi,
-    ContractAddresses[parseInt(process.env["TARGET_NETWORK"] as string)].DISCOVER,
+    ContractAddresses[parseInt(process.env['TARGET_NETWORK'] as string)]
+      .DISCOVER,
     // ContractAddresses[await getNetworkId()].DISCOVER,
   );
   const tokenAmount = defaultMultiplier.mul(bigNumberify(amount));
@@ -258,7 +269,8 @@ export const DiscoverSetMetadata = async (id: string, metadataHash: string) => {
   }
   const DiscoverContract = await connectContract(
     DiscoverAbi,
-    ContractAddresses[parseInt(process.env["TARGET_NETWORK"] as string)].DISCOVER,
+    ContractAddresses[parseInt(process.env['TARGET_NETWORK'] as string)]
+      .DISCOVER,
     // ContractAddresses[await getNetworkId()].DISCOVER,
   );
 
@@ -284,7 +296,8 @@ export const DiscoverWithdrawMax = async (dappId: string) => {
   }
   const DiscoverContract = await connectContract(
     DiscoverAbi,
-    ContractAddresses[parseInt(process.env["TARGET_NETWORK"] as string)].DISCOVER,
+    ContractAddresses[parseInt(process.env['TARGET_NETWORK'] as string)]
+      .DISCOVER,
     // ContractAddresses[await getNetworkId()].DISCOVER,
   );
   const decimals = 1000000;

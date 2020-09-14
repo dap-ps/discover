@@ -78,9 +78,9 @@ export const getNetworkId = async (): Promise<number> => {
 };
 
 export const getRpcUrl = async (forceNetwork?: number) => {
-  return `wss://${getNetworkName(forceNetwork ? forceNetwork : await getNetworkId())}.infura.io/ws/v3/${
-    process.env['INFURA_KEY']
-  }`;
+  return `wss://${getNetworkName(
+    forceNetwork ? forceNetwork : await getNetworkId(),
+  )}.infura.io/ws/v3/${process.env['INFURA_KEY']}`;
 };
 
 export const getAccount = async (): Promise<string> => {
@@ -128,13 +128,14 @@ export const connectContract = async (Contract: any, address: string) => {
 
   // @ts-ignore
   const provider = EmbarkJS.Blockchain.Providers.web3.getCurrentProvider();
-  const network = await getNetworkId()
-  console.log("Network", network)
-  if (!provider.selectedAddress || `${network}` != process.env["TARGET_NETWORK"]) {
-    console.log("Target network", process.env["TARGET_NETWORK"])
+  const network = await getNetworkId();
+  if (
+    !provider.selectedAddress ||
+    `${network}` != process.env['TARGET_NETWORK']
+  ) {
     // @ts-ignore
     contracts[address].currentProvider = new Web3.providers.WebsocketProvider(
-      await getRpcUrl(parseInt(process.env["TARGET_NETWORK"] as string)),
+      await getRpcUrl(parseInt(process.env['TARGET_NETWORK'] as string)),
     );
   }
 

@@ -149,7 +149,7 @@ const DappInfoHeader: React.SFC<OwnProps> = ({
   const dappIconUrl = dapp.icon?.includes('base64')
     ? dapp.icon
     : generateUri(dapp.icon);
-    console.log(dapp)
+  console.log(dapp);
   return (
     <section className={classNames(classes.root, className)}>
       <div className={classes.title}>

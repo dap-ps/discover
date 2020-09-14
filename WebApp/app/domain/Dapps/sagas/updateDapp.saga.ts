@@ -31,7 +31,10 @@ function* updateDappSaga(dapp: IDapp) {
       account = success.payload;
     }
 
-    const iconUrl = dapp.icon.indexOf("base64") < 0 ? yield call(async () => await getBase64Image(dapp.icon)) : dapp.icon
+    const iconUrl =
+      dapp.icon.indexOf('base64') < 0
+        ? yield call(async () => await getBase64Image(dapp.icon))
+        : dapp.icon;
     const dappMetadata = {
       name: dapp.name,
       url: dapp.url,
@@ -40,53 +43,55 @@ function* updateDappSaga(dapp: IDapp) {
       image: iconUrl,
       dateAdded: Date.now(),
       uploader: account,
-    }
+    };
 
-    const existsOnChain = yield call(async () => await DiscoverDappExists(dapp.id))
+    const existsOnChain = yield call(
+      async () => await DiscoverDappExists(dapp.id),
+    );
 
     if (existsOnChain) {
       yield call(async () => await validateMetadataSet(dapp.id));
-      let attempts = 10
-      let error
-      let uploadedMetadata
+      let attempts = 10;
+      let error;
+      let uploadedMetadata;
       while (attempts > 0) {
         try {
           uploadedMetadata = yield call(
             async () => await uploadMetadataApi(dappMetadata, dapp.email),
-          )
-          attempts = 0
+          );
+          attempts = 0;
         } catch (caughtError) {
-          error = caughtError
+          error = caughtError;
         }
-        yield delay(250)
-        attempts --
+        yield delay(250);
+        attempts--;
       }
 
       if (!uploadedMetadata) {
-        throw "Upload error"
+        throw 'Upload error';
       }
 
-      attempts = 10
-      let updateMetaTx
+      attempts = 10;
+      let updateMetaTx;
       while (attempts > 0) {
         try {
           updateMetaTx = yield call(
             async () =>
-            await DiscoverSetMetadata(
-              dapp.id,
-              getBytes32FromIpfsHash(uploadedMetadata.data.hash),
-            ),
+              await DiscoverSetMetadata(
+                dapp.id,
+                getBytes32FromIpfsHash(uploadedMetadata.data.hash),
+              ),
           );
-          attempts = 0
-        } catch(caughtError) {
-          error = caughtError
+          attempts = 0;
+        } catch (caughtError) {
+          error = caughtError;
         }
-        yield delay(250)
-        attempts --
+        yield delay(250);
+        attempts--;
       }
 
       if (!uploadedMetadata) {
-        throw error
+        throw error;
       }
 
       yield put(

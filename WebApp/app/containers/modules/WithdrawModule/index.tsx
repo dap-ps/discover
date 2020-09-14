@@ -31,5 +31,4 @@ const WithdrawModule: React.SFC<Props> = (props: Props) => {
   );
 };
 
-
 export default compose()(WithdrawModule);

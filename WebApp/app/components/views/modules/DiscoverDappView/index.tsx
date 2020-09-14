@@ -109,46 +109,46 @@ const styles = (theme: Theme) =>
     adminControls: {
       display: 'flex',
       justifyContent: 'center',
-      position: "relative",
+      position: 'relative',
       '& > *': {
         margin: `0 4px`,
       },
-      "& .blocker":{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        position: "absolute",
+      '& .blocker': {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        position: 'absolute',
         top: 0,
         left: 0,
-        height: "100%",
-        width: "100%",
+        height: '100%',
+        width: '100%',
         zIndex: 1,
         opacity: 0,
-        visibility: "hidden",
-        transitionDuration: `${uiConstants.global.animation.speeds.mutation}ms`
+        visibility: 'hidden',
+        transitionDuration: `${uiConstants.global.animation.speeds.mutation}ms`,
       },
-      "&.blocked": {
-        "& > *": {
-          visibility: "hidden",
+      '&.blocked': {
+        '& > *': {
+          visibility: 'hidden',
           opacity: 0,
         },
-        "& > .blocker": {
-          visibility: "visible",
+        '& > .blocker': {
+          visibility: 'visible',
           opacity: 1,
-          "&:before": {
+          '&:before': {
             content: "''",
-            display: "block",
-            position: "absolute",
+            display: 'block',
+            position: 'absolute',
             top: 0,
             left: 0,
-            height: "100%",
-            width: "100%",
+            height: '100%',
+            width: '100%',
             backgroundColor: appColors.general.backgroundColor,
             opacity: 0.4,
             zIndex: 0,
-          }
-        }
-      }
+          },
+        },
+      },
     },
   });
 
@@ -157,8 +157,8 @@ interface OwnProps extends WithStyles<typeof styles> {
 }
 
 const DiscoverDappView: React.SFC<OwnProps> = ({ classes, dapp }: OwnProps) => {
-  const address = useSelector(makeSelectWalletAddress)
-  const dispatch = useDispatch()
+  const address = useSelector(makeSelectWalletAddress);
+  const dispatch = useDispatch();
   if (!dapp) {
     return (
       <section className={classes.loading}>
@@ -166,7 +166,7 @@ const DiscoverDappView: React.SFC<OwnProps> = ({ classes, dapp }: OwnProps) => {
       </section>
     );
   } else {
-    console.log(dapp)
+    console.log(dapp);
     const dappIconUrl = dapp.icon?.includes('base64')
       ? dapp.icon
       : generateUri(dapp.icon);
@@ -215,25 +215,26 @@ const DiscoverDappView: React.SFC<OwnProps> = ({ classes, dapp }: OwnProps) => {
             </Fragment>
           )}
           <section className={classes.section}>
-            <div className={classNames(
-              classes.adminControls, 
-              {
-                ["blocked"]:  address == AddressZero || address != dapp.uploader
-              })
-            }>
-              <div className={"blocker"}>
-                {
-                  address == AddressZero && <Button variant="outlined" onClick={() => dispatch(connectAccountAction.request())}>
+            <div
+              className={classNames(classes.adminControls, {
+                ['blocked']: address == AddressZero || address != dapp.uploader,
+              })}
+            >
+              <div className={'blocker'}>
+                {address == AddressZero && (
+                  <Button
+                    variant="outlined"
+                    onClick={() => dispatch(connectAccountAction.request())}
+                  >
                     Connect Wallet to access controls
-                  </Button> 
-                }
-                {
-                  address != AddressZero && address.toLowerCase() != dapp.uploader.toLowerCase() && (
+                  </Button>
+                )}
+                {address != AddressZero &&
+                  address.toLowerCase() != dapp.uploader.toLowerCase() && (
                     <Typography>
-                      {`${address.substr(0,7)}...`} is not admin
+                      {`${address.substr(0, 7)}...`} is not admin
                     </Typography>
-                  )
-                }
+                  )}
               </div>
               <Button
                 size="large"

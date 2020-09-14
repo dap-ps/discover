@@ -12,7 +12,7 @@ import { BigNumber, bigNumberify } from 'ethers/utils';
 export const SNTallowance = async (from: string, to: string) => {
   const SNTToken = await connectContract(
     SNTContract,
-    ContractAddresses[parseInt(process.env["TARGET_NETWORK"] as string)].SNT,
+    ContractAddresses[parseInt(process.env['TARGET_NETWORK'] as string)].SNT,
     // ContractAddresses[await getNetworkId()].SNT,
   );
 
@@ -22,7 +22,7 @@ export const SNTallowance = async (from: string, to: string) => {
 export const SNTbalanceOf = async (account: string) => {
   const SNTToken = await connectContract(
     SNTContract,
-    ContractAddresses[parseInt(process.env["TARGET_NETWORK"] as string)].SNT,
+    ContractAddresses[parseInt(process.env['TARGET_NETWORK'] as string)].SNT,
     // ContractAddresses[await getNetworkId()].SNT,
   );
   return await SNTToken.methods.balanceOf(account).call({ from: AddressZero });
@@ -31,7 +31,7 @@ export const SNTbalanceOf = async (account: string) => {
 export const SNTcontroller = async () => {
   const SNTToken = await connectContract(
     SNTContract,
-    ContractAddresses[parseInt(process.env["TARGET_NETWORK"] as string)].SNT,
+    ContractAddresses[parseInt(process.env['TARGET_NETWORK'] as string)].SNT,
     // ContractAddresses[await getNetworkId()].SNT,
   );
   return await SNTToken.methods.controller().call({ from: AddressZero });
@@ -40,7 +40,7 @@ export const SNTcontroller = async () => {
 export const SNTtransferable = async () => {
   const SNTToken = await connectContract(
     SNTContract,
-    ContractAddresses[parseInt(process.env["TARGET_NETWORK"] as string)].SNT,
+    ContractAddresses[parseInt(process.env['TARGET_NETWORK'] as string)].SNT,
     // ContractAddresses[await getNetworkId()].SNT,
   );
   return await SNTToken.methods.transfersEnabled().call({ from: AddressZero });
@@ -81,7 +81,7 @@ export const SNTapproveAndCall = async (
   }
   const SNTToken = await connectContract(
     SNTContract,
-    ContractAddresses[parseInt(process.env["TARGET_NETWORK"] as string)].SNT,
+    ContractAddresses[parseInt(process.env['TARGET_NETWORK'] as string)].SNT,
     // ContractAddresses[await getNetworkId()].SNT,
   );
   if (await validateApproveAndCall(amount)) {
@@ -102,7 +102,7 @@ export const SNTgenerateTokens = async () => {
   }
   const SNTToken = await connectContract(
     SNTContract,
-    ContractAddresses[parseInt(process.env["TARGET_NETWORK"] as string)].SNT,
+    ContractAddresses[parseInt(process.env['TARGET_NETWORK'] as string)].SNT,
     // ContractAddresses[await getNetworkId()].SNT,
   );
 

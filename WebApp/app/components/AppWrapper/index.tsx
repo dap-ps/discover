@@ -4,7 +4,7 @@ import { Typography } from '@material-ui/core';
 import { createStyles, withStyles, WithStyles } from '@material-ui/core/styles';
 import NavMenu from 'components/views/modules/NavMenu';
 import routes, { AppRoute } from 'routes';
-import { Link, Switch, Route } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 
 import { uiConstants, appColors } from 'theme';
 import DappIcon from '../../images/icons/add-dapp.svg';
@@ -18,6 +18,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Modal from 'components/theme/elements/Modal';
 import TransactionStatus from 'components/views/modules/TransactionStatus';
+import ChangeNetworkIndicator from 'components/views/modules/ChangeNetworkIndicator';
 
 const iconSize = 40;
 const styles = (theme) =>
@@ -134,8 +135,8 @@ const AppWrapper: React.SFC<Props> = ({
               </Typography>
             </div>
           </div>
-          <Link
-            to="https://join.status.im/chat/public/status-core-dapps"
+          <a
+            href="https://join.status.im/chat/public/status-core-dapps"
             target="_blank"
             className={classes.footerItem}
           >
@@ -151,12 +152,12 @@ const AppWrapper: React.SFC<Props> = ({
                 we can help.
               </Typography>
             </div>
-          </Link>
+          </a>
         </section>
       </footer>
       <ToastContainer autoClose={5000} />
       <LoadingComponent loading={currentlySending} />
-
+      <ChangeNetworkIndicator />
       <Switch>
         {routes.map(({ path, modalComponent }) => (
           <Route

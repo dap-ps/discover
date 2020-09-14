@@ -9,37 +9,32 @@ import { IWithdrawRequest } from '../types';
 import { toast } from 'react-toastify';
 import { awaitTxAction } from 'domain/Wallet/actions';
 import { TRANSACTION_STATUS } from 'utils/constants';
-import {
-  DiscoverWithdraw,
-} from '../contracts/Discover.contract';
+import { DiscoverWithdraw } from '../contracts/Discover.contract';
 import { generateUri } from 'api/apiUrlBuilder';
 
 function* withdrawSaga(withdrawRequest: IWithdrawRequest) {
   try {
     yield put(setDappsLoadingAction(true));
 
-    let attempts = 10
-    let withdrawTx
-    let error
+    let attempts = 10;
+    let withdrawTx;
+    let error;
     while (attempts > 0) {
       try {
         withdrawTx = yield call(
           async () =>
-            await DiscoverWithdraw(
-              withdrawRequest.id,
-              withdrawRequest.amount,
-            ),
+            await DiscoverWithdraw(withdrawRequest.id, withdrawRequest.amount),
         );
-        attempts = 0
+        attempts = 0;
       } catch (caughtError) {
-        error = caughtError
+        error = caughtError;
       }
-      yield delay(250)
-      attempts--
+      yield delay(250);
+      attempts--;
     }
 
     if (!withdrawTx) {
-      throw error
+      throw error;
     }
 
     yield put(
@@ -52,30 +47,26 @@ function* withdrawSaga(withdrawRequest: IWithdrawRequest) {
         heading: withdrawRequest.name,
         caption: withdrawRequest.desc,
       }),
-    )
+    );
 
     const { success, failure } = yield race({
       success: take(awaitTxAction.success),
       failure: take(awaitTxAction.failure),
-    })
+    });
 
     if (success) {
-      yield put(updateDappDataAction.request(withdrawRequest.id))
+      yield put(updateDappDataAction.request(withdrawRequest.id));
 
-      const {
-        updateSuccess,
-        updateFailure
-      } = yield race({
+      const { updateSuccess, updateFailure } = yield race({
         updateSuccess: take(updateDappDataAction.success),
         failure: take(updateDappDataAction.failure),
-      })
-      if (updateSuccess){ 
+      });
+      if (updateSuccess) {
         yield put(withdrawAction.success());
         yield put(setDappsLoadingAction(false));
       } else {
-        throw updateFailure
+        throw updateFailure;
       }
-     
     } else {
       debugger;
       throw failure;

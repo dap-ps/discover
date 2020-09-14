@@ -5,7 +5,14 @@
  */
 
 import React, { useEffect, useState } from 'react';
-import { Theme, createStyles, withStyles, WithStyles, Typography, Button } from '@material-ui/core';
+import {
+  Theme,
+  createStyles,
+  withStyles,
+  WithStyles,
+  Typography,
+  Button,
+} from '@material-ui/core';
 import { IDapp } from 'domain/Dapps/types';
 import { makeSelectDappsLoading } from 'domain/Dapps/selectors';
 import * as Yup from 'yup';
@@ -91,11 +98,11 @@ const styles = (theme: Theme) =>
       paddingTop: 20,
     },
     setMax: {
-      cursor: "pointer",
-      position: "absolute",
+      cursor: 'pointer',
+      position: 'absolute',
       right: 0,
-      top: "50%",
-      transform: "translate(0, -50%)"
+      top: '50%',
+      transform: 'translate(0, -50%)',
     },
     loading: {
       display: 'flex',
@@ -135,32 +142,32 @@ const styles = (theme: Theme) =>
   });
 
 interface OwnProps extends WithStyles<typeof styles> {
-  dapp: IDapp
+  dapp: IDapp;
 }
 
 const WithdrawForm: React.SFC<OwnProps> = ({ classes, dapp }: OwnProps) => {
   const loading = useSelector(makeSelectDappsLoading);
 
-  const [max, setMax] = useState(0)
+  const [max, setMax] = useState(0);
 
   useEffect(() => {
     const fetch = async () => {
-      const temp = await DiscoverWithdrawMax(dapp.id)
-      setMax(temp)
-    }
-    fetch()
-  }, [])
+      const temp = await DiscoverWithdrawMax(dapp.id);
+      setMax(temp);
+    };
+    fetch();
+  }, []);
 
   const token = TOKENS.SNT;
 
   const WithdrawSchema = Yup.object().shape({
     amount: Yup.number()
       .min(1, 'Minimum amount is 1')
-      .max(max, "Maximum amount exceeded")
+      .max(max, 'Maximum amount exceeded')
       .required('Please input a value'),
   });
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   return (
     <Formik
@@ -169,18 +176,20 @@ const WithdrawForm: React.SFC<OwnProps> = ({ classes, dapp }: OwnProps) => {
       }}
       validationSchema={WithdrawSchema}
       onSubmit={(values, actions) => {
-        dispatch(withdrawAction.request({
-          amount: values.amount,
-          desc: dapp.desc,
-          icon: dapp.icon,
-          id: dapp.id,
-          max: values.amount == max,
-          name: dapp.name
-        }))
+        dispatch(
+          withdrawAction.request({
+            amount: values.amount,
+            desc: dapp.desc,
+            icon: dapp.icon,
+            id: dapp.id,
+            max: values.amount == max,
+            name: dapp.name,
+          }),
+        );
       }}
       render={({ submitForm, values, setFieldValue }) => (
         <Form className={classes.root}>
-           <section
+          <section
             className={classNames(classes.loading, {
               ['active']: loading,
             })}
@@ -197,7 +206,10 @@ const WithdrawForm: React.SFC<OwnProps> = ({ classes, dapp }: OwnProps) => {
               component={TextField}
             />
             <span className={classes.tokenLabel}>{token}</span>
-            <Typography className={classes.setMax} onClick={() => setFieldValue("amount", max)}>
+            <Typography
+              className={classes.setMax}
+              onClick={() => setFieldValue('amount', max)}
+            >
               Set Max
             </Typography>
           </section>
@@ -209,14 +221,19 @@ const WithdrawForm: React.SFC<OwnProps> = ({ classes, dapp }: OwnProps) => {
             </Typography>
           </section>
           <section className={classes.ctas}>
-            <Button size="large" disabled={values.amount == 0  || values.amount > max } variant="outlined" onClick={() => submitForm()}>
+            <Button
+              size="large"
+              disabled={values.amount == 0 || values.amount > max}
+              variant="outlined"
+              onClick={() => submitForm()}
+            >
               Withdraw
             </Button>
           </section>
         </Form>
       )}
     />
-  )
+  );
 };
 
 export default withStyles(styles, { withTheme: true })(WithdrawForm);

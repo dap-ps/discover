@@ -5,7 +5,6 @@ import { getTokensBalance } from '@mycrypto/eth-scan';
 import { RootState } from 'domain/App/types';
 import { IDAppsToken } from '../types';
 import { utils } from 'ethers';
-import { toast } from 'react-toastify';
 
 function* getBalancesSaga() {
   while (true) {
@@ -53,11 +52,7 @@ function* getBalancesSaga() {
       yield put(getBalancesAction.success(balances));
       yield put(getPricesAction.request());
     } catch (error) {
-      toast(error.message, {
-        type: 'error',
-        autoClose: 10000,
-        pauseOnHover: true,
-      });
+      console.error(error)
       yield put(getBalancesAction.failure(error));
     }
   }

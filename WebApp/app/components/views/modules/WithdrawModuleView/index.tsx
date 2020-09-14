@@ -5,7 +5,13 @@
  */
 
 import React, { Fragment } from 'react';
-import { Theme, createStyles, withStyles, WithStyles, Typography } from '@material-ui/core';
+import {
+  Theme,
+  createStyles,
+  withStyles,
+  WithStyles,
+  Typography,
+} from '@material-ui/core';
 import { makeSelectDappByName } from 'domain/Dapps/selectors';
 import { useSelector } from 'react-redux';
 import { brandColors, appColors } from 'theme';
@@ -107,20 +113,23 @@ const styles = (theme: Theme) =>
   });
 
 interface OwnProps extends WithStyles<typeof styles> {
-  dappname: string
+  dappname: string;
 }
 
-const WithdrawModuleView: React.SFC<OwnProps> = ({ classes, dappname }: OwnProps) => {
-  const dapp = useSelector(makeSelectDappByName(dappname))
-  const address = useSelector(makeSelectWalletAddress)
+const WithdrawModuleView: React.SFC<OwnProps> = ({
+  classes,
+  dappname,
+}: OwnProps) => {
+  const dapp = useSelector(makeSelectDappByName(dappname));
+  const address = useSelector(makeSelectWalletAddress);
 
   if (dapp) {
     if (dapp.uploader.toLowerCase() != address.toLowerCase()) {
-      forwardTo(ROUTE_LINKS.Discover(dapp.id))
+      forwardTo(ROUTE_LINKS.Discover(dapp.id));
     }
     const dappIconUrl = dapp.icon?.includes('base64')
-    ? dapp.icon
-    : generateUri(dapp.icon);
+      ? dapp.icon
+      : generateUri(dapp.icon);
     return (
       <article className={classes.root}>
         <header className={classes.header}>
@@ -141,7 +150,9 @@ const WithdrawModuleView: React.SFC<OwnProps> = ({ classes, dappname }: OwnProps
           </section>
           <section className={classes.section}>
             <Typography component="h4">Available</Typography>
-            <Typography component="p">{parseInt(`${dapp.available / 10e5}`)}</Typography>
+            <Typography component="p">
+              {parseInt(`${dapp.available / 10e5}`)}
+            </Typography>
           </section>
           <section className={classes.section}>
             <Typography component="h4">URL</Typography>
@@ -164,21 +175,19 @@ const WithdrawModuleView: React.SFC<OwnProps> = ({ classes, dappname }: OwnProps
               </section>
             </Fragment>
           )}
-           <section className={classes.section}>
+          <section className={classes.section}>
             <WithdrawForm dapp={dapp} />
           </section>
         </section>
-       
-      </article>  
-    )
-  } else{
+      </article>
+    );
+  } else {
     return (
       <section className={classes.loading}>
         <LoadingIcon />
       </section>
-    )
+    );
   }
- 
 };
 
 export default withStyles(styles, { withTheme: true })(WithdrawModuleView);

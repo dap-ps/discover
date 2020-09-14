@@ -109,12 +109,14 @@ const DownvoteForm: React.SFC<OwnProps> = ({
   dapp,
   cost,
 }: OwnProps) => {
-  const address = useSelector(makeSelectWalletAddress)
-  const dispatch = useDispatch()
-  const SNTToken = useSelector(makeSelectToken(TOKENS.SNT))
+  const address = useSelector(makeSelectWalletAddress);
+  const dispatch = useDispatch();
+  const SNTToken = useSelector(makeSelectToken(TOKENS.SNT));
 
-  const activeBalance = SNTToken ? parseFloat(formatUnits(SNTToken.balance, 18)): 0
-  
+  const activeBalance = SNTToken
+    ? parseFloat(formatUnits(SNTToken.balance, 18))
+    : 0;
+
   return (
     <article className={classes.root}>
       <section className={classes.inputSection}>
@@ -130,29 +132,29 @@ const DownvoteForm: React.SFC<OwnProps> = ({
         </Typography>
       </section>
       <section className={classes.ctas}>
-        {
-          address == AddressZero && <Button variant="outlined" onClick={() => dispatch(connectAccountAction.request())}>
+        {address == AddressZero && (
+          <Button
+            variant="outlined"
+            onClick={() => dispatch(connectAccountAction.request())}
+          >
             Connect Wallet to continue
-          </Button> 
-        }
-        {
-          address != AddressZero && cost > 0 ? 
-            activeBalance > cost ? (
-              <Button onClick={() => downvote(dapp)} variant="outlined" type="button">
-                Downvote
-              </Button>
-            ): (
-              <Typography>
-                Insufficient funds
-              </Typography>
-            ) 
-          : (
-            <Typography>
-              Down votes permitted once cost is above 0
-            </Typography>
+          </Button>
+        )}
+        {address != AddressZero && cost > 0 ? (
+          activeBalance > cost ? (
+            <Button
+              onClick={() => downvote(dapp)}
+              variant="outlined"
+              type="button"
+            >
+              Downvote
+            </Button>
+          ) : (
+            <Typography>Insufficient funds</Typography>
           )
-        }
-       
+        ) : (
+          <Typography>Down votes permitted once cost is above 0</Typography>
+        )}
       </section>
     </article>
   );

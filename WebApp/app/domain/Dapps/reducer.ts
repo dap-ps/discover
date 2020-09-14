@@ -18,7 +18,7 @@ export const initialState: DomainState = {
   featuredDapps: ['sablier', 'oasis', 'zerion'],
   loading: false,
   dapps: [],
-  lastUpdate: 0
+  lastUpdate: 0,
 };
 
 function dappsReducer(
@@ -34,7 +34,6 @@ function dappsReducer(
             dapp.id == action.payload.id ? action.payload : dapp,
           ),
         ],
-        lastUpdate: Date.now()
       };
     case getType(updateDappDataAction.success):
       return {
@@ -54,6 +53,7 @@ function dappsReducer(
       return {
         ...state,
         dapps: action.payload,
+        lastUpdate: Date.now(),
       };
     case getType(setDappsLoadingAction):
       return {

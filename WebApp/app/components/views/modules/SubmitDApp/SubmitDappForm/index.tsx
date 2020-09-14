@@ -31,45 +31,45 @@ const styles = (theme: Theme) =>
     root: {
       ...uiConstants.modal.padding,
       height: '100%',
-      position: "relative"
+      position: 'relative',
     },
     connectStep: {
-      display: "flex",
-      flexDirection: "column",
-      justifyContent: "center",
-      alignItems: "center",
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
       top: 0,
       left: 0,
       ...uiConstants.modal.padding,
-      height: "100%",
-      width: "100%",
+      height: '100%',
+      width: '100%',
       transitionDuration: `${uiConstants.global.animation.speeds.mutation}ms`,
       opacity: 0,
-      visibility: "hidden",
-      position: "absolute",
+      visibility: 'hidden',
+      position: 'absolute',
       zIndex: 8,
-      "& > span": {
-        textAlign: "center",
+      '& > span': {
+        textAlign: 'center',
         zIndex: 2,
-        marginBottom: 8
+        marginBottom: 8,
       },
-      "&:before": {
+      '&:before': {
         content: "''",
-        display: "block",
+        display: 'block',
         top: 0,
         left: 0,
         borderRadius: 20,
-        height: "100%",
-        width: "100%",
+        height: '100%',
+        width: '100%',
         zIndex: 0,
         opacity: 0.8,
         backgroundColor: appColors.general.white.base,
-        position: "absolute"
+        position: 'absolute',
       },
-      "&.active": {
+      '&.active': {
         opacity: 1,
-        visibility: "visible"
-      }
+        visibility: 'visible',
+      },
     },
     header: {
       position: 'relative',
@@ -162,18 +162,27 @@ interface OwnProps extends WithStyles<typeof styles> {
 
 const SubmitDappForm: React.SFC<OwnProps> = (props: OwnProps) => {
   const { classes, submitForm, back } = props;
-  const address = useSelector(makeSelectWalletAddress)
-  const dispatch = useDispatch()
-  
+  const address = useSelector(makeSelectWalletAddress);
+  const dispatch = useDispatch();
+
   return (
     <Form className={classes.root}>
-      <section className={classNames(classes.connectStep, address == AddressZero && "active")}>
+      <section
+        className={classNames(
+          classes.connectStep,
+          address == AddressZero && 'active',
+        )}
+      >
         <Typography variant="body1" component="span">
-          A wallet address is required in order authenticate admins when editing the ÐApp.
+          A wallet address is required in order authenticate admins when editing
+          the ÐApp.
         </Typography>
-        <Button variant="outlined" onClick={() => dispatch(connectAccountAction.request())}>
+        <Button
+          variant="outlined"
+          onClick={() => dispatch(connectAccountAction.request())}
+        >
           Please connect wallet to continue
-        </Button> 
+        </Button>
       </section>
       <header className={classes.header}>
         <Typography component="h1" variant="h1">
@@ -242,25 +251,19 @@ const SubmitDappForm: React.SFC<OwnProps> = (props: OwnProps) => {
             Terms and Conditions.
           </span>
         </Typography>
-        {
-          address != AddressZero ? (
-            <Button 
-              size="large"
-              variant="outlined" 
-              onClick={() => dispatch(connectAccountAction.request())}
-            >
-              Please connect wallet to continue
-            </Button> 
-          ) : (
-            <Button 
-              size="large" 
-              variant="outlined" 
-              onClick={submitForm}
-            >
-              Continue
-            </Button>
-          )
-        }
+        {address != AddressZero ? (
+          <Button
+            size="large"
+            variant="outlined"
+            onClick={() => dispatch(connectAccountAction.request())}
+          >
+            Please connect wallet to continue
+          </Button>
+        ) : (
+          <Button size="large" variant="outlined" onClick={submitForm}>
+            Continue
+          </Button>
+        )}
       </footer>
     </Form>
   );

@@ -24,13 +24,14 @@ const selectDappsLoading = (state: ApplicationRootState) => {
  * Other specific selectors
  */
 
-export const makeSelectDappsLastUpdate = 
-  createSelector(selectDappsDomain, (domain: DomainState) => {
-    return domain.lastUpdate
-  });
+export const makeSelectDappsLastUpdate = createSelector(
+  selectDappsDomain,
+  (domain: DomainState) => {
+    return domain.lastUpdate;
+  },
+);
 
-
- export const makeSelectDapp = (dappID: string) =>
+export const makeSelectDapp = (dappID: string) =>
   createSelector(selectDappsDomain, (domain: DomainState) => {
     return domain.dapps.find((dapp: IDapp) => dapp.ipfsHash == dappID);
   });

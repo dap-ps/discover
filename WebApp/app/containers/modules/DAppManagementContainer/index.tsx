@@ -32,14 +32,13 @@ import { generateUri } from 'api/apiUrlBuilder';
 import { forwardTo } from 'utils/history';
 import { makeSelectWalletAddress } from 'domain/Wallet/selectors';
 
-interface OwnProps {
-}
+interface OwnProps {}
 
 interface StateProps {}
 
 interface DispatchProps {
-  createDapp: (dapp: IDapp, stake: number) => void
-  updateDapp: (dapp: IDapp) => void
+  createDapp: (dapp: IDapp, stake: number) => void;
+  updateDapp: (dapp: IDapp) => void;
 }
 
 interface RouteParams {
@@ -65,9 +64,9 @@ const DAppManagementContainer: React.SFC<Props> = ({
     path: ROUTE_LINKS.UpdateDApp(':dappname'),
     strict: true,
     sensitive: true,
-  })
-  const dappNames = useSelector(makeSelectDappNames)
-  const address = useSelector(makeSelectWalletAddress)
+  });
+  const dappNames = useSelector(makeSelectDappNames);
+  const address = useSelector(makeSelectWalletAddress);
 
   if (!match?.params.dappname) {
     // Create DApp
@@ -96,7 +95,11 @@ const DAppManagementContainer: React.SFC<Props> = ({
 
     const SubmitDappSchema = Yup.object().shape({
       name: Yup.string()
-        .test("Name duplicate", "Dapp by name already exists", (input: string) => dappNames.indexOf(input) >= 0)
+        .test(
+          'Name duplicate',
+          'Dapp by name already exists',
+          (input: string) => dappNames.indexOf(input) >= 0,
+        )
         .required('Please provide a name for your Ðapp'),
       icon: Yup.mixed().required('Please provide a logo'),
       // .test('fileSize', 'Maximum file size of 10MB exceeded', file => fileSizeValidation(file, MAX_FILE_SIZE))
@@ -173,7 +176,11 @@ const DAppManagementContainer: React.SFC<Props> = ({
 
     const UpdateSchema = Yup.object().shape({
       name: Yup.string()
-        .test("Name duplicate", "Dapp by name already exists", (input: string) => dappNames.indexOf(input) >= 0)
+        .test(
+          'Name duplicate',
+          'Dapp by name already exists',
+          (input: string) => dappNames.indexOf(input) >= 0,
+        )
         .required('Please provide a name for your Ðapp'),
       icon: Yup.mixed().required('Please provide a logo'),
       // .test('fileSize', 'Maximum file size of 10MB exceeded', file => fileSizeValidation(file, MAX_FILE_SIZE))
@@ -192,7 +199,7 @@ const DAppManagementContainer: React.SFC<Props> = ({
 
     if (dapp) {
       if (dapp.uploader.toLowerCase() != address.toLowerCase()) {
-        forwardTo(ROUTE_LINKS.Discover(dapp.id))
+        forwardTo(ROUTE_LINKS.Discover(dapp.id));
       }
       return (
         <Formik
@@ -210,10 +217,12 @@ const DAppManagementContainer: React.SFC<Props> = ({
           onSubmit={(values, actions) => {
             updateDapp({
               ...dapp,
-              ...values
-            })
+              ...values,
+            });
           }}
-          render={({ submitForm }) => <UpdateDAppForm submitForm={submitForm} />}
+          render={({ submitForm }) => (
+            <UpdateDAppForm submitForm={submitForm} />
+          )}
         />
       );
     } else {
@@ -221,7 +230,7 @@ const DAppManagementContainer: React.SFC<Props> = ({
         <section>
           <LoadingIcon />
         </section>
-      )
+      );
     }
   }
 };
@@ -237,13 +246,11 @@ const mapDispatchToProps = (
           ...dapp,
           sntValue: stake,
         }),
-      )
+      );
     },
     updateDapp: (dapp: IDapp) => {
-      dispatch(
-        updateDappAction.request(dapp)
-      )
-    }
+      dispatch(updateDappAction.request(dapp));
+    },
   };
 };
 

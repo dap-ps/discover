@@ -15,24 +15,24 @@ function* downvoteSaga(voteData: IDappVote) {
   try {
     yield put(setDappsLoadingAction(true));
 
-    let attempts = 10
-    let downVoteTx
-    let error
+    let attempts = 10;
+    let downVoteTx;
+    let error;
     while (attempts > 0) {
-      try{
+      try {
         downVoteTx = yield call(
           async () => await DiscoverDownVote(voteData.id),
         );
-      attempts = 0
-      }catch (caughtError) {
-        error = caughtError
+        attempts = 0;
+      } catch (caughtError) {
+        error = caughtError;
       }
-      yield delay(250)
-      attempts--
+      yield delay(250);
+      attempts--;
     }
 
     if (!downVoteTx) {
-      throw error
+      throw error;
     }
 
     yield put(

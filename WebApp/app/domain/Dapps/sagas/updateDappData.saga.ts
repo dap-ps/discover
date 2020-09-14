@@ -1,28 +1,32 @@
 import { updateDappDataAction } from '../actions';
 import { take, put, call, fork } from 'redux-saga/effects';
 import { IDapp, ICachedDapp } from '../types';
-import { DiscoverGetDAppById, DiscoverICachedDappToIDapp, DiscoverIRawDappMetaToIDapp } from '../contracts/Discover.contract';
+import {
+  DiscoverGetDAppById,
+  DiscoverICachedDappToIDapp,
+  DiscoverIRawDappMetaToIDapp,
+} from '../contracts/Discover.contract';
 import { toast } from 'react-toastify';
 import { retrieveMetadataApi } from 'api/api';
 import { getIpfsHashFromBytes32 } from 'domain/App/sagas/metadata.saga';
 
 export function* updateDappDataSaga(id: string) {
   try {
-    const onChainData: Partial<IDapp> = DiscoverIRawDappMetaToIDapp(yield call(
-      async () => await DiscoverGetDAppById(id),
-    ))
+    const onChainData: Partial<IDapp> = DiscoverIRawDappMetaToIDapp(
+      yield call(async () => await DiscoverGetDAppById(id)),
+    );
 
     const metaData: ICachedDapp = (yield call(
       async () =>
         await retrieveMetadataApi(
           getIpfsHashFromBytes32(onChainData.compressedMetadata as string),
         ),
-    )).data
+    )).data;
     let freshDapp: Partial<IDapp> = {
       ...DiscoverICachedDappToIDapp(metaData),
       ...onChainData,
     };
-    debugger
+    debugger;
     yield put(updateDappDataAction.success(freshDapp as IDapp));
   } catch (error) {
     console.error(error);

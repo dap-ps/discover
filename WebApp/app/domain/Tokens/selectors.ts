@@ -14,12 +14,17 @@ const selectTokensDomain = (state: ApplicationRootState) => {
 /**
  * Other specific selectors
  */
-export const makeSelectTokensLastUpdate = 
-  createSelector(selectTokensDomain, (domain: DomainState) => {
-    return domain.lastUpdate
-  });
+export const makeSelectTokensLastUpdate = createSelector(
+  selectTokensDomain,
+  (domain: DomainState) => {
+    return domain.lastUpdate;
+  },
+);
 
-export const makeSelectToken = (symbol: string) => 
-  createSelector(selectTokensDomain,  (domain: DomainState) => {
-    return domain.tokens.find((token: IDAppsToken) => token.symbol.toLowerCase() == symbol.toLowerCase())
+export const makeSelectToken = (symbol: string) =>
+  createSelector(selectTokensDomain, (domain: DomainState) => {
+    return domain.tokens.find(
+      (token: IDAppsToken) =>
+        token.symbol.toLowerCase() == symbol.toLowerCase(),
+    );
   });

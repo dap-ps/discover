@@ -152,15 +152,17 @@ const StakeAndPublishView: React.SFC<OwnProps> = ({
   submit,
   loading,
 }: OwnProps) => {
-
   // const [token, setToken] = useState<TOKENS>(TOKENS.SNT);
   const token = TOKENS.SNT;
-  const currentToken = useSelector(makeSelectToken(token))
+  const currentToken = useSelector(makeSelectToken(token));
 
   const CreateSchema = Yup.object().shape({
     stake: Yup.number()
       .min(0, 'Please supply a positive value')
-      .max(currentToken ? parseFloat(formatUnits(currentToken.balance, 18)): 0, "Insufficient funds")
+      .max(
+        currentToken ? parseFloat(formatUnits(currentToken.balance, 18)) : 0,
+        'Insufficient funds',
+      )
       .required('Please input a value'),
   });
   return (

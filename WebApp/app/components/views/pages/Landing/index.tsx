@@ -25,6 +25,7 @@ import {
 } from 'domain/Dapps/selectors';
 import { IDapp } from 'domain/Dapps/types';
 import { forwardTo } from 'utils/history';
+import LoadingIcon from 'components/theme/elements/LoadingIcon';
 
 let categoryColors = {};
 Object.keys(DAPP_CATEGORY_STRINGS).map((key) => {
@@ -121,6 +122,17 @@ const styles = ({ breakpoints }: Theme) =>
     gridCarousel: {
       margin: '15px 0',
     },
+    loading: {
+      padding: "20px 0",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      "& svg": {
+        display: "block",
+        height: 80,
+        width: 80
+      }
+    }
   });
 
 interface OwnProps extends WithStyles<typeof styles> {
@@ -156,26 +168,36 @@ const Landing: React.SFC<OwnProps> = (props: OwnProps) => {
 
   return (
     <article className={classes.root}>
-      <Carousel
-        arrows={true}
-        providerProps={
-          large
-            ? largeCarouselSettings
-            : desktop
-            ? desktopCarouselSettings
-            : tablet
-            ? tabletCarouselSettings
-            : mobileCarouselSettings
-        }
-      >
-        {featuredDapps.map((dapp: IDapp) => (
-          <DappFeature
-            className={classes.bannerItem}
-            key={`feature-${dapp.name}`}
-            dapp={dapp}
-          />
-        ))}
-      </Carousel>
+      {
+        featuredDapps.length == 0
+          ? (
+            <section className={classes.loading}>
+              <LoadingIcon />
+            </section>
+          )
+          : (
+            <Carousel
+              arrows={true}
+              providerProps={
+                large
+                  ? largeCarouselSettings
+                  : desktop
+                  ? desktopCarouselSettings
+                  : tablet
+                  ? tabletCarouselSettings
+                  : mobileCarouselSettings
+              }
+            >
+              {featuredDapps.map((dapp: IDapp) => (
+                <DappFeature
+                  className={classes.bannerItem}
+                  key={`feature-${dapp.name}`}
+                  dapp={dapp}
+                />
+              ))}
+            </Carousel>
+          )
+      }
       <section className={classes.content}>
         <div className={classes.sectionTitle}>
           <Typography variant="h2" component="span">
@@ -206,17 +228,27 @@ const Landing: React.SFC<OwnProps> = (props: OwnProps) => {
             Highest Ranked
           </Typography>
         </div>
-        <GridCarousel className={classes.gridCarousel}>
-          {dapps
-            .sort((dapp0, dapp1) => (dapp0.votes > dapp1.votes ? -1 : +1))
-            .map((dapp: IDapp, index: number) => (
-              <DappCard
-                onClick={() => forwardTo(ROUTE_LINKS.Discover(dapp.name))}
-                key={`dapp-${index}-${dapp.name}`}
-                dapp={dapp}
-              />
-            ))}
-        </GridCarousel>
+        {
+          dapps.length == 0 
+            ? (
+              <section className={classes.loading}>
+                <LoadingIcon />
+              </section>
+            )
+            : (
+              <GridCarousel className={classes.gridCarousel}>
+                {dapps
+                  .sort((dapp0, dapp1) => (dapp0.votes > dapp1.votes ? -1 : +1))
+                  .map((dapp: IDapp, index: number) => (
+                    <DappCard
+                      onClick={() => forwardTo(ROUTE_LINKS.Discover(dapp.name))}
+                      key={`dapp-${index}-${dapp.name}`}
+                      dapp={dapp}
+                    />
+                  ))}
+              </GridCarousel>
+            )
+        }
       </section>
       <section className={classes.content}>
         <div className={classes.sectionTitle}>
@@ -224,19 +256,29 @@ const Landing: React.SFC<OwnProps> = (props: OwnProps) => {
             Recently Added
           </Typography>
         </div>
-        <GridCarousel className={classes.gridCarousel}>
-          {dapps
-            .sort((dapp1, dapp2) =>
-              dapp1.dateAdded > dapp2.dateAdded ? -1 : +1,
+        {
+          dapps.length == 0
+            ? (
+              <section className={classes.loading}>
+                <LoadingIcon />
+              </section>
             )
-            .map((dapp: IDapp, index: number) => (
-              <DappCard
-                onClick={() => forwardTo(ROUTE_LINKS.Discover(dapp.name))}
-                key={`dapp-${index}-${dapp.name}`}
-                dapp={dapp}
-              />
-            ))}
-        </GridCarousel>
+            : (
+              <GridCarousel className={classes.gridCarousel}>
+                {dapps
+                  .sort((dapp1, dapp2) =>
+                    dapp1.dateAdded > dapp2.dateAdded ? -1 : +1,
+                  )
+                  .map((dapp: IDapp, index: number) => (
+                    <DappCard
+                      onClick={() => forwardTo(ROUTE_LINKS.Discover(dapp.name))}
+                      key={`dapp-${index}-${dapp.name}`}
+                      dapp={dapp}
+                    />
+                  ))}
+              </GridCarousel>
+            )
+        }
       </section>
     </article>
   );

@@ -56,31 +56,31 @@ function* createDappSaga(dapp: IDapp) {
     yield call(async () => await validateDAppCreation(dapp.id, tokenAmount));
 
     // Store in DB
-    let attempts = 10
-    let uploadedMetadata
-    let error
-    
+    let attempts = 10;
+    let uploadedMetadata;
+    let error;
+
     while (attempts > 0) {
       try {
         uploadedMetadata = yield call(
           async () => await uploadMetadataApi(dappMetadata, dapp.email),
         );
-        attempts = 0
+        attempts = 0;
       } catch (caughtError) {
-        error = caughtError
+        error = caughtError;
       }
-      yield delay(250)
-      attempts--
+      yield delay(250);
+      attempts--;
     }
 
     if (!uploadedMetadata) {
-      throw error
+      throw error;
     }
-    attempts = 10
+    attempts = 10;
     // Check if publishing should happen
     // This value was set in the last step of the creation form
     if ((dapp.sntValue as number) > 0) {
-      let createdTx
+      let createdTx;
       while (attempts > 0) {
         try {
           createdTx = yield call(
@@ -91,16 +91,16 @@ function* createDappSaga(dapp: IDapp) {
                 getBytes32FromIpfsHash(uploadedMetadata.data.hash),
               ),
           );
-        attempts = 0
-      } catch (caughtError) {
-          error = caughtError
+          attempts = 0;
+        } catch (caughtError) {
+          error = caughtError;
         }
-        yield delay(250)
-        attempts--
+        yield delay(250);
+        attempts--;
       }
-  
+
       if (!createdTx) {
-        throw error
+        throw error;
       }
 
       yield call(

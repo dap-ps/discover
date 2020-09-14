@@ -3,7 +3,6 @@ import { take, call, fork, put, select } from 'redux-saga/effects';
 import { getPricesAction } from '../actions';
 import { TokenPriceData, IDAppsToken } from '../types';
 import { RootState } from 'domain/App/types';
-import { toast } from 'react-toastify';
 
 function* resolvePricesSaga() {
   while (true) {
@@ -35,11 +34,7 @@ function* resolvePricesSaga() {
         getPricesAction.success({ ...prices, WETH: { ...prices['ETH'] } }),
       );
     } catch (error) {
-      toast(error.message, {
-        type: 'error',
-        autoClose: 10000,
-        pauseOnHover: true,
-      });
+      console.error(error)
       yield put(getPricesAction.failure(error));
     }
   }

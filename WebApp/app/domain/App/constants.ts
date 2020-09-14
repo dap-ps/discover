@@ -17,7 +17,6 @@ enum ActionTypes {
 
   // TODO: Remove when cache server has namespacing
   SET_NETWORK_VALID = '@@dapps/global/SET_NETWORK_VALID',
-
 }
 
 export default ActionTypes;
