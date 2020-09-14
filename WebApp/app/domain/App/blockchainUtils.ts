@@ -77,8 +77,8 @@ export const getNetworkId = async (): Promise<number> => {
   return await getWeb3().eth.net.getId();
 };
 
-export const getRpcUrl = async () => {
-  return `wss://${getNetworkName(await getNetworkId())}.infura.io/ws/v3/${
+export const getRpcUrl = async (forceNetwork?: number) => {
+  return `wss://${getNetworkName(forceNetwork ? forceNetwork : await getNetworkId())}.infura.io/ws/v3/${
     process.env['INFURA_KEY']
   }`;
 };
@@ -117,7 +117,6 @@ let contracts = {};
 // TODO investigate listeners
 export const connectContract = async (Contract: any, address: string) => {
   if (!contracts[address]) {
-    console.log('Setting', contracts);
     const clonedContract = Contract.clone();
     if (address) {
       clonedContract.address = address;
@@ -129,10 +128,13 @@ export const connectContract = async (Contract: any, address: string) => {
 
   // @ts-ignore
   const provider = EmbarkJS.Blockchain.Providers.web3.getCurrentProvider();
-  if (!provider.selectedAddress) {
+  const network = await getNetworkId()
+  console.log("Network", network)
+  if (!provider.selectedAddress || `${network}` != process.env["TARGET_NETWORK"]) {
+    console.log("Target network", process.env["TARGET_NETWORK"])
     // @ts-ignore
     contracts[address].currentProvider = new Web3.providers.WebsocketProvider(
-      await getRpcUrl(),
+      await getRpcUrl(parseInt(process.env["TARGET_NETWORK"] as string)),
     );
   }
 
