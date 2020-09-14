@@ -4,9 +4,10 @@
  *
  */
 
-import React, { Fragment } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { compose, Dispatch } from 'redux';
+import CategoryView from 'components/views/modules/CategoryView';
 
 interface OwnProps {}
 
@@ -15,7 +16,9 @@ interface DispatchProps {}
 type Props = DispatchProps & OwnProps;
 
 const CategoryModule: React.SFC<Props> = (props: Props) => {
-  return <Fragment>CategoryModule</Fragment>;
+  return (
+    <CategoryView />
+  );
 };
 
 const mapDispatchToProps = (

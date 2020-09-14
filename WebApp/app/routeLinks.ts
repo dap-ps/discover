@@ -22,7 +22,8 @@ export const ROUTE_LINKS = {
     `/discover/${urlify(dappname)}/withdraw`,
 
   categories: {
-    All: `/category/`,
+    select: `/category/:category`,
+    All: `/category/all`,
     [DAPP_CATEGORY.EXCHANGES]: `/category/${
       DAPP_CATEGORY_STRINGS[DAPP_CATEGORY.EXCHANGES]
     }`.toLowerCase(),

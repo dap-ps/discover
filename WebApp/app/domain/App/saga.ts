@@ -10,7 +10,7 @@ import { BackgroundSaga } from './sagas/background.saga';
 
 export default function* rootDaemonSaga() {
   yield put(setLoadingAction(false));
-  yield put(clearRequestQueueAction())
+  yield put(clearRequestQueueAction());
   yield fork(apiRequestListener);
 
   // Add other global DAEMON sagas here.

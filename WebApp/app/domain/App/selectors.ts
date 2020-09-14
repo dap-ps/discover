@@ -17,12 +17,12 @@ const selectNetwork = (state: ApplicationRootState) => {
   return state.global.network;
 };
 
-const selectRequestQueue = (state: ApplicationRootState) => state.global.requestQueue
+const selectRequestQueue = (state: ApplicationRootState) =>
+  state.global.requestQueue;
 export const makeSelectRequestQueue = createSelector(
   selectRequestQueue,
-  (requestQueue: string[]) => requestQueue
-)
-
+  (requestQueue: string[]) => requestQueue,
+);
 
 export const makeSelectLoading = createSelector(
   selectLoading,

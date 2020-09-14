@@ -14,6 +14,7 @@ import HowToVoteModule from 'containers/modules/HowToVoteModule';
 import DiscoverDappModule from 'containers/modules/DiscoverDappModule';
 import Landing from 'components/views/pages/Landing';
 import WithdrawModule from 'containers/modules/WithdrawModule';
+import CategoryModule from 'containers/modules/CategoryModule';
 
 export interface AppRoute {
   name: string;
@@ -96,6 +97,7 @@ const routes: AppRoute[] = [
     component: Landing,
     isProtected: false, // This allows general access control
     isNavRequired: true, // This allows mapping into a navigation bar
+    modalComponent: CategoryModule,
   },
   {
     name: 'Exchanges',
@@ -105,6 +107,7 @@ const routes: AppRoute[] = [
     isNavRequired: true, // This allows mapping into a navigation bar
     routeType: ROUTE_TYPE.CATEGORY,
     routeNavLinkIcon: DAPP_CATEGORY_ICONS[DAPP_CATEGORY.EXCHANGES].minimal,
+    modalComponent: CategoryModule,
   },
   {
     name: 'Marketplaces',
@@ -114,6 +117,7 @@ const routes: AppRoute[] = [
     isNavRequired: true, // This allows mapping into a navigation bar
     routeType: ROUTE_TYPE.CATEGORY,
     routeNavLinkIcon: DAPP_CATEGORY_ICONS[DAPP_CATEGORY.MARKETPLACES].minimal,
+    modalComponent: CategoryModule,
   },
   {
     name: 'Collectibles',
@@ -123,6 +127,7 @@ const routes: AppRoute[] = [
     isNavRequired: true, // This allows mapping into a navigation bar
     routeType: ROUTE_TYPE.CATEGORY,
     routeNavLinkIcon: DAPP_CATEGORY_ICONS[DAPP_CATEGORY.COLLECTIBLES].minimal,
+    modalComponent: CategoryModule,
   },
   {
     name: 'Games',
@@ -132,6 +137,7 @@ const routes: AppRoute[] = [
     isNavRequired: false, // This allows mapping into a navigation bar
     routeType: ROUTE_TYPE.CATEGORY,
     routeNavLinkIcon: DAPP_CATEGORY_ICONS[DAPP_CATEGORY.GAMES].minimal,
+    modalComponent: CategoryModule,
   },
   {
     name: 'Social Networks',
@@ -141,7 +147,8 @@ const routes: AppRoute[] = [
     isNavRequired: true, // This allows mapping into a navigation bar
     routeType: ROUTE_TYPE.CATEGORY,
     routeNavLinkIcon:
-      DAPP_CATEGORY_ICONS[DAPP_CATEGORY.SOCIAL_NETWORKS].minimal,
+    DAPP_CATEGORY_ICONS[DAPP_CATEGORY.SOCIAL_NETWORKS].minimal,
+    modalComponent: CategoryModule,
   },
   {
     name: 'Utilities',
@@ -151,6 +158,7 @@ const routes: AppRoute[] = [
     isNavRequired: true, // This allows mapping into a navigation bar
     routeType: ROUTE_TYPE.CATEGORY,
     routeNavLinkIcon: DAPP_CATEGORY_ICONS[DAPP_CATEGORY.UTILITIES].minimal,
+    modalComponent: CategoryModule,
   },
   {
     name: 'Other',
@@ -160,6 +168,7 @@ const routes: AppRoute[] = [
     isNavRequired: true, // This allows mapping into a navigation bar
     routeType: ROUTE_TYPE.CATEGORY,
     routeNavLinkIcon: DAPP_CATEGORY_ICONS[DAPP_CATEGORY.OTHER].minimal,
+    modalComponent: CategoryModule,
   },
   // List
   {

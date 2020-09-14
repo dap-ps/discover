@@ -130,17 +130,17 @@ module.exports = require('./webpack.base.babel')({
       name: 'Dap.ps',
       short_name: 'Dap.ps',
       description: '',
-      background_color: '#ffffff',
-      theme_color: '#ffffff',
+      background_color: '#81e4da',
+      theme_color: '#4360df',
       inject: true,
       ios: true,
       icons: [
         {
-          src: path.resolve('app/images/cat.png'),
+          src: path.resolve('static/dapps-logo.png'),
           sizes: [72, 96, 128, 144, 192, 384, 512],
         },
         {
-          src: path.resolve('app/images/cat.png'),
+          src: path.resolve('static/dapps-logo.png'),
           sizes: [120, 152, 167, 180],
           ios: true,
         },

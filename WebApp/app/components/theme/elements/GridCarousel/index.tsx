@@ -28,22 +28,22 @@ const styles = (theme: Theme) =>
       flexDirection: 'row',
       flexWrap: 'wrap',
       justifyContent: 'space-between',
-      '&.large': {
+      '&.four': {
         '& > *': {
           width: `calc(25% - 20px)`,
         },
       },
-      '&.desktop': {
+      '&.three': {
         '& > *': {
           width: `calc(33% - 20px)`,
         },
       },
-      '&.tablet': {
+      '&.two': {
         '& > *': {
           width: `calc(50% - 20px)`,
         },
       },
-      '&.mobile': {
+      '&.one': {
         left: '12.5%',
         position: 'relative',
         '& > *': {
@@ -58,10 +58,19 @@ interface OwnProps extends WithStyles<typeof styles> {
   providerProps?: Partial<CarouselProviderProps>;
   className?: string;
   theme: Theme;
+  perSlide?: number
+  columns?: "four" | "three" | "two" | "one"
 }
 
-const GridCarousel: React.SFC<OwnProps> = (props: OwnProps) => {
-  const { classes, children, className, providerProps, theme } = props;
+const GridCarousel: React.SFC<OwnProps> = ({
+    classes, 
+    children, 
+    className, 
+    providerProps, 
+    theme, 
+    perSlide, 
+    columns
+  }: OwnProps) => {
 
   const large = useMediaQuery(theme.breakpoints.up('lg'));
   const desktop = useMediaQuery(theme.breakpoints.up('md'));
@@ -69,7 +78,9 @@ const GridCarousel: React.SFC<OwnProps> = (props: OwnProps) => {
 
   const createGridSlide = (children: ReactNode[]): Array<ReactNode[]> => {
     let slides: Array<ReactNode[]> = [];
-    const perSlide: number = large
+    const internalPerSlide: number = perSlide 
+      ? perSlide 
+      : large
       ? uiConstants.gridCarousel.itemsPerSlide.large
       : desktop
       ? uiConstants.gridCarousel.itemsPerSlide.desktop
@@ -78,7 +89,7 @@ const GridCarousel: React.SFC<OwnProps> = (props: OwnProps) => {
       : uiConstants.gridCarousel.itemsPerSlide.mobile;
 
     for (let i = 0; i < children.length; i++) {
-      if (i % perSlide == 0) {
+      if (i % internalPerSlide == 0) {
         slides.push([]);
       }
       slides[slides.length - 1].push(children[i]);
@@ -98,13 +109,15 @@ const GridCarousel: React.SFC<OwnProps> = (props: OwnProps) => {
           <div
             className={classNames(
               classes.gridSlide,
-              large
-                ? 'large'
+              columns 
+                ? columns
+                : large
+                ? 'four'
                 : desktop
-                ? 'desktop'
+                ? 'three'
                 : tablet
-                ? 'tablet'
-                : 'mobile',
+                ? 'two'
+                : 'one',
             )}
             key={`grid-slide-${index}`}
           >
@@ -115,13 +128,15 @@ const GridCarousel: React.SFC<OwnProps> = (props: OwnProps) => {
         <div
           className={classNames(
             classes.gridSlide,
-            large
-              ? 'large'
+            columns 
+              ? columns
+              : large
+              ? 'four'
               : desktop
-              ? 'desktop'
+              ? 'three'
               : tablet
-              ? 'tablet'
-              : 'mobile',
+              ? 'two'
+              : 'one',
           )}
         >
           {children}

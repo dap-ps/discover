@@ -52,7 +52,7 @@ function* getBalancesSaga() {
       yield put(getBalancesAction.success(balances));
       yield put(getPricesAction.request());
     } catch (error) {
-      console.error(error)
+      console.error(error);
       yield put(getBalancesAction.failure(error));
     }
   }

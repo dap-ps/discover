@@ -148,7 +148,6 @@ const CategorySelector: React.SFC<OwnProps> = (props: OwnProps) => {
               >
                 {DAPP_CATEGORY_ICONS[key].minimal({})}
                 <Typography>{DAPP_CATEGORY_STRINGS[key]}</Typography>
-                <DropDownArrowsIcon />
               </div>
             ),
           )}

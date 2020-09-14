@@ -34,7 +34,7 @@ function* resolvePricesSaga() {
         getPricesAction.success({ ...prices, WETH: { ...prices['ETH'] } }),
       );
     } catch (error) {
-      console.error(error)
+      console.error(error);
       yield put(getPricesAction.failure(error));
     }
   }

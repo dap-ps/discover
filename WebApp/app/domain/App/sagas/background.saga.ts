@@ -17,7 +17,7 @@ import { default as TokenActionTypes } from 'domain/Tokens/constants';
 function* handleUpdateDapps() {
   const localDappCount = yield select(makeSelectNumberOfDapps);
   const dappsLastUpdate = yield select(makeSelectDappsLastUpdate);
-  const requestQueue: string[] = yield select(makeSelectRequestQueue)
+  const requestQueue: string[] = yield select(makeSelectRequestQueue);
 
   // Checks if a pull is active
   if (requestQueue.indexOf(DappActionTypes.FETCH_DAPPS_REQUEST) < 0) {
@@ -43,7 +43,7 @@ function* handleUpdateDapps() {
 function* handleUpdateTokens() {
   const account = yield select(makeSelectWalletAddress);
   const tokensLastUpdate = yield select(makeSelectTokensLastUpdate);
-  const requestQueue: string[] = yield select(makeSelectRequestQueue)
+  const requestQueue: string[] = yield select(makeSelectRequestQueue);
 
   if (
     requestQueue.indexOf(TokenActionTypes.GET_BALANCES_REQUEST) < 0 &&
