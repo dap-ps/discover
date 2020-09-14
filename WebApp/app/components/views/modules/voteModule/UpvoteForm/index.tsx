@@ -21,6 +21,12 @@ import { appColors } from 'theme';
 import { Link } from 'react-router-dom';
 import { ROUTE_LINKS } from 'routeLinks';
 import { IDapp } from 'domain/Dapps/types';
+import { useSelector, useDispatch } from 'react-redux';
+import { AddressZero } from 'ethers/constants';
+import { connectAccountAction } from 'domain/Wallet/actions';
+import { makeSelectWalletAddress } from 'domain/Wallet/selectors';
+import { makeSelectToken } from 'domain/Tokens/selectors';
+import { formatUnits } from 'ethers/utils';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -108,12 +114,16 @@ const UpvoteForm: React.SFC<OwnProps> = ({
   upvote,
 }: OwnProps) => {
   // const [token, setToken] = useState<TOKENS>(TOKENS.SNT);
+  const token = TOKENS.SNT
+  const currentToken = useSelector(makeSelectToken(token))
 
-  const token = TOKENS.SNT;
+  const address = useSelector(makeSelectWalletAddress)
+  const dispatch = useDispatch()
+  
   const UpvoteSchema = Yup.object().shape({
     amount: Yup.number()
       .min(1, 'Minimum amount is 1')
-      // TODO Validate against balance
+      .max(currentToken ? parseFloat(formatUnits(currentToken.balance, 18)): 0, "Insufficient funds")
       .test('updatingChange', '', (value: number) => {
         setIndicator(value);
         return true;
@@ -150,9 +160,28 @@ const UpvoteForm: React.SFC<OwnProps> = ({
             </Typography>
           </section>
           <section className={classes.ctas}>
-            <Button variant="outlined" onClick={() => submitForm()}>
-              Upvote
-            </Button>
+          {
+            address == AddressZero && (
+              <Button 
+                size="large"
+                variant="outlined" 
+                onClick={() => dispatch(connectAccountAction.request())}
+              >
+                Connect Wallet to continue
+              </Button>
+            )
+          }
+          {
+            address != AddressZero && (
+              <Button 
+                size="large"
+                variant="outlined" 
+                onClick={() => submitForm()}
+              >
+                Upvote
+              </Button>
+            )
+          }
           </section>
         </Form>
       )}

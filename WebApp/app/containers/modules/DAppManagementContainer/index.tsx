@@ -29,6 +29,8 @@ import { useRouteMatch, match } from 'react-router-dom';
 import { ROUTE_LINKS } from 'routeLinks';
 import LoadingIcon from 'components/theme/elements/LoadingIcon';
 import { generateUri } from 'api/apiUrlBuilder';
+import { forwardTo } from 'utils/history';
+import { makeSelectWalletAddress } from 'domain/Wallet/selectors';
 
 interface OwnProps {
 }
@@ -65,6 +67,7 @@ const DAppManagementContainer: React.SFC<Props> = ({
     sensitive: true,
   })
   const dappNames = useSelector(makeSelectDappNames)
+  const address = useSelector(makeSelectWalletAddress)
 
   if (!match?.params.dappname) {
     // Create DApp
@@ -188,6 +191,9 @@ const DAppManagementContainer: React.SFC<Props> = ({
     });
 
     if (dapp) {
+      if (dapp.uploader.toLowerCase() != address.toLowerCase()) {
+        forwardTo(ROUTE_LINKS.Discover(dapp.id))
+      }
       return (
         <Formik
           initialValues={{

@@ -22,6 +22,9 @@ import { appColors, uiConstants } from 'theme';
 import { TextField } from 'formik-material-ui';
 import classNames from 'classnames';
 import LoadingSpinnerSVG from '../../../../../images/loading-spinner.svg';
+import { makeSelectToken } from 'domain/Tokens/selectors';
+import { useSelector } from 'react-redux';
+import { formatUnits } from 'ethers/utils';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -149,15 +152,17 @@ const StakeAndPublishView: React.SFC<OwnProps> = ({
   submit,
   loading,
 }: OwnProps) => {
+
+  // const [token, setToken] = useState<TOKENS>(TOKENS.SNT);
+  const token = TOKENS.SNT;
+  const currentToken = useSelector(makeSelectToken(token))
+
   const CreateSchema = Yup.object().shape({
     stake: Yup.number()
       .min(0, 'Please supply a positive value')
-      // TODO Validate against balance
+      .max(currentToken ? parseFloat(formatUnits(currentToken.balance, 18)): 0, "Insufficient funds")
       .required('Please input a value'),
   });
-  // const [token, setToken] = useState<TOKENS>(TOKENS.SNT);
-  const token = TOKENS.SNT;
-
   return (
     <Formik
       initialValues={{
@@ -212,6 +217,7 @@ const StakeAndPublishView: React.SFC<OwnProps> = ({
             </section>
             <section className={classes.ctas}>
               <Button
+                size="large"
                 disabled={values.stake < 0}
                 variant="outlined"
                 type="submit"

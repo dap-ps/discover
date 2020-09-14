@@ -209,7 +209,7 @@ const WithdrawForm: React.SFC<OwnProps> = ({ classes, dapp }: OwnProps) => {
             </Typography>
           </section>
           <section className={classes.ctas}>
-            <Button disabled={values.amount == 0  || values.amount > max } variant="outlined" onClick={() => submitForm()}>
+            <Button size="large" disabled={values.amount == 0  || values.amount > max } variant="outlined" onClick={() => submitForm()}>
               Withdraw
             </Button>
           </section>

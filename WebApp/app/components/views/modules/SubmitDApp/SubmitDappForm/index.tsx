@@ -244,11 +244,19 @@ const SubmitDappForm: React.SFC<OwnProps> = (props: OwnProps) => {
         </Typography>
         {
           address != AddressZero ? (
-            <Button variant="outlined" onClick={() => dispatch(connectAccountAction.request())}>
+            <Button 
+              size="large"
+              variant="outlined" 
+              onClick={() => dispatch(connectAccountAction.request())}
+            >
               Please connect wallet to continue
             </Button> 
           ) : (
-            <Button variant="outlined" onClick={submitForm}>
+            <Button 
+              size="large" 
+              variant="outlined" 
+              onClick={submitForm}
+            >
               Continue
             </Button>
           )

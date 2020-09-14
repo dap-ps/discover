@@ -15,6 +15,9 @@ import { generateUri } from 'api/apiUrlBuilder';
 import { DAPP_STATUS } from 'utils/constants';
 import RankingModule from '../RankingModule';
 import WithdrawForm from './WithdrawForm';
+import { makeSelectWalletAddress } from 'domain/Wallet/selectors';
+import { ROUTE_LINKS } from 'routeLinks';
+import { forwardTo } from 'utils/history';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -109,8 +112,12 @@ interface OwnProps extends WithStyles<typeof styles> {
 
 const WithdrawModuleView: React.SFC<OwnProps> = ({ classes, dappname }: OwnProps) => {
   const dapp = useSelector(makeSelectDappByName(dappname))
+  const address = useSelector(makeSelectWalletAddress)
 
   if (dapp) {
+    if (dapp.uploader.toLowerCase() != address.toLowerCase()) {
+      forwardTo(ROUTE_LINKS.Discover(dapp.id))
+    }
     const dappIconUrl = dapp.icon?.includes('base64')
     ? dapp.icon
     : generateUri(dapp.icon);

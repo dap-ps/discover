@@ -72,6 +72,7 @@ const UpvoteView: React.SFC<OwnProps> = ({
   upvote,
 }: OwnProps) => {
   const loading = useSelector(makeSelectDappsLoading);
+
   const [value, setValue] = useState(0);
   const [valuationMemo, setValidationMemo] = useState<Record<number, number>>({
     0: 0,

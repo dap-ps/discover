@@ -18,6 +18,12 @@ import { TOKENS } from 'utils/constants';
 import { Link } from 'react-router-dom';
 import { ROUTE_LINKS } from 'routeLinks';
 import { appColors } from 'theme';
+import { makeSelectWalletAddress } from 'domain/Wallet/selectors';
+import { useSelector, useDispatch } from 'react-redux';
+import { connectAccountAction } from 'domain/Wallet/actions';
+import { AddressZero } from 'ethers/constants';
+import { makeSelectToken } from 'domain/Tokens/selectors';
+import { formatUnits } from 'ethers/utils';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -103,6 +109,12 @@ const DownvoteForm: React.SFC<OwnProps> = ({
   dapp,
   cost,
 }: OwnProps) => {
+  const address = useSelector(makeSelectWalletAddress)
+  const dispatch = useDispatch()
+  const SNTToken = useSelector(makeSelectToken(TOKENS.SNT))
+
+  const activeBalance = SNTToken ? parseFloat(formatUnits(SNTToken.balance, 18)): 0
+  
   return (
     <article className={classes.root}>
       <section className={classes.inputSection}>
@@ -119,11 +131,22 @@ const DownvoteForm: React.SFC<OwnProps> = ({
       </section>
       <section className={classes.ctas}>
         {
-          cost > 0 ? (
-            <Button onClick={() => downvote(dapp)} variant="outlined" type="button">
-              Downvote
-            </Button>
-          ) : (
+          address == AddressZero && <Button variant="outlined" onClick={() => dispatch(connectAccountAction.request())}>
+            Connect Wallet to continue
+          </Button> 
+        }
+        {
+          address != AddressZero && cost > 0 ? 
+            activeBalance > cost ? (
+              <Button onClick={() => downvote(dapp)} variant="outlined" type="button">
+                Downvote
+              </Button>
+            ): (
+              <Typography>
+                Insufficient funds
+              </Typography>
+            ) 
+          : (
             <Typography>
               Down votes permitted once cost is above 0
             </Typography>

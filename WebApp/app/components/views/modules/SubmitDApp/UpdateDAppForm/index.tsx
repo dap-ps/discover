@@ -230,7 +230,11 @@ const UpdateDAppForm: React.SFC<OwnProps> = ({
         </FormControl>
       </section>
       <footer className={classes.footer}>
-        <Button variant="outlined" onClick={() => submitForm()}>
+        <Button 
+          size="large" 
+          variant="outlined" 
+          onClick={() => submitForm()}
+        >
           Submit changes
         </Button>
       </footer>

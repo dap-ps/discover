@@ -57,7 +57,7 @@ const routes: AppRoute[] = [
     name: 'Update DApp',
     path: ROUTE_LINKS.UpdateDApp(':dappname'),
     component: Landing,
-    isProtected: false, // This allows general access control
+    isProtected: true, // This allows general access control
     isNavRequired: false, // This allows mapping into a navigation bar
     modalComponent: DAppManagementContainer,
   },
@@ -66,7 +66,7 @@ const routes: AppRoute[] = [
     name: 'Withdraw',
     path: ROUTE_LINKS.Withdraw(':dappname'),
     component: Landing,
-    isProtected: false, // This allows general access control
+    isProtected: true, // This allows general access control
     isNavRequired: false, // This allows mapping into a navigation bar
     modalComponent: WithdrawModule,
   },
