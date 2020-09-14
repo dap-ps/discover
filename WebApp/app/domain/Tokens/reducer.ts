@@ -10,6 +10,7 @@ import { getBalancesAction, getPricesAction } from './actions';
 
 export const initialState: DomainState = {
   tokens: [],
+  lastUpdate: 0,
 };
 
 function tokensReducer(
@@ -28,11 +29,13 @@ function tokensReducer(
             return token;
           }),
         ],
+        lastUpdate: Date.now()
       };
     case getType(getBalancesAction.success):
       return {
         ...state,
         tokens: [...action.payload],
+        lastUpdate: Date.now()
       };
     default:
       return state;

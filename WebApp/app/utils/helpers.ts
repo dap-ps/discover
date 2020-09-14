@@ -15,3 +15,7 @@ export const getBase64Image = (imgUrl: string): Promise<string> => {
       });
   });
 }
+
+export const modifyUnixTimestamp = (timestamp: number, minutes: number) => {
+  return timestamp + (minutes * 60)
+}

@@ -3,7 +3,7 @@ import { take, fork, call, put, select } from 'redux-saga/effects';
 import { getKyberCurrencies, KyberERC20Token } from './kyber.saga';
 import { getTokensBalance } from '@mycrypto/eth-scan';
 import { RootState } from 'domain/App/types';
-import { DAppsToken } from '../types';
+import { IDAppsToken } from '../types';
 import { utils } from 'ethers';
 import { toast } from 'react-toastify';
 
@@ -32,7 +32,7 @@ function* getBalancesSaga() {
           ),
       );
 
-      let balances: DAppsToken[] = Object.keys(fetchedBalances)
+      let balances: IDAppsToken[] = Object.keys(fetchedBalances)
         .filter((key) => fetchedBalances[key].gt(0))
         .map((tokenAddress) => {
           const target = currencies.filter(

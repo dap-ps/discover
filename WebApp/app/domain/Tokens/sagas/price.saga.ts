@@ -1,7 +1,7 @@
 import cc from 'cryptocompare';
 import { take, call, fork, put, select } from 'redux-saga/effects';
 import { getPricesAction } from '../actions';
-import { TokenPriceData, DAppsToken } from '../types';
+import { TokenPriceData, IDAppsToken } from '../types';
 import { RootState } from 'domain/App/types';
 import { toast } from 'react-toastify';
 
@@ -9,7 +9,7 @@ function* resolvePricesSaga() {
   while (true) {
     yield take(getPricesAction.request);
     const tokens: string[] = yield select((state: RootState) =>
-      state.token.tokens.map((token: DAppsToken) => token.symbol),
+      state.token.tokens.map((token: IDAppsToken) => token.symbol),
     );
     try {
       let prices: TokenPriceData = {};

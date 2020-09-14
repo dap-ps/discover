@@ -87,6 +87,7 @@ interface DappsState {
   readonly featuredDapps: string[];
   readonly dapps: IDapp[];
   readonly loading: boolean;
+  readonly lastUpdate: number;
 }
 
 /* --- ACTIONS --- */

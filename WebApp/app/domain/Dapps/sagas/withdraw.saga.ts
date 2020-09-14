@@ -11,7 +11,6 @@ import { awaitTxAction } from 'domain/Wallet/actions';
 import { TRANSACTION_STATUS } from 'utils/constants';
 import {
   DiscoverWithdraw,
-  DiscoverWithdrawMax,
 } from '../contracts/Discover.contract';
 import { generateUri } from 'api/apiUrlBuilder';
 

@@ -25,11 +25,12 @@ export interface SNTPrice {
   price: number;
 }
 
-export interface DAppsToken extends ERC20Token, KyberERC20Token, SNTPrice {}
+export interface IDAppsToken extends ERC20Token, KyberERC20Token, SNTPrice {}
 
 /* --- STATE --- */
 interface TokensState {
-  readonly tokens: DAppsToken[];
+  readonly tokens: IDAppsToken[];
+  readonly lastUpdate: number;
 }
 
 /* --- ACTIONS --- */
