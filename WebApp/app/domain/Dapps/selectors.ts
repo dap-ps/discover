@@ -45,7 +45,7 @@ export const makeSelectFeaturedDapps = createSelector(
   selectDappsDomain,
   (domain: DomainState) => {
     return domain.dapps.filter((dapp: IDapp) =>
-      domain.featuredDapps.includes(dapp.name),
+      domain.featuredDapps.includes(dapp.id),
     );
   },
 );
