@@ -166,7 +166,6 @@ const DiscoverDappView: React.SFC<OwnProps> = ({ classes, dapp }: OwnProps) => {
       </section>
     );
   } else {
-    console.log(dapp);
     const dappIconUrl = dapp.icon?.includes('base64')
       ? dapp.icon
       : generateUri(dapp.icon);

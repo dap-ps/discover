@@ -1,7 +1,3 @@
-// import tokensReducer from '../reducer';
-//
-// describe('tokensReducer', () => {
-//   it('returns the initial state', () => {
-//     expect(tokensReducer(undefined, {})).toEqual({});
-//   });
-// });
+describe('tokensReducer', () => {
+  it('returns the initial state');
+});

@@ -70,7 +70,6 @@ function* DataRefresh() {
 }
 
 export function* BackgroundSaga() {
-  console.log('starting');
   yield put(fetchDappsAction.request());
   yield fork(DataRefresh);
 }

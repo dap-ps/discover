@@ -4,7 +4,7 @@
  *
  */
 
-import React, { useState } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { compose, Dispatch } from 'redux';
 import SearchView from 'components/views/modules/SearchView';
@@ -16,10 +16,7 @@ interface DispatchProps {}
 type Props = DispatchProps & OwnProps;
 
 const SearchContainer: React.SFC<Props> = (props: Props) => {
-  const [searchTerm, setSearchTerm] = useState<string>('');
-  // TODO: wire up
-  console.log(`Search input: ${searchTerm}`);
-  return <SearchView setSearchTerm={setSearchTerm} />;
+  return <SearchView />;
 };
 
 const mapDispatchToProps = (

@@ -21,7 +21,7 @@ import TransactionStatus from 'components/views/modules/TransactionStatus';
 import ChangeNetworkIndicator from 'components/views/modules/ChangeNetworkIndicator';
 
 const iconSize = 40;
-const styles = (theme) =>
+const styles = ({breakpoints}) =>
   createStyles({
     root: {},
     header: {
@@ -37,6 +37,18 @@ const styles = (theme) =>
     footer: {
       backgroundColor: appColors.general.gray.light,
       padding: 32,
+      "& > section": {
+        display: "flex",
+        [breakpoints.down('sm')]: {
+          flexDirection: "column"
+        },
+        "& > *": {
+          [breakpoints.up('sm')]: {
+            width: 0,
+            flex: "1 1 0"
+          },
+        } 
+      }
     },
     footerItem: {
       textDecoration: 'none',

@@ -15,11 +15,14 @@ import {
 import { IDapp } from 'domain/Dapps/types';
 import classNames from 'classnames';
 import { appColors, uiConstants } from 'theme';
+import { generateUri } from 'api/apiUrlBuilder';
 
 const styles = (theme: Theme) =>
   createStyles({
     // JSS in CSS goes here
     root: {
+      textDecoration: "none",
+      color: "initial",
       padding: 10,
       '& img': {
         maxWidth: '100%',
@@ -59,14 +62,18 @@ interface OwnProps extends WithStyles<typeof styles> {
 
 const DappFeature: React.SFC<OwnProps> = (props: OwnProps) => {
   const { classes, className, dapp } = props;
+  const bannerUrl = `/featured/${dapp.id}.png`
+  const dappIconUrl = dapp.icon?.includes('base64')
+    ? dapp.icon
+    : generateUri(dapp.icon);
   return (
-    <article className={classNames(classes.root, className)}>
+    <a href={dapp.url} target="_blank" className={classNames(classes.root, className)}>
       <section className={classes.banner}>
-        <img src={dapp.image} alt={`${dapp.name}-banner`} />
+        <img src={bannerUrl} alt={`${dapp.name}-banner`} />
       </section>
       <section className={classes.meta}>
         <div className={classes.icon}>
-          <img src={dapp.icon} alt={`${dapp.name}-icon`} />
+          <img src={dappIconUrl} alt={`${dapp.name}-icon`} />
         </div>
         <div className={classes.description}>
           <Typography variant="h4" component="h4">
@@ -77,7 +84,7 @@ const DappFeature: React.SFC<OwnProps> = (props: OwnProps) => {
           </Typography>
         </div>
       </section>
-    </article>
+    </a>
   );
 };
 

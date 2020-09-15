@@ -46,9 +46,19 @@ export const makeSelectFeaturedDapps = createSelector(
   (domain: DomainState) => {
     return domain.dapps.filter((dapp: IDapp) =>
       domain.featuredDapps.includes(dapp.id),
-    );
+    )
+    .sort(
+      (dapp0: IDapp, dapp1: IDapp) => 
+        domain.featuredDapps.indexOf(dapp0.id) > domain.featuredDapps.indexOf(dapp1.id) ? 1 : -1);
   },
 );
+
+
+export const makeSelectSearchDapps = (searchString: string) => 
+  createSelector(
+    selectDapps,
+    (dapps: IDapp[]) => dapps.filter((dapp: IDapp) => dapp.name.toLowerCase().indexOf(searchString.toLowerCase().trim()) >= 0)
+  )
 
 export const makeSelectDappsLoading = createSelector(
   selectDappsLoading,

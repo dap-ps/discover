@@ -7,7 +7,6 @@ import {
   DiscoverICachedDappToIDapp,
   DiscoverIRawDappMetaToIDapp,
 } from '../contracts/Discover.contract';
-import { toast } from 'react-toastify';
 import { retrieveAllDappsMetadataApi } from 'api/api';
 import { getIpfsHashFromBytes32 } from 'domain/App/sagas/metadata.saga';
 
@@ -42,11 +41,11 @@ export function* fetchDappsSaga() {
     yield put(fetchDappsAction.success(dapps as IDapp[]));
   } catch (error) {
     console.error(error);
-    toast(error.message, {
-      type: 'error',
-      autoClose: 10000,
-      pauseOnHover: true,
-    });
+    // toast(error.message, {
+    //   type: 'error',
+    //   autoClose: 10000,
+    //   pauseOnHover: true,
+    // });
     // TODO if error contains connection issue, its Infura related
     // TODO  Network check
     yield put(fetchDappsAction.failure(error));

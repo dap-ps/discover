@@ -159,12 +159,22 @@ const Landing: React.SFC<OwnProps> = (props: OwnProps) => {
   const desktopCarouselSettings: Partial<CarouselProviderProps> = {
     visibleSlides: uiConstants.banner.itemsPerSlide.desktop,
   };
+
   const tabletCarouselSettings: Partial<CarouselProviderProps> = {
     visibleSlides: uiConstants.banner.itemsPerSlide.tablet,
   };
+  
   const mobileCarouselSettings: Partial<CarouselProviderProps> = {
     visibleSlides: uiConstants.banner.itemsPerSlide.mobile,
   };
+
+  const displayArrows = large 
+    ? featuredDapps.length > uiConstants.banner.itemsPerSlide.large
+    : desktop
+      ? featuredDapps.length > uiConstants.banner.itemsPerSlide.desktop
+      : tablet 
+        ? featuredDapps.length > uiConstants.banner.itemsPerSlide.tablet
+        :  featuredDapps.length > uiConstants.banner.itemsPerSlide.mobile
 
   return (
     <article className={classes.root}>
@@ -174,7 +184,7 @@ const Landing: React.SFC<OwnProps> = (props: OwnProps) => {
         </section>
       ) : (
         <Carousel
-          arrows={true}
+          arrows={displayArrows}
           providerProps={
             large
               ? largeCarouselSettings
@@ -185,6 +195,9 @@ const Landing: React.SFC<OwnProps> = (props: OwnProps) => {
               : mobileCarouselSettings
           }
         >
+          {
+            
+          }
           {featuredDapps.map((dapp: IDapp) => (
             <DappFeature
               className={classes.bannerItem}

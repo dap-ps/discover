@@ -24,7 +24,7 @@ function* parseAction(actionType: string) {
 }
 
 export function* apiRequestListener() {
-  if (true) {
+  if (false) {
     yield fork(logger);
   }
 

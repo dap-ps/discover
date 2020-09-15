@@ -40,6 +40,7 @@ const styles = ({
     root: {
       width: "100vw",
       maxWidth: uiConstants.modal.modalWidthMax,
+      minHeight: 400,
       [breakpoints.up('xs')]: {
         maxWidth: '80vw',
       },
@@ -174,6 +175,11 @@ const CategoryView: React.SFC<OwnProps> = ({ classes }: OwnProps) => {
     ? "two"
     : "one"
 
+  const perSlide = large 
+    ? 12
+    : desktop
+    ? 10
+    : 5
   return (
     <article className={classes.root}>
       <section className={classes.selector}>
@@ -227,7 +233,7 @@ const CategoryView: React.SFC<OwnProps> = ({ classes }: OwnProps) => {
           <LoadingIcon />
         </section>
       ) : (
-        <GridCarousel columns={columns} className={classes.gridCarousel}>
+        <GridCarousel columns={columns} perSlide={perSlide} className={classes.gridCarousel}>
           {dapps
             .filter((dapp: IDapp) => !category || dapp.category == category)
             .sort((dapp1, dapp2) =>

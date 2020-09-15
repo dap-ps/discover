@@ -42,7 +42,7 @@ export const getNetworkName = (id: number): string => {
   //  - "kovan"     or 42
   switch (id) {
     case 1:
-      return 'homestead';
+      return 'mainnet';
     case 3:
       return 'ropsten';
     case 4:
@@ -52,7 +52,7 @@ export const getNetworkName = (id: number): string => {
     case 42:
       return 'kovan';
     default:
-      return 'homestead';
+      return 'mainnet';
   }
 };
 // TODO tie embark to this
