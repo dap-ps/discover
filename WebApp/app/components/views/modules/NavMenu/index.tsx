@@ -20,6 +20,7 @@ import AddIcon from '../../../../images/icons/add.svg';
 import { useOnClickOutside } from 'hooks/useOnClickOutside';
 import { Link } from 'react-router-dom';
 import { ROUTE_LINKS } from 'routeLinks';
+import { forwardTo } from 'utils/history';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -170,7 +171,10 @@ const NavMenu: React.SFC<OwnProps> = (props: OwnProps) => {
                   item.routeNavLinkIcon != undefined,
               )
               .map((item, index) => (
-                <div className={classes.item} key={`cat-${index}`}>
+                <div onClick={() => {
+                  setOpen(true)
+                  forwardTo(item.path)
+                }} className={classes.item} key={`cat-${index}`}>
                   <div className={classes.icon}>
                     {item.routeNavLinkIcon && item.routeNavLinkIcon({})}
                   </div>
@@ -197,12 +201,12 @@ const NavMenu: React.SFC<OwnProps> = (props: OwnProps) => {
                   item.routeNavLinkIcon != undefined,
               )
               .map((item, index) => (
-                <div className={classes.item} key={`list-${index}`}>
+                <a href={item.path} className={classes.item} key={`list-${index}`}>
                   <div className={classes.icon}>
                     {item.routeNavLinkIcon && item.routeNavLinkIcon({})}
                   </div>
                   <span>{item.name}</span>
-                </div>
+                </a>
               ))}
           </nav>
           <Link

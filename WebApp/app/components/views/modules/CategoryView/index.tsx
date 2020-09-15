@@ -54,7 +54,7 @@ const styles = ({
     },
     internal: {
       position: 'relative',
-      margin: '10px 0',
+      margin: '0 0 10px',
     },
     error: {
       color: palette.error.main,
@@ -179,7 +179,7 @@ const CategoryView: React.SFC<OwnProps> = ({ classes }: OwnProps) => {
     ? 12
     : desktop
     ? 10
-    : 5
+    : 4
   return (
     <article className={classes.root}>
       <section className={classes.selector}>

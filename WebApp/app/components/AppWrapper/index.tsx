@@ -39,13 +39,15 @@ const styles = ({breakpoints}) =>
       padding: 32,
       "& > section": {
         display: "flex",
-        [breakpoints.down('sm')]: {
+        [breakpoints.down(600)]: {
           flexDirection: "column"
         },
         "& > *": {
-          [breakpoints.up('sm')]: {
-            width: 0,
-            flex: "1 1 0"
+          width: 0,
+          flex: "1 1 0",
+          [breakpoints.down(600)]: {
+            width: "initial",
+            flex: "initial"
           },
         } 
       }
