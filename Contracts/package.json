@@ -4,10 +4,11 @@
   "description": "Embark contracts",
   "main": "index.js",
   "scripts": {
-    "build": "embark build testnet",
+    "build:testnet": "embark build testnet",
     "build:development": "embark build development",
-    "build:production": "embark build livenet",
-    "start:dev": "yarn build",
+    "build": "embark build livenet",
+    "start:dev": "yarn build:testnet",
+    "start:prod": "yarn build",
     "slither": "slither . --exclude naming-convention --filter-paths token"
   },
   "license": "ISC",

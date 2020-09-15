@@ -4,8 +4,10 @@
   "description": "Discover dapps backend",
   "main": "server.js",
   "scripts": {
+    "build": "",
     "start": "nodemon server.js",
     "start:dev": "node ./server.js",
+    "start:prod": "node ./server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Status",
