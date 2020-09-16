@@ -57,7 +57,7 @@ export const makeSelectFeaturedDapps = createSelector(
 export const makeSelectSearchDapps = (searchString: string) => 
   createSelector(
     selectDapps,
-    (dapps: IDapp[]) => dapps.filter((dapp: IDapp) => dapp.name.toLowerCase().indexOf(searchString.toLowerCase().trim()) >= 0)
+    (dapps: IDapp[]) => dapps.filter((dapp: IDapp) => dapp.name?.toLowerCase().indexOf(searchString.toLowerCase().trim()) >= 0)
   )
 
 export const makeSelectDappsLoading = createSelector(
@@ -70,7 +70,7 @@ export const makeSelectDappsLoading = createSelector(
 export const makeSelectDappNames = createSelector(
   selectDapps,
   (dapps: IDapp[]) => {
-    return dapps.map((dapp: IDapp) => dapp.name);
+    return dapps.map((dapp: IDapp) => dapp.name?.toLowerCase());
   },
 );
 

@@ -5,6 +5,7 @@ import { getTokensBalance } from '@mycrypto/eth-scan';
 import { RootState } from 'domain/App/types';
 import { IDAppsToken } from '../types';
 import { utils } from 'ethers';
+import { ContractAddresses, getRpcUrl, getNetworkName } from 'domain/App/blockchainUtils';
 
 function* getBalancesSaga() {
   while (true) {
@@ -16,8 +17,9 @@ function* getBalancesSaga() {
       );
       const currencies: KyberERC20Token[] = yield call(
         getKyberCurrencies,
-        'mainnet',
+        getNetworkName(parseInt(process.env['TARGET_NETWORK'] as string)),
       );
+
       const tokenAddresses = currencies
         .filter((c) => c.symbol !== 'ETH')
         .map((c) => c.address);
@@ -25,28 +27,46 @@ function* getBalancesSaga() {
       const fetchedBalances = yield call(
         async () =>
           await getTokensBalance(
-            'https://api.mycryptoapi.com/eth',
+            await getRpcUrl(undefined, true),
             account,
-            tokenAddresses,
+            [
+              ...tokenAddresses,
+              ContractAddresses[parseInt(process.env['TARGET_NETWORK'] as string)].SNT
+            ],
           ),
       );
 
       let balances: IDAppsToken[] = Object.keys(fetchedBalances)
-        .filter((key) => fetchedBalances[key].gt(0))
+        .filter((key) => fetchedBalances[key].gt(0) || key.toLowerCase() == ContractAddresses[parseInt(process.env['TARGET_NETWORK'] as string)].SNT.toLowerCase())
         .map((tokenAddress) => {
           const target = currencies.filter(
-            (cur) => cur.address == tokenAddress,
+            (cur) => cur.address.toLowerCase() == tokenAddress.toLowerCase(),
           )[0];
-          return {
-            address: tokenAddress,
-            allowance: utils.bigNumberify(0),
-            balance: fetchedBalances[tokenAddress],
-            decimals: target.decimals,
-            logo: '',
-            name: target.name,
-            price: 0,
-            symbol: target.symbol,
-          };
+
+          if (tokenAddress.toLowerCase() == ContractAddresses[parseInt(process.env['TARGET_NETWORK'] as string)].SNT.toLowerCase()){
+            return {
+              address: tokenAddress,
+              allowance: utils.bigNumberify(0),
+              balance: fetchedBalances[tokenAddress],
+              decimals: target ? target.decimals : 18,
+              logo: '',
+              name: target ? target.name : 'Status',
+              price: 0,
+              symbol: target ? target.symbol : 'SNT',
+            };
+          } else {
+            return {
+              address: tokenAddress,
+              allowance: utils.bigNumberify(0),
+              balance: fetchedBalances[tokenAddress],
+              decimals: target ? target.decimals : 18,
+              logo: '',
+              name: target ? target.name : '',
+              price: 0,
+              symbol: target ? target.symbol : '',
+            };
+          }
+          
         });
 
       yield put(getBalancesAction.success(balances));

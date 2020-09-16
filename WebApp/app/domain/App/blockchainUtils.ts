@@ -77,11 +77,16 @@ export const getNetworkId = async (): Promise<number> => {
   return await getWeb3().eth.net.getId();
 };
 
-export const getRpcUrl = async (forceNetwork?: number) => {
-  return `wss://${getNetworkName(
+export const getRpcUrl = async (forceNetwork?: number, http?: boolean) => {
+  return http ?  
+    `https://${getNetworkName(
+      forceNetwork ? forceNetwork : await getNetworkId(),
+    )}.infura.io/v3/${process.env['INFURA_KEY']}`
+  : `wss://${getNetworkName(
     forceNetwork ? forceNetwork : await getNetworkId(),
-  )}.infura.io/ws/v3/${process.env['INFURA_KEY']}`;
+  )}.infura.io/ws/v3/${process.env['INFURA_KEY']}`
 };
+
 
 export const getAccount = async (): Promise<string> => {
   try {

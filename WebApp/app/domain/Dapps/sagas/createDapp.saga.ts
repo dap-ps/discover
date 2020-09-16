@@ -124,7 +124,6 @@ function* createDappSaga(dapp: IDapp) {
         yield put(setDappsLoadingAction(false));
         yield put(updateDappDataAction.request(dapp.id));
       } else {
-        debugger;
         throw failure;
       }
     } else {

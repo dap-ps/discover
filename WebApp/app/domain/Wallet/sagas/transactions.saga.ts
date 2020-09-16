@@ -39,9 +39,6 @@ function* WaitForTxSaga(transaction: ITransaction) {
       yield put(clearAwaitTxAction());
     }
   } catch (error) {
-    console.error(error);
-    console.error(error.message);
-    debugger;
     toast(error.message, {
       type: 'error',
       autoClose: 10000,

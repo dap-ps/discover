@@ -120,11 +120,13 @@ const UpvoteForm: React.SFC<OwnProps> = ({
   const address = useSelector(makeSelectWalletAddress);
   const dispatch = useDispatch();
 
+  const max = currentToken && parseFloat(formatUnits(currentToken.balance, currentToken.decimals))
+
   const UpvoteSchema = Yup.object().shape({
     amount: Yup.number()
       .min(1, 'Minimum amount is 1')
       .max(
-        currentToken ? parseFloat(formatUnits(currentToken.balance, 18)) : 0,
+        max ? max : 0,
         'Insufficient funds',
       )
       .test('updatingChange', '', (value: number) => {
@@ -133,6 +135,7 @@ const UpvoteForm: React.SFC<OwnProps> = ({
       })
       .required('Please input a value'),
   });
+
 
   return (
     <Formik
@@ -150,6 +153,7 @@ const UpvoteForm: React.SFC<OwnProps> = ({
               className={classes.field}
               name="amount"
               type="number"
+              max={max}
               step="1"
               component={TextField}
             />

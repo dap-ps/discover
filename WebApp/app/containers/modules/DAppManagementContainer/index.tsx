@@ -98,7 +98,7 @@ const DAppManagementContainer: React.SFC<Props> = ({
         .test(
           'Name duplicate',
           'Dapp by name already exists',
-          (input: string) => dappNames.indexOf(input) >= 0,
+          (input: string) => dappNames.indexOf(input.toLowerCase()) < 0,
         )
         .required('Please provide a name for your Ðapp'),
       icon: Yup.mixed().required('Please provide a logo'),
@@ -179,7 +179,7 @@ const DAppManagementContainer: React.SFC<Props> = ({
         .test(
           'Name duplicate',
           'Dapp by name already exists',
-          (input: string) => dappNames.indexOf(input) >= 0,
+          (input: string) => dappNames.indexOf(input.toLowerCase()) < 0,
         )
         .required('Please provide a name for your Ðapp'),
       icon: Yup.mixed().required('Please provide a logo'),

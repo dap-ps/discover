@@ -160,7 +160,7 @@ const StakeAndPublishView: React.SFC<OwnProps> = ({
     stake: Yup.number()
       .min(0, 'Please supply a positive value')
       .max(
-        currentToken ? parseFloat(formatUnits(currentToken.balance, 18)) : 0,
+        currentToken ? parseFloat(formatUnits(currentToken.balance, currentToken.decimals)) : 0,
         'Insufficient funds',
       )
       .required('Please input a value'),

@@ -4,7 +4,7 @@ import { Typography } from '@material-ui/core';
 import { createStyles, withStyles, WithStyles } from '@material-ui/core/styles';
 import NavMenu from 'components/views/modules/NavMenu';
 import routes, { AppRoute } from 'routes';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Link } from 'react-router-dom';
 
 import { uiConstants, appColors } from 'theme';
 import DappIcon from '../../images/icons/add-dapp.svg';
@@ -19,6 +19,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Modal from 'components/theme/elements/Modal';
 import TransactionStatus from 'components/views/modules/TransactionStatus';
 import ChangeNetworkIndicator from 'components/views/modules/ChangeNetworkIndicator';
+import { ROUTE_LINKS } from 'routeLinks';
 
 const iconSize = 40;
 const styles = ({breakpoints}) =>
@@ -135,8 +136,7 @@ const AppWrapper: React.SFC<Props> = ({
               </Typography>
             </div>
           </a>
-          {/* TODO: submit action for dapp modal */}
-          <div className={classes.footerItem}>
+          <Link to={ROUTE_LINKS.CreateDApp} className={classes.footerItem}>
             <div>
               <DappIcon />
             </div>
@@ -148,7 +148,7 @@ const AppWrapper: React.SFC<Props> = ({
                 Submit your favourite DApp now! No permission required.
               </Typography>
             </div>
-          </div>
+          </Link>
           <a
             href="https://join.status.im/chat/public/status-core-dapps"
             target="_blank"

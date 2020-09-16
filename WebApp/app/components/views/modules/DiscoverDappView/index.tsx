@@ -231,7 +231,7 @@ const DiscoverDappView: React.SFC<OwnProps> = ({ classes, dapp }: OwnProps) => {
                 {address != AddressZero &&
                   address.toLowerCase() != dapp.uploader.toLowerCase() && (
                     <Typography>
-                      {`${address.substr(0, 7)}...`} is not admin
+                      {`${address.substr(0, 7)}...`} is not uploader
                     </Typography>
                   )}
               </div>

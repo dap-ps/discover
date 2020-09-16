@@ -26,7 +26,7 @@ export function* updateDappDataSaga(id: string) {
       ...DiscoverICachedDappToIDapp(metaData),
       ...onChainData,
     };
-    debugger;
+    
     yield put(updateDappDataAction.success(freshDapp as IDapp));
   } catch (error) {
     console.error(error);

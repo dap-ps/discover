@@ -174,8 +174,7 @@ const SubmitDappForm: React.SFC<OwnProps> = (props: OwnProps) => {
         )}
       >
         <Typography variant="body1" component="span">
-          A wallet address is required in order authenticate admins when editing
-          the ÐApp.
+          Please connect a wallet for authentication. You may still submit for free if you do not wish to enter the ranked section.
         </Typography>
         <Button
           variant="outlined"
@@ -251,7 +250,7 @@ const SubmitDappForm: React.SFC<OwnProps> = (props: OwnProps) => {
             Terms and Conditions.
           </span>
         </Typography>
-        {address != AddressZero ? (
+        {address == AddressZero ? (
           <Button
             size="large"
             variant="outlined"

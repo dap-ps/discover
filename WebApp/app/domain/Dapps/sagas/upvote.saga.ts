@@ -61,7 +61,6 @@ function* upvoteSaga(voteData: IDappVote) {
       yield put(setDappsLoadingAction(false));
       yield put(updateDappDataAction.request(voteData.id));
     } else {
-      debugger;
       throw failure;
     }
   } catch (error) {

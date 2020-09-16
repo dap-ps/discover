@@ -31,7 +31,7 @@ const styles = (theme: Theme) =>
     root: {
       display: 'flex',
       flexDirection: 'row',
-      margin: 5,
+      padding: 15,
       justifyContent: 'flex-start',
       // alignItems: "center",
       '&.clickable': {
@@ -41,10 +41,12 @@ const styles = (theme: Theme) =>
     icon: {
       position: 'relative',
       marginRight: uiConstants.dapps.card.iconMargin,
+      
       '& img': {
         width: uiConstants.dapps.card.iconSize,
         height: uiConstants.dapps.card.iconSize,
         display: 'block',
+        borderRadius: "50%",
         overflow: 'hidden',
       },
       '& svg': {
@@ -77,6 +79,7 @@ const styles = (theme: Theme) =>
       justifyContent: 'space-between',
       alignItems: 'center',
       flexWrap: 'wrap',
+      marginTop: 10,
     },
     voteCount: {
       display: 'flex',

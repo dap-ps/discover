@@ -153,18 +153,22 @@ const Landing: React.SFC<OwnProps> = (props: OwnProps) => {
   );
 
   const largeCarouselSettings: Partial<CarouselProviderProps> = {
+    dragEnabled: true,
     visibleSlides: uiConstants.banner.itemsPerSlide.large,
   };
 
   const desktopCarouselSettings: Partial<CarouselProviderProps> = {
+    dragEnabled: true,
     visibleSlides: uiConstants.banner.itemsPerSlide.desktop,
   };
 
   const tabletCarouselSettings: Partial<CarouselProviderProps> = {
+    dragEnabled: true,
     visibleSlides: uiConstants.banner.itemsPerSlide.tablet,
   };
   
   const mobileCarouselSettings: Partial<CarouselProviderProps> = {
+    dragEnabled: true,
     visibleSlides: uiConstants.banner.itemsPerSlide.mobile,
   };
 
@@ -195,9 +199,6 @@ const Landing: React.SFC<OwnProps> = (props: OwnProps) => {
               : mobileCarouselSettings
           }
         >
-          {
-            
-          }
           {featuredDapps.map((dapp: IDapp) => (
             <DappFeature
               className={classes.bannerItem}
@@ -242,7 +243,9 @@ const Landing: React.SFC<OwnProps> = (props: OwnProps) => {
             <LoadingIcon />
           </section>
         ) : (
-          <GridCarousel className={classes.gridCarousel}>
+          <GridCarousel providerProps={{
+            dragEnabled: true,
+          }} className={classes.gridCarousel}>
             {dapps
               .sort((dapp0, dapp1) => (dapp0.votes > dapp1.votes ? -1 : +1))
               .map((dapp: IDapp, index: number) => (
@@ -266,7 +269,11 @@ const Landing: React.SFC<OwnProps> = (props: OwnProps) => {
             <LoadingIcon />
           </section>
         ) : (
-          <GridCarousel className={classes.gridCarousel}>
+          <GridCarousel
+            providerProps={{
+              dragEnabled: true,
+            }}  
+            className={classes.gridCarousel}>
             {dapps
               .sort((dapp1, dapp2) =>
                 dapp1.dateAdded > dapp2.dateAdded ? -1 : +1,

@@ -233,7 +233,7 @@ const CategoryView: React.SFC<OwnProps> = ({ classes }: OwnProps) => {
           <LoadingIcon />
         </section>
       ) : (
-        <GridCarousel columns={columns} perSlide={perSlide} className={classes.gridCarousel}>
+        <GridCarousel providerProps={{ dragEnabled: true }} columns={columns} perSlide={perSlide} className={classes.gridCarousel}>
           {dapps
             .filter((dapp: IDapp) => !category || dapp.category == category)
             .sort((dapp1, dapp2) =>

@@ -68,7 +68,6 @@ function* withdrawSaga(withdrawRequest: IWithdrawRequest) {
         throw updateFailure;
       }
     } else {
-      debugger;
       throw failure;
     }
   } catch (error) {
