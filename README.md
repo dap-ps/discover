@@ -15,7 +15,7 @@ You can learn more about bonded curves and how Discover works [here](https://our
 
 
 ### Stack
-TODO: add embark
+* Smart contract compiler Framework: [Embark v4.0.1](https://github.com/embarklabs/embark)
 * JS Framework: [React](https://github.com/facebook/react) + [Typescript](https://github.com/microsoft/TypeScript)
 * SEO & Metadata: [Helmet.js](https://helmetjs.github.io/)
 * Blockchain components: [Ethers.js](https://github.com/ethers-io/ethers.js/) + [web3-react](https://github.com/NoahZinsmeister/web3-react)
@@ -129,11 +129,9 @@ On Linux, setting up `mongodb` is as easy as `sudo apt install -y mongodb`, whic
 #### 4 Quick Steps
 
 1. `export DB_CONNECTION=mongodb://localhost:27017/mydb`. Make sure you have `DB_CONNECTION` set as an ENV variable so the app knows where to find your local DB.
-2. TODO`yarn run build:localhost`. This will:
+2. `yarn start:dev`. This will: 
     1. Compile all your contracts using Embark, connecting to Ropsten and IPFS through an Infura gateway.
-    2. Deploy a new instance of Discover onto the Ropsten test network for you to work from. It will only be deployed once, after that the address of your contract is stored in, and fetched from, `shared.development.chains.json`.
-    3. Build the frontend, create a directory called `full-build`, move each directory from the `Backend` into it, and include the `frontend` as a directory of its own. It will make sure `node_modules` are installed, then you can serve everything in `full-build` by running:
-3. `yarn server-start`. Navigate to `http://localhost:4000` to get developing cool new things for the future of curated information.
+    2. Deploy a new instance of Discover onto the Ropsten test network for you to work from. It will only be deployed once, after that the address of your contract is stored in, and fetched from, `shared.development.chains.json`. 
 
 **Note:**
 
@@ -169,7 +167,7 @@ yarn run build:dev
 ```
 or
 ```
-yarn run build:prod
+yarn run build
 ```
 
 Builds the app into the `full-build` directory and creates the `app.zip` ready for use with ElasticBeanstalk.
