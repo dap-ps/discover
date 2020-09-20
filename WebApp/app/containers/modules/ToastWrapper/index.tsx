@@ -16,7 +16,7 @@ const styles = (theme: Theme) =>
 
 interface OwnProps extends WithStyles<typeof styles> {}
 
-const ToastWrapper: React.SFC<OwnProps> = ({}: OwnProps) => {
+const ToastWrapper: React.FC<OwnProps> = ({}: OwnProps) => {
   return (
     <ToastContainer
       autoClose={5000}

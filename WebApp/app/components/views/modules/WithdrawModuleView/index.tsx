@@ -116,7 +116,7 @@ interface OwnProps extends WithStyles<typeof styles> {
   dappname: string;
 }
 
-const WithdrawModuleView: React.SFC<OwnProps> = ({
+const WithdrawModuleView: React.FC<OwnProps> = ({
   classes,
   dappname,
 }: OwnProps) => {

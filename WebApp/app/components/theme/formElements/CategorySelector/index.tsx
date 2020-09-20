@@ -109,7 +109,7 @@ const styles = ({ palette }: Theme) =>
 
 interface OwnProps extends FieldProps, WithStyles<typeof styles> {}
 
-const CategorySelector: React.SFC<OwnProps> = (props: OwnProps) => {
+const CategorySelector: React.FC<OwnProps> = (props: OwnProps) => {
   const {
     classes,
     field,

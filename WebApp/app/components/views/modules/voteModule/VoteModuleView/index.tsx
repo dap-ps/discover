@@ -108,7 +108,7 @@ interface OwnProps extends WithStyles<typeof styles> {
   dappname: string;
 }
 
-const VoteModuleView: React.SFC<OwnProps> = ({
+const VoteModuleView: React.FC<OwnProps> = ({
   classes,
   upvote,
   dappname,

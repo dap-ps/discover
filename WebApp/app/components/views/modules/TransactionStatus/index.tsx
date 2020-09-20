@@ -119,7 +119,7 @@ const styles = (theme: Theme) =>
 
 interface OwnProps extends WithStyles<typeof styles> {}
 
-const TransactionStatus: React.SFC<OwnProps> = ({ classes }: OwnProps) => {
+const TransactionStatus: React.FC<OwnProps> = ({ classes }: OwnProps) => {
   const [active, setActive] = useState(false);
   const transaction = useSelector(makeSelectTransaction);
   const networkId = useSelector(makeSelectNetwork);

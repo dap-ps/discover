@@ -15,7 +15,7 @@ interface DispatchProps {}
 
 type Props = DispatchProps & OwnProps;
 
-const SearchContainer: React.SFC<Props> = (props: Props) => {
+const SearchContainer: React.FC<Props> = (props: Props) => {
   return <SearchView />;
 };
 

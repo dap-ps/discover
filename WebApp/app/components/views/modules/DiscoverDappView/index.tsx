@@ -156,7 +156,7 @@ interface OwnProps extends WithStyles<typeof styles> {
   dapp?: IDapp;
 }
 
-const DiscoverDappView: React.SFC<OwnProps> = ({ classes, dapp }: OwnProps) => {
+const DiscoverDappView: React.FC<OwnProps> = ({ classes, dapp }: OwnProps) => {
   const address = useSelector(makeSelectWalletAddress);
   const dispatch = useDispatch();
   if (!dapp) {

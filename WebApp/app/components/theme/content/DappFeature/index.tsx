@@ -60,7 +60,7 @@ interface OwnProps extends WithStyles<typeof styles> {
   className?: String;
 }
 
-const DappFeature: React.SFC<OwnProps> = (props: OwnProps) => {
+const DappFeature: React.FC<OwnProps> = (props: OwnProps) => {
   const { classes, className, dapp } = props;
   const bannerUrl = `/featured/${dapp.id}.png`
   const dappIconUrl = dapp.icon?.includes('base64')

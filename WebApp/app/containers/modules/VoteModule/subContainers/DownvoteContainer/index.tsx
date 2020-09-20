@@ -26,7 +26,7 @@ interface StateProps {}
 
 type Props = StateProps & DispatchProps & OwnProps;
 
-const DownvoteContainer: React.SFC<Props> = ({ dapp, downvote }: Props) => {
+const DownvoteContainer: React.FC<Props> = ({ dapp, downvote }: Props) => {
   return <DownvoteView downvote={downvote} dapp={dapp} />;
 };
 

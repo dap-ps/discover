@@ -46,7 +46,7 @@ const styles = (theme: Theme) =>
 
 interface OwnProps extends WithStyles<typeof styles> {}
 
-const ChangeNetworkIndicator: React.SFC<OwnProps> = ({ classes }: OwnProps) => {
+const ChangeNetworkIndicator: React.FC<OwnProps> = ({ classes }: OwnProps) => {
   const correctNetwork = useSelector(makeSelectNetworkValid);
   const correctNetworkName = getNetworkName(
     parseInt(process.env['TARGET_NETWORK'] as string),

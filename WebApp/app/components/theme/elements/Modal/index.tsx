@@ -106,7 +106,7 @@ interface OwnProps extends WithStyles<typeof styles> {
   children: ReactNode;
 }
 
-const Modal: React.SFC<OwnProps> = ({ children, classes }: OwnProps) => {
+const Modal: React.FC<OwnProps> = ({ children, classes }: OwnProps) => {
   const [active, setActive] = useState<boolean>(children !== undefined);
   const ref = useRef(null);
   useOnClickOutside(ref, () => {

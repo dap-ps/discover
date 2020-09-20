@@ -146,7 +146,7 @@ interface OwnProps extends WithStyles<typeof styles> {
   loading: boolean;
 }
 
-const StakeAndPublishView: React.SFC<OwnProps> = ({
+const StakeAndPublishView: React.FC<OwnProps> = ({
   classes,
   dapp,
   submit,

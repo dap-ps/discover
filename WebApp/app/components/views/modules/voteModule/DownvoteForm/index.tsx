@@ -103,7 +103,7 @@ interface OwnProps extends WithStyles<typeof styles> {
   cost: number;
 }
 
-const DownvoteForm: React.SFC<OwnProps> = ({
+const DownvoteForm: React.FC<OwnProps> = ({
   classes,
   downvote,
   dapp,

@@ -67,7 +67,7 @@ interface OwnProps extends WithStyles<typeof styles> {
   className?: string;
 }
 
-const ExpandSection: React.SFC<OwnProps> = (props: OwnProps) => {
+const ExpandSection: React.FC<OwnProps> = (props: OwnProps) => {
   const { classes, className, children } = props;
   const [expanded, setExpanded] = useState<boolean>(false);
   return (

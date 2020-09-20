@@ -56,7 +56,7 @@ enum SLIDES {
   COMPLETE = 'complete',
 }
 
-const DAppManagementContainer: React.SFC<Props> = ({
+const DAppManagementContainer: React.FC<Props> = ({
   createDapp,
   updateDapp,
 }: Props) => {

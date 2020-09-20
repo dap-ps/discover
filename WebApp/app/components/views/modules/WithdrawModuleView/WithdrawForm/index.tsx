@@ -145,7 +145,7 @@ interface OwnProps extends WithStyles<typeof styles> {
   dapp: IDapp;
 }
 
-const WithdrawForm: React.SFC<OwnProps> = ({ classes, dapp }: OwnProps) => {
+const WithdrawForm: React.FC<OwnProps> = ({ classes, dapp }: OwnProps) => {
   const loading = useSelector(makeSelectDappsLoading);
 
   const [max, setMax] = useState(0);

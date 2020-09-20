@@ -25,7 +25,7 @@ interface RouteParams {
 
 type Props = DispatchProps & OwnProps;
 
-const DiscoverDappModule: React.SFC<Props> = ({}: Props) => {
+const DiscoverDappModule: React.FC<Props> = ({}: Props) => {
   const match: match<RouteParams> | null = useRouteMatch({
     path: ROUTE_LINKS.Discover(':dappname'),
     strict: true,

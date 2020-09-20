@@ -25,7 +25,7 @@ interface OwnProps extends WithStyles<typeof styles> {
   variant: 'pending-review' | 'completed';
 }
 
-const DAppSubmittedView: React.SFC<OwnProps> = ({
+const DAppSubmittedView: React.FC<OwnProps> = ({
   classes,
   variant,
 }: OwnProps) => {

@@ -25,7 +25,7 @@ interface OwnProps extends WithStyles<typeof styles> {
   className?: string;
 }
 
-const SimpleWideBanner: React.SFC<OwnProps> = (props: OwnProps) => {
+const SimpleWideBanner: React.FC<OwnProps> = (props: OwnProps) => {
   const { classes, className, children } = props;
   return (
     <section className={classNames(classes.root, className)}>

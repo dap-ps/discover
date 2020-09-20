@@ -136,7 +136,7 @@ interface OwnProps extends WithStyles<typeof styles> {
   navLinks: AppRoute[];
 }
 
-const NavMenu: React.SFC<OwnProps> = (props: OwnProps) => {
+const NavMenu: React.FC<OwnProps> = (props: OwnProps) => {
   const { classes, navLinks } = props;
 
   const navRef = useRef(null);

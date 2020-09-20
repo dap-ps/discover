@@ -41,7 +41,7 @@ const styles = (theme: Theme) =>
 
 interface OwnProps extends WithStyles<typeof styles> {}
 
-const HowToVotePage: React.SFC<OwnProps> = ({ classes }: OwnProps) => {
+const HowToVotePage: React.FC<OwnProps> = ({ classes }: OwnProps) => {
   return (
     <article className={classes.root}>
       <header className={classes.header}>

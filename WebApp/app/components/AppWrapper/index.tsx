@@ -98,7 +98,7 @@ interface Props extends WithStyles<typeof styles> {
   modalComponent?: React.ComponentType<any>;
 }
 
-const AppWrapper: React.SFC<Props> = ({
+const AppWrapper: React.FC<Props> = ({
   classes,
   children,
   currentlySending,

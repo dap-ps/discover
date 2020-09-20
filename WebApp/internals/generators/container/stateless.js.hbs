@@ -51,7 +51,7 @@ type Props = StateProps & DispatchProps & OwnProps;
 type Props = DispatchProps & OwnProps;
 {{/if}}
 
-const {{ properCase name }}: React.SFC<Props> = (props: Props) => {
+const {{ properCase name }}: React.FC<Props> = (props: Props) => {
   return (
     <Fragment>
     {{#if wantHeaders}}

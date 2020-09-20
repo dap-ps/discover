@@ -62,7 +62,7 @@ interface OwnProps extends WithStyles<typeof styles> {
   columns?: "four" | "three" | "two" | "one"
 }
 
-const GridCarousel: React.SFC<OwnProps> = ({
+const GridCarousel: React.FC<OwnProps> = ({
     classes, 
     children, 
     className, 

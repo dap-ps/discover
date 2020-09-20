@@ -16,7 +16,7 @@ const styles = (theme: Theme) =>
 
 interface OwnProps extends WithStyles<typeof styles> {}
 
-const LoadingIcon: React.SFC<OwnProps> = ({ classes }: OwnProps) => {
+const LoadingIcon: React.FC<OwnProps> = ({ classes }: OwnProps) => {
   return <LoadingSpinnerSVG />;
 };
 

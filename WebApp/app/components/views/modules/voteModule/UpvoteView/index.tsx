@@ -66,7 +66,7 @@ interface OwnProps extends WithStyles<typeof styles> {
   upvote: (dapp: IDapp, amount: number, token: TOKENS) => void;
 }
 
-const UpvoteView: React.SFC<OwnProps> = ({
+const UpvoteView: React.FC<OwnProps> = ({
   classes,
   dapp,
   upvote,

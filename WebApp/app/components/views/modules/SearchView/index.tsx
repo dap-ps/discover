@@ -134,7 +134,7 @@ const styles = (theme: Theme) =>
 interface OwnProps extends WithStyles<typeof styles> {
 }
 
-const SearchView: React.SFC<OwnProps> = ({ classes }: OwnProps) => {
+const SearchView: React.FC<OwnProps> = ({ classes }: OwnProps) => {
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [focused, setFocused] = useState<boolean>(false);
 

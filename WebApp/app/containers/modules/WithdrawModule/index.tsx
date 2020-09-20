@@ -17,7 +17,7 @@ interface RouteParams {
 
 type Props = RouteParams;
 
-const WithdrawModule: React.SFC<Props> = (props: Props) => {
+const WithdrawModule: React.FC<Props> = (props: Props) => {
   const match: match<RouteParams> | null = useRouteMatch({
     path: ROUTE_LINKS.Withdraw(':dappname'),
     strict: true,

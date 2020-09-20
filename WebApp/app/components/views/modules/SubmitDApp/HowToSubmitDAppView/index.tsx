@@ -126,7 +126,7 @@ interface OwnProps extends WithStyles<typeof styles> {
   nextPage: () => void;
 }
 
-const HowToSubmitDAppView: React.SFC<OwnProps> = (props: OwnProps) => {
+const HowToSubmitDAppView: React.FC<OwnProps> = (props: OwnProps) => {
   const { classes, nextPage } = props;
   return (
     <article className={classes.root}>

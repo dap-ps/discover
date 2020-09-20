@@ -154,7 +154,7 @@ interface OwnProps extends WithStyles<typeof styles> {
   submitForm(): void;
 }
 
-const UpdateDAppForm: React.SFC<OwnProps> = ({
+const UpdateDAppForm: React.FC<OwnProps> = ({
   classes,
   submitForm,
 }: OwnProps) => {

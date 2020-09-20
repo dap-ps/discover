@@ -120,7 +120,7 @@ interface OwnProps extends WithStyles<typeof styles> {
   onClick?: () => void;
 }
 
-const DappCard: React.SFC<OwnProps> = ({
+const DappCard: React.FC<OwnProps> = ({
   classes,
   dapp,
   onClick,

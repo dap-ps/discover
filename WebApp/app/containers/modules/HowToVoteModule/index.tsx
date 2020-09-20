@@ -15,7 +15,7 @@ interface DispatchProps {}
 
 type Props = DispatchProps & OwnProps;
 
-const HowToVoteModule: React.SFC<Props> = (props: Props) => {
+const HowToVoteModule: React.FC<Props> = (props: Props) => {
   return <HowToVotePage />;
 };
 

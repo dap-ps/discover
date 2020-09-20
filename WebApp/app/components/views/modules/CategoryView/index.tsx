@@ -137,7 +137,7 @@ interface RouteParams {
   category: string;
 }
 
-const CategoryView: React.SFC<OwnProps> = ({ classes }: OwnProps) => {
+const CategoryView: React.FC<OwnProps> = ({ classes }: OwnProps) => {
   const match: match<RouteParams> | null = useRouteMatch({
     path: ROUTE_LINKS.categories.select,
     strict: true,

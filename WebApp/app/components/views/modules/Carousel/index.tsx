@@ -112,7 +112,7 @@ const defaultProps: CarouselProviderProps = {
   isIntrinsicHeight: true,
 };
 
-const Carousel: React.SFC<OwnProps> = (props: OwnProps) => {
+const Carousel: React.FC<OwnProps> = (props: OwnProps) => {
   const { classes, children, providerProps, className, arrows = false } = props;
 
   const finalProps: CarouselProviderProps = {

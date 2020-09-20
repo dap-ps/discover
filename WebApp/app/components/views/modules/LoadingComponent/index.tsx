@@ -73,7 +73,7 @@ interface OwnProps extends WithStyles<typeof styles> {
   loading: boolean;
 }
 
-const LoadingComponent: React.SFC<OwnProps> = (props: OwnProps) => {
+const LoadingComponent: React.FC<OwnProps> = (props: OwnProps) => {
   const { classes, loading } = props;
   return (
     <div className={classNames(classes.loader, loading ? 'active' : '')}>

@@ -28,7 +28,7 @@ interface RouteParams {
 
 type Props = StateProps & DispatchProps & OwnProps;
 
-const VoteModule: React.SFC<Props> = ({}: Props) => {
+const VoteModule: React.FC<Props> = ({}: Props) => {
   const match: match<RouteParams> | null = useRouteMatch({
     path: ROUTE_LINKS.Vote(':dappname', ':voteType'),
     strict: true,

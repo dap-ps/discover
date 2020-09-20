@@ -17,7 +17,7 @@ const styles = (theme: Theme) =>
 
 interface OwnProps extends WithStyles<typeof styles> {}
 
-const LogoIcon: React.SFC<OwnProps> = ({ classes }: OwnProps) => {
+const LogoIcon: React.FC<OwnProps> = ({ classes }: OwnProps) => {
   return <img src={LogoPng} alt="Discover logo"/>
 };
 

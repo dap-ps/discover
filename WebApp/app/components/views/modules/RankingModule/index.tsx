@@ -63,7 +63,7 @@ interface OwnProps extends WithStyles<typeof styles> {
   dapp: IDapp;
 }
 
-const RankingModule: React.SFC<OwnProps> = ({ classes, dapp }: OwnProps) => {
+const RankingModule: React.FC<OwnProps> = ({ classes, dapp }: OwnProps) => {
   const ranking = useSelector(makeSelectOverallRanking(dapp));
   const categoryRanking = useSelector(makeSelectCategoryRanking(dapp));
   return (

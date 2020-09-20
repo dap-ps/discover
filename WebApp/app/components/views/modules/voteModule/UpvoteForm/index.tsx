@@ -107,7 +107,7 @@ interface OwnProps extends WithStyles<typeof styles> {
   setIndicator: (value: number) => void;
 }
 
-const UpvoteForm: React.SFC<OwnProps> = ({
+const UpvoteForm: React.FC<OwnProps> = ({
   classes,
   dapp,
   setIndicator,

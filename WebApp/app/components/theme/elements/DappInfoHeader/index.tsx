@@ -140,7 +140,7 @@ interface OwnProps extends WithStyles<typeof styles> {
   className?: string;
 }
 
-const DappInfoHeader: React.SFC<OwnProps> = ({
+const DappInfoHeader: React.FC<OwnProps> = ({
   dapp,
   classes,
   changeIndicator,

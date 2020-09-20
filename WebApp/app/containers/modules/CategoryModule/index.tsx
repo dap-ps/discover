@@ -15,7 +15,7 @@ interface DispatchProps {}
 
 type Props = DispatchProps & OwnProps;
 
-const CategoryModule: React.SFC<Props> = (props: Props) => {
+const CategoryModule: React.FC<Props> = (props: Props) => {
   return (
     <CategoryView />
   );

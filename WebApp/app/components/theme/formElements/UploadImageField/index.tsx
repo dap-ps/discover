@@ -210,7 +210,7 @@ interface ImageCropData {
   y: number;
 }
 
-const UploadImageField: React.SFC<OwnProps> = (props: OwnProps) => {
+const UploadImageField: React.FC<OwnProps> = (props: OwnProps) => {
   const {
     classes,
     field,

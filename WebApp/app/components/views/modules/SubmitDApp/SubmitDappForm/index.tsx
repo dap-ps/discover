@@ -160,7 +160,7 @@ interface OwnProps extends WithStyles<typeof styles> {
   back: () => void;
 }
 
-const SubmitDappForm: React.SFC<OwnProps> = (props: OwnProps) => {
+const SubmitDappForm: React.FC<OwnProps> = (props: OwnProps) => {
   const { classes, submitForm, back } = props;
   const address = useSelector(makeSelectWalletAddress);
   const dispatch = useDispatch();

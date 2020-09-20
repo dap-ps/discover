@@ -21,7 +21,7 @@ interface OwnProps extends WithStyles<typeof styles> { }
 interface OwnProps { }
 {{/if}}
 
-const {{ properCase name }}: React.SFC<OwnProps> = ({
+const {{ properCase name }}: React.FC<OwnProps> = ({
     classes,
   }: OwnProps) => {
   return (
