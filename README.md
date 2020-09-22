@@ -91,6 +91,11 @@ To make use of the webapp template generator, first open a terminal and navigate
 
 To build the project across workspaces, at the root of the directory, run the command `yarn build`.
 
+### Production build
+1. Run `yarn` to install the relevant packages
+2. Set the environment files with the required values in `Backend`, `Contracts` & `WebApp`
+3. Run `yarn create:fullbuild`
+4. `app.zip` will be found in the root of the repo
 
 ## Contributions
 
