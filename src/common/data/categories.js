@@ -1,4 +1,5 @@
 export const EXCHANGES = 'EXCHANGES'
+export const DEFI = 'DEFI'
 export const MARKETPLACES = 'MARKETPLACES'
 export const COLLECTIBLES = 'COLLECTIBLES'
 export const GAMES = 'GAMES'

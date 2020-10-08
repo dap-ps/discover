@@ -1,4 +1,5 @@
 import exchanges from '../../common/assets/images/categories/exchanges.svg'
+import defi from '../../common/assets/images/categories/defi.svg'
 import marketplaces from '../../common/assets/images/categories/marketplaces.svg'
 import other from '../../common/assets/images/categories/other.svg'
 import games from '../../common/assets/images/categories/games.svg'
@@ -8,6 +9,7 @@ import utilities from '../../common/assets/images/categories/utilities.svg'
 
 const imageMap = {
   EXCHANGES: exchanges,
+  DEFI: defi,
   MARKETPLACES: marketplaces,
   OTHER: other,
   MEDIA: other, // TODO: fix with icon from design

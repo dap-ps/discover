@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import ExchangesIcon from './ExhangesIcon'
+import DeFiIcon from './DeFiIcon'
 import MarketplacesIcon from './MarketplacesIcon'
 import GamesIcon from './GamesIcon'
 import UtilitiesIcon from './UtilitiesIcon'
@@ -10,6 +11,7 @@ import SocialNetworksIcon from './SocialNetworksIcon'
 
 const icons = {
   EXCHANGES: ExchangesIcon,
+  DEFI: DeFiIcon,
   MARKETPLACES: MarketplacesIcon,
   GAMES: GamesIcon,
   UTILITIES: UtilitiesIcon,

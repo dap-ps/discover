@@ -8,6 +8,10 @@ describe('categories', () => {
         value: 'Exchanges',
       },
       {
+        key: 'DEFI',
+        value: 'DeFi',
+      },
+      {
         key: 'MARKETPLACES',
         value: 'Marketplaces',
       },

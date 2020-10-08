@@ -43,6 +43,7 @@ export class DappState {
     this.dappsRecentlyAdded = null
     this.categoryMap = new Map()
     this.categoryMap.set(Categories.EXCHANGES, null)
+    this.categoryMap.set(Categories.DEFI, null)
     this.categoryMap.set(Categories.MARKETPLACES, null)
     this.categoryMap.set(Categories.COLLECTIBLES, null)
     this.categoryMap.set(Categories.GAMES, null)

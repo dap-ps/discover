@@ -1,5 +1,6 @@
 {
     "EXCHANGES": "EXCHANGES",
+    "DEFI": "DEFI",
     "MARKETPLACES": "MARKETPLACES",
     "COLLECTIBLES": "COLLECTIBLES",
     "GAMES": "GAMES",
@@ -8,6 +9,7 @@
     "OTHER": "OTHER",
     "ALL_CATEGORIES": [
         "EXCHANGES",
+        "DEFI",
         "MARKETPLACES",
         "COLLECTIBLES",
         "GAMES",
