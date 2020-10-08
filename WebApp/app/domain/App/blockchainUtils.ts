@@ -74,7 +74,11 @@ export const defaultMultiplier = utils.bigNumberify('1000000000000000000');
 
 export const getNetworkId = async (): Promise<number> => {
   // TODO: memoize
-  return await getWeb3().eth.net.getId();
+  try {
+    return await getWeb3().eth.net.getId();
+  }catch(error) {
+    return 99
+  }
 };
 
 export const getRpcUrl = async (forceNetwork?: number, http?: boolean) => {
@@ -135,7 +139,7 @@ export const connectContract = async (Contract: any, address: string) => {
   const provider = EmbarkJS.Blockchain.Providers.web3.getCurrentProvider();
   const network = await getNetworkId();
   if (
-    !provider.selectedAddress ||
+    !provider?.selectedAddress ||
     `${network}` != process.env['TARGET_NETWORK']
   ) {
     // @ts-ignore
