@@ -37,10 +37,7 @@ module.exports = {
     ],
     deploy: {
       Discover: {
-        args:["0xbF5d8683b9BE6C43fcA607eb2a6f2626A18837a6"]
-      },
-      DiscoverKyberSwap: {
-        args: ["$Discover", "0x818E6FECD516Ecc3849DAf6845e3EC868087B755", "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee", "0xbF5d8683b9BE6C43fcA607eb2a6f2626A18837a6", "0x0000000000000000000000000000000000000000", 20]
+        address:"0xe47ADA6f49d97F12327e46FD12fda5cce01Fb773"
       }
     },
     tracking: 'shared.testnet.chains.json',

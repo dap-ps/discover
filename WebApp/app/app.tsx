@@ -42,7 +42,7 @@ store.subscribe(
     // TODO: reenable caching
     //@ts-ignore
     saveState(store.getState());
-  }, 1000),
+  }, 5000),
 );
 
 const MOUNT_NODE = document.getElementById('app') as HTMLElement;

@@ -5,17 +5,13 @@
         "name": "MiniMeToken",
         "address": "0xc55cf4b03948d7ebc8b9e8bad92643703811d162"
       },
-      "0x608829b14a067d406fd623b20919d4a7719c06bb7bccdc3a7d18b11f15d8e11a": {
+      "0x0d8717c80e36174ae8f5824fedd7514adf9ae01bafbffc2e0fe4c68bf98c7221": {
         "name": "Discover",
-        "address": "0xC8d48B421eAFdD75d5144E8f06882Cb5F0746Bd2"
+        "address": "0xe47ADA6f49d97F12327e46FD12fda5cce01Fb773"
       },
       "0xa4375ab33cee855df7ced45caa843fb9f450adb7944cea8fd46710f06587686c": {
         "name": "Discover",
-        "address": "0x68027D0D5Abb718f83c6c597bC1AE51c64073eF0"
-      },
-      "0x21389315d2b5cfa1d29b352c3c4cc6df2dc1002591c18150de310a8781ce1438": {
-        "name": "DiscoverKyberSwap",
-        "address": "0x2768fa55551d6BAc23eA54469DC554C55c619384"
+        "address": "0xC0540cb4A8161662433064901f996C1AAC005ffc"
       }
     }
   }
