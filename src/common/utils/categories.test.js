@@ -32,6 +32,10 @@ describe('categories', () => {
         value: 'Utilities',
       },
       {
+        key: 'CRYPTO_ONRAMPS',
+        value: 'Crypto Onramps',
+      },
+      {
         key: 'OTHER',
         value: 'Other',
       },

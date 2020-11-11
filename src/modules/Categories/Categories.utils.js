@@ -6,6 +6,7 @@ import games from '../../common/assets/images/categories/games.svg'
 import collectibles from '../../common/assets/images/categories/collectibles.svg'
 import socialNetworks from '../../common/assets/images/categories/social-networks.svg'
 import utilities from '../../common/assets/images/categories/utilities.svg'
+import onramps from '../../common/assets/images/categories/onramp.svg'
 
 const imageMap = {
   EXCHANGES: exchanges,
@@ -17,6 +18,7 @@ const imageMap = {
   COLLECTIBLES: collectibles,
   SOCIAL_NETWORKS: socialNetworks,
   UTILITIES: utilities,
+  CRYPTO_ONRAMPS: onramps,
 }
 
 export default category => imageMap[category]

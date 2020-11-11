@@ -49,6 +49,7 @@ export class DappState {
     this.categoryMap.set(Categories.GAMES, null)
     this.categoryMap.set(Categories.SOCIAL_NETWORKS, null)
     this.categoryMap.set(Categories.UTILITIES, null)
+    this.categoryMap.set(Categories.CRYPTO_ONRAMPS, null)
     this.categoryMap.set(Categories.OTHER, null)
   }
 

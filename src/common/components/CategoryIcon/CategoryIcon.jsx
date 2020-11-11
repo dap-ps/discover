@@ -8,6 +8,7 @@ import UtilitiesIcon from './UtilitiesIcon'
 import OtherIcon from './OtherIcon'
 import CollectiblesIcon from './CollectiblesIcon'
 import SocialNetworksIcon from './SocialNetworksIcon'
+import OnrampIcon from './OnrampIcon'
 
 const icons = {
   EXCHANGES: ExchangesIcon,
@@ -18,6 +19,7 @@ const icons = {
   OTHER: OtherIcon,
   COLLECTIBLES: CollectiblesIcon,
   SOCIAL_NETWORKS: SocialNetworksIcon,
+  CRYPTO_ONRAMPS: OnrampIcon,
   MEDIA: GamesIcon, // TODO: Need to get this asset from design
 }
 

@@ -2,10 +2,18 @@ import inchBanner from '../assets/images/featured/inch_banner.jpg'
 import inchLogo from '../assets/images/featured/inch_logo.png'
 import GitcoinBanner from '../assets/images/featured/gitcoin_banner.png'
 import GitcoinLogo from '../assets/images/featured/gitcoin_logo.png'
-import ZerionBanner from '../assets/images/featured/zerion_banner.png'
-import ZerionLogo from '../assets/images/featured/zerion_logo.png'
+import MatchaBanner from '../assets/images/featured/matcha_banner.png'
+import MatchaLogo from '../assets/images/featured/matcha_logo.png'
 
 const featuredDapps = [
+  {
+    name: 'Matcha',
+    description:
+      'Your new favorite DEX aggregator. Find the best prices across exchange networks. Powered by 0x Labs.',
+    url: 'https://matcha.xyz/?utm_source=statusnetwork&utm_medium=dappportal',
+    banner: MatchaBanner,
+    icon: MatchaLogo,
+  },
   {
     name: 'Gitcoin Grants',
     description:
@@ -21,13 +29,6 @@ const featuredDapps = [
     url: 'https://1inch.exchange/',
     banner: inchBanner,
     icon: inchLogo,
-  },
-  {
-    name: 'Zerion',
-    description: 'Buy, sell and track DeFi assets',
-    url: 'https://app.zerion.io/?utm_source={dap.ps}',
-    banner: ZerionBanner,
-    icon: ZerionLogo,
   },
 ]
 
