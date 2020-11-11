@@ -1,11 +1,27 @@
 import inchBanner from '../assets/images/featured/inch_banner.jpg'
 import inchLogo from '../assets/images/featured/inch_logo.png'
-import OasisBanner from '../assets/images/featured/oasis_banner.png'
-import OasisLogo from '../assets/images/featured/oasis_logo.png'
-import ZerionBanner from '../assets/images/featured/zerion_banner.png'
-import ZerionLogo from '../assets/images/featured/zerion_logo.png'
+import GitcoinBanner from '../assets/images/featured/gitcoin_banner.png'
+import GitcoinLogo from '../assets/images/featured/gitcoin_logo.png'
+import MatchaBanner from '../assets/images/featured/matcha_banner.png'
+import MatchaLogo from '../assets/images/featured/matcha_logo.png'
 
 const featuredDapps = [
+  {
+    name: 'Matcha',
+    description:
+      'Your new favorite DEX aggregator. Find the best prices across exchange networks. Powered by 0x Labs.',
+    url: 'https://matcha.xyz/?utm_source=statusnetwork&utm_medium=dappportal',
+    banner: MatchaBanner,
+    icon: MatchaLogo,
+  },
+  {
+    name: 'Gitcoin Grants',
+    description:
+      'Gitcoin Grants helps creators grow and sustain their open source projects.',
+    url: 'https://gitcoin.co/grants',
+    banner: GitcoinBanner,
+    icon: GitcoinLogo,
+  },
   {
     name: '1inch.exchange',
     description:
@@ -13,22 +29,6 @@ const featuredDapps = [
     url: 'https://1inch.exchange/',
     banner: inchBanner,
     icon: inchLogo,
-  },
-  {
-    name: 'Zerion',
-    description:
-      'Zerion is the simplest way to invest in DeFi from anywhere in the world',
-    url: 'https://app.zerion.io',
-    banner: ZerionBanner,
-    icon: ZerionLogo,
-  },
-  {
-    name: 'Oasis',
-    description:
-      'Trade tokens, borrow Dai, and earn savings — all in one place',
-    url: 'https://oasis.app',
-    banner: OasisBanner,
-    icon: OasisLogo,
   },
 ]
 

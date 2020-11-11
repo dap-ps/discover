@@ -1,17 +1,21 @@
 {
     "EXCHANGES": "EXCHANGES",
+    "DEFI": "DEFI",
     "MARKETPLACES": "MARKETPLACES",
     "COLLECTIBLES": "COLLECTIBLES",
     "GAMES": "GAMES",
     "SOCIAL_NETWORKS": "SOCIAL_NETWORKS",
+    "CRYPTO_ONRAMPS": "CRYPTO_ONRAMPS",
     "UTILITIES": "UTILITIES",
     "OTHER": "OTHER",
     "ALL_CATEGORIES": [
         "EXCHANGES",
+        "DEFI",
         "MARKETPLACES",
         "COLLECTIBLES",
         "GAMES",
         "SOCIAL_NETWORKS",
+        "CRYPTO_ONRAMPS",
         "UTILITIES",
         "OTHER"
     ]

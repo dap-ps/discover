@@ -8,6 +8,10 @@ describe('categories', () => {
         value: 'Exchanges',
       },
       {
+        key: 'DEFI',
+        value: 'DeFi',
+      },
+      {
         key: 'MARKETPLACES',
         value: 'Marketplaces',
       },
@@ -26,6 +30,10 @@ describe('categories', () => {
       {
         key: 'UTILITIES',
         value: 'Utilities',
+      },
+      {
+        key: 'CRYPTO_ONRAMPS',
+        value: 'Crypto Onramps',
       },
       {
         key: 'OTHER',

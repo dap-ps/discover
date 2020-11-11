@@ -1,6 +1,8 @@
 $purple: #887af9;
 $orange: #fe8f59;
 $blue: #51d0f0;
+$dark-blue: #26a69a;
+$navy: #2727f9;
 $pink: #d37ef4;
 $green: #7cda00;
 $red: #fa6565;
@@ -28,6 +30,16 @@ $pink-bg: rgba(
 
 $blue-bg: rgba(
   $color: $blue,
+  $alpha: 0.15,
+);
+
+$dark-blue-bg: rgba(
+  $color: $dark-blue,
+  $alpha: 0.15,
+);
+
+$navy-bg: rgba(
+  $color: $navy,
   $alpha: 0.15,
 );
 
