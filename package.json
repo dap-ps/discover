@@ -8,7 +8,7 @@
     "@babel/plugin-transform-react-jsx-development": "^7.10.1",
     "@babel/runtime-corejs2": "7.10.3",
     "@trailofbits/embark-contract-info": "^1.0.0",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "bignumber.js": "^8.1.1",
     "bn.js": "^5.0.0",
     "bs58": "^4.0.1",
