@@ -28,7 +28,7 @@
     "history": "^4.7.2",
     "idb": "4.0.3",
     "moment": "^2.24.0",
-    "node-sass": "^4.11.0",
+    "node-sass": "^7.0.0",
     "prop-types": "^15.7.2",
     "rc-slider": "8.6.9",
     "rc-tooltip": "3.7.3",
