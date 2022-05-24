@@ -5,7 +5,8 @@
   "private": true,
   "dependencies": {
     "@babel/compat-data": "^7.10.3",
-    "@babel/plugin-transform-react-jsx-development": "^7.10.1",
+    "@babel/helper-skip-transparent-expression-wrappers": "^7.10.3",
+    "@babel/plugin-transform-react-jsx-development": "^7.10.3",
     "@babel/runtime-corejs2": "7.10.3",
     "@trailofbits/embark-contract-info": "^1.0.0",
     "axios": "^0.18.0",
@@ -28,7 +29,7 @@
     "history": "^4.7.2",
     "idb": "4.0.3",
     "moment": "^2.24.0",
-    "node-sass": "^4.11.0",
+    "node-sass": "^4.14.1",
     "prop-types": "^15.7.2",
     "rc-slider": "8.6.9",
     "rc-tooltip": "3.7.3",
