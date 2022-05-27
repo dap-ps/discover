@@ -7,7 +7,6 @@ You can learn more about bonded curves and how Discover works [here](https://our
 ## Available Scripts
 
 This project is based on Embark v4.0.1, with a few things customised for React. 
-
 ```
 yarn run build:dev
 ```
@@ -15,8 +14,12 @@ or
 ```
 yarn run build:prod
 ```
-
 Builds the app into the `full-build` directory and creates the `app.zip` ready for use with ElasticBeanstalk.
+
+You can use the Nix shell defined in [`shell.nix`](shell.nix) for build environment:
+```
+nix-shell --pure
+```
 
 ## Deployed Contracts
 
