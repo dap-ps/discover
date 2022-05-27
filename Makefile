@@ -38,8 +38,11 @@ else
 	@echo "SUCCESS! Execute 'yarn server-start' and browse http://localhost:4000"
 endif
 
-node_modules: ##@install Install the Node.js dependencies using Yarn
+node_modules: back-end ##@install Install the Node.js dependencies using Yarn
 	yarn install
+
+back-end/node_modules: ##@install Install backend the Node.js dependencies using Yarn
+	cd back-end && yarn install
 
 check-prod-vars: ##@checks Check if the necesary env variables are set
 ifneq ($(NODE_ENV),$(filter $(NODE_ENV),production development localhost))
