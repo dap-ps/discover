@@ -38,7 +38,7 @@ else
 	@echo "SUCCESS! Execute 'yarn server-start' and browse http://localhost:4000"
 endif
 
-node_modules: back-end ##@install Install the Node.js dependencies using Yarn
+node_modules: back-end/node_modules ##@install Install the Node.js dependencies using Yarn
 	yarn install
 
 back-end/node_modules: ##@install Install backend the Node.js dependencies using Yarn
