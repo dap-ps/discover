@@ -24,7 +24,7 @@
     "mongoose": "5.7.5",
     "nodemailer": "6.3.0",
     "nodemon": "1.19.1",
-    "validator": "11.0.0",
+    "validator": "13.7.0",
     "web3": "^1.0.0-beta.55",
     "web3-utils": "^1.0.0-beta.55",
     "winston": "3.2.1",
