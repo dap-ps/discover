@@ -21,7 +21,7 @@
     "express-rate-limit": "^4.0.3",
     "helmet": "3.18.0",
     "ipfs-http-client": "32.0.1",
-    "mongoose": "5.7.5",
+    "mongoose": "5.13.15",
     "nodemailer": "6.3.0",
     "nodemon": "1.19.1",
     "validator": "11.0.0",
